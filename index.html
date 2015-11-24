@@ -17,10 +17,22 @@
   </head>
   <body>
     <div class="Dashboard-canvas js-dashboard">
-      <div class="Map-canvas">
-        <div class="Map" id="map"></div>
+      <div class="Dashboard-mapWrapper js-dashboard-map-wrapper">
+          <div class="Dashboard-info">
+              <div class="Dashboard-info-header">
+              </div>
+              <div class="Dashboard-info-texts">
+                  <p class="Dashboard-info-update">UPDATED 14 HOURS AGO</p>
+                  <h1 class="Dashboard-info-title">Populated places example</h1>
+                  <h2 class="Dashboard-info-description">...</h2>
+              </div>
+          </div>
+          <div class="Map-canvas Map-canvas--margin">
+              <div class="Map" id="map"></div>
+          </div>
       </div>
     </div>
+
 
     <script>
       window.onload = function() {
@@ -290,6 +302,7 @@
               "type": "public_map",
               "user_name": "common-data-ded02",
               "maps_api_template": "https://{user}.cartodb-staging.com:443",
+              "stat_tag": "ece6faac-7271-11e5-a85f-04013fc66a01",
               "force_cors": true // This is sometimes set in the editor
             }
           }

@@ -1,6 +1,6 @@
 require=// cartodb.js version: 3.15.8
 // uncompressed version: cartodb.uncompressed.js
-// sha: 3fcaa934001b7ac36093611746f99f520470d433
+// sha: a5dded643b006d7e79fa18c953e7bbc4c6c97664
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.2.3
@@ -22926,7 +22926,6 @@ module.exports = function(map, layer, options, callback) {
     function createLayer() {
       layerView = viz.createLayer(layerData, { no_base_layer: true });
 
-      var torqueLayer;
       var mobileEnabled = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       var addMobileLayout = (options.mobile_layout && mobileEnabled) || options.force_mobile;
 
@@ -22949,24 +22948,13 @@ module.exports = function(map, layer, options, callback) {
         viz._addLegends(viz._createLayerLegendView(layerModel.attributes,  layerView))
       }
 
-      if(options.time_slider && layerView.model.get('type') === 'torque') {
-
-        if (!addMobileLayout) { // don't add the overlay if we are in mobile
-          viz.addTimeSlider(layerView);
-        }
-
-        torqueLayer = layerView;
-      }
-
       if (addMobileLayout) {
-
         options.mapView = map.viz.mapView;
 
         viz.addOverlay({
           type: 'mobile',
           layerView: layerView,
           overlays: [],
-          torqueLayer: torqueLayer,
           options: options
         });
       }
@@ -22988,7 +22976,7 @@ module.exports = function(map, layer, options, callback) {
   return promise;
 };
 
-},{"../core/loader":19,"../geo/map":62,"../vis/vis":184,"../vis/vis/layers":186,"./promise":8,"cdb":13,"leaflet":3,"underscore":5}],7:[function(require,module,exports){
+},{"../core/loader":19,"../geo/map":59,"../vis/vis":188,"../vis/vis/layers":190,"./promise":8,"cdb":13,"leaflet":3,"underscore":5}],7:[function(require,module,exports){
 var _ = require('underscore');
 var Vis = require('../vis/vis');
 
@@ -23026,7 +23014,7 @@ var createVis = function(el, vizjson, options, callback) {
 
 module.exports = createVis;
 
-},{"../vis/vis":184,"underscore":5}],8:[function(require,module,exports){
+},{"../vis/vis":188,"underscore":5}],8:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 
@@ -23853,12 +23841,12 @@ cdb.windshaft.filters.RangeFilter = require('./windshaft/filters/range');
 
 module.exports = cdb;
 
-},{"./api/create-layer":6,"./api/create-vis":7,"./api/promise":8,"./api/sql":9,"./core/decorators":17,"./core/loader":19,"./core/model":23,"./core/sanitize":25,"./core/template":27,"./core/template-list":26,"./core/view":29,"./geo/cartodb-logo":31,"./geo/geocoder/nokia-geocoder":32,"./geo/geocoder/yahoo-geocoder":33,"./geo/geometry":35,"./geo/gmaps":36,"./geo/leaflet":50,"./geo/map":62,"./geo/map-view":61,"./geo/map/cartodb-layer":66,"./geo/map/cartodb-layer-group-anonymous":63,"./geo/map/cartodb-layer-group-named":65,"./geo/map/gmaps-base-layer":67,"./geo/map/layers":68,"./geo/map/map-layer":69,"./geo/map/plain-layer":70,"./geo/map/tile-layer":71,"./geo/map/torque-layer":72,"./geo/map/wms-layer":73,"./geo/ui/annotation":74,"./geo/ui/header":75,"./geo/ui/image":76,"./geo/ui/infobox":77,"./geo/ui/infowindow":79,"./geo/ui/infowindow-model":78,"./geo/ui/layer-selector":80,"./geo/ui/layer-view":81,"./geo/ui/legend":87,"./geo/ui/legend-exports":82,"./geo/ui/legend/legend-view-exports":106,"./geo/ui/mobile":111,"./geo/ui/mobile-layer":110,"./geo/ui/search":112,"./geo/ui/share":113,"./geo/ui/slides-controller":115,"./geo/ui/slides-controller-item":114,"./geo/ui/text":116,"./geo/ui/tiles-loader":117,"./geo/ui/tooltip":118,"./geo/ui/zoom":171,"./geo/ui/zoom-info":170,"./ui/common/dialog":172,"./ui/common/dropdown":173,"./ui/common/fullscreen":174,"./ui/common/notification":175,"./ui/common/share":176,"./ui/common/table":177,"./ui/common/table/row":179,"./ui/common/table/row-view":178,"./ui/common/table/table-data":180,"./ui/common/table/table-properties":181,"./vis/layers":182,"./vis/overlays":183,"./vis/vis":184,"./vis/vis/infowindow-template":185,"./vis/vis/layers":186,"./vis/vis/overlay":187,"./vis/vis/overlays":188,"./windshaft/filters/base":193,"./windshaft/filters/bounding_box":194,"./windshaft/filters/category":195,"./windshaft/filters/collection":196,"./windshaft/filters/range":197,"backbone":1,"cdb":13,"cdb.config":11,"cdb.core.Profiler":24,"cdb.core.util":28,"cdb.errors":12,"cdb.log":14,"cdb.templates":15,"d3":2,"jquery":"jquery","leaflet":3,"mousewheel":204,"mustache":4,"mwheelIntent":205,"underscore":5}],11:[function(require,module,exports){
+},{"./api/create-layer":6,"./api/create-vis":7,"./api/promise":8,"./api/sql":9,"./core/decorators":17,"./core/loader":19,"./core/model":23,"./core/sanitize":25,"./core/template":27,"./core/template-list":26,"./core/view":29,"./geo/cartodb-logo":31,"./geo/geocoder/nokia-geocoder":32,"./geo/geocoder/yahoo-geocoder":33,"./geo/geometry":35,"./geo/gmaps":36,"./geo/leaflet":48,"./geo/map":59,"./geo/map-view":58,"./geo/map/cartodb-layer":63,"./geo/map/cartodb-layer-group-anonymous":60,"./geo/map/cartodb-layer-group-named":62,"./geo/map/gmaps-base-layer":64,"./geo/map/layers":65,"./geo/map/map-layer":66,"./geo/map/plain-layer":67,"./geo/map/tile-layer":68,"./geo/map/torque-layer":69,"./geo/map/wms-layer":70,"./geo/ui/annotation":71,"./geo/ui/header":72,"./geo/ui/image":73,"./geo/ui/infobox":74,"./geo/ui/infowindow":76,"./geo/ui/infowindow-model":75,"./geo/ui/layer-selector":77,"./geo/ui/layer-view":78,"./geo/ui/legend":84,"./geo/ui/legend-exports":79,"./geo/ui/legend/legend-view-exports":103,"./geo/ui/mobile":108,"./geo/ui/mobile-layer":107,"./geo/ui/search":109,"./geo/ui/share":110,"./geo/ui/slides-controller":112,"./geo/ui/slides-controller-item":111,"./geo/ui/text":113,"./geo/ui/tiles-loader":114,"./geo/ui/tooltip":115,"./geo/ui/zoom":175,"./geo/ui/zoom-info":174,"./ui/common/dialog":176,"./ui/common/dropdown":177,"./ui/common/fullscreen":178,"./ui/common/notification":179,"./ui/common/share":180,"./ui/common/table":181,"./ui/common/table/row":183,"./ui/common/table/row-view":182,"./ui/common/table/table-data":184,"./ui/common/table/table-properties":185,"./vis/layers":186,"./vis/overlays":187,"./vis/vis":188,"./vis/vis/infowindow-template":189,"./vis/vis/layers":190,"./vis/vis/overlay":191,"./vis/vis/overlays":192,"./windshaft/filters/base":197,"./windshaft/filters/bounding_box":198,"./windshaft/filters/category":199,"./windshaft/filters/collection":200,"./windshaft/filters/range":201,"backbone":1,"cdb":13,"cdb.config":11,"cdb.core.Profiler":24,"cdb.core.util":28,"cdb.errors":12,"cdb.log":14,"cdb.templates":15,"d3":2,"jquery":"jquery","leaflet":3,"mousewheel":208,"mustache":4,"mwheelIntent":209,"underscore":5}],11:[function(require,module,exports){
 var Config = require('./core/config');
 
 var config = new Config();
 config.set({
-  cartodb_attributions: "CartoDB <a href='http://cartodb.com/attributions' target='_blank'>attribution</a>",
+  cartodb_attributions: "CartoDB <a href=\"http://cartodb.com/attributions\" target=\"_blank\">attribution</a>",
   cartodb_logo_link: "http://www.cartodb.com"
 });
 
@@ -24523,7 +24511,7 @@ htmlCssSanitizer.html = function(inputHtml, optionalSanitizer) {
 
 module.exports = htmlCssSanitizer;
 
-},{"html-css-sanitizer":201}],26:[function(require,module,exports){
+},{"html-css-sanitizer":205}],26:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 var log = require('cdb.log');
@@ -25110,44 +25098,6 @@ CartoDBLayerCommon.prototype = {
         this.setInteraction(i, false);
       }
     }
-  },
-
-  /**
-   *  Check the tiles
-   */
-  _checkTiles: function() {
-    var xyz = {z: 4, x: 6, y: 6}
-      , self = this
-      , img = new Image()
-      , urls = this._tileJSON()
-
-    getTiles(function(urls) {
-
-      var grid_url = urls.tiles[0]
-          .replace(/\{z\}/g,xyz.z)
-          .replace(/\{x\}/g,xyz.x)
-          .replace(/\{y\}/g,xyz.y);
-
-      this.options.ajax({
-        method: "get",
-        url: grid_url,
-        crossDomain: true,
-        success: function() {
-          self.tilesOk();
-          clearTimeout(timeout)
-        },
-        error: function(xhr, msg, data) {
-          clearTimeout(timeout);
-          self.error(xhr.responseText && JSON.parse(xhr.responseText));
-        }
-      });
-    });
-
-    var timeout = setTimeout(function(){
-      clearTimeout(timeout);
-      self.error("tile timeout");
-    }, 30000);
-
   }
 };
 
@@ -25397,7 +25347,6 @@ if (typeof(window.google) != 'undefined' && typeof(window.google.maps) != 'undef
     GoogleMapsMapView: require('./gmaps/gmaps-map-view'),
     GMapsTiledLayerView: require('./gmaps/gmaps-tiled-layer-view'),
     GMapsLayerView: require('./gmaps/gmaps-layer-view'),
-    CartoDBLayerGroupGMaps: require('./gmaps/cartodb-layer-group-gmaps'),
     GMapsPlainLayerView: require('./gmaps/gmaps-plain-layer-view'),
     GMapsBaseLayerView: require('./gmaps/gmaps-base-layer-view'),
     GMapsCartoDBLayerGroupView: require('./gmaps/gmaps-cartodb-layer-group-view'),
@@ -25406,7 +25355,7 @@ if (typeof(window.google) != 'undefined' && typeof(window.google.maps) != 'undef
 
 module.exports = gmapsModels;
 
-},{"./gmaps/cartodb-layer-group-gmaps":39,"./gmaps/gmaps-base-layer-view":40,"./gmaps/gmaps-cartodb-layer-group-view":41,"./gmaps/gmaps-layer-view":43,"./gmaps/gmaps-map-view":44,"./gmaps/gmaps-path-view":45,"./gmaps/gmaps-plain-layer-view":46,"./gmaps/gmaps-point-view":47,"./gmaps/gmaps-tiled-layer-view":48}],37:[function(require,module,exports){
+},{"./gmaps/gmaps-base-layer-view":38,"./gmaps/gmaps-cartodb-layer-group-view":39,"./gmaps/gmaps-layer-view":41,"./gmaps/gmaps-map-view":42,"./gmaps/gmaps-path-view":43,"./gmaps/gmaps-plain-layer-view":44,"./gmaps/gmaps-point-view":45,"./gmaps/gmaps-tiled-layer-view":46}],37:[function(require,module,exports){
 var config = require('cdb.config');
 
 var CartoDBDefaultOptions = {
@@ -25430,251 +25379,6 @@ var CartoDBDefaultOptions = {
 module.exports = CartoDBDefaultOptions;
 
 },{"cdb.config":11}],38:[function(require,module,exports){
-var wax = require('wax.cartodb.js');
-var Profiler = require('cdb.core.Profiler');
-
-var OPACITY_FILTER = "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)";
-
-function setImageOpacityIE8(img, opacity) {
-    var v = Math.round(opacity*100);
-    if (v >= 99) {
-      img.style.filter = OPACITY_FILTER;
-    } else {
-      img.style.filter = "alpha(opacity=" + (opacity) + ");";
-    }
-}
-
-function CartoDBLayerGroupBase() {
-  this.model.bind('change:urls', function() {
-    this.update();
-  }, this);
-}
-
-CartoDBLayerGroupBase.prototype.setOpacity = function(opacity) {
-  if (isNaN(opacity) || opacity > 1 || opacity < 0) {
-    throw new Error(opacity + ' is not a valid value, should be in [0, 1] range');
-  }
-  this.opacity = this.options.opacity = opacity;
-  for(var key in this.cache) {
-    var img = this.cache[key];
-    img.style.opacity = opacity;
-    setImageOpacityIE8(img, opacity);
-  }
-
-};
-
-CartoDBLayerGroupBase.prototype.setAttribution = function() {};
-
-CartoDBLayerGroupBase.prototype.getTile = function(coord, zoom, ownerDocument) {
-  var EMPTY_GIF = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
-
-  var self = this;
-  var ie = 'ActiveXObject' in window,
-      ielt9 = ie && !document.addEventListener;
-
-  this.options.added = true;
-
-  if(this.tilejson === null) {
-    var key = zoom + '/' + coord.x + '/' + coord.y;
-    var i = this.cache[key] = new Image(256, 256);
-    i.src = EMPTY_GIF;
-    i.setAttribute('gTileKey', key);
-    i.style.opacity = this.options.opacity;
-    return i;
-  }
-
-  var im = wax.g.connector.prototype.getTile.call(this, coord, zoom, ownerDocument);
-
-  // in IE8 semi transparency does not work and needs filter
-  if( ielt9 ) {
-    setImageOpacityIE8(im, this.options.opacity);
-  }
-  im.style.opacity = this.options.opacity;
-  if (this.tiles === 0) {
-    this.loading && this.loading();
-  }
-
-  this.tiles++;
-
-  var loadTime = Profiler.metric('cartodb-js.tile.png.load.time').start();
-
-  var finished = function() {
-    loadTime.end();
-    self.tiles--;
-    if (self.tiles === 0) {
-      self.finishLoading && self.finishLoading();
-    }
-  };
-  im.onload = finished;
-  im.onerror = function() {
-    Profiler.metric('cartodb-js.tile.png.error').inc();
-    finished();
-  }
-
-  return im;
-};
-
-CartoDBLayerGroupBase.prototype.onAdd = function () {
-};
-
-CartoDBLayerGroupBase.prototype.clear = function () {
-  this._clearInteraction();
-  self.finishLoading && self.finishLoading();
-};
-
-CartoDBLayerGroupBase.prototype.update = function (done) {
-  this.loading && this.loading();
-
-  var tilejson = this.model.get('urls');
-  if(tilejson) {
-    this.tilejson = tilejson;
-    this.options.tiles = tilejson.tiles;
-    this.tiles = 0;
-    this.cache = {};
-    this._reloadInteraction();
-    this.refreshView();
-    this.ok && this.ok();
-    done && done();
-  } else {
-    this.error && this.error('URLs have not been fetched yet');
-    done && done();
-  }
-};
-
-CartoDBLayerGroupBase.prototype.refreshView = function() {
-  var self = this;
-  var map = this.options.map;
-  map.overlayMapTypes.forEach(
-    function(layer, i) {
-      if (layer == self) {
-        map.overlayMapTypes.setAt(i, self);
-        return;
-      }
-    }
-  );
-}
-
-CartoDBLayerGroupBase.prototype._checkLayer = function() {
-  if (!this.options.added) {
-    throw new Error('the layer is not still added to the map');
-  }
-}
-
-CartoDBLayerGroupBase.prototype._findPos = function (map,o) {
-  var curleft = 0;
-  var curtop = 0;
-  var obj = map.getDiv();
-
-  var x, y;
-  if (o.e.changedTouches && o.e.changedTouches.length > 0) {
-    x = o.e.changedTouches[0].clientX + window.scrollX;
-    y = o.e.changedTouches[0].clientY + window.scrollY;
-  } else {
-    x = o.e.clientX;
-    y = o.e.clientY;
-  }
-
-  // If the map is fixed at the top of the window, we can't use offsetParent
-  // cause there might be some scrolling that we need to take into account.
-  if (obj.offsetParent && obj.offsetTop > 0) {
-    do {
-      curleft += obj.offsetLeft;
-      curtop += obj.offsetTop;
-    } while (obj = obj.offsetParent);
-    var point = this._newPoint(
-      x - curleft, y - curtop);
-  } else {
-    var rect = obj.getBoundingClientRect();
-    var scrollX = (window.scrollX || window.pageXOffset);
-    var scrollY = (window.scrollY || window.pageYOffset);
-    var point = this._newPoint(
-      (o.e.clientX? o.e.clientX: x) - rect.left - obj.clientLeft - scrollX,
-      (o.e.clientY? o.e.clientY: y) - rect.top - obj.clientTop - scrollY);
-  }
-  return point;
-};
-
-/**
- * Creates an instance of a googleMaps Point
- */
-CartoDBLayerGroupBase.prototype._newPoint = function(x, y) {
-  return new google.maps.Point(x, y);
-};
-
-CartoDBLayerGroupBase.prototype._manageOffEvents = function(map, o){
-  if (this.options.featureOut) {
-    return this.options.featureOut && this.options.featureOut(o.e, o.layer);
-  }
-};
-
-CartoDBLayerGroupBase.prototype._manageOnEvents = function(map,o) {
-  var point  = this._findPos(map, o);
-  var latlng = this.projector.pixelToLatLng(point);
-  var event_type = o.e.type.toLowerCase();
-
-
-  switch (event_type) {
-    case 'mousemove':
-      if (this.options.featureOver) {
-        return this.options.featureOver(o.e,latlng, point, o.data, o.layer);
-      }
-      break;
-
-    case 'click':
-    case 'touchend':
-    case 'touchmove': // for some reason android browser does not send touchend
-    case 'mspointerup':
-    case 'pointerup':
-    case 'pointermove':
-      if (this.options.featureClick) {
-        this.options.featureClick(o.e,latlng, point, o.data, o.layer);
-      }
-      break;
-    default:
-      break;
-  }
-}
-
-module.exports = CartoDBLayerGroupBase;
-
-},{"cdb.core.Profiler":24,"wax.cartodb.js":208}],39:[function(require,module,exports){
-var _ = require('underscore');
-var wax = require('wax.cartodb.js');
-var CartoDBDefaultOptions = require('./cartodb-default-options');
-var Projector = require('./projector');
-var CartoDBLayerGroupBase = require('./cartodb-layer-group-base');
-var CartoDBLayerCommon = require('../cartodb-layer-common');
-var CartoDBLogo = require('../cartodb-logo');
-
-var CartoDBLayerGroupGMaps = function(opts) {
-
-  this.options = _.defaults(opts, CartoDBDefaultOptions);
-  this.tiles = 0;
-  this.tilejson = null;
-  this.interaction = [];
-
-  // Add CartoDB logo
-  if (this.options.cartodb_logo != false)
-    CartoDBLogo.addWadus({ left: 74, bottom:8 }, 2000, this.options.map.getDiv());
-
-  wax.g.connector.call(this, opts);
-
-  // lovely wax connector overwrites options so set them again
-  // TODO: remove wax.connector here
-   _.extend(this.options, opts);
-  this.projector = new Projector(opts.map);
-  CartoDBLayerCommon.call(this);
-  CartoDBLayerGroupBase.call(this);
-};
-
-CartoDBLayerGroupGMaps.Projector = Projector;
-CartoDBLayerGroupGMaps.prototype = new wax.g.connector();
-_.extend(CartoDBLayerGroupGMaps.prototype, CartoDBLayerGroupBase.prototype, CartoDBLayerCommon.prototype);
-CartoDBLayerGroupGMaps.prototype.interactionClass = wax.g.interaction;
-
-module.exports = CartoDBLayerGroupGMaps;
-
-},{"../cartodb-layer-common":30,"../cartodb-logo":31,"./cartodb-default-options":37,"./cartodb-layer-group-base":38,"./projector":49,"underscore":5,"wax.cartodb.js":208}],40:[function(require,module,exports){
 var _ = require('underscore');
 var DEFAULT_MAP_STYLE = require('./gmaps-default-map-style');
 var GMapsLayerView = require('./gmaps-layer-view');
@@ -25711,10 +25415,26 @@ _.extend(
 
 module.exports = GMapsBaseLayerView;
 
-},{"./gmaps-default-map-style":42,"./gmaps-layer-view":43,"underscore":5}],41:[function(require,module,exports){
+},{"./gmaps-default-map-style":40,"./gmaps-layer-view":41,"underscore":5}],39:[function(require,module,exports){
 var _ = require('underscore');
 var GMapsLayerView = require('./gmaps-layer-view');
-var CartoDBLayerGroupGmaps = require('./cartodb-layer-group-gmaps');
+var wax = require('wax.cartodb.js');
+var CartoDBDefaultOptions = require('./cartodb-default-options');
+var Projector = require('./projector');
+var CartoDBLayerCommon = require('../cartodb-layer-common');
+var CartoDBLogo = require('../cartodb-logo');
+var Profiler = require('cdb.core.Profiler');
+
+var OPACITY_FILTER = "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)";
+
+function setImageOpacityIE8(img, opacity) {
+  var v = Math.round(opacity*100);
+  if (v >= 99) {
+    img.style.filter = OPACITY_FILTER;
+  } else {
+    img.style.filter = "alpha(opacity=" + (opacity) + ");";
+  }
+}
 
 var GMapsCartoDBLayerGroupView = function(layerModel, gmapsMap) {
   var self = this;
@@ -25726,10 +25446,9 @@ var GMapsCartoDBLayerGroupView = function(layerModel, gmapsMap) {
 
   opts.map =  gmapsMap;
 
-  var // preserve the user's callbacks
-  _featureOver  = opts.featureOver,
-  _featureOut   = opts.featureOut,
-  _featureClick = opts.featureClick;
+  var _featureOver  = opts.featureOver;
+  var _featureOut   = opts.featureOut;
+  var _featureClick = opts.featureClick;
 
   var previousEvent;
   var eventTimeout = -1;
@@ -25771,67 +25490,278 @@ var GMapsCartoDBLayerGroupView = function(layerModel, gmapsMap) {
     self.featureClick  && self.featureClick.apply(opts, arguments);
   }, 10);
 
+  this.options = _.defaults(opts, CartoDBDefaultOptions);
+  this.tiles = 0;
+  this.tilejson = null;
+  this.interaction = [];
 
+  // Add CartoDB logo
+  if (this.options.cartodb_logo != false) {
+    CartoDBLogo.addWadus({ left: 74, bottom:8 }, 2000, this.options.map.getDiv());
+  }
+
+  // Bind changes to the urls of the layer model
+  layerModel.bind('change:urls', function() {
+    this.update();
+  }, this);
+
+  wax.g.connector.call(this, opts);
+
+  // lovely wax connector overwrites options so set them again
+  // TODO: remove wax.connector here
+   _.extend(this.options, opts);
   GMapsLayerView.call(this, layerModel, this, gmapsMap);
-  CartoDBLayerGroupGmaps.call(this, opts);
+  this.projector = new Projector(opts.map);
+  CartoDBLayerCommon.call(this);
 };
 
+// TODO: Do we need this?
+GMapsCartoDBLayerGroupView.prototype = new wax.g.connector();
+GMapsCartoDBLayerGroupView.prototype.interactionClass = wax.g.interaction;
 _.extend(
   GMapsCartoDBLayerGroupView.prototype,
+  GMapsCartoDBLayerGroupView.prototype,
+  CartoDBLayerCommon.prototype,
+  GMapsCartoDBLayerGroupView.prototype,
   GMapsLayerView.prototype,
-  CartoDBLayerGroupGmaps.prototype,
   {
+    reload: function() {
+      this.model.invalidate();
+    },
 
-  reload: function() {
-    this.model.invalidate();
-  },
+    remove: function() {
+      GMapsLayerView.prototype.remove.call(this);
+      this.clear();
+    },
 
-  remove: function() {
-    GMapsLayerView.prototype.remove.call(this);
-    this.clear();
-  },
+    featureOver: function(e, latlon, pixelPos, data, layer) {
+      // dont pass gmaps LatLng
+      this.trigger('featureOver', e, [latlon.lat(), latlon.lng()], pixelPos, data, layer);
+    },
 
-  featureOver: function(e, latlon, pixelPos, data, layer) {
-    // dont pass gmaps LatLng
-    this.trigger('featureOver', e, [latlon.lat(), latlon.lng()], pixelPos, data, layer);
-  },
+    featureOut: function(e, layer) {
+      this.trigger('featureOut', e, layer);
+    },
 
-  featureOut: function(e, layer) {
-    this.trigger('featureOut', e, layer);
-  },
+    featureClick: function(e, latlon, pixelPos, data, layer) {
+      // dont pass leaflet lat/lon
+      this.trigger('featureClick', e, [latlon.lat(), latlon.lng()], pixelPos, data, layer);
+    },
 
-  featureClick: function(e, latlon, pixelPos, data, layer) {
-    // dont pass leaflet lat/lon
-    this.trigger('featureClick', e, [latlon.lat(), latlon.lng()], pixelPos, data, layer);
-  },
+    error: function(e) {
+      if(this.model) {
+        this.model.trigger('error', e ? e.errors : 'unknown error');
+        this.model.trigger('tileError', e ? e.errors : 'unknown error');
+      }
+    },
 
-  error: function(e) {
-    if(this.model) {
-      //trigger the error form _checkTiles in the model
-      this.model.trigger('error', e?e.errors:'unknown error');
-      this.model.trigger('tileError', e?e.errors:'unknown error');
+    ok: function(e) {
+      this.model.trigger('tileOk');
+    },
+
+    tilesOk: function(e) {
+      this.model.trigger('tileOk');
+    },
+
+    loading: function() {
+      this.trigger("loading");
+    },
+
+    finishLoading: function() {
+      this.trigger("load");
+    },
+
+    setOpacity: function(opacity) {
+      if (isNaN(opacity) || opacity > 1 || opacity < 0) {
+        throw new Error(opacity + ' is not a valid value, should be in [0, 1] range');
+      }
+      this.opacity = this.options.opacity = opacity;
+      for(var key in this.cache) {
+        var img = this.cache[key];
+        img.style.opacity = opacity;
+        setImageOpacityIE8(img, opacity);
+      }
+    },
+
+    setAttribution: function() {
+
+    },
+
+    getTile: function(coord, zoom, ownerDocument) {
+      var EMPTY_GIF = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+
+      var self = this;
+      var ie = 'ActiveXObject' in window,
+          ielt9 = ie && !document.addEventListener;
+
+      this.options.added = true;
+
+      if(this.tilejson === null) {
+        var key = zoom + '/' + coord.x + '/' + coord.y;
+        var i = this.cache[key] = new Image(256, 256);
+        i.src = EMPTY_GIF;
+        i.setAttribute('gTileKey', key);
+        i.style.opacity = this.options.opacity;
+        return i;
+      }
+
+      var im = wax.g.connector.prototype.getTile.call(this, coord, zoom, ownerDocument);
+
+      // in IE8 semi transparency does not work and needs filter
+      if( ielt9 ) {
+        setImageOpacityIE8(im, this.options.opacity);
+      }
+      im.style.opacity = this.options.opacity;
+      if (this.tiles === 0) {
+        this.loading && this.loading();
+      }
+
+      this.tiles++;
+
+      var loadTime = Profiler.metric('cartodb-js.tile.png.load.time').start();
+
+      var finished = function() {
+        loadTime.end();
+        self.tiles--;
+        if (self.tiles === 0) {
+          self.finishLoading && self.finishLoading();
+        }
+      };
+      im.onload = finished;
+      im.onerror = function() {
+        Profiler.metric('cartodb-js.tile.png.error').inc();
+        finished();
+      }
+
+      return im;
+    },
+
+    onAdd: function () {
+    },
+
+    clear: function () {
+      this._clearInteraction();
+      self.finishLoading && self.finishLoading();
+    },
+
+    update: function (done) {
+      this.loading && this.loading();
+
+      var tilejson = this.model.get('urls');
+      if(tilejson) {
+        this.tilejson = tilejson;
+        this.options.tiles = tilejson.tiles;
+        this.tiles = 0;
+        this.cache = {};
+        this._reloadInteraction();
+        this.refreshView();
+        this.ok && this.ok();
+        done && done();
+      } else {
+        this.error && this.error('URLs have not been fetched yet');
+        done && done();
+      }
+    },
+
+    refreshView: function() {
+      var self = this;
+      var map = this.options.map;
+      map.overlayMapTypes.forEach(
+        function(layer, i) {
+          if (layer == self) {
+            map.overlayMapTypes.setAt(i, self);
+            return;
+          }
+        }
+      );
+    },
+
+    _checkLayer: function() {
+      if (!this.options.added) {
+        throw new Error('the layer is not still added to the map');
+      }
+    },
+
+    _findPos: function (map,o) {
+      var curleft = 0;
+      var curtop = 0;
+      var obj = map.getDiv();
+
+      var x, y;
+      if (o.e.changedTouches && o.e.changedTouches.length > 0) {
+        x = o.e.changedTouches[0].clientX + window.scrollX;
+        y = o.e.changedTouches[0].clientY + window.scrollY;
+      } else {
+        x = o.e.clientX;
+        y = o.e.clientY;
+      }
+
+      // If the map is fixed at the top of the window, we can't use offsetParent
+      // cause there might be some scrolling that we need to take into account.
+      if (obj.offsetParent && obj.offsetTop > 0) {
+        do {
+          curleft += obj.offsetLeft;
+          curtop += obj.offsetTop;
+        } while (obj = obj.offsetParent);
+        var point = this._newPoint(
+          x - curleft, y - curtop);
+      } else {
+        var rect = obj.getBoundingClientRect();
+        var scrollX = (window.scrollX || window.pageXOffset);
+        var scrollY = (window.scrollY || window.pageYOffset);
+        var point = this._newPoint(
+          (o.e.clientX? o.e.clientX: x) - rect.left - obj.clientLeft - scrollX,
+          (o.e.clientY? o.e.clientY: y) - rect.top - obj.clientTop - scrollY);
+      }
+      return point;
+    },
+
+    /**
+     * Creates an instance of a googleMaps Point
+     */
+    _newPoint: function(x, y) {
+      return new google.maps.Point(x, y);
+    },
+
+    _manageOffEvents: function(map, o){
+      if (this.options.featureOut) {
+        return this.options.featureOut && this.options.featureOut(o.e, o.layer);
+      }
+    },
+
+    _manageOnEvents: function(map,o) {
+      var point  = this._findPos(map, o);
+      var latlng = this.projector.pixelToLatLng(point);
+      var event_type = o.e.type.toLowerCase();
+
+
+      switch (event_type) {
+        case 'mousemove':
+          if (this.options.featureOver) {
+            return this.options.featureOver(o.e,latlng, point, o.data, o.layer);
+          }
+          break;
+
+        case 'click':
+        case 'touchend':
+        case 'touchmove': // for some reason android browser does not send touchend
+        case 'mspointerup':
+        case 'pointerup':
+        case 'pointermove':
+          if (this.options.featureClick) {
+            this.options.featureClick(o.e,latlng, point, o.data, o.layer);
+          }
+          break;
+        default:
+          break;
+      }
     }
-  },
-
-  ok: function(e) {
-    this.model.trigger('tileOk');
-  },
-
-  tilesOk: function(e) {
-    this.model.trigger('tileOk');
-  },
-
-  loading: function() {
-    this.trigger("loading");
-  },
-
-  finishLoading: function() {
-    this.trigger("load");
   }
-});
+);
+
 
 module.exports = GMapsCartoDBLayerGroupView;
-},{"./cartodb-layer-group-gmaps":39,"./gmaps-layer-view":43,"underscore":5}],42:[function(require,module,exports){
+},{"../cartodb-layer-common":30,"../cartodb-logo":31,"./cartodb-default-options":37,"./gmaps-layer-view":41,"./projector":47,"cdb.core.Profiler":24,"underscore":5,"wax.cartodb.js":212}],40:[function(require,module,exports){
 var DEFAULT_MAP_STYLE = [{
     stylers: [{
         saturation: -65
@@ -25902,7 +25832,7 @@ var DEFAULT_MAP_STYLE = [{
 
 module.exports = DEFAULT_MAP_STYLE;
 
-},{}],43:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 
@@ -25976,7 +25906,7 @@ _.extend(GMapsLayerView.prototype, {
 
 module.exports = GMapsLayerView;
 
-},{"backbone":1,"underscore":5}],44:[function(require,module,exports){
+},{"backbone":1,"underscore":5}],42:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cdb'); // cdb.geo.GMapsTorqueLayerView
 var log = require('cdb.log');
@@ -26096,7 +26026,6 @@ var GoogleMapsMapView = MapView.extend({
     this.map.layers.bind('add', this._addLayer, this);
     this.map.layers.bind('remove', this._removeLayer, this);
     this.map.layers.bind('reset', this._addLayers, this);
-    this.map.layers.bind('change:type', this._swicthLayerView, this);
 
     this.projector = new Projector(this.map_googlemaps);
 
@@ -26314,7 +26243,7 @@ setAttribution: function() {
 
 module.exports = GoogleMapsMapView;
 
-},{"../leaflet/leaflet-wms-layer-view":60,"../map-view":61,"./gmaps-base-layer-view":40,"./gmaps-cartodb-layer-group-view":41,"./gmaps-path-view":45,"./gmaps-plain-layer-view":46,"./gmaps-point-view":47,"./gmaps-tiled-layer-view":48,"./projector":49,"cdb":13,"cdb.log":14,"underscore":5}],45:[function(require,module,exports){
+},{"../leaflet/leaflet-wms-layer-view":57,"../map-view":58,"./gmaps-base-layer-view":38,"./gmaps-cartodb-layer-group-view":39,"./gmaps-path-view":43,"./gmaps-plain-layer-view":44,"./gmaps-point-view":45,"./gmaps-tiled-layer-view":46,"./projector":47,"cdb":13,"cdb.log":14,"underscore":5}],43:[function(require,module,exports){
 var _ = require('underscore');
 var GeoJSON = require('geojson');
 var GeometryView = require('../geometry-view');
@@ -26470,7 +26399,7 @@ PathView.prototype.edit = function(enable) {
 
 module.exports = PathView;
 
-},{"../geometry-view":34,"geojson":200,"underscore":5}],46:[function(require,module,exports){
+},{"../geometry-view":34,"geojson":204,"underscore":5}],44:[function(require,module,exports){
 var _ = require('underscore');
 var GMapsLayerView = require('./gmaps-layer-view');
 
@@ -26505,7 +26434,7 @@ _.extend(
 
 module.exports = GMapsPlainLayerView;
 
-},{"./gmaps-layer-view":43,"underscore":5}],47:[function(require,module,exports){
+},{"./gmaps-layer-view":41,"underscore":5}],45:[function(require,module,exports){
 var _ = require('underscore');
 var GeoJSON = require('geojson');
 var config = require('cdb.config');
@@ -26593,7 +26522,7 @@ PointView.prototype.edit = function(enable) {
 
 module.exports = PointView;
 
-},{"../geometry-view":34,"cdb.config":11,"geojson":200,"underscore":5}],48:[function(require,module,exports){
+},{"../geometry-view":34,"cdb.config":11,"geojson":204,"underscore":5}],46:[function(require,module,exports){
 var _ = require('underscore');
 var GMapsLayerView = require('./gmaps-layer-view');
 
@@ -26636,7 +26565,7 @@ _.extend(
 
 module.exports = GMapsTiledLayerView;
 
-},{"./gmaps-layer-view":43,"underscore":5}],49:[function(require,module,exports){
+},{"./gmaps-layer-view":41,"underscore":5}],47:[function(require,module,exports){
 // helper to get pixel position from latlon
 var Projector = function(map) { this.setMap(map); };
 Projector.prototype = new google.maps.OverlayView();
@@ -26658,7 +26587,7 @@ Projector.prototype.pixelToLatLng = function(point) {
 
 module.exports = Projector;
 
-},{}],50:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 module.exports = {
   LeafletLayerView: require('./leaflet/leaflet-layer-view'),
 
@@ -26676,7 +26605,7 @@ module.exports = {
   LeafletMapView: require('./leaflet/leaflet-map-view')
 };
 
-},{"./leaflet/leaflet-cartodb-layer-group-view":52,"./leaflet/leaflet-gmaps-tiled-layer-view":53,"./leaflet/leaflet-layer-view":54,"./leaflet/leaflet-map-view":55,"./leaflet/leaflet-path-view":56,"./leaflet/leaflet-plain-layer-view":57,"./leaflet/leaflet-point-view":58,"./leaflet/leaflet-tiled-layer-view":59,"./leaflet/leaflet-wms-layer-view":60}],51:[function(require,module,exports){
+},{"./leaflet/leaflet-cartodb-layer-group-view":49,"./leaflet/leaflet-gmaps-tiled-layer-view":50,"./leaflet/leaflet-layer-view":51,"./leaflet/leaflet-map-view":52,"./leaflet/leaflet-path-view":53,"./leaflet/leaflet-plain-layer-view":54,"./leaflet/leaflet-point-view":55,"./leaflet/leaflet-tiled-layer-view":56,"./leaflet/leaflet-wms-layer-view":57}],49:[function(require,module,exports){
 var wax = require('wax.cartodb.js');
 var L = require('leaflet');
 var config = require('cdb.config');
@@ -26684,15 +26613,18 @@ var Profiler = require('cdb.core.Profiler');
 var LeafletLayerView = require('./leaflet-layer-view');
 var CartoDBLayerCommon = require('../cartodb-layer-common');
 var CartoDBLogo = require('../cartodb-logo');
+var _ = require('underscore');
+var Backbone = require('backbone');
 
-var LeafletCartoDBGroupLayerBase = L.TileLayer.extend({
-
-  interactionClass: wax.leaf.interaction,
+var LeafletCartoDBLayerGroupView = L.TileLayer.extend({
 
   includes: [
+    Backbone.Events,
     LeafletLayerView.prototype,
     CartoDBLayerCommon.prototype
   ],
+
+  interactionClass: wax.leaf.interaction,
 
   options: {
     opacity:        0.99,
@@ -26713,19 +26645,110 @@ var LeafletCartoDBGroupLayerBase = L.TileLayer.extend({
     subdomains:     null
   },
 
+  initialize: function(layerModel, leafletMap) {
+    var self = this;
+    var hovers = [];
+    this.interaction = [];
 
-  initialize: function (options, layerModel, leafletMap) {
-    options = options || {};
+    // TODO: Be more explicit about the options that are really used by the L.TileLayer
+    var opts = _.clone(layerModel.attributes);
+
+    opts.map =  leafletMap;
+
+    // preserve the user's callbacks
+    var _featureOver  = opts.featureOver;
+    var _featureOut   = opts.featureOut;
+    var _featureClick = opts.featureClick;
+
+    var previousEvent;
+    var eventTimeout = -1;
+
+    opts.featureOver  = function(e, latlon, pxPos, data, layer) {
+      if (!hovers[layer]) {
+        self.trigger('layerenter', e, latlon, pxPos, data, layer);
+      }
+      hovers[layer] = 1;
+      _featureOver  && _featureOver.apply(this, arguments);
+      self.featureOver  && self.featureOver.apply(self, arguments);
+      // if the event is the same than before just cancel the event
+      // firing because there is a layer on top of it
+      if (e.timeStamp === previousEvent) {
+        clearTimeout(eventTimeout);
+      }
+      eventTimeout = setTimeout(function() {
+        self.trigger('mouseover', e, latlon, pxPos, data, layer);
+        self.trigger('layermouseover', e, latlon, pxPos, data, layer);
+      }, 0);
+      previousEvent = e.timeStamp;
+
+    };
+
+    opts.featureOut  = function(m, layer) {
+      if (hovers[layer]) {
+        self.trigger('layermouseout', layer);
+      }
+      hovers[layer] = 0;
+      if(!_.any(hovers)) {
+        self.trigger('mouseout');
+      }
+      _featureOut  && _featureOut.apply(this, arguments);
+      self.featureOut  && self.featureOut.apply(self, arguments);
+    };
+
+    opts.featureClick  = _.debounce(function() {
+      _featureClick  && _featureClick.apply(self, arguments);
+      self.featureClick  && self.featureClick.apply(self, arguments);
+    }, 10);
+
     // Set options
-    L.Util.setOptions(this, options);
+    L.Util.setOptions(this, opts);
 
     this.fire = this.trigger;
 
+    // Bind changes to the urls of the model
+    layerModel.bind('change:urls', function() {
+      self.__update(function() {
+        // if while the layer was processed in the server is removed
+        // it should not be added to the map
+        var id = L.stamp(self);
+        if (!leafletMap._layers[id]) {
+          return;
+        }
+
+        L.TileLayer.prototype.onAdd.call(self, leafletMap);
+        self.fire('added');
+        self.options.added = true;
+      });
+    });
+
+    this.addProfiling();
+
     CartoDBLayerCommon.call(this);
     L.TileLayer.prototype.initialize.call(this);
-    this.interaction = [];
-    this.addProfiling();
     LeafletLayerView.call(this, layerModel, this, leafletMap);
+  },
+
+  featureOver: function(e, latlon, pixelPos, data, layer) {
+    // dont pass leaflet lat/lon
+    this.trigger('featureOver', e, [latlon.lat, latlon.lng], pixelPos, data, layer);
+  },
+
+  featureOut: function(e, layer) {
+    this.trigger('featureOut', e, layer);
+  },
+
+  featureClick: function(e, latlon, pixelPos, data, layer) {
+    // dont pass leaflet lat/lon
+    this.trigger('featureClick', e, [latlon.lat, latlon.lng], pixelPos, data, layer);
+  },
+
+  error: function(e) {
+    this.trigger('error', e ? (e.errors || e) : 'unknown error');
+    this.model.trigger('error', e?e.errors:'unknown error');
+  },
+
+  ok: function(e) {
+    this.model.trigger('tileOk');
   },
 
   addProfiling: function() {
@@ -26784,7 +26807,6 @@ var LeafletCartoDBGroupLayerBase = L.TileLayer.extend({
     }
   },
 
-
   /**
    * When Leaflet adds the layer... go!
    * @params {map}
@@ -26794,26 +26816,10 @@ var LeafletCartoDBGroupLayerBase = L.TileLayer.extend({
     this.options.map = map;
 
     // Add cartodb logo
-    if (this.options.cartodb_logo != false)
+    if (this.options.cartodb_logo != false) {
       CartoDBLogo.addWadus({ left:8, bottom:8 }, 0, map._container);
-
-    // TODO: We can probably move this to an initialize method
-    this.model.bind('change:urls', function() {
-      self.__update(function() {
-        // if while the layer was processed in the server is removed
-        // it should not be added to the map
-        var id = L.stamp(self);
-        if (!map._layers[id]) {
-          return;
-        }
-
-        L.TileLayer.prototype.onAdd.call(self, map);
-        self.fire('added');
-        self.options.added = true;
-      });
-    });
+    }
   },
-
 
   /**
    * When removes the layer, destroy interactivity if exist
@@ -26849,7 +26855,6 @@ var LeafletCartoDBGroupLayerBase = L.TileLayer.extend({
       done && done();
     }
   },
-
 
   _checkLayer: function() {
     if (!this.options.added) {
@@ -26920,7 +26925,6 @@ var LeafletCartoDBGroupLayerBase = L.TileLayer.extend({
     }
   },
 
-
   /**
    * Bind off event for wax interaction
    */
@@ -26980,103 +26984,9 @@ var LeafletCartoDBGroupLayerBase = L.TileLayer.extend({
   }
 });
 
-module.exports = LeafletCartoDBGroupLayerBase;
-
-},{"../cartodb-layer-common":30,"../cartodb-logo":31,"./leaflet-layer-view":54,"cdb.config":11,"cdb.core.Profiler":24,"leaflet":3,"wax.cartodb.js":208}],52:[function(require,module,exports){
-var _ = require('underscore');
-var Backbone = require('backbone');
-var LeafletCartoDBGroupLayerBase = require('./leaflet-cartodb-group-layer-base');
-
-var LeafletCartoDBLayerGroupView = LeafletCartoDBGroupLayerBase.extend({
-
-  includes: [
-    Backbone.Events
-  ],
-
-  initialize: function(layerModel, leafletMap) {
-    var self = this;
-    var hovers = [];
-
-    var opts = _.clone(layerModel.attributes);
-
-    opts.map =  leafletMap;
-
-    var // preserve the user's callbacks
-    _featureOver  = opts.featureOver,
-    _featureOut   = opts.featureOut,
-    _featureClick = opts.featureClick;
-
-    var previousEvent;
-    var eventTimeout = -1;
-
-    opts.featureOver  = function(e, latlon, pxPos, data, layer) {
-      if (!hovers[layer]) {
-        self.trigger('layerenter', e, latlon, pxPos, data, layer);
-      }
-      hovers[layer] = 1;
-      _featureOver  && _featureOver.apply(this, arguments);
-      self.featureOver  && self.featureOver.apply(self, arguments);
-      // if the event is the same than before just cancel the event
-      // firing because there is a layer on top of it
-      if (e.timeStamp === previousEvent) {
-        clearTimeout(eventTimeout);
-      }
-      eventTimeout = setTimeout(function() {
-        self.trigger('mouseover', e, latlon, pxPos, data, layer);
-        self.trigger('layermouseover', e, latlon, pxPos, data, layer);
-      }, 0);
-      previousEvent = e.timeStamp;
-
-    };
-
-    opts.featureOut  = function(m, layer) {
-      if (hovers[layer]) {
-        self.trigger('layermouseout', layer);
-      }
-      hovers[layer] = 0;
-      if(!_.any(hovers)) {
-        self.trigger('mouseout');
-      }
-      _featureOut  && _featureOut.apply(this, arguments);
-      self.featureOut  && self.featureOut.apply(self, arguments);
-    };
-
-    opts.featureClick  = _.debounce(function() {
-      _featureClick  && _featureClick.apply(self, arguments);
-      self.featureClick  && self.featureClick.apply(self, arguments);
-    }, 10);
-
-
-    LeafletCartoDBGroupLayerBase.prototype.initialize.call(this, opts, layerModel, leafletMap);
-  },
-
-  featureOver: function(e, latlon, pixelPos, data, layer) {
-    // dont pass leaflet lat/lon
-    this.trigger('featureOver', e, [latlon.lat, latlon.lng], pixelPos, data, layer);
-  },
-
-  featureOut: function(e, layer) {
-    this.trigger('featureOut', e, layer);
-  },
-
-  featureClick: function(e, latlon, pixelPos, data, layer) {
-    // dont pass leaflet lat/lon
-    this.trigger('featureClick', e, [latlon.lat, latlon.lng], pixelPos, data, layer);
-  },
-
-  error: function(e) {
-    this.trigger('error', e ? (e.errors || e) : 'unknown error');
-    this.model.trigger('error', e?e.errors:'unknown error');
-  },
-
-  ok: function(e) {
-    this.model.trigger('tileOk');
-  }
-});
-
 module.exports = LeafletCartoDBLayerGroupView;
 
-},{"./leaflet-cartodb-group-layer-base":51,"backbone":1,"underscore":5}],53:[function(require,module,exports){
+},{"../cartodb-layer-common":30,"../cartodb-logo":31,"./leaflet-layer-view":51,"backbone":1,"cdb.config":11,"cdb.core.Profiler":24,"leaflet":3,"underscore":5,"wax.cartodb.js":212}],50:[function(require,module,exports){
 var _ = require('underscore');
 var L = require('leaflet');
 var LeafletLayerView = require('./leaflet-layer-view');
@@ -27137,7 +27047,7 @@ _.extend(LeafletGmapsTiledLayerView.prototype, LeafletLayerView.prototype, {
 
 module.exports = LeafletGmapsTiledLayerView;
 
-},{"./leaflet-layer-view":54,"leaflet":3,"underscore":5}],54:[function(require,module,exports){
+},{"./leaflet-layer-view":51,"leaflet":3,"underscore":5}],51:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 
@@ -27184,7 +27094,7 @@ _.extend(LeafletLayerView.prototype, {
 
 module.exports = LeafletLayerView;
 
-},{"backbone":1,"underscore":5}],55:[function(require,module,exports){
+},{"backbone":1,"underscore":5}],52:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var L = require('leaflet');
@@ -27254,7 +27164,6 @@ var LeafletMapView = MapView.extend({
     this.map.layers.bind('add', this._addLayer, this);
     this.map.layers.bind('remove', this._removeLayer, this);
     this.map.layers.bind('reset', this._addLayers, this);
-    this.map.layers.bind('change:type', this._swicthLayerView, this);
 
     this.map.geometries.bind('add', this._addGeometry, this);
     this.map.geometries.bind('remove', this._removeGeometry, this);
@@ -27614,7 +27523,7 @@ L.Icon.Default.imagePath = (function () {
 
 module.exports = LeafletMapView;
 
-},{"../../core/view":29,"../map-view":61,"./leaflet-cartodb-layer-group-view":52,"./leaflet-gmaps-tiled-layer-view":53,"./leaflet-path-view":56,"./leaflet-plain-layer-view":57,"./leaflet-point-view":58,"./leaflet-tiled-layer-view":59,"./leaflet-wms-layer-view":60,"cdb":13,"cdb.log":14,"jquery":"jquery","leaflet":3,"underscore":5}],56:[function(require,module,exports){
+},{"../../core/view":29,"../map-view":58,"./leaflet-cartodb-layer-group-view":49,"./leaflet-gmaps-tiled-layer-view":50,"./leaflet-path-view":53,"./leaflet-plain-layer-view":54,"./leaflet-point-view":55,"./leaflet-tiled-layer-view":56,"./leaflet-wms-layer-view":57,"cdb":13,"cdb.log":14,"jquery":"jquery","leaflet":3,"underscore":5}],53:[function(require,module,exports){
  var _ = require('underscore');
  var L = require('leaflet');
  var GeometryView = require('../geometry-view');
@@ -27683,7 +27592,7 @@ PathView.prototype.edit = function(enable) {
 
 module.exports = PathView;
 
-},{"../geometry-view":34,"leaflet":3,"underscore":5}],57:[function(require,module,exports){
+},{"../geometry-view":34,"leaflet":3,"underscore":5}],54:[function(require,module,exports){
 var _ = require('underscore');
 var L = require('leaflet');
 var LeafletLayerView = require('./leaflet-layer-view');
@@ -27732,7 +27641,7 @@ _.extend(LeafletPlainLayerView.prototype, LeafletLayerView.prototype);
 
 module.exports = LeafletPlainLayerView;
 
-},{"./leaflet-layer-view":54,"leaflet":3,"underscore":5}],58:[function(require,module,exports){
+},{"./leaflet-layer-view":51,"leaflet":3,"underscore":5}],55:[function(require,module,exports){
  var L = require('leaflet');
  var config = require('cdb.config');
  var GeometryView = require('../geometry-view');
@@ -27813,7 +27722,7 @@ PointView.prototype._eventHandler = function(evtType) {
 
 module.exports = PointView;
 
-},{"../geometry-view":34,"cdb.config":11,"leaflet":3}],59:[function(require,module,exports){
+},{"../geometry-view":34,"cdb.config":11,"leaflet":3}],56:[function(require,module,exports){
 var _ = require('underscore');
 var L = require('leaflet');
 var LeafletLayerView = require('./leaflet-layer-view');
@@ -27850,7 +27759,7 @@ _.extend(LeafletTiledLayerView.prototype, LeafletLayerView.prototype, {
 
 module.exports = LeafletTiledLayerView;
 
-},{"./leaflet-layer-view":54,"leaflet":3,"underscore":5}],60:[function(require,module,exports){
+},{"./leaflet-layer-view":51,"leaflet":3,"underscore":5}],57:[function(require,module,exports){
 var _ = require('underscore');
 var L = require('leaflet');
 var LeafletLayerView = require('./leaflet-layer-view.js');
@@ -27886,7 +27795,7 @@ _.extend(LeafletWMSLayerView.prototype, LeafletLayerView.prototype, {
 
 module.exports = LeafletWMSLayerView;
 
-},{"./leaflet-layer-view.js":54,"leaflet":3,"underscore":5}],61:[function(require,module,exports){
+},{"./leaflet-layer-view.js":51,"leaflet":3,"underscore":5}],58:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cdb'); // cdb.geo.LeafletMapView, cdb.geo.GoogleMapsMapView
 var log = require('cdb.log');
@@ -28026,12 +27935,6 @@ var MapView = View.extend({
     }
   },
 
-  _swicthLayerView: function(layer, attr, opts) {
-    this._removeLayer(layer);
-    this._addLayer(layer, this.map.layers, opts);
-  },
-
-
   _removeGeometry: function(geo) {
     var geo_view = this.geometries[geo.cid];
     delete this.layers[layer.cid];
@@ -28110,7 +28013,7 @@ var MapView = View.extend({
 
 module.exports = MapView;
 
-},{"../core/view":29,"./ui/infowindow":79,"cdb":13,"cdb.log":14,"underscore":5}],62:[function(require,module,exports){
+},{"../core/view":29,"./ui/infowindow":76,"cdb":13,"cdb.log":14,"underscore":5}],59:[function(require,module,exports){
 var _ = require('underscore');
 var L = require('leaflet');
 var Backbone = require('backbone');
@@ -28118,6 +28021,7 @@ var config = require('cdb.config');
 var log = require('cdb.log');
 var Model = require('../core/model');
 var Layers = require('./map/layers');
+var sanitize = require('../core/sanitize');
 
 var Map = Model.extend({
 
@@ -28153,7 +28057,7 @@ var Map = Model.extend({
   _updateAttributions: function() {
     var defaultCartoDBAttribution = this.defaults.attribution[0];
     var attributions = _.chain(this.layers.models)
-      .map(function(layer) { return layer.get('attribution'); })
+      .map(function(layer) { return sanitize.html(layer.get('attribution')); })
       .reject(function(attribution) { return attribution == defaultCartoDBAttribution})
       .compact()
       .uniq()
@@ -28417,7 +28321,7 @@ var Map = Model.extend({
 
 module.exports = Map;
 
-},{"../core/model":23,"./map/layers":68,"backbone":1,"cdb.config":11,"cdb.log":14,"leaflet":3,"underscore":5}],63:[function(require,module,exports){
+},{"../core/model":23,"../core/sanitize":25,"./map/layers":65,"backbone":1,"cdb.config":11,"cdb.log":14,"leaflet":3,"underscore":5}],60:[function(require,module,exports){
 var CartoDBLayerGroupBase = require('./cartodb-layer-group-base');
 
 var CartoDBLayerGroupAnonymous = CartoDBLayerGroupBase.extend({
@@ -28449,7 +28353,7 @@ var CartoDBLayerGroupAnonymous = CartoDBLayerGroupBase.extend({
 
 module.exports = CartoDBLayerGroupAnonymous;
 
-},{"./cartodb-layer-group-base":64}],64:[function(require,module,exports){
+},{"./cartodb-layer-group-base":61}],61:[function(require,module,exports){
 var $ = require('jquery');
 var Backbone = require('backbone');
 var MapLayer = require('./map-layer');
@@ -28463,6 +28367,7 @@ var CartoDBLayerGroupBase = MapLayer.extend({
   },
 
   initialize: function(attributes, options) {
+    MapLayer.prototype.initialize.apply(this, arguments);
     options = options || {};
     this.layers = new Backbone.Collection(options.layers || {});
   },
@@ -28529,7 +28434,7 @@ var CartoDBLayerGroupBase = MapLayer.extend({
 
 module.exports = CartoDBLayerGroupBase;
 
-},{"./layers":68,"./map-layer":69,"backbone":1,"cdb/core/util":28,"jquery":"jquery"}],65:[function(require,module,exports){
+},{"./layers":65,"./map-layer":66,"backbone":1,"cdb/core/util":28,"jquery":"jquery"}],62:[function(require,module,exports){
 var CartoDBLayerGroupBase = require('./cartodb-layer-group-base');
 
 var CartoDBLayerGroupNamed = CartoDBLayerGroupBase.extend({
@@ -28559,7 +28464,7 @@ var CartoDBLayerGroupNamed = CartoDBLayerGroupBase.extend({
 
 module.exports = CartoDBLayerGroupNamed;
 
-},{"./cartodb-layer-group-base":64}],66:[function(require,module,exports){
+},{"./cartodb-layer-group-base":61}],63:[function(require,module,exports){
 var Backbone = require('backbone');
 var _ = require('underscore');
 var config = require('cdb.config');
@@ -28676,12 +28581,16 @@ var CartoDBLayer = MapLayer.extend({
   // Layers inside a "namedmap" layer have the layer_name defined in the root of their definition
   getName: function() {
     return this.get('options') && this.get('options').layer_name || this.get('layer_name');
+  },
+
+  addWidget: function(widget) {
+    this.widgets.add(widget);
   }
 });
 
 module.exports = CartoDBLayer;
 
-},{"./map-layer":69,"backbone":1,"cdb.config":11,"underscore":5}],67:[function(require,module,exports){
+},{"./map-layer":66,"backbone":1,"cdb.config":11,"underscore":5}],64:[function(require,module,exports){
 var MapLayer = require('./map-layer');
 
 var GMapsBaseLayer = MapLayer.extend({
@@ -28695,7 +28604,7 @@ var GMapsBaseLayer = MapLayer.extend({
 
 module.exports = GMapsBaseLayer;
 
-},{"./map-layer":69}],68:[function(require,module,exports){
+},{"./map-layer":66}],65:[function(require,module,exports){
 var Backbone = require('backbone');
 var MapLayer = require('./map-layer');
 
@@ -28708,6 +28617,7 @@ var Layers = Backbone.Collection.extend({
   model: MapLayer,
 
   initialize: function() {
+    MapLayer.prototype.initialize.apply(this, arguments);
     this.comparator = function(m) {
       return parseInt(m.get('order'), 10);
     };
@@ -28753,8 +28663,9 @@ var Layers = Backbone.Collection.extend({
 
 module.exports = Layers;
 
-},{"./map-layer":69,"backbone":1}],69:[function(require,module,exports){
+},{"./map-layer":66,"backbone":1}],66:[function(require,module,exports){
 var _ = require('underscore');
+var log = require('cdb.log');
 
 // TODO: can't use these requires since they in turn depends on this file (i.e. cyclic dependency), how to break?
 // var TorqueLayer = require('./torque-layer');
@@ -28768,6 +28679,12 @@ var MapLayer = Model.extend({
   defaults: {
     visible: true,
     type: 'Tiled'
+  },
+
+  initialize: function() {
+    this.bind('change:type', function() {
+      log.error('changing layer type is not allowed, remove it and add a new one instead');
+    });
   },
 
   /***
@@ -28833,7 +28750,7 @@ var MapLayer = Model.extend({
 
 module.exports = MapLayer;
 
-},{"../../core/model":23,"cdb":13,"underscore":5}],70:[function(require,module,exports){
+},{"../../core/model":23,"cdb":13,"cdb.log":14,"underscore":5}],67:[function(require,module,exports){
 var MapLayer = require('./map-layer');
 
 /**
@@ -28851,7 +28768,7 @@ var PlainLayer = MapLayer.extend({
 
 module.exports = PlainLayer;
 
-},{"./map-layer":69}],71:[function(require,module,exports){
+},{"./map-layer":66}],68:[function(require,module,exports){
 var MapLayer = require('./map-layer');
 
 var TileLayer = MapLayer.extend({
@@ -28861,15 +28778,27 @@ var TileLayer = MapLayer.extend({
 
 module.exports = TileLayer
 
-},{"./map-layer":69}],72:[function(require,module,exports){
+},{"./map-layer":66}],69:[function(require,module,exports){
 var _ = require('underscore');
 var MapLayer = require('./map-layer');
 var Backbone = require('backbone');
 
+/**
+ * Model for a Torque Layer
+ */
 var TorqueLayer = MapLayer.extend({
   defaults: {
     type: 'torque',
-    visible: true
+    visible: true,
+
+    // Values expected to be set from torque layer
+    isRunning: false,
+    timeBounds: {
+      start: undefined,
+      end: undefined
+    },
+    steps: 0,
+    step: 0,
   },
 
   initialize: function() {
@@ -28880,6 +28809,45 @@ var TorqueLayer = MapLayer.extend({
     }, this);
 
     MapLayer.prototype.initialize.apply(this, arguments);
+  },
+
+  // TODO Update silently to avoid a generic change event, which causes the layer to reload tiles
+  _setWithoutGenericChangeEvent: function(attr, val) {
+    var prevVal = this.get(attr);
+    this.set(attr, val, {silent: true});
+    if (val !== prevVal) {
+      this.trigger('change:' + attr, this, val);
+    }
+  },
+
+  // Expected to be called from view, to keep the model in sync,
+  // so other views can listen to the model w/o have to know what view implementation is used
+  initBindsForTorqueLayerView: function(torqueLayerView) {
+    window.tlv = torqueLayerView;
+    torqueLayerView.bind('play', this._setWithoutGenericChangeEvent.bind(this, 'isRunning', true))
+    torqueLayerView.bind('pause', this._setWithoutGenericChangeEvent.bind(this, 'isRunning', false))
+    torqueLayerView.bind('change:time', function() {
+      this._setWithoutGenericChangeEvent('step', torqueLayerView.getStep());
+    }, this);
+
+    torqueLayerView.once('remove', function() {
+      torqueLayerView.unbind('play');
+      torqueLayerView.unbind('pause');
+      torqueLayerView.unbind('change:time');
+    });
+
+    this.set({
+        isRunning: torqueLayerView.isRunning(),
+        timeBounds: torqueLayerView.getTimeBounds(),
+        step: torqueLayerView.getStep(),
+        steps: torqueLayerView.options.steps
+      },
+      { silent: true }
+    );
+
+    this.play = torqueLayerView.play.bind(torqueLayerView);
+    this.pause = torqueLayerView.pause.bind(torqueLayerView);
+    this.setStep = torqueLayerView.setStep.bind(torqueLayerView);
   },
 
   isEqual: function(other) {
@@ -28932,7 +28900,7 @@ var TorqueLayer = MapLayer.extend({
 
 module.exports = TorqueLayer;
 
-},{"./map-layer":69,"backbone":1,"underscore":5}],73:[function(require,module,exports){
+},{"./map-layer":66,"backbone":1,"underscore":5}],70:[function(require,module,exports){
 var MapLayer = require('./map-layer');
 
 /**
@@ -28952,7 +28920,7 @@ var WMSLayer = MapLayer.extend({
 
 module.exports = WMSLayer;
 
-},{"./map-layer":69}],74:[function(require,module,exports){
+},{"./map-layer":66}],71:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var Model = require('../../core/model');
@@ -29314,7 +29282,7 @@ var Annotation = View.extend({
 
 module.exports = Annotation;
 
-},{"../../core/model":23,"../../core/sanitize":25,"../../core/template":27,"../../core/view":29,"jquery":"jquery","underscore":5}],75:[function(require,module,exports){
+},{"../../core/model":23,"../../core/sanitize":25,"../../core/template":27,"../../core/view":29,"jquery":"jquery","underscore":5}],72:[function(require,module,exports){
 var _ = require('underscore');
 var sanitize = require('cdb/core/sanitize');
 var View = require('cdb/core/view');
@@ -29383,7 +29351,7 @@ var Header = View.extend({
 
 module.exports = Header;
 
-},{"cdb/core/sanitize":25,"cdb/core/view":29,"cdb/geo/ui/slides-controller":115,"underscore":5}],76:[function(require,module,exports){
+},{"cdb/core/sanitize":25,"cdb/core/view":29,"cdb/geo/ui/slides-controller":112,"underscore":5}],73:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var sanitize = require('../../core/sanitize');
@@ -29473,7 +29441,7 @@ module.exports = Text.extend({
 
 });
 
-},{"../../core/sanitize":25,"./text":116,"jquery":"jquery","underscore":5}],77:[function(require,module,exports){
+},{"../../core/sanitize":25,"./text":113,"jquery":"jquery","underscore":5}],74:[function(require,module,exports){
 var _ = require('underscore');
 var View = require('../../core/view');
 var Template = require('../../core/template');
@@ -29551,7 +29519,7 @@ var InfoBox = View.extend({
 
 module.exports = InfoBox;
 
-},{"../../core/template":27,"../../core/view":29,"underscore":5}],78:[function(require,module,exports){
+},{"../../core/template":27,"../../core/view":29,"underscore":5}],75:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var Backbone = require('backbone');
@@ -29761,7 +29729,7 @@ var InfowindowModel = Backbone.Model.extend({
 
 module.exports = InfowindowModel;
 
-},{"backbone":1,"jquery":"jquery","underscore":5}],79:[function(require,module,exports){
+},{"backbone":1,"jquery":"jquery","underscore":5}],76:[function(require,module,exports){
 var _ = require('underscore');
 var Spinner = require('spin.js');
 var $ = require('jquery');
@@ -30437,7 +30405,7 @@ var Infowindow = View.extend({
 
 module.exports = Infowindow;
 
-},{"../../core/sanitize":25,"../../core/template":27,"../../core/util":28,"../../core/view":29,"cdb.log":14,"cdb.templates":15,"jquery":"jquery","jquery.jscrollpane":202,"spin.js":207,"underscore":5}],80:[function(require,module,exports){
+},{"../../core/sanitize":25,"../../core/template":27,"../../core/util":28,"../../core/view":29,"cdb.log":14,"cdb.templates":15,"jquery":"jquery","jquery.jscrollpane":206,"spin.js":211,"underscore":5}],77:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cdb'); // cdb.god, cdb.geo.ui.*
 var Dropdown = require('../../ui/common/dropdown');
@@ -30582,7 +30550,7 @@ var LayerSelector = View.extend({
 
 module.exports = LayerSelector;
 
-},{"../../core/model":23,"../../core/view":29,"../../ui/common/dropdown":173,"./layer-view":81,"cdb":13,"underscore":5}],81:[function(require,module,exports){
+},{"../../core/model":23,"../../core/view":29,"../../ui/common/dropdown":177,"./layer-view":78,"cdb":13,"underscore":5}],78:[function(require,module,exports){
 var _ = require('underscore');
 var templates = require('cdb.templates');
 var View = require('../../core/view');
@@ -30659,7 +30627,7 @@ var LayerView = View.extend({
 
 module.exports = LayerView;
 
-},{"../../core/view":29,"cdb.templates":15,"underscore":5}],82:[function(require,module,exports){
+},{"../../core/view":29,"cdb.templates":15,"underscore":5}],79:[function(require,module,exports){
 module.exports = {
   LegendItemModel: require('./legend-item-model'),
   LegendItem: require('./legend-item'),
@@ -30679,7 +30647,7 @@ module.exports = {
   StackedLegend: require('./legend/stacked-legend')
 };
 
-},{"./legend-item":84,"./legend-item-model":83,"./legend-items":85,"./legend-model":86,"./legend/base-legend":88,"./legend/bubble-legend":89,"./legend/category-legend":90,"./legend/choropleth-legend":91,"./legend/color-legend":92,"./legend/custom-legend":93,"./legend/debug-legend":94,"./legend/density-legend":95,"./legend/intensity-legend":96,"./legend/none-legend":107,"./legend/stacked-legend":108,"./legends":109}],83:[function(require,module,exports){
+},{"./legend-item":81,"./legend-item-model":80,"./legend-items":82,"./legend-model":83,"./legend/base-legend":85,"./legend/bubble-legend":86,"./legend/category-legend":87,"./legend/choropleth-legend":88,"./legend/color-legend":89,"./legend/custom-legend":90,"./legend/debug-legend":91,"./legend/density-legend":92,"./legend/intensity-legend":93,"./legend/none-legend":104,"./legend/stacked-legend":105,"./legends":106}],80:[function(require,module,exports){
 var Model = require('../../core/model');
 
 var LegendItemModel = Model.extend({
@@ -30694,7 +30662,7 @@ var LegendItemModel = Model.extend({
 
 module.exports = LegendItemModel;
 
-},{"../../core/model":23}],84:[function(require,module,exports){
+},{"../../core/model":23}],81:[function(require,module,exports){
 var _ = require('underscore');
 var templates = require('cdb.templates');
 var View = require('../../core/view');
@@ -30735,7 +30703,7 @@ var LegendItem = View.extend({
 
 module.exports = LegendItem;
 
-},{"../../core/view":29,"cdb.templates":15,"underscore":5}],85:[function(require,module,exports){
+},{"../../core/view":29,"cdb.templates":15,"underscore":5}],82:[function(require,module,exports){
 var Backbone = require('backbone');
 var LegendItemModel = require('./legend-item-model');
 
@@ -30748,7 +30716,7 @@ var LegendItems = Backbone.Collection.extend({
 
 module.exports = LegendItems;
 
-},{"./legend-item-model":83,"backbone":1}],86:[function(require,module,exports){
+},{"./legend-item-model":80,"backbone":1}],83:[function(require,module,exports){
 var Model = require('../../core/model');
 var LegendItems = require('./legend-items');
 
@@ -30797,7 +30765,7 @@ var LegendModel = Model.extend({
 
 module.exports = LegendModel;
 
-},{"../../core/model":23,"./legend-items":85}],87:[function(require,module,exports){
+},{"../../core/model":23,"./legend-items":82}],84:[function(require,module,exports){
 var _ = require('underscore');
 var LegendModel = require('./legend-model');
 var LegendExports = require('./legend-exports');
@@ -30953,7 +30921,7 @@ var Legend = View.extend({
 
 module.exports = Legend;
 
-},{"../../core/view":29,"./legend-exports":82,"./legend-model":86,"underscore":5}],88:[function(require,module,exports){
+},{"../../core/view":29,"./legend-exports":79,"./legend-model":83,"underscore":5}],85:[function(require,module,exports){
 var $ = require('jquery');
 var View = require('../../../core/view');
 
@@ -30988,7 +30956,7 @@ var BaseLegend = View.extend({
 
 module.exports = BaseLegend;
 
-},{"../../../core/view":29,"jquery":"jquery"}],89:[function(require,module,exports){
+},{"../../../core/view":29,"jquery":"jquery"}],86:[function(require,module,exports){
 var _ = require('underscore');
 var sanitize = require('../../../core/sanitize.js')
 var BaseLegend = require('./base-legend');
@@ -31062,7 +31030,7 @@ var BubbleLegend = BaseLegend.extend({
 
 module.exports = BubbleLegend;
 
-},{"../../../core/sanitize.js":25,"./base-legend":88,"underscore":5}],90:[function(require,module,exports){
+},{"../../../core/sanitize.js":25,"./base-legend":85,"underscore":5}],87:[function(require,module,exports){
 var _ = require('underscore');
 var sanitize = require('../../../core/sanitize');
 var BaseLegend = require('./base-legend');
@@ -31130,7 +31098,7 @@ var CategoryLegend = BaseLegend.extend({
 
 module.exports = CategoryLegend;
 
-},{"../../../core/sanitize":25,"../legend-item":84,"./base-legend":88,"underscore":5}],91:[function(require,module,exports){
+},{"../../../core/sanitize":25,"../legend-item":81,"./base-legend":85,"underscore":5}],88:[function(require,module,exports){
 var _ = require('underscore');
 var sanitize = require('../../../core/sanitize');
 var BaseLegend = require('./base-legend');
@@ -31219,7 +31187,7 @@ var ChoroplethLegend = BaseLegend.extend({
 
 module.exports = ChoroplethLegend;
 
-},{"../../../core/sanitize":25,"./base-legend":88,"underscore":5}],92:[function(require,module,exports){
+},{"../../../core/sanitize":25,"./base-legend":85,"underscore":5}],89:[function(require,module,exports){
 var _ = require('underscore');
 var BaseLegend = require('./base-legend');
 var LegendItem = require('../legend-item');
@@ -31274,7 +31242,7 @@ var ColorLegend = BaseLegend.extend({
 
 module.exports = ColorLegend;
 
-},{"../legend-item":84,"./base-legend":88,"underscore":5}],93:[function(require,module,exports){
+},{"../legend-item":81,"./base-legend":85,"underscore":5}],90:[function(require,module,exports){
 var _ = require('underscore');
 var sanitize = require('../../../core/sanitize.js')
 var BaseLegend = require('./base-legend');
@@ -31346,13 +31314,13 @@ var CustomLegend = BaseLegend.extend({
 
 module.exports = CustomLegend;
 
-},{"../../../core/sanitize.js":25,"../legend-item":84,"../legend-items":85,"./base-legend":88,"underscore":5}],94:[function(require,module,exports){
+},{"../../../core/sanitize.js":25,"../legend-item":81,"../legend-items":82,"./base-legend":85,"underscore":5}],91:[function(require,module,exports){
 var View = require('../../../core/view');
 
 var DebugLegend = View.extend({ });
 module.exports = DebugLegend
 
-},{"../../../core/view":29}],95:[function(require,module,exports){
+},{"../../../core/view":29}],92:[function(require,module,exports){
 var _ = require('underscore');
 var sanitize = require('../../../core/sanitize');
 var BaseLegend = require('./base-legend');
@@ -31443,7 +31411,7 @@ var DensityLegend = BaseLegend.extend({
 
 module.exports = DensityLegend;
 
-},{"../../../core/sanitize":25,"./base-legend":88,"underscore":5}],96:[function(require,module,exports){
+},{"../../../core/sanitize":25,"./base-legend":85,"underscore":5}],93:[function(require,module,exports){
 var _ = require('underscore');
 var sanitize = require('../../../core/sanitize');
 var BaseLegend = require('./base-legend');
@@ -31590,7 +31558,7 @@ var IntensityLegend = BaseLegend.extend({
 
 module.exports = IntensityLegend;
 
-},{"../../../core/sanitize":25,"./base-legend":88,"underscore":5}],97:[function(require,module,exports){
+},{"../../../core/sanitize":25,"./base-legend":85,"underscore":5}],94:[function(require,module,exports){
 var LegendModel = require('../legend-model');
 var BubbleLegend = require('./bubble-legend');
 
@@ -31634,7 +31602,7 @@ var LegendBubble = BubbleLegend.extend({
 
 module.exports = LegendBubble;
 
-},{"../legend-model":86,"./bubble-legend":89}],98:[function(require,module,exports){
+},{"../legend-model":83,"./bubble-legend":86}],95:[function(require,module,exports){
 var CategoryLegend = require('./category-legend');
 var LegendItems = require('../legend-items');
 var LegendModel = require('../legend-model');
@@ -31676,7 +31644,7 @@ var LegendCategory = CategoryLegend.extend({
 
 module.exports = LegendCategory;
 
-},{"../legend-items":85,"../legend-model":86,"./category-legend":90}],99:[function(require,module,exports){
+},{"../legend-items":82,"../legend-model":83,"./category-legend":87}],96:[function(require,module,exports){
 var _ = require('underscore');
 var ChoroplethLegend = require('./choropleth-legend');
 var LegendModel = require('../legend-model');
@@ -31737,7 +31705,7 @@ var LegendChoropleth = ChoroplethLegend.extend({
 
 module.exports = LegendChoropleth;
 
-},{"../legend-model":86,"./choropleth-legend":91,"underscore":5}],100:[function(require,module,exports){
+},{"../legend-model":83,"./choropleth-legend":88,"underscore":5}],97:[function(require,module,exports){
 var LegendCategory = require('./legend-category');
 
 /**
@@ -31746,7 +31714,7 @@ var LegendCategory = require('./legend-category');
 var LegendColor = LegendCategory.extend({ });
 module.exports = LegendColor;
 
-},{"./legend-category":98}],101:[function(require,module,exports){
+},{"./legend-category":95}],98:[function(require,module,exports){
 var CustomLegend = require('./custom-legend');
 var LegendItems = require('../legend-items');
 var LegendModel = require('../legend-model');
@@ -31786,7 +31754,7 @@ var LegendCustom = CustomLegend.extend({
 
 module.exports = LegendCustom;
 
-},{"../legend-items":85,"../legend-model":86,"./custom-legend":93}],102:[function(require,module,exports){
+},{"../legend-items":82,"../legend-model":83,"./custom-legend":90}],99:[function(require,module,exports){
 var _ = require('underscore');
 var DensityLegend = require('./density-legend');
 var LegendModel = require('../legend-model');
@@ -31847,7 +31815,7 @@ var LegendDensity = DensityLegend.extend({
 
 module.exports = LegendDensity;
 
-},{"../legend-model":86,"./density-legend":95,"underscore":5}],103:[function(require,module,exports){
+},{"../legend-model":83,"./density-legend":92,"underscore":5}],100:[function(require,module,exports){
 var IntensityLegend = require('./intensity-legend');
 var LegendModel = require('../legend-model');
 
@@ -31897,14 +31865,14 @@ var LegendIntensity = IntensityLegend.extend({
 
 module.exports = LegendIntensity;
 
-},{"../legend-model":86,"./intensity-legend":96}],104:[function(require,module,exports){
+},{"../legend-model":83,"./intensity-legend":93}],101:[function(require,module,exports){
 var View = require('../../../core/view');
 
 var LegendNone = View.extend({ });
 
 module.exports = LegendNone;
 
-},{"../../../core/view":29}],105:[function(require,module,exports){
+},{"../../../core/view":29}],102:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cdb'); // cdb.geo.ui.Legend.*
 var Legends = require('../legends');
@@ -32005,7 +31973,7 @@ var LegendStacked = StackedLegend.extend({
 
 module.exports = LegendStacked;
 
-},{"../legend-model":86,"../legends":109,"./stacked-legend":108,"cdb":13,"underscore":5}],106:[function(require,module,exports){
+},{"../legend-model":83,"../legends":106,"./stacked-legend":105,"cdb":13,"underscore":5}],103:[function(require,module,exports){
 var Legend = {};
 Legend.Bubble = require('./legend-bubble');
 Legend.Category = require('./legend-category');
@@ -32019,14 +31987,14 @@ Legend.Stacked = require('./legend-stacked');
 
 module.exports = Legend;
 
-},{"./legend-bubble":97,"./legend-category":98,"./legend-choropleth":99,"./legend-color":100,"./legend-custom":101,"./legend-density":102,"./legend-intensity":103,"./legend-none":104,"./legend-stacked":105}],107:[function(require,module,exports){
+},{"./legend-bubble":94,"./legend-category":95,"./legend-choropleth":96,"./legend-color":97,"./legend-custom":98,"./legend-density":99,"./legend-intensity":100,"./legend-none":101,"./legend-stacked":102}],104:[function(require,module,exports){
 var BaseLegend = require('./base-legend');
 
 var NoneLegend  = BaseLegend.extend({ });
 
 module.exports = NoneLegend;
 
-},{"./base-legend":88}],108:[function(require,module,exports){
+},{"./base-legend":85}],105:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var View = require('../../../core/view');
@@ -32121,7 +32089,7 @@ var StackedLegend = View.extend({
 
 module.exports = StackedLegend;
 
-},{"../../../core/view":29,"jquery":"jquery","underscore":5}],109:[function(require,module,exports){
+},{"../../../core/view":29,"jquery":"jquery","underscore":5}],106:[function(require,module,exports){
 var Backbone = require('backbone');
 var LegendModel = require('./legend-model');
 
@@ -32129,7 +32097,7 @@ module.exports = Backbone.Collection.extend({
   model: LegendModel
 });
 
-},{"./legend-model":86,"backbone":1}],110:[function(require,module,exports){
+},{"./legend-model":83,"backbone":1}],107:[function(require,module,exports){
 var _ = require('underscore');
 var Template = require('../../core/template');
 var View = require('../../core/view');
@@ -32234,16 +32202,15 @@ var MobileLayer = View.extend({
 
 module.exports = MobileLayer;
 
-},{"../../core/template":27,"../../core/view":29,"./legend":87,"underscore":5}],111:[function(require,module,exports){
+},{"../../core/template":27,"../../core/view":29,"./legend":84,"underscore":5}],108:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
-var cdb = require('cdb'); // cdb.geo.ui.*, cdb.geo.ui.TimeSlider
+var cdb = require('cdb'); // cdb.geo.ui.*
 var $ = require('jquery');
 require('jquery.jscrollpane'); // registers itself to $.jScrollPane
 var templates = require('cdb.templates');
-var sanitize = require('../../core/sanitize.js')
+var sanitize = require('../../core/sanitize.js');
 var View = require('../../core/view');
-var Model = require('../../core/model');
 var Template = require('../../core/template');
 var Zoom = require('./zoom');
 var TilesLoader = require('./tiles-loader');
@@ -32508,20 +32475,7 @@ var Mobile = View.extend({
         this.layers.push(layer);
       }, this);
     } else if (layer.get("type") === "CartoDB" || layer.get('type') === 'torque') {
-      if (layer.get('type') === 'torque')  {
-        layer.on("change:visible", this._toggleSlider, this);
-      }
       this.layers.push(layer);
-    }
-  },
-
-  _toggleSlider: function(m) {
-    if (m.get("visible")) {
-      this.$el.addClass("with-torque");
-      this.slider.show();
-    } else {
-      this.$el.removeClass("with-torque");
-      this.slider.hide();
     }
   },
 
@@ -32789,32 +32743,6 @@ var Mobile = View.extend({
     this.model.set("layer_count", this.model.get("layer_count") + 1);
   },
 
-  _renderTorque: function() {
-    if (this.options.torqueLayer) {
-
-      this.hasTorque = true;
-
-      // Expected to be loaded through cartodb.mod.torque lib
-      this.slider = new cdb.geo.ui.TimeSlider({
-        type: "time_slider",
-        layer: this.options.torqueLayer,
-        map: this.options.map,
-        pos_margin: 0,
-        position: "none",
-        width: "auto"
-      });
-
-      this.slider.bind("time_clicked", function() {
-        this.slider.toggleTime();
-      }, this);
-
-      this.$el.find(".torque").append(this.slider.render().$el);
-
-      if (this.options.torqueLayer.hidden) this.slider.hide();
-      else this.$el.addClass("with-torque");
-    }
-  },
-
   _renderSlidesController: function() {
     if (this.slides) {
       this.$el.addClass("with-slides");
@@ -32846,7 +32774,6 @@ var Mobile = View.extend({
 
     this._getLayers();
     this._renderLayers();
-    this._renderTorque();
 
     return this;
   }
@@ -32854,7 +32781,7 @@ var Mobile = View.extend({
 
 module.exports = Mobile;
 
-},{"../../core/model":23,"../../core/sanitize.js":25,"../../core/template":27,"../../core/view":29,"./mobile-layer":110,"./search":112,"./slides-controller":115,"./tiles-loader":117,"./zoom":171,"backbone":1,"cdb":13,"cdb.templates":15,"jquery":"jquery","jquery.jscrollpane":202,"underscore":5}],112:[function(require,module,exports){
+},{"../../core/sanitize.js":25,"../../core/template":27,"../../core/view":29,"./mobile-layer":107,"./search":109,"./slides-controller":112,"./tiles-loader":114,"./zoom":175,"backbone":1,"cdb":13,"cdb.templates":15,"jquery":"jquery","jquery.jscrollpane":206,"underscore":5}],109:[function(require,module,exports){
 var $ = require('jquery');
 var View = require('../../core/view');
 var NOKIA = require('../../geo/geocoder/nokia-geocoder');
@@ -33099,7 +33026,7 @@ var Search = View.extend({
 
 module.exports = Search;
 
-},{"../../core/view":29,"../../geo/geocoder/nokia-geocoder":32,"../../geo/geometry":35,"../../geo/ui/infowindow":79,"../../geo/ui/infowindow-model":78,"jquery":"jquery"}],113:[function(require,module,exports){
+},{"../../core/view":29,"../../geo/geocoder/nokia-geocoder":32,"../../geo/geometry":35,"../../geo/ui/infowindow":76,"../../geo/ui/infowindow-model":75,"jquery":"jquery"}],110:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var sanitize = require('../../core/sanitize');
@@ -33214,7 +33141,7 @@ module.exports = View.extend({
 
 });
 
-},{"../../core/sanitize":25,"../../core/template":27,"../../core/view":29,"../../ui/common/share":176,"jquery":"jquery","underscore":5}],114:[function(require,module,exports){
+},{"../../core/sanitize":25,"../../core/template":27,"../../core/view":29,"../../ui/common/share":180,"jquery":"jquery","underscore":5}],111:[function(require,module,exports){
 var _ = require('underscore');
 var Template = require('../../core/template');
 var Model = require('../../core/model');
@@ -33267,7 +33194,7 @@ var SlidesControllerItem = View.extend({
 
 module.exports = SlidesControllerItem;
 
-},{"../../core/model":23,"../../core/template":27,"../../core/view":29,"underscore":5}],115:[function(require,module,exports){
+},{"../../core/model":23,"../../core/template":27,"../../core/view":29,"underscore":5}],112:[function(require,module,exports){
 var _ = require('underscore');
 var Template = require('../../core/template');
 var Model = require('../../core/model');
@@ -33362,7 +33289,7 @@ var SlidesController = View.extend({
 
 module.exports = SlidesController;
 
-},{"../../core/model":23,"../../core/template":27,"../../core/view":29,"./slides-controller-item":114,"underscore":5}],116:[function(require,module,exports){
+},{"../../core/model":23,"../../core/template":27,"../../core/view":29,"./slides-controller-item":111,"underscore":5}],113:[function(require,module,exports){
 var _ = require('underscore');
 var View = require('../../core/view');
 var sanitize = require('../../core/sanitize');
@@ -33555,7 +33482,7 @@ var Text = View.extend({
 
 module.exports = Text;
 
-},{"../../core/sanitize":25,"../../core/view":29,"jquery":"jquery","underscore":5}],117:[function(require,module,exports){
+},{"../../core/sanitize":25,"../../core/view":29,"jquery":"jquery","underscore":5}],114:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var templates = require('cdb.templates');
@@ -33618,7 +33545,7 @@ var TilesLoader = View.extend({
 
 module.exports = TilesLoader;
 
-},{"../../core/util":28,"../../core/view":29,"cdb.templates":15,"jquery":"jquery","underscore":5}],118:[function(require,module,exports){
+},{"../../core/util":28,"../../core/view":29,"cdb.templates":15,"jquery":"jquery","underscore":5}],115:[function(require,module,exports){
 var _ = require('underscore');
 var InfoBox = require('./infobox');
 var sanitize = require('../../core/sanitize');
@@ -33820,54 +33747,7 @@ var Tooltip = InfoBox.extend({
 
 module.exports = Tooltip;
 
-},{"../../core/sanitize":25,"./infobox":77,"./infowindow-model":78,"underscore":5}],119:[function(require,module,exports){
-var _ = require('underscore');
-var Backbone = require('backbone');
-var CategoryItemModel = require('./category_item_model');
-
-/**
- *  Data categories collection
- *
- *  - It basically sorts by (value, selected and "Other").
- */
-
-module.exports = Backbone.Collection.extend({
-
-  model: CategoryItemModel,
-
-  comparator: function(a,b) {
-    if (a.get('name') === 'Other') {
-      return 1;
-    } else if (b.get('name') === 'Other') {
-      return -1;
-    } else if (a.get('value') === b.get('value')) {
-      return (a.get('selected') < b.get('selected')) ? 1 : -1;
-    } else {
-      return (a.get('value') < b.get('value')) ? 1 : -1;
-    }
-  }
-
-});
-
-},{"./category_item_model":120,"backbone":1,"underscore":5}],120:[function(require,module,exports){
-
-var Model = require('cdb/core/model');
-
-/**
- *
- */
-
-module.exports = Model.extend({
-
-  defaults: {
-    name: '',
-    agg: false,
-    value: 0
-  }
-
-});
-
-},{"cdb/core/model":23}],121:[function(require,module,exports){
+},{"../../core/sanitize":25,"./infobox":74,"./infowindow-model":75,"underscore":5}],116:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -33877,84 +33757,71 @@ __p+='<div class="Widget-header js-header"></div> <div class="Widget-content Wid
 return __p;
 };
 
-},{"underscore":5}],122:[function(require,module,exports){
+},{"underscore":5}],117:[function(require,module,exports){
 var _ = require('underscore');
 var WidgetContent = require('../standard/widget_content_view');
-var WidgetSearchTitleView = require('./search_title_view');
-var WidgetCategoryFilterView = require('./filter_view');
-var WidgetCategoryItemsView = require('./items_view');
-var WidgetCategoryViewModel = require('./view_model');
-var WidgetCategoryInfoView = require('./info_view');
-var WidgetCategoryPaginatorView = require('./paginator_view');
-var WidgetSearchCategoryItemsView = require('./search_items_view');
-var WidgetSearchCategoryPaginatorView = require('./search_paginator_view');
-var template = require('./content.tpl');
+var SearchTitleView = require('./title/search_title_view');
+var CategoryOptionsView = require('./options/options_view');
+var CategoryItemsView = require('./list/items_view');
+var CategoryViewModel = require('./models/view_model');
+var CategoryStatsView = require('./stats/stats_view');
+var CategoryPaginatorView = require('./paginator/paginator_view');
+var SearchCategoryItemsView = require('./list/search_items_view');
+var SearchCategoryPaginatorView = require('./paginator/search_paginator_view');
+var template = require('./content_template.tpl');
 
 /**
- * Category content view
+ * Content view for category widget
+ *
  */
+
 module.exports = WidgetContent.extend({
 
   _ITEMS_PER_PAGE: 6,
 
   initialize: function(opts) {
-    this.viewModel = new WidgetCategoryViewModel();
-    this.search = this.model.getSearch();
+    this.viewModel = new CategoryViewModel();
     WidgetContent.prototype.initialize.call(this, arguments);
   },
 
   render: function() {
     this.clearSubViews();
-    this.$el.html(
-      template({
-        title: this.model.get('title')
-      })
-    );
+    this.$el.html(template());
     this._initViews();
     return this;
   },
 
   _initViews: function() {
-    // Title or search
-    var searchTitle = new WidgetSearchTitleView({
+    var searchTitle = new SearchTitleView({
       viewModel: this.viewModel,
-      dataModel: this.model,
-      title: this.model.get('title'),
-      search: this.search
+      dataModel: this.model
     });
     this.$('.js-header').append(searchTitle.render().el);
     this.addView(searchTitle);
 
-    // Stats info
-    var info = new WidgetCategoryInfoView({
+    var stats = new CategoryStatsView({
+      viewModel: this.viewModel,
+      dataModel: this.model
+    });
+    this.$('.js-header').append(stats.render().el);
+    this.addView(stats);
+
+    var options = new CategoryOptionsView({
+      dataModel: this.model,
+      viewModel: this.viewModel
+    });
+    this.$('.js-content').html(options.render().el);
+    this.addView(options);
+
+    var dataList = new CategoryItemsView({
       viewModel: this.viewModel,
       dataModel: this.model,
-      search: this.search
-    });
-    this.$('.js-header').append(info.render().el);
-    this.addView(info);
-
-    // Actions over data view
-    var filters = new WidgetCategoryFilterView({
-      dataModel: this.model,
-      viewModel: this.viewModel,
-      filter: this.filter
-    });
-    this.$('.js-content').html(filters.render().el);
-    this.addView(filters);
-
-    // Data list view
-    var dataList = new WidgetCategoryItemsView({
-      model: this.viewModel,
-      dataModel: this.model,
-      filter: this.filter,
       itemsPerPage: this._ITEMS_PER_PAGE
     });
     this.$('.js-content').append(dataList.render().el);
     this.addView(dataList);
 
-    // Data paginator
-    var pagination = new WidgetCategoryPaginatorView({
+    var pagination = new CategoryPaginatorView({
       $target: dataList.$el,
       viewModel: this.viewModel,
       dataModel: this.model,
@@ -33963,28 +33830,19 @@ module.exports = WidgetContent.extend({
     this.$('.js-footer').append(pagination.render().el);
     this.addView(pagination);
 
-    ////////////////////////////////
-    // Hello search functionality //
-    ////////////////////////////////
-
-    // Search list view
-    var searchList = new WidgetSearchCategoryItemsView({
-      model: this.viewModel,
-      dataModel: this.search,
-      originModel: this.model,
-      filter: this.filter,
+    var searchList = new SearchCategoryItemsView({
+      viewModel: this.viewModel,
+      dataModel: this.model,
       itemsPerPage: this._ITEMS_PER_PAGE,
       paginator: true
     });
     this.$('.js-content').append(searchList.render().el);
     this.addView(searchList);
 
-    // Search paginator
-    var searchPagination = new WidgetSearchCategoryPaginatorView({
+    var searchPagination = new SearchCategoryPaginatorView({
       $target: searchList.$el,
       viewModel: this.viewModel,
-      originModel: this.model,
-      dataModel: this.search,
+      dataModel: this.model,
       itemsPerPage: this._ITEMS_PER_PAGE,
       paginator: true
     });
@@ -33994,189 +33852,7 @@ module.exports = WidgetContent.extend({
 
 });
 
-},{"../standard/widget_content_view":161,"./content.tpl":121,"./filter_view":124,"./info_view":126,"./items_view":130,"./paginator_view":134,"./search_items_view":139,"./search_paginator_view":142,"./search_title_view":144,"./view_model":145,"underscore":5}],123:[function(require,module,exports){
-var _ = require('underscore');
-module.exports = function(obj){
-var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
-with(obj||{}){
-__p+='';
- if (isSearchEnabled) { 
-__p+=' <p class="Widget-textSmaller Widget-textSmaller--bold Widget-textSmaller--dark Widget-textSmaller--upper">'+
-((__t=( totalLocked ))==null?'':_.escape(__t))+
-' selected</p> ';
- } else { 
-__p+=' <p class="Widget-textSmaller Widget-textSmaller--bold Widget-textSmaller--dark Widget-textSmaller--upper"> ';
- if (isLocked) { 
-__p+=' '+
-((__t=( totalCats ))==null?'':_.escape(__t))+
-' selected ';
- } else { 
-__p+=' '+
-((__t=( rejectedCats === 0 && acceptedCats === 0 || acceptedCats >= totalCats ? "All selected" : acceptedCats + " selected" ))==null?'':_.escape(__t))+
-' ';
- }
-__p+=' </p> ';
- if (!isLocked) { 
-__p+=' <div class="Widget-filterButtons"> ';
- if (rejectedCats !== 0 && totalCats > 0 || acceptedCats > 0) { 
-__p+=' <button class="Widget-link Widget-filterButton js-all">all</button> ';
- } 
-__p+=' ';
- if (totalCats > rejectedCats) { 
-__p+=' <button class="Widget-link Widget-filterButton js-none">none</button> ';
- } 
-__p+=' </div> ';
- } 
-__p+=' ';
- } 
-__p+='';
-}
-return __p;
-};
-
-},{"underscore":5}],124:[function(require,module,exports){
-var _ = require('underscore');
-var View = require('cdb/core/view');
-var template = require('./filter_template.tpl');
-
-/**
- * Category filter view
- */
-module.exports = View.extend({
-
-  className: 'Widget-filter Widget-contentSpaced Widget-contentSpaced--sideMargins',
-
-  events: {
-    'click .js-all': '_onSelectAll',
-    'click .js-none': '_onUnselectAll'
-  },
-
-  initialize: function() {
-    this.filter = this.options.filter;
-    this.dataModel = this.options.dataModel;
-    this.viewModel = this.options.viewModel;
-    this._initBinds();
-  },
-
-  render: function() {
-    var totalCats = this.dataModel.getData().size();
-    var rejectedCats = this.filter.getRejected().size();
-    var acceptedCats = this.filter.getAccepted().size();
-
-    this.$el.html(
-      template({
-        isLocked: this.dataModel.isLocked(),
-        totalLocked: this.dataModel.getLockedSize(),
-        isSearchEnabled: this.viewModel.isSearchEnabled(),
-        isSearchApplied: this.dataModel.isSearchApplied(),
-        totalCats: totalCats,
-        rejectedCats: rejectedCats,
-        acceptedCats: acceptedCats
-      })
-    );
-    return this;
-  },
-
-  _initBinds: function() {
-    this.dataModel.bind('change:data change:filter change:locked lockedChange', this.render, this);
-    this.viewModel.bind('change:search', this.render, this);
-    this.add_related_model(this.dataModel);
-    this.add_related_model(this.viewModel);
-  },
-
-  _onUnselectAll: function() {
-    this.filter.rejectAll(
-      this.dataModel.getData().pluck('name')
-    );
-  },
-
-  _onSelectAll: function() {
-    this.filter.acceptAll();
-  }
-
-});
-
-},{"./filter_template.tpl":123,"cdb/core/view":29,"underscore":5}],125:[function(require,module,exports){
-var _ = require('underscore');
-module.exports = function(obj){
-var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
-with(obj||{}){
-__p+='';
- if (isSearchEnabled) { 
-__p+=' <dt class="Widget-infoItem"> ';
- if (isSearchApplied) { 
-__p+=' '+
-((__t=( resultsCount ))==null?'':_.escape(__t))+
-' found ';
- } else { 
-__p+=' &nbsp; ';
- } 
-__p+=' </dt> ';
- } else { 
-__p+=' <dt class="Widget-infoItem">'+
-((__t=( nulls ))==null?'':_.escape(__t))+
-' null rows</dt> <dt class="Widget-infoItem">'+
-((__t=( min ))==null?'':_.escape(__t))+
-' min</dt> <dt class="Widget-infoItem">'+
-((__t=( max ))==null?'':_.escape(__t))+
-' max</dt> ';
- } 
-__p+='';
-}
-return __p;
-};
-
-},{"underscore":5}],126:[function(require,module,exports){
-var $ = require('jquery');
-var _ = require('underscore');
-var cdb = require('cdb');
-var template = require('./info_template.tpl');
-var View = require('cdb/core/view');
-var d3 = require('d3');
-
-/**
- * Category info view
- */
-
-module.exports = View.extend({
-
-  className: 'Widget-info Widget-textSmaller Widget-textSmaller--upper',
-  tagName: 'dl',
-
-  initialize: function() {
-    this.viewModel = this.options.viewModel;
-    this.dataModel = this.options.dataModel;
-    this.search = this.options.search;
-    this._initBinds();
-  },
-
-  render: function() {
-
-    this.$el.html(
-      template({
-        isSearchEnabled: this.viewModel.isSearchEnabled(),
-        isSearchApplied: this.dataModel.isSearchApplied(),
-        resultsCount: this.search.getCount(),
-        min: this.dataModel.get('min'),
-        max: this.dataModel.get('max'),
-        nulls: this.dataModel.get('nulls')
-      })
-    );
-    return this;
-  },
-
-  _initBinds: function() {
-    this.dataModel.bind('change:data change:locked', this.render, this);
-    this.viewModel.bind('change:search', this.render, this);
-    this.search.bind('change:data', this.render, this);
-    this.add_related_model(this.dataModel);
-    this.add_related_model(this.search);
-    this.add_related_model(this.viewModel);
-  }
-
-});
-
-},{"./info_template.tpl":125,"cdb":13,"cdb/core/view":29,"d3":2,"jquery":"jquery","underscore":5}],127:[function(require,module,exports){
+},{"../standard/widget_content_view":158,"./content_template.tpl":116,"./list/items_view":124,"./list/search_items_view":126,"./models/view_model":132,"./options/options_view":134,"./paginator/paginator_view":136,"./paginator/search_paginator_view":138,"./stats/stats_view":140,"./title/search_title_view":142,"underscore":5}],118:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -34195,12 +33871,14 @@ __p+='<li class="Widget-listItem"> <button type="button" class="Widget-listItemI
 ((__t=( isAggregated ? 'Widget-progressState--pattern' : '' ))==null?'':_.escape(__t))+
 '" style="width: '+
 ((__t=( percentage ))==null?'':_.escape(__t))+
-'%"></div> </div> </button> </li>';
+'%; background-color: '+
+((__t=( customColor ? color : '' ))==null?'':_.escape(__t))+
+'"></div> </div> </button> </li>';
 }
 return __p;
 };
 
-},{"underscore":5}],128:[function(require,module,exports){
+},{"underscore":5}],119:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -34219,16 +33897,19 @@ __p+='<li class="Widget-listItem"> <div class="Widget-listItemInner '+
 ((__t=( isAggregated ? 'Widget-progressState--inactive' : '' ))==null?'':_.escape(__t))+
 '" style="width: '+
 ((__t=( percentage ))==null?'':_.escape(__t))+
-'%"></div> </div> </div> </li>';
+'%; background-color: '+
+((__t=( customColor ? color : '' ))==null?'':_.escape(__t))+
+'"></div> </div> </div> </li>';
 }
 return __p;
 };
 
-},{"underscore":5}],129:[function(require,module,exports){
+},{"underscore":5}],120:[function(require,module,exports){
 var _ = require('underscore');
 var View = require('cdb/core/view');
-var clickableTemplate = require('./item_clickable_view.tpl');
-var unclickableTemplate = require('./item_unclickable_view.tpl');
+var clickableTemplate = require('./item_clickable_template.tpl');
+var unclickableTemplate = require('./item_unclickable_template.tpl');
+var d3 = require('d3');
 
 /**
  * Category list item view
@@ -34243,7 +33924,6 @@ module.exports = View.extend({
   },
 
   initialize: function(options) {
-    this.filter = this.options.filter;
     this.dataModel = this.options.dataModel;
     this._initBinds();
   },
@@ -34252,13 +33932,16 @@ module.exports = View.extend({
     var value = this.model.get('value');
     var template = this.model.get('agg') || this.dataModel.isLocked() ?
       unclickableTemplate : clickableTemplate;
+    var format = d3.format('0,000');
 
     this.$el.html(
       template({
+        customColor: this.dataModel.isColorApplied(),
         isAggregated: this.model.get('agg'),
         name: this.model.get('name'),
-        value: Math.ceil(value),
+        value: format(Math.ceil(value)),
         percentage: ((value / this.dataModel.get('max')) * 100),
+        color: this.model.get('color'),
         isDisabled: !this.model.get('selected') ? 'is-disabled' : ''
       })
     );
@@ -34268,7 +33951,7 @@ module.exports = View.extend({
 
   _initBinds: function() {
     this.model.bind('change', this.render, this);
-    this.dataModel.bind('change:search', this.render, this);
+    this.dataModel.bind('change:search change:categoryColors', this.render, this);
     this.add_related_model(this.dataModel);
   },
 
@@ -34278,12 +33961,98 @@ module.exports = View.extend({
 
 });
 
-},{"./item_clickable_view.tpl":127,"./item_unclickable_view.tpl":128,"cdb/core/view":29,"underscore":5}],130:[function(require,module,exports){
+},{"./item_clickable_template.tpl":118,"./item_unclickable_template.tpl":119,"cdb/core/view":29,"d3":2,"underscore":5}],121:[function(require,module,exports){
+var _ = require('underscore');
+module.exports = function(obj){
+var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
+with(obj||{}){
+__p+='<li class="Widget-listItem"> <button type="button" class="Widget-listItemInner Widget-listItemInner--fullSpace Widget-listButton js-button '+
+((__t=( isDisabled ? 'is-disabled' : '' ))==null?'':_.escape(__t))+
+'"> <span class="Widget-checkbox '+
+((__t=( isDisabled ? '' : 'is-checked' ))==null?'':_.escape(__t))+
+'"></span> <div class="u-lSpace--xl"> <div class="Widget-contentSpaced"> <p class="Widget-textSmall Widget-textSmall--bold Widget-textSmall--upper" title="'+
+((__t=( name ))==null?'':_.escape(__t))+
+'">'+
+((__t=( name ))==null?'':_.escape(__t))+
+'</p> <p class="Widget-textSmaller" title="'+
+((__t=( value ))==null?'':_.escape(__t))+
+'">'+
+((__t=( value ))==null?'':_.escape(__t))+
+'</p> </div> <div class="Widget-progressBar"> <div class="Widget-progressState" style="width: '+
+((__t=( percentage ))==null?'':_.escape(__t))+
+'%"></div> </div> </div> </button> </li>';
+}
+return __p;
+};
+
+},{"underscore":5}],122:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var View = require('cdb/core/view');
-var WidgetCategoryItemView = require('./item_view');
-var placeholder = require('./placeholder.tpl');
+var template = require('./search_item_clickable_template.tpl');
+var d3 = require('d3');
+
+/**
+ * Category search list view
+ */
+module.exports = View.extend({
+
+  tagName: 'li',
+  className: 'Widget-listItem',
+
+  events: {
+    'click .js-button': '_onItemClick'
+  },
+
+  initialize: function(options) {
+    // This data model comes from the original data in order to get
+    // the max value and set properly the progress bar.
+    this.dataModel = this.options.dataModel;
+    this._initBinds();
+  },
+
+  render: function() {
+    var value = this.model.get('value');
+    var format = d3.format('0,000');
+
+    this.$el.html(
+      template({
+        name: this.model.get('name'),
+        value: format(Math.ceil(value)),
+        percentage: ((value / this.dataModel.get('max')) * 100),
+        isDisabled: !this.model.get('selected')
+      })
+    );
+
+    return this;
+  },
+
+  _initBinds: function() {
+    this.model.bind('change:selected', this.render, this);
+  },
+
+  _onItemClick: function() {
+    this.model.set('selected', !this.model.get('selected'));
+  }
+
+});
+
+},{"./search_item_clickable_template.tpl":121,"cdb/core/view":29,"d3":2,"jquery":"jquery","underscore":5}],123:[function(require,module,exports){
+var _ = require('underscore');
+module.exports = function(obj){
+var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
+with(obj||{}){
+__p+='<li class="Widget-listItem Widget-listItem--fake"></li> <li class="Widget-listItem Widget-listItem--fake"></li> <li class="Widget-listItem Widget-listItem--fake"></li> <li class="Widget-listItem Widget-listItem--fake"></li>';
+}
+return __p;
+};
+
+},{"underscore":5}],124:[function(require,module,exports){
+var $ = require('jquery');
+var _ = require('underscore');
+var View = require('cdb/core/view');
+var CategoryItemView = require('./item/item_view');
+var placeholder = require('./items_placeholder_template.tpl');
 
 /**
  * Category list view
@@ -34299,8 +34068,8 @@ module.exports = View.extend({
   tagName: 'ul',
 
   initialize: function() {
+    this.viewModel = this.options.viewModel;
     this.dataModel = this.options.dataModel;
-    this.filter = this.options.filter;
     this._initBinds();
   },
 
@@ -34319,8 +34088,9 @@ module.exports = View.extend({
   },
 
   _initBinds: function() {
-    this.model.bind('change:search', this.toggle, this);
-    this.dataModel.bind('change:data', this.render, this);
+    this.viewModel.bind('change:search', this.toggle, this);
+    this.dataModel.bind('change:data change:searchData', this.render, this);
+    this.add_related_model(this.dataModel);
   },
 
   _renderPlaceholder: function() {
@@ -34349,10 +34119,9 @@ module.exports = View.extend({
   },
 
   _addItem: function(mdl, $parent) {
-    var v = new WidgetCategoryItemView({
+    var v = new CategoryItemView({
       model: mdl,
-      dataModel: this.dataModel,
-      filter: this.filter
+      dataModel: this.dataModel
     });
     v.bind('itemClicked', this._setFilters, this);
     this.addView(v);
@@ -34363,7 +34132,7 @@ module.exports = View.extend({
     var isSelected = mdl.get('selected');
 
     if (isSelected) {
-      if (!this.filter.hasRejects() && !this.filter.hasAccepts()) {
+      if (!this.dataModel.getRejectedCount() && !this.dataModel.getAcceptedCount()) {
         var data = this.dataModel.getData();
         var rejects = [];
         // Make elements "unselected"
@@ -34373,19 +34142,19 @@ module.exports = View.extend({
             m.set('selected', false);
           }
         });
-        this.filter.accept(mdl.get('name'));
+        this.dataModel.acceptFilters(mdl.get('name'));
       } else {
         mdl.set('selected', false);
-        this.filter.reject(mdl.get('name'));
+        this.dataModel.rejectFilters(mdl.get('name'));
       }
     } else {
       mdl.set('selected', true);
-      this.filter.accept(mdl.get('name'));
+      this.dataModel.acceptFilters(mdl.get('name'));
     }
   },
 
   toggle: function() {
-    this[ !this.model.isSearchEnabled() ? 'show' : 'hide']();
+    this[ !this.viewModel.isSearchEnabled() ? 'show' : 'hide']();
   },
 
   show: function() {
@@ -34398,72 +34167,112 @@ module.exports = View.extend({
 
 });
 
-},{"./item_view":129,"./placeholder.tpl":135,"cdb/core/view":29,"jquery":"jquery","underscore":5}],131:[function(require,module,exports){
+},{"./item/item_view":120,"./items_placeholder_template.tpl":123,"cdb/core/view":29,"jquery":"jquery","underscore":5}],125:[function(require,module,exports){
 var _ = require('underscore');
-var Backbone = require('backbone');
-var CategoryItemModel = require('./category_item_model');
+module.exports = function(obj){
+var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
+with(obj||{}){
+__p+='<li class="Widget-listItem"> <h4 class="Widget-textBig Widget-textBig--bold">No results</h4> <p class="Widget-textSmall u-tSpace-xl">Your search "'+
+((__t=( q ))==null?'':_.escape(__t))+
+'" didn\'t match<br>with any value.</p> <p class="Widget-textSmall u-tSpace-xl">Try searching again.</p> </li>';
+}
+return __p;
+};
+
+},{"underscore":5}],126:[function(require,module,exports){
+var $ = require('jquery');
+var _ = require('underscore');
+var View = require('cdb/core/view');
+var CategoryItemsView = require('./items_view');
+var WidgetSearchCategoryItemView = require('./item/search_item_view');
+var placeholder = require('./search_items_no_results_template.tpl');
 
 /**
- * Locked categories collection
+ * Category list view
  */
+module.exports = CategoryItemsView.extend({
 
-module.exports = Backbone.Collection.extend({
+  className: 'Widget-list is-hidden Widget-list--wrapped js-list',
 
-  model: CategoryItemModel,
+  render: function() {
+    this.clearSubViews();
+    this.$el.empty();
+    var data = this.dataModel.getSearchResult();
+    var isDataEmpty = data.isEmpty() || data.size() === 0;
 
-  addItem: function(mdl) {
-    if (!this.isItemLocked(mdl.get('name'))) {
-      this.add(mdl);
+    if (isDataEmpty) {
+      this._renderPlaceholder();
+    } else {
+      this._renderList();
     }
+    return this;
   },
 
-  addItems: function(mdls) {
-    _.each(mdls, function(m) {
-      if (!this.isItemLocked(m.name)) {
-        this.add(m);
+  _renderList: function() {
+    this.$el.removeClass('Widget-list--withBorders Widget-list--noresults');
+    this.$el.addClass('Widget-list--wrapped');
+
+    var groupItem;
+    var data = this.dataModel.getSearchResult();
+
+    data.each(function(mdl, i) {
+      if (i % this.options.itemsPerPage === 0) {
+        groupItem = $('<div>').addClass('Widget-listGroup');
+        this.$el.append(groupItem);
       }
+      this._addItem(mdl, groupItem);
     }, this);
   },
 
-  resetItems: function(mdls) {
-    this.reset(mdls);
+  _renderPlaceholder: function() {
+    // Change view classes
+    this.$el
+      .addClass('Widget-list--noresults')
+      .removeClass('Widget-list--wrapped');
+
+    this.$el.html(
+      placeholder({
+        q: this.dataModel.getSearchQuery()
+      })
+    );
   },
 
-  removeItem: function(mdl) {
-    var lockedItem = this.isItemLocked(mdl.get('name'));
-    if (lockedItem) {
-      this.remove(lockedItem);
-    }
-  },
-
-  removeItems: function() {
-    this.reset([]);
-  },
-
-  isItemLocked: function(name) {
-    return this.find(function(d) {
-      return d.get('name') === name;
+  _addItem: function(mdl, $parent) {
+    var v = new WidgetSearchCategoryItemView({
+      model: mdl,
+      dataModel: this.dataModel
     });
+    this.addView(v);
+    $parent.append(v.render().el);
   },
 
-  getItemsName: function() {
-    return this.pluck('name');
+  toggle: function() {
+    this[ this.viewModel.isSearchEnabled() ? 'show' : 'hide']();
   }
 
 });
 
-},{"./category_item_model":120,"backbone":1,"underscore":5}],132:[function(require,module,exports){
+},{"./item/search_item_view":122,"./items_view":124,"./search_items_no_results_template.tpl":125,"cdb/core/view":29,"jquery":"jquery","underscore":5}],127:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 var Model = require('cdb/core/model');
+var d3 = require('d3');
 var WidgetModel = require('../widget_model');
-var WidgetSearchModel = require('./search_model.js');
-var CategoriesCollection = require('./categories_collection');
-var LockedCatsCollection = require('./locked_categories_collection');
+var WidgetSearchModel = require('./models/search_model.js');
+var CategoriesCollection = require('./models/categories_collection');
+var LockedCatsCollection = require('./models/locked_categories_collection');
 
 /**
- * Category widget model
+ *  Category widget model
+ *
+ *  - It has several internal models/collections
+ *
+ *  · search model: it manages category search results.
+ *  · locked collection: it stores locked items.
+ *  · filter model: it knows which items are accepted or rejected.
+ *
  */
+
 module.exports = WidgetModel.extend({
 
   url: function() {
@@ -34513,10 +34322,9 @@ module.exports = WidgetModel.extend({
     }, this);
 
     this.locked.bind('change add remove', function() {
-      this.trigger('lockedChange', this.locked, this);
+      this.trigger('change:lockCollection', this.locked, this);
     }, this);
 
-    // TODO: review this events propagation from search model
     this.search.bind('loading', function() {
       this.trigger("loading", this);
     }, this);
@@ -34528,9 +34336,33 @@ module.exports = WidgetModel.extend({
         this.trigger("error", this);
       }
     }, this);
+    this.search.bind('change:data', function() {
+      this.trigger('change:searchData', this.search, this);
+    }, this);
   },
 
-  // Helper methods
+  /*
+   *  Helper methods for internal models/collections
+   *
+   */
+
+  applyCategoryColors: function() {
+    this.set('categoryColors', true);
+    this.trigger('applyCategoryColors', this._data.map(function(m){
+      return [ m.get('name'), m.get('color') ];
+    }), this);
+  },
+
+  cancelCategoryColors: function() {
+    this.set('categoryColors', false);
+    this.trigger('cancelCategoryColors', this);
+  },
+
+  isColorApplied: function() {
+    return this.get('categoryColors');
+  },
+
+  // Locked collection helper methods //
 
   getLockedSize: function() {
     return this.locked.size();
@@ -34542,7 +34374,7 @@ module.exports = WidgetModel.extend({
 
   canBeLocked: function() {
     return this.isLocked() ||
-      this.filter.hasAccepts();
+      this.getAcceptedCount() > 0;
   },
 
   canApplyLocked: function() {
@@ -34554,43 +34386,6 @@ module.exports = WidgetModel.extend({
     return acceptedCollection.find(function(m) {
       return !this.locked.isItemLocked(m.get('name'));
     }, this);
-  },
-
-  getData: function() {
-    return this._data;
-  },
-
-  getSearch: function() {
-    return this.search;
-  },
-
-  isSearchApplied: function() {
-    return this.search.isSearchApplied();
-  },
-
-  getSize: function() {
-    return this._data.size();
-  },
-
-  getCount: function() {
-    return this.get('categoriesCount');
-  },
-
-  // Apply functions
-
-  cleanSearch: function() {
-    this.locked.resetItems([]);
-    this.search.resetData();
-  },
-
-  setupSearch: function() {
-    if (!this.isSearchApplied()) {
-      var acceptedCats = this.filter.getAccepted().toJSON();
-      this.locked.addItems(acceptedCats);
-      this.search.setData(
-        this._data.toJSON()
-      );
-    }
   },
 
   applyLocked: function() {
@@ -34613,7 +34408,100 @@ module.exports = WidgetModel.extend({
 
   unlockCategories: function() {
     this.set('locked', false);
+    this.acceptAll();
+  },
+
+  // Search model helper methods //
+
+  getSearchQuery: function() {
+    return this.search.getSearchQuery();
+  },
+
+  setSearchQuery: function(q) {
+    this.search.set('q', q);
+  },
+
+  isSearchValid: function() {
+    return this.search.isValid();
+  },
+
+  getSearchResult: function() {
+    return this.search.getData();
+  },
+
+  getSearchCount: function() {
+    return this.search.getCount();
+  },
+
+  applySearch: function() {
+    this.search.fetch();
+  },
+
+  isSearchApplied: function() {
+    return this.search.isSearchApplied();
+  },
+
+  cleanSearch: function() {
+    this.locked.resetItems([]);
+    this.search.resetData();
+  },
+
+  setupSearch: function() {
+    if (!this.isSearchApplied()) {
+      var acceptedCats = this.filter.getAccepted().toJSON();
+      this.locked.addItems(acceptedCats);
+      this.search.setData(
+        this._data.toJSON()
+      );
+    }
+  },
+
+  // Filter model helper methods //
+
+  getRejectedCount: function() {
+    return this.filter.rejectedCategories.size();
+  },
+
+  getAcceptedCount: function() {
+    return this.filter.acceptedCategories.size();
+  },
+
+  acceptFilters: function(values) {
+    this.filter.accept(values);
+  },
+
+  rejectFilters: function(values) {
+    this.filter.reject(values);
+  },
+
+  rejectAll: function() {
+    this.filter.rejectAll();
+  },
+
+  acceptAll: function() {
     this.filter.acceptAll();
+  },
+
+  // Proper model helper methods //
+
+  getData: function() {
+    return this._data;
+  },
+
+  getSize: function() {
+    return this._data.size();
+  },
+
+  getCount: function() {
+    return this.get('categoriesCount');
+  },
+
+  refresh: function() {
+    if (this.isSearchApplied()) {
+      this.search.fetch();
+    } else {
+      this._fetch();
+    }
   },
 
   // Data parser methods //
@@ -34622,19 +34510,21 @@ module.exports = WidgetModel.extend({
     // Get info stats from categories
     var newData = [];
     var _tmpArray = {};
+    var color = d3.scale.category20();
 
-    _.each(categories, function(datum) {
+    _.each(categories, function(datum, i) {
       var category = datum.category;
       var isRejected = this.filter.isRejected(category);
       _tmpArray[category] = true;
+
       newData.push({
         selected: !isRejected,
         name: category,
         agg: datum.agg,
-        value: datum.value
+        value: datum.value,
+        color: color(category)
       });
     }, this);
-
 
     if (this.isLocked()) {
       var acceptedCats = this.filter.getAccepted();
@@ -34644,6 +34534,7 @@ module.exports = WidgetModel.extend({
         if (!_tmpArray[category]) {
           newData.push({
             selected: true,
+            color: color(category),
             name: category,
             agg: false,
             value: 0
@@ -34694,301 +34585,109 @@ module.exports = WidgetModel.extend({
 
 });
 
-},{"../widget_model":168,"./categories_collection":119,"./locked_categories_collection":131,"./search_model.js":140,"backbone":1,"cdb/core/model":23,"underscore":5}],133:[function(require,module,exports){
+},{"../widget_model":172,"./models/categories_collection":128,"./models/locked_categories_collection":130,"./models/search_model.js":131,"backbone":1,"cdb/core/model":23,"d3":2,"underscore":5}],128:[function(require,module,exports){
 var _ = require('underscore');
-module.exports = function(obj){
-var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
-with(obj||{}){
-__p+='<div class="Widget-contentFlex"> <button class="u-rSpace--m Widget-buttonIcon js-searchToggle"> <i class="CDBIcon CDBIcon-Lens"></i> </button> <p class="Widget-textSmaller Widget-textSmaller--bold Widget-textSmall--upper"> ';
- if (!isLocked) { 
-__p+=' '+
-((__t=( categoriesCount > 12 ? (categoriesCount - 11) : categoriesCount ))==null?'':_.escape(__t))+
-' categor'+
-((__t=( categoriesCount !== 1 ? "ies" : "y" ))==null?'':_.escape(__t))+
-' '+
-((__t=( categoriesCount > 12 ? "more" : "" ))==null?'':_.escape(__t))+
-' ';
- } 
-__p+=' </p> </div> ';
- if (showPaginator) { 
-__p+=' <div class="Widget-navDots js-dots"> ';
- for (var i = 0, l = pages; i < l; i++) { 
-__p+='<button class="Widget-dot Widget-dot--navigation js-page ';
- if (currentPage === i) { 
-__p+='is-selected';
- } 
-__p+='" data-page="'+
-((__t=( i ))==null?'':_.escape(__t))+
-'"></button>';
- } 
-__p+=' </div> ';
- } 
-__p+='';
-}
-return __p;
-};
+var Backbone = require('backbone');
+var CategoryItemModel = require('./category_item_model');
 
-},{"underscore":5}],134:[function(require,module,exports){
-var $ = require('jquery');
-var _ = require('underscore');
-var View = require('cdb/core/view');
+/**
+ *  Data categories collection
+ *
+ *  - It basically sorts by (value, selected and "Other").
+ */
+
+module.exports = Backbone.Collection.extend({
+
+  model: CategoryItemModel,
+
+  comparator: function(a,b) {
+    if (a.get('name') === 'Other') {
+      return 1;
+    } else if (b.get('name') === 'Other') {
+      return -1;
+    } else if (a.get('value') === b.get('value')) {
+      return (a.get('selected') < b.get('selected')) ? 1 : -1;
+    } else {
+      return (a.get('value') < b.get('value')) ? 1 : -1;
+    }
+  }
+
+});
+
+},{"./category_item_model":129,"backbone":1,"underscore":5}],129:[function(require,module,exports){
+
 var Model = require('cdb/core/model');
-var defaultTemplate = require('./paginator_template.tpl');
 
-module.exports = View.extend({
+/**
+ *
+ */
 
-  options: {
-    itemsPerPage: 6,
-    template: defaultTemplate,
-    paginator: false
-  },
+module.exports = Model.extend({
 
-  className: 'Widget-nav Widget-contentSpaced',
+  defaults: {
+    name: '',
+    agg: false,
+    value: 0
+  }
 
-  events: {
-    'click .js-searchToggle': '_onSearchClicked',
-    'click .js-page': '_onDotClick'
-  },
+});
 
-  initialize: function() {
-    this.dataModel = this.options.dataModel;
-    this.viewModel = this.options.viewModel;
-    this._$target = this.options.$target;
-    this.model = new Model({
-      page: 0
-    });
-    this._initBinds();
-  },
+},{"cdb/core/model":23}],130:[function(require,module,exports){
+var _ = require('underscore');
+var Backbone = require('backbone');
+var CategoryItemModel = require('./category_item_model');
 
-  render: function() {
-    this.clearSubViews();
-    this.$el.empty();
-    var categoriesCount = this.dataModel.getCount();
-    var pages = Math.ceil(this.dataModel.getSize() / this.options.itemsPerPage);
-    var template = this.options.template;
-    this.$el.html(
-      template({
-        showPaginator: this.options.paginator,
-        isLocked: this.dataModel.isLocked(),
-        isSearchEnabled: this.viewModel.isSearchEnabled(),
-        currentPage: this.model.get('page'),
-        categoriesCount: categoriesCount || '-',
-        pages: pages
-      })
-    );
-    this._scrollToPage();
+/**
+ *  Locked categories collection
+ *
+ */
 
-    return this;
-  },
+module.exports = Backbone.Collection.extend({
 
-  _initBinds: function() {
-    _.bindAll(this, '_scrollToPage');
-    $(window).bind('resize.' + this.cid, _.bind(this._scrollToPage, this));
-    this.model.bind('change:page', this.render, this);
-    this.dataModel.bind('change:data', function() {
-      this._setPage();
-      this.render();
-    }, this);
-    this.viewModel.bind('change:search', this.toggle, this);
-    this.add_related_model(this.dataModel);
-    this.add_related_model(this.viewModel);
-  },
+  model: CategoryItemModel,
 
-  // If current page doesn't exist due to a data change, we should reset it
-  _setPage: function() {
-    var count = this.dataModel.getSize();
-    var pages = Math.ceil(count / this._ITEMS_PER_PAGE);
-    if (this.model.get('page') > (pages - 1)) {
-      this.model.set({ page: 0 }, { silent :true });
+  addItem: function(mdl) {
+    if (!this.isItemLocked(mdl.get('name'))) {
+      this.add(mdl);
     }
   },
 
-  _onSearchClicked: function() {
-    this.dataModel.setupSearch();
-    this.viewModel.toggleSearch();
+  addItems: function(mdls) {
+    _.each(mdls, function(m) {
+      if (!this.isItemLocked(m.name)) {
+        this.add(m);
+      }
+    }, this);
   },
 
-  _scrollToPage: function() {
-    var page = this.model.get('page');
-    var pageWidth = this._$target.find('.Widget-listGroup:eq(0)').outerWidth();
-    this._$target.css('margin-left', - (page * pageWidth));
+  resetItems: function(mdls) {
+    this.reset(mdls);
   },
 
-  _onDotClick: function(ev) {
-    var page = $(ev.target).data('page');
-    this.model.set('page', page);
+  removeItem: function(mdl) {
+    var lockedItem = this.isItemLocked(mdl.get('name'));
+    if (lockedItem) {
+      this.remove(lockedItem);
+    }
   },
 
-  toggle: function() {
-    this[ this.viewModel.isSearchEnabled() ? 'hide' : 'show' ]();
+  removeItems: function() {
+    this.reset([]);
   },
 
-  hide: function() {
-    this.$el.addClass('is-hidden');
-  },
-
-  show: function() {
-    this.$el.removeClass('is-hidden');
-  },
-
-  clean: function() {
-    $(window).unbind('resize.' + this.cid);
-    View.prototype.clean.call(this);
-  }
-
-});
-
-},{"./paginator_template.tpl":133,"cdb/core/model":23,"cdb/core/view":29,"jquery":"jquery","underscore":5}],135:[function(require,module,exports){
-var _ = require('underscore');
-module.exports = function(obj){
-var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
-with(obj||{}){
-__p+='<li class="Widget-listItem Widget-listItem--fake"></li> <li class="Widget-listItem Widget-listItem--fake"></li> <li class="Widget-listItem Widget-listItem--fake"></li> <li class="Widget-listItem Widget-listItem--fake"></li>';
-}
-return __p;
-};
-
-},{"underscore":5}],136:[function(require,module,exports){
-var _ = require('underscore');
-module.exports = function(obj){
-var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
-with(obj||{}){
-__p+='<li class="Widget-listItem"> <button type="button" class="Widget-listItemInner Widget-listItemInner--fullSpace Widget-listButton js-button '+
-((__t=( isDisabled ? 'is-disabled' : '' ))==null?'':_.escape(__t))+
-'"> <span class="Widget-checkbox '+
-((__t=( isDisabled ? '' : 'is-checked' ))==null?'':_.escape(__t))+
-'"></span> <div class="u-lSpace--xl"> <div class="Widget-contentSpaced"> <p class="Widget-textSmall Widget-textSmall--bold Widget-textSmall--upper" title="'+
-((__t=( name ))==null?'':_.escape(__t))+
-'">'+
-((__t=( name ))==null?'':_.escape(__t))+
-'</p> <p class="Widget-textSmaller" title="'+
-((__t=( value ))==null?'':_.escape(__t))+
-'">'+
-((__t=( value ))==null?'':_.escape(__t))+
-'</p> </div> <div class="Widget-progressBar"> <div class="Widget-progressState" style="width: '+
-((__t=( percentage ))==null?'':_.escape(__t))+
-'%"></div> </div> </div> </button> </li>';
-}
-return __p;
-};
-
-},{"underscore":5}],137:[function(require,module,exports){
-var $ = require('jquery');
-var _ = require('underscore');
-var View = require('cdb/core/view');
-var template = require('./search_item_clickable_template.tpl');
-
-/**
- * Category search list view
- */
-module.exports = View.extend({
-
-  tagName: 'li',
-  className: 'Widget-listItem',
-
-  events: {
-    'click .js-button': '_onItemClick'
-  },
-
-  initialize: function(options) {
-    // This data model comes from the original data in order to get
-    // the max value and set properly the progress bar.
-    this.dataModel = this.options.dataModel;
-    this._initBinds();
-  },
-
-  render: function() {
-    var value = this.model.get('value');
-
-    this.$el.html(
-      template({
-        name: this.model.get('name'),
-        value: Math.ceil(value),
-        percentage: ((value / this.dataModel.get('max')) * 100),
-        isDisabled: !this.model.get('selected')
-      })
-    );
-
-    return this;
-  },
-
-  _initBinds: function() {
-    this.model.bind('change:selected', this.render, this);
-  },
-
-  _onItemClick: function() {
-    this.model.set('selected', !this.model.get('selected'));
-  }
-
-});
-
-},{"./search_item_clickable_template.tpl":136,"cdb/core/view":29,"jquery":"jquery","underscore":5}],138:[function(require,module,exports){
-var _ = require('underscore');
-module.exports = function(obj){
-var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
-with(obj||{}){
-__p+='<li class="Widget-listItem"> <h4 class="Widget-textBig Widget-textBig--bold">No results</h4> <p class="Widget-textSmall u-tSpace-xl">Your search "'+
-((__t=( q ))==null?'':_.escape(__t))+
-'" didn\'t match<br>with any value.</p> <p class="Widget-textSmall u-tSpace-xl">Try searching again.</p> </li>';
-}
-return __p;
-};
-
-},{"underscore":5}],139:[function(require,module,exports){
-var $ = require('jquery');
-var _ = require('underscore');
-var View = require('cdb/core/view');
-var CategoryItemsView = require('./items_view');
-var WidgetSearchCategoryItemView = require('./search_item_view');
-var placeholder = require('./search_items_no_results_template.tpl');
-
-/**
- * Category list view
- */
-module.exports = CategoryItemsView.extend({
-
-  className: 'Widget-list is-hidden Widget-list--wrapped js-list',
-
-  initialize: function() {
-    this.originModel = this.options.originModel;
-    CategoryItemsView.prototype.initialize.call(this);
-  },
-
-  _renderList: function() {
-    // Change view classes
-    this.$el.removeClass('Widget-list--noresults');
-    CategoryItemsView.prototype._renderList.call(this);
-  },
-
-  _renderPlaceholder: function() {
-    // Change view classes
-    this.$el
-      .addClass('Widget-list--noresults')
-      .removeClass('Widget-list--wrapped');
-
-    this.$el.html(
-      placeholder({
-        q: this.dataModel.get('q')
-      })
-    );
-  },
-
-  _addItem: function(mdl, $parent) {
-    var v = new WidgetSearchCategoryItemView({
-      model: mdl,
-      dataModel: this.originModel
+  isItemLocked: function(name) {
+    return this.find(function(d) {
+      return d.get('name') === name;
     });
-    this.addView(v);
-    $parent.append(v.render().el);
   },
 
-  toggle: function() {
-    this[ this.model.isSearchEnabled() ? 'show' : 'hide']();
+  getItemsName: function() {
+    return this.pluck('name');
   }
 
 });
 
-},{"./items_view":130,"./search_item_view":137,"./search_items_no_results_template.tpl":138,"cdb/core/view":29,"jquery":"jquery","underscore":5}],140:[function(require,module,exports){
+},{"./category_item_model":129,"backbone":1,"underscore":5}],131:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 var cdb = require('cdb');
@@ -35058,6 +34757,10 @@ module.exports = Model.extend({
     this.set('q', '');
   },
 
+  getSearchQuery: function() {
+    return this.get('q');
+  },
+
   isSearchApplied: function() {
     return this.isValid() && this.getSize() > 0;
   },
@@ -35111,223 +34814,7 @@ module.exports = Model.extend({
 
 });
 
-},{"./categories_collection":119,"backbone":1,"cdb":13,"cdb/core/model":23,"underscore":5}],141:[function(require,module,exports){
-var _ = require('underscore');
-module.exports = function(obj){
-var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
-with(obj||{}){
-__p+='<div class="Widget-contentFlex"> <button class="u-rSpace--m Widget-link js-searchToggle">cancel</button> </div> ';
- if (showPaginator) { 
-__p+=' <div class="Widget-navDots js-dots"> ';
- for (var i = 0, l = pages; i < l; i++) { 
-__p+='<button class="Widget-dot Widget-dot--navigation js-page ';
- if (currentPage === i) { 
-__p+='is-selected';
- } 
-__p+='" data-page="'+
-((__t=( i ))==null?'':_.escape(__t))+
-'"></button>';
- } 
-__p+=' </div> ';
- } 
-__p+='';
-}
-return __p;
-};
-
-},{"underscore":5}],142:[function(require,module,exports){
-var $ = require('jquery');
-var _ = require('underscore');
-var View = require('cdb/core/view');
-var Model = require('cdb/core/model');
-var PaginatorView = require('./paginator_view');
-var searchTemplate = require('./search_paginator_template.tpl');
-
-module.exports = PaginatorView.extend({
-
-  options: {
-    paginator: true,
-    template: searchTemplate
-  },
-
-  className: 'Widget-nav is-hidden Widget-contentSpaced',
-
-  toggle: function() {
-    this[ !this.viewModel.isSearchEnabled() ? 'hide' : 'show' ]();
-  },
-
-  _onSearchClicked: function() {
-    this.options.originModel.cleanSearch();
-    this.viewModel.toggleSearch();
-  }
-
-});
-
-},{"./paginator_view":134,"./search_paginator_template.tpl":141,"cdb/core/model":23,"cdb/core/view":29,"jquery":"jquery","underscore":5}],143:[function(require,module,exports){
-var _ = require('underscore');
-module.exports = function(obj){
-var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
-with(obj||{}){
-__p+='';
- if (isSearchEnabled) { 
-__p+=' <form class="Widget-search js-form"> <i class="CDBIcon CDBIcon-Lens Widget-searchLens"></i> <input type="text" class="Widget-textInput Widget-searchTextInput js-textInput" value="'+
-((__t=( q ))==null?'':_.escape(__t))+
-'" placeholder="search by '+
-((__t=( columnName ))==null?'':_.escape(__t))+
-'"> ';
- if (canShowApply) { 
-__p+=' <button type="button" class="Widget-link Widget-searchApply js-apply">apply</button> ';
- } 
-__p+=' </form> ';
- } else { 
-__p+=' <div class="Widget-title Widget-contentSpaced"> <h3 class="Widget-textBig" title="'+
-((__t=( title ))==null?'':_.escape(__t))+
-'">'+
-((__t=( title ))==null?'':_.escape(__t))+
-'</h3> <div class="Widget-options"> ';
- if (canBeLocked) { 
-__p+=' ';
- if (isLocked) { 
-__p+=' <button class="Widget-buttonIcon Widget-buttonIcon--circle is-selected js-unlock"> <i class="CDBIcon CDBIcon-Unlock"></i> </button> ';
- } else { 
-__p+=' <button class="Widget-buttonIcon Widget-buttonIcon--circle js-lock"> <i class="CDBIcon CDBIcon-Lock"></i> </button> ';
- } 
-__p+=' ';
- } 
-__p+=' <button class="Widget-buttonIcon Widget-buttonIcon--circle"> <i class="CDBIcon CDBIcon-Syringe"></i> </button> </div> </div> ';
- } 
-__p+='';
-}
-return __p;
-};
-
-},{"underscore":5}],144:[function(require,module,exports){
-var _ = require('underscore');
-var cdb = require('cdb');
-var $ = require('jquery');
-var View = require('cdb/core/view');
-var template = require('./search_title_template.tpl');
-
-/**
- * Category content view
- */
-module.exports = View.extend({
-
-  events: {
-    'click .js-close': '_onClickClose',
-    'keyup .js-textInput': '_onKeyupInput',
-    'submit .js-form': '_onSubmitForm',
-    'click .js-lock': '_lockCategories',
-    'click .js-unlock': '_unlockCategories',
-    'click .js-apply': '_applyLocked'
-  },
-
-  initialize: function() {
-    this.viewModel = this.options.viewModel;
-    this.dataModel = this.options.dataModel;
-    this.search = this.options.search;
-    this._initBinds();
-  },
-
-  render: function() {
-    this.$el.html(
-      template({
-        title: this.dataModel.get('title'),
-        columnName: this.dataModel.get('column'),
-        q: this.search.get('q'),
-        isLocked: this.dataModel.isLocked(),
-        canBeLocked: this.dataModel.canBeLocked(),
-        isSearchEnabled: this.viewModel.isSearchEnabled(),
-        canShowApply: this.dataModel.canApplyLocked()
-      })
-    );
-    return this;
-  },
-
-  _initBinds: function() {
-    this.viewModel.bind('change:search', this._onSearchToggled, this);
-    this.dataModel.bind('change:filter change:locked lockedChange', this.render, this);
-    this.add_related_model(this.dataModel);
-    this.add_related_model(this.viewModel);
-  },
-
-  _onSearchToggled: function() {
-    var isSearchEnabled = this.viewModel.isSearchEnabled();
-    this[isSearchEnabled ? '_bindESC' : '_unbindESC']();
-    this.render();
-    if (isSearchEnabled) {
-      this._focusOnInput();
-    }
-  },
-
-  _onSubmitForm: function(ev) {
-    if (ev) {
-      ev.preventDefault();
-    }
-    var q = this.$('.js-textInput').val();
-    this.search.set('q', q);
-    if (this.search.isValid()) {
-      this.search.fetch();
-    } else {
-      this.viewModel.toggleSearch();
-    }
-  },
-
-  _focusOnInput: function() {
-    var self = this;
-    setTimeout(function() {
-      self.$('.js-textInput').focus();
-    }, 0);
-  },
-
-  _onKeyupInput: _.debounce(
-    function(ev) {
-      var q = this.$('.js-textInput').val();
-      if (ev.keyCode !== 13 && ev.keyCode !== 27 && q !== "") {
-        this._onSubmitForm();
-      }
-    }, 250
-  ),
-
-  _bindESC: function() {
-    $(window).bind("keyup." + this.cid, _.bind(this._onKeyUp, this));
-  },
-
-  _unbindESC: function() {
-    $(window).unbind("keyup." + this.cid);
-  },
-
-  _onKeyUp: function(ev) {
-    if (ev.keyCode === 27) {
-      this.viewModel.disableSearch();
-    }
-  },
-
-  _lockCategories: function() {
-    this.dataModel.lockCategories();
-  },
-
-  _unlockCategories: function() {
-    this.dataModel.unlockCategories();
-  },
-
-  _applyLocked: function() {
-    this.viewModel.toggleSearch();
-    this.dataModel.applyLocked();
-  },
-
-  _onClickClose: function() {
-    this.viewModel.disableSearch();
-  },
-
-  clean: function() {
-    this._unbindESC();
-    View.prototype.clean.call(this);
-  }
-
-});
-
-},{"./search_title_template.tpl":143,"cdb":13,"cdb/core/view":29,"jquery":"jquery","underscore":5}],145:[function(require,module,exports){
+},{"./categories_collection":128,"backbone":1,"cdb":13,"cdb/core/model":23,"underscore":5}],132:[function(require,module,exports){
 var Model = require('cdb/core/model');
 
 /**
@@ -35358,10 +34845,571 @@ module.exports = Model.extend({
 
 });
 
-},{"cdb/core/model":23}],146:[function(require,module,exports){
+},{"cdb/core/model":23}],133:[function(require,module,exports){
+var _ = require('underscore');
+module.exports = function(obj){
+var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
+with(obj||{}){
+__p+='';
+ if (isSearchEnabled) { 
+__p+=' <p class="Widget-textSmaller Widget-textSmaller--bold Widget-textSmaller--dark Widget-textSmaller--upper">'+
+((__t=( totalLocked ))==null?'':_.escape(__t))+
+' selected</p> ';
+ } else { 
+__p+=' <p class="Widget-textSmaller Widget-textSmaller--bold Widget-textSmaller--dark Widget-textSmaller--upper"> ';
+ if (isLocked) { 
+__p+=' '+
+((__t=( totalCats ))==null?'':_.escape(__t))+
+' selected ';
+ } else { 
+__p+=' '+
+((__t=( rejectedCats === 0 && acceptedCats === 0 || acceptedCats >= totalCats ? "All selected" : acceptedCats + " selected" ))==null?'':_.escape(__t))+
+' ';
+ }
+__p+=' </p> ';
+ if (!isLocked) { 
+__p+=' <div class="Widget-filterButtons"> ';
+ if (rejectedCats !== 0 && totalCats > 0 || acceptedCats > 0) { 
+__p+=' <button class="Widget-link Widget-filterButton js-all">all</button> ';
+ } 
+__p+=' ';
+ if (totalCats > rejectedCats) { 
+__p+=' <button class="Widget-link Widget-filterButton js-none">none</button> ';
+ } 
+__p+=' </div> ';
+ } 
+__p+=' ';
+ } 
+__p+='';
+}
+return __p;
+};
+
+},{"underscore":5}],134:[function(require,module,exports){
+var _ = require('underscore');
+var View = require('cdb/core/view');
+var template = require('./options_template.tpl');
+
+/**
+ * Category filter view
+ *
+ */
+module.exports = View.extend({
+
+  className: 'Widget-filter Widget-contentSpaced Widget-contentSpaced--sideMargins',
+
+  events: {
+    'click .js-all': '_onSelectAll',
+    'click .js-none': '_onUnselectAll'
+  },
+
+  initialize: function() {
+    this.dataModel = this.options.dataModel;
+    this.viewModel = this.options.viewModel;
+    this._initBinds();
+  },
+
+  render: function() {
+    var totalCats = this.dataModel.getData().size();
+    var rejectedCats = this.dataModel.getRejectedCount();
+    var acceptedCats = this.dataModel.getAcceptedCount();
+
+    this.$el.html(
+      template({
+        isLocked: this.dataModel.isLocked(),
+        totalLocked: this.dataModel.getLockedSize(),
+        isSearchEnabled: this.viewModel.isSearchEnabled(),
+        isSearchApplied: this.dataModel.isSearchApplied(),
+        totalCats: totalCats,
+        rejectedCats: rejectedCats,
+        acceptedCats: acceptedCats
+      })
+    );
+    return this;
+  },
+
+  _initBinds: function() {
+    this.dataModel.bind('change:data change:filter change:locked change:lockCollection', this.render, this);
+    this.viewModel.bind('change:search', this.render, this);
+    this.add_related_model(this.dataModel);
+    this.add_related_model(this.viewModel);
+  },
+
+  _onUnselectAll: function() {
+    this.dataModel.rejectAll();
+  },
+
+  _onSelectAll: function() {
+    this.dataModel.acceptAll();
+  }
+
+});
+
+},{"./options_template.tpl":133,"cdb/core/view":29,"underscore":5}],135:[function(require,module,exports){
+var _ = require('underscore');
+module.exports = function(obj){
+var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
+with(obj||{}){
+__p+='<div class="Widget-contentFlex"> <button class="u-rSpace--m Widget-buttonIcon Widget-textSmaller Widget-textSmaller--upper js-searchToggle"> <i class="CDBIcon CDBIcon-Lens"></i> search </button> </div> ';
+ if (showPaginator) { 
+__p+=' <div class="Widget-navDots js-dots"> ';
+ for (var i = 0, l = pages; i < l; i++) { 
+__p+='<button class="Widget-dot Widget-dot--navigation js-page ';
+ if (currentPage === i) { 
+__p+='is-selected';
+ } 
+__p+='" data-page="'+
+((__t=( i ))==null?'':_.escape(__t))+
+'"></button>';
+ } 
+__p+=' </div> ';
+ } 
+__p+='';
+}
+return __p;
+};
+
+},{"underscore":5}],136:[function(require,module,exports){
+var $ = require('jquery');
+var _ = require('underscore');
+var View = require('cdb/core/view');
+var Model = require('cdb/core/model');
+var defaultTemplate = require('./paginator_template.tpl');
+
+module.exports = View.extend({
+
+  options: {
+    itemsPerPage: 6,
+    template: defaultTemplate,
+    paginator: false
+  },
+
+  className: 'Widget-nav Widget-contentSpaced',
+
+  events: {
+    'click .js-searchToggle': '_onSearchClicked',
+    'click .js-page': '_onDotClick'
+  },
+
+  initialize: function() {
+    this.dataModel = this.options.dataModel;
+    this.viewModel = this.options.viewModel;
+    this._$target = this.options.$target;
+    this.model = new Model({
+      page: 0
+    });
+    this._initBinds();
+  },
+
+  render: function() {
+    this.clearSubViews();
+    this.$el.empty();
+    var pages = Math.ceil(this.dataModel.getSize() / this.options.itemsPerPage);
+    var template = this.options.template;
+    this.$el.html(
+      template({
+        showPaginator: this.options.paginator,
+        currentPage: this.model.get('page'),
+        pages: pages
+      })
+    );
+    this._scrollToPage();
+
+    return this;
+  },
+
+  _initBinds: function() {
+    $(window).bind('resize.' + this.cid, _.bind(this._scrollToPage, this));
+    this.model.bind('change:page', this.render, this);
+    this.dataModel.bind('change:data change:searchData', function() {
+      this._setPage();
+      this.render();
+    }, this);
+    this.viewModel.bind('change:search', this.toggle, this);
+    this.add_related_model(this.dataModel);
+    this.add_related_model(this.viewModel);
+  },
+
+  // If current page doesn't exist due to a data change, we should reset it
+  _setPage: function() {
+    var count = this.dataModel.getSize();
+    var pages = Math.ceil(count / this._ITEMS_PER_PAGE);
+    if (this.model.get('page') > (pages - 1)) {
+      this.model.set({ page: 0 }, { silent :true });
+    }
+  },
+
+  _onSearchClicked: function() {
+    this.dataModel.setupSearch();
+    this.viewModel.toggleSearch();
+  },
+
+  _scrollToPage: function() {
+    var page = this.model.get('page');
+    var pageWidth = this._$target.find('.Widget-listGroup:eq(0)').outerWidth();
+    this._$target.css('margin-left', - (page * pageWidth));
+  },
+
+  _onDotClick: function(ev) {
+    var page = $(ev.target).data('page');
+    this.model.set('page', page);
+  },
+
+  toggle: function() {
+    this[ this.viewModel.isSearchEnabled() ? 'hide' : 'show' ]();
+  },
+
+  hide: function() {
+    this.$el.addClass('is-hidden');
+  },
+
+  show: function() {
+    this.$el.removeClass('is-hidden');
+  },
+
+  clean: function() {
+    $(window).unbind('resize.' + this.cid);
+    View.prototype.clean.call(this);
+  }
+
+});
+
+},{"./paginator_template.tpl":135,"cdb/core/model":23,"cdb/core/view":29,"jquery":"jquery","underscore":5}],137:[function(require,module,exports){
+var _ = require('underscore');
+module.exports = function(obj){
+var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
+with(obj||{}){
+__p+='<div class="Widget-contentFlex"> <button class="u-rSpace--m Widget-link js-searchToggle">cancel</button> </div> ';
+ if (showPaginator) { 
+__p+=' <div class="Widget-navDots js-dots"> ';
+ for (var i = 0, l = pages; i < l; i++) { 
+__p+='<button class="Widget-dot Widget-dot--navigation js-page ';
+ if (currentPage === i) { 
+__p+='is-selected';
+ } 
+__p+='" data-page="'+
+((__t=( i ))==null?'':_.escape(__t))+
+'"></button>';
+ } 
+__p+=' </div> ';
+ } 
+__p+='';
+}
+return __p;
+};
+
+},{"underscore":5}],138:[function(require,module,exports){
+var $ = require('jquery');
+var _ = require('underscore');
+var View = require('cdb/core/view');
+var Model = require('cdb/core/model');
+var PaginatorView = require('./paginator_view');
+var searchTemplate = require('./search_paginator_template.tpl');
+
+module.exports = PaginatorView.extend({
+
+  className: 'Widget-nav is-hidden Widget-contentSpaced',
+
+  render: function() {
+    this.clearSubViews();
+    this.$el.empty();
+    var pages = Math.ceil(this.dataModel.getSearchCount() / this.options.itemsPerPage);
+    this.$el.html(
+      searchTemplate({
+        showPaginator: true,
+        currentPage: this.model.get('page'),
+        pages: pages
+      })
+    );
+    this._scrollToPage();
+
+    return this;
+  },
+
+  _setPage: function() {
+    var count = this.dataModel.getSearchCount();
+    var pages = Math.ceil(count / this._ITEMS_PER_PAGE);
+    if (this.model.get('page') > (pages - 1)) {
+      this.model.set({ page: 0 }, { silent :true });
+    }
+  },
+
+  toggle: function() {
+    this[ !this.viewModel.isSearchEnabled() ? 'hide' : 'show' ]();
+  },
+
+  _onSearchClicked: function() {
+    this.dataModel.cleanSearch();
+    this.viewModel.toggleSearch();
+  }
+
+});
+
+},{"./paginator_view":136,"./search_paginator_template.tpl":137,"cdb/core/model":23,"cdb/core/view":29,"jquery":"jquery","underscore":5}],139:[function(require,module,exports){
+var _ = require('underscore');
+module.exports = function(obj){
+var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
+with(obj||{}){
+__p+='';
+ if (isSearchEnabled) { 
+__p+=' <dt class="Widget-infoItem"> ';
+ if (isSearchApplied) { 
+__p+=' '+
+((__t=( resultsCount ))==null?'':_.escape(__t))+
+' found ';
+ } else { 
+__p+=' &nbsp; ';
+ } 
+__p+=' </dt> ';
+ } else { 
+__p+=' <dt class="Widget-infoItem">'+
+((__t=( nulls ))==null?'':_.escape(__t))+
+' null rows</dt> <dt class="Widget-infoItem">'+
+((__t=( min ))==null?'':_.escape(__t))+
+' min</dt> <dt class="Widget-infoItem">'+
+((__t=( max ))==null?'':_.escape(__t))+
+' max</dt> ';
+ } 
+__p+='';
+}
+return __p;
+};
+
+},{"underscore":5}],140:[function(require,module,exports){
+var $ = require('jquery');
+var _ = require('underscore');
+var cdb = require('cdb');
+var template = require('./stats_template.tpl');
+var View = require('cdb/core/view');
+var d3 = require('d3');
+
+/**
+ * Category info view
+ */
+
+module.exports = View.extend({
+
+  className: 'Widget-info Widget-textSmaller Widget-textSmaller--upper',
+  tagName: 'dl',
+
+  initialize: function() {
+    this.viewModel = this.options.viewModel;
+    this.dataModel = this.options.dataModel;
+    this._initBinds();
+  },
+
+  render: function() {
+
+    this.$el.html(
+      template({
+        isSearchEnabled: this.viewModel.isSearchEnabled(),
+        isSearchApplied: this.dataModel.isSearchApplied(),
+        resultsCount: this.dataModel.getSearchCount(),
+        min: this.dataModel.get('min'),
+        max: this.dataModel.get('max'),
+        nulls: this.dataModel.get('nulls')
+      })
+    );
+    return this;
+  },
+
+  _initBinds: function() {
+    this.dataModel.bind('change:data change:locked change:search', this.render, this);
+    this.viewModel.bind('change:search', this.render, this);
+    this.add_related_model(this.dataModel);
+    this.add_related_model(this.viewModel);
+  }
+
+});
+
+},{"./stats_template.tpl":139,"cdb":13,"cdb/core/view":29,"d3":2,"jquery":"jquery","underscore":5}],141:[function(require,module,exports){
+var _ = require('underscore');
+module.exports = function(obj){
+var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
+with(obj||{}){
+__p+='';
+ if (isSearchEnabled) { 
+__p+=' <form class="Widget-search js-form"> <i class="CDBIcon CDBIcon-Lens Widget-searchLens"></i> <input type="text" class="Widget-textInput Widget-searchTextInput js-textInput" value="'+
+((__t=( q ))==null?'':_.escape(__t))+
+'" placeholder="search by '+
+((__t=( columnName ))==null?'':_.escape(__t))+
+'"> ';
+ if (canShowApply) { 
+__p+=' <button type="button" class="Widget-link Widget-searchApply js-applyLocked">apply</button> ';
+ } 
+__p+=' </form> ';
+ } else { 
+__p+=' <div class="Widget-title Widget-contentSpaced"> <h3 class="Widget-textBig" title="'+
+((__t=( title ))==null?'':_.escape(__t))+
+'">'+
+((__t=( title ))==null?'':_.escape(__t))+
+'</h3> <div class="Widget-options"> ';
+ if (canBeLocked) { 
+__p+=' ';
+ if (isLocked) { 
+__p+=' <button class="Widget-buttonIcon Widget-buttonIcon--circle is-selected js-unlock"> <i class="CDBIcon CDBIcon-Unlock"></i> </button> ';
+ } else { 
+__p+=' <button class="Widget-buttonIcon Widget-buttonIcon--circle js-lock"> <i class="CDBIcon CDBIcon-Lock"></i> </button> ';
+ } 
+__p+=' ';
+ } 
+__p+=' <button class="Widget-buttonIcon Widget-buttonIcon--circle '+
+((__t=( isColorApplied ? 'is-selected' : '' ))==null?'':_.escape(__t))+
+' '+
+((__t=( isColorApplied ? 'js-cancelColors' : 'js-applyColors' ))==null?'':_.escape(__t))+
+'"> <i class="CDBIcon CDBIcon-Syringe"></i> </button> </div> </div> ';
+ } 
+__p+='';
+}
+return __p;
+};
+
+},{"underscore":5}],142:[function(require,module,exports){
+var _ = require('underscore');
+var cdb = require('cdb');
+var $ = require('jquery');
+var View = require('cdb/core/view');
+var template = require('./search_title_template.tpl');
+
+/**
+ *  Show category title or search any category
+ *  + another options for this widget, as in,
+ *  colorize categories, lock defined categories...
+ *
+ */
+
+module.exports = View.extend({
+
+  events: {
+    'keyup .js-textInput': '_onKeyupInput',
+    'submit .js-form': '_onSubmitForm',
+    'click .js-lock': '_lockCategories',
+    'click .js-unlock': '_unlockCategories',
+    'click .js-applyLocked': '_applyLocked',
+    'click .js-applyColors': '_applyColors',
+    'click .js-cancelColors': '_cancelColors'
+  },
+
+  initialize: function() {
+    this.viewModel = this.options.viewModel;
+    this.dataModel = this.options.dataModel;
+    this._initBinds();
+  },
+
+  render: function() {
+    this.$el.html(
+      template({
+        isColorApplied: this.dataModel.isColorApplied(),
+        title: this.dataModel.get('title'),
+        columnName: this.dataModel.get('column'),
+        q: this.dataModel.getSearchQuery(),
+        isLocked: this.dataModel.isLocked(),
+        canBeLocked: this.dataModel.canBeLocked(),
+        isSearchEnabled: this.viewModel.isSearchEnabled(),
+        canShowApply: this.dataModel.canApplyLocked()
+      })
+    );
+    return this;
+  },
+
+  _initBinds: function() {
+    this.viewModel.bind('change:search', this._onSearchToggled, this);
+    this.dataModel.bind('change:filter change:locked change:lockCollection change:categoryColors', this.render, this);
+    this.add_related_model(this.dataModel);
+    this.add_related_model(this.viewModel);
+  },
+
+  _onSearchToggled: function() {
+    var isSearchEnabled = this.viewModel.isSearchEnabled();
+    this[isSearchEnabled ? '_bindESC' : '_unbindESC']();
+    this.render();
+    if (isSearchEnabled) {
+      this._focusOnInput();
+    }
+  },
+
+  _onSubmitForm: function(ev) {
+    if (ev) {
+      ev.preventDefault();
+    }
+    var q = this.$('.js-textInput').val();
+    if (this.dataModel.getSearchQuery() !== q) {
+      this.dataModel.setSearchQuery(q);
+      if (this.dataModel.isSearchValid()) {
+        this.dataModel.applySearch();
+      }
+    }
+  },
+
+  _focusOnInput: function() {
+    var self = this;
+    setTimeout(function() {
+      self.$('.js-textInput').focus();
+    }, 0);
+  },
+
+  _onKeyupInput: _.debounce(
+    function(ev) {
+      var q = this.$('.js-textInput').val();
+      if (ev.keyCode !== 13 && ev.keyCode !== 27 && q !== "") {
+        this._onSubmitForm();
+      }
+    }, 250
+  ),
+
+  _bindESC: function() {
+    $(document).bind("keyup." + this.cid, _.bind(this._onKeyUp, this));
+  },
+
+  _unbindESC: function() {
+    $(document).unbind("keyup." + this.cid);
+  },
+
+  _onKeyUp: function(ev) {
+    if (ev.keyCode === 27) {
+      this._cancelSearch();
+      return false;
+    }
+  },
+
+  _lockCategories: function() {
+    this.dataModel.lockCategories();
+  },
+
+  _unlockCategories: function() {
+    this.dataModel.unlockCategories();
+  },
+
+  _applyLocked: function() {
+    this.viewModel.toggleSearch();
+    this.dataModel.applyLocked();
+  },
+
+  _applyColors: function() {
+    this.dataModel.applyCategoryColors();
+  },
+
+  _cancelColors: function() {
+    this.dataModel.cancelCategoryColors();
+  },
+
+  _cancelSearch: function() {
+    this.dataModel.cleanSearch();
+    this.viewModel.disableSearch();
+  },
+
+  clean: function() {
+    this._unbindESC();
+    View.prototype.clean.call(this);
+  }
+
+});
+
+},{"./search_title_template.tpl":141,"cdb":13,"cdb/core/view":29,"jquery":"jquery","underscore":5}],143:[function(require,module,exports){
 var _ = require('underscore');
 var WidgetContent = require('../standard/widget_content_view');
 var template = require('./template.tpl');
+var d3 = require('d3');
 
 /**
  * Default widget content view:
@@ -35375,12 +35423,21 @@ module.exports = WidgetContent.extend({
 
   render: function() {
     this.clearSubViews();
+    var value = this.dataModel.get('data');
+    var format = d3.format('0,000');
+
+    if (_.isNumber(value)) {
+      value = format(value.toFixed(2));
+    }
+
     this.$el.html(
       template({
         title: this.dataModel.get('title'),
-        value: this.dataModel.get('data'),
+        value: value,
         operation: this.dataModel.get('operation'),
-        nulls: this.dataModel.get('nulls')
+        nulls: this.dataModel.get('nulls'),
+        prefix: this.dataModel.get('prefix'),
+        suffix: this.dataModel.get('suffix')
       })
     );
 
@@ -35389,11 +35446,20 @@ module.exports = WidgetContent.extend({
 
 });
 
-},{"../standard/widget_content_view":161,"./template.tpl":148,"underscore":5}],147:[function(require,module,exports){
+},{"../standard/widget_content_view":158,"./template.tpl":145,"d3":2,"underscore":5}],144:[function(require,module,exports){
 var _ = require('underscore');
 var WidgetModel = require('../widget_model');
 
 module.exports = WidgetModel.extend({
+
+  defaults: _.extend(
+    {},
+    WidgetModel.prototype.defaults,
+    {
+      suffix: '',
+      prefix: ''
+    }
+  ),
 
   // TODO: The response format has probably changed
   parse: function(r) {
@@ -35404,17 +35470,18 @@ module.exports = WidgetModel.extend({
   },
 
   toJSON: function(d) {
-      return {
-          type: "formula",
-          options: {
-              column: this.get('column'),
-              operation: this.get('operation')
-          }
-      };
+    return {
+      type: "formula",
+      options: {
+        column: this.get('column'),
+        operation: this.get('operation')
+      }
+    };
   }
+
 });
 
-},{"../widget_model":168,"underscore":5}],148:[function(require,module,exports){
+},{"../widget_model":172,"underscore":5}],145:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -35431,9 +35498,13 @@ __p+='<div class="Widget-header"> <div class="Widget-title"> <h3 class="Widget-t
  if (!_.isUndefined(value)) { 
 __p+=' <h4 class="Widget-textBigger" title="'+
 ((__t=( value ))==null?'':_.escape(__t))+
-'">'+
+'"> '+
+((__t=( prefix ))==null?'':_.escape(__t))+
+''+
 ((__t=( value ))==null?'':_.escape(__t))+
-'</h4> ';
+''+
+((__t=( suffix ))==null?'':_.escape(__t))+
+' </h4> ';
  } else { 
 __p+=' <div class="Widget-listItem--fake"></div> ';
  } 
@@ -35442,7 +35513,7 @@ __p+=' </div>';
 return __p;
 };
 
-},{"underscore":5}],149:[function(require,module,exports){
+},{"underscore":5}],146:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var d3 = require('d3');
@@ -35453,18 +35524,22 @@ module.exports = View.extend({
 
   defaults: {
     minimumBarHeight: 2,
-    duration: 750,
+    animationSpeed: 750,
     handleWidth: 6,
     handleHeight: 23,
     handleRadius: 3,
     divisionWidth: 80,
+    animationBarDelay: function(d, i) {
+      return Math.random() * (100 + (i * 10));
+    },
     transitionType: 'elastic'
   },
 
   initialize: function(opts) {
     if (!opts.width) throw new Error('opts.width is required');
     if (!opts.height) throw new Error('opts.height is required');
-    if (!_.isFunction(opts.xAxisTickFormat)) throw new Error('opts.xAxisTickFormat is required');
+
+    this.options = _.extend({}, this.defaults, opts);
 
     _.bindAll(this, '_selectBars', '_adjustBrushHandles', '_onBrushMove', '_onBrushStart', '_onMouseMove', '_onMouseOut');
 
@@ -35473,11 +35548,11 @@ module.exports = View.extend({
     this.$el = $('<svg class=""></svg>');
     this.el = this.$el[0];
 
-    this._canvas = d3.select(this.el)
+    this.canvas = d3.select(this.el)
     .attr('width',  opts.width)
     .attr('height', opts.height);
 
-    this._canvas
+    this.canvas
     .append('g')
     .attr('class', 'Canvas');
 
@@ -35580,8 +35655,8 @@ module.exports = View.extend({
 
       var h = this.chartHeight - this.yScale(freq);
 
-      if (h < this.defaults.minimumBarHeight && h > 0) {
-        top = this.chartHeight + this.model.get('pos').y + this.$el.position().top - 20 - this.defaults.minimumBarHeight;
+      if (h < this.options.minimumBarHeight && h > 0) {
+        top = this.chartHeight + this.model.get('pos').y + this.$el.position().top - 20 - this.options.minimumBarHeight;
       }
 
       if (!this._isDragging()) {
@@ -35622,8 +35697,8 @@ module.exports = View.extend({
 
   refresh: function() {
     this._setupDimensions();
-    this._removeXAxis();
-    this._generateXAxis();
+    this._removeAxis();
+    this._generateAxis();
     this._updateChart();
   },
 
@@ -35670,7 +35745,7 @@ module.exports = View.extend({
     this._removeBrush();
     this._removeHandles();
     this._removeBars();
-    this._removeXAxis();
+    this._removeAxis();
     this._removeLines();
   },
 
@@ -35679,7 +35754,7 @@ module.exports = View.extend({
     this._generateBars();
     this._generateHandles();
     this._setupBrush();
-    this._generateXAxis();
+    this._generateAxis();
   },
 
   resize: function(width) {
@@ -35688,7 +35763,10 @@ module.exports = View.extend({
 
   _generateLines: function() {
     this._generateHorizontalLines();
-    this._generateVerticalLines();
+
+    if (this.options.type !== 'time') {
+      this._generateVerticalLines();
+    }
   },
 
   _generateVerticalLines: function() {
@@ -35757,11 +35835,16 @@ module.exports = View.extend({
     var data = this.model.get('data');
     this.xScale = d3.scale.linear().domain([0, 100]).range([0, this.chartWidth]);
     this.yScale = d3.scale.linear().domain([0, d3.max(data, function(d) { return _.isEmpty(d) ? 0 : d.freq; } )]).range([this.chartHeight, 0]);
-    this.xAxisScale = d3.scale.linear().range([data[0].start, data[data.length - 1].end]).domain([0, this.chartWidth]);
+
+    if (this.options.type === 'time') {
+      this.xAxisScale = d3.time.scale().domain([data[0].start * 1000, data[data.length - 1].end * 1000]).nice().range([0, this.chartWidth]);
+    } else {
+      this.xAxisScale = d3.scale.linear().range([data[0].start, data[data.length - 1].end]).domain([0, this.chartWidth]);
+    }
   },
 
   _setupRanges: function() {
-    var n = Math.round(this.chartWidth / this.defaults.divisionWidth);
+    var n = Math.round(this.chartWidth / this.options.divisionWidth);
     this.verticalRange = d3.range(0, this.chartWidth + this.chartWidth / n, this.chartWidth / n);
     this.horizontalRange = d3.range(0, this.chartHeight + this.chartHeight / 2, this.chartHeight / 2);
   },
@@ -35816,12 +35899,12 @@ module.exports = View.extend({
   },
 
   expand: function(newHeight) {
-    this._canvas.attr('height', newHeight);
+    this.canvas.attr('height', newHeight);
     this._move({ x: 0, y: 20 });
   },
 
   contract: function(newHeight) {
-    this._canvas.attr('height', newHeight);
+    this.canvas.attr('height', newHeight);
     this._move({ x: 0, y: 0 });
   },
 
@@ -35947,8 +36030,8 @@ module.exports = View.extend({
     var loExtent = extent[0];
     var hiExtent = extent[1];
 
-    var leftX  = this.xScale(loExtent) - this.defaults.handleWidth / 2;
-    var rightX = this.xScale(hiExtent) - this.defaults.handleWidth / 2;
+    var leftX  = this.xScale(loExtent) - this.options.handleWidth / 2;
+    var rightX = this.xScale(hiExtent) - this.options.handleWidth / 2;
 
     this.chart.select('.Handle-left')
     .attr('transform', 'translate(' + leftX + ', 0)');
@@ -35958,8 +36041,8 @@ module.exports = View.extend({
   },
 
   _generateHandle: function(className) {
-    var handle = { width: this.defaults.handleWidth, height: this.defaults.handleHeight, radius: this.defaults.handleRadius };
-    var yPos = (this.chartHeight / 2) - (this.defaults.handleHeight / 2);
+    var handle = { width: this.options.handleWidth, height: this.options.handleHeight, radius: this.options.handleRadius };
+    var yPos = (this.chartHeight / 2) - (this.options.handleHeight / 2);
 
     var handles = this.chart.select('.Handles')
     .append('g')
@@ -36018,32 +36101,82 @@ module.exports = View.extend({
     this.chart.select('.Handles').remove();
   },
 
-  _removeXAxis: function() {
-    this.chart.select('.Axis').remove();
+  _removeAxis: function() {
+    this.canvas.select('.Axis').remove();
   },
 
-  _generateXAxis: function() {
-    var self = this;
-    var data = this.model.get('data');
+  _generateAdjustAnchorMethod: function(ticks) {
 
-    var lines = this.chart.append('g')
+    return function(d, i) {
+      if (i === 0) {
+        return 'start';
+      } else if (i === (ticks.length - 1)) {
+        return 'end';
+      } else {
+        return 'middle';
+      }
+    };
+  },
+
+  _generateAxis: function() {
+    if (this.options.type === 'time') {
+      this._generateTimeAxis();
+    } else {
+      this._generateNumericAxis();
+    }
+  },
+
+  _generateNumericAxis: function() {
+    var self = this;
+    var adjustTextAnchor = this._generateAdjustAnchorMethod(this.verticalRange);
+
+    var axis = this.chart.append('g')
     .attr('class', 'Axis');
 
-    lines
+    axis
     .append('g')
     .selectAll('.Label')
-    .data(this.verticalRange.slice(0, this.verticalRange.length))
+    .data(this.verticalRange)
     .enter().append("text")
     .attr("x", function(d) { return d; })
     .attr("y", function(d) { return self.chartHeight + 15; })
-    .attr("text-anchor", function(d, i) {
-      if (i === 0) return 'start';
-      else if (i === self.verticalRange.length - 1) return 'end';
-      else return 'middle';
-    })
+    .attr("text-anchor", adjustTextAnchor)
     .text(function(d) {
       return self.formatNumber(self.xAxisScale(d));
     });
+  },
+
+  _generateTimeAxis: function() {
+
+    var self = this;
+
+    d3.selection.prototype.moveToBack = function() { // TODO: move to a helper
+      return this.each(function() {
+        var firstChild = this.parentNode.firstChild;
+        if (firstChild) {
+          this.parentNode.insertBefore(this, firstChild);
+        }
+      });
+    };
+
+    var adjustTextAnchor = this._generateAdjustAnchorMethod(this.xAxisScale.ticks());
+
+    var xAxis = d3.svg.axis()
+    .orient("bottom")
+    .tickPadding(5)
+    .innerTickSize(-this.chartHeight)
+    .scale(this.xAxisScale)
+    .orient('bottom');
+
+    this.canvas.append('g')
+    .attr("class", 'Axis')
+    .attr("transform", "translate(0," + (this.chartHeight + 5) + ")")
+    .call(xAxis)
+    .selectAll("text")
+    .style("text-anchor", adjustTextAnchor);
+
+    this.canvas.select('.Axis')
+    .moveToBack();
   },
 
   _updateChart: function() {
@@ -36065,7 +36198,8 @@ module.exports = View.extend({
     .attr('height', 0)
     .attr('width', this.barWidth - 1);
 
-    bars.transition()
+    bars
+    .transition()
     .duration(200)
     .attr('height', function(d) {
 
@@ -36075,8 +36209,8 @@ module.exports = View.extend({
 
       var h = self.chartHeight - self.yScale(d.freq);
 
-      if (h < self.defaults.minimumBarHeight && h > 0) {
-        h = self.defaults.minimumBarHeight;
+      if (h < self.options.minimumBarHeight && h > 0) {
+        h = self.options.minimumBarHeight;
       }
       return h;
     })
@@ -36087,8 +36221,8 @@ module.exports = View.extend({
 
       var h = self.chartHeight - self.yScale(d.freq);
 
-      if (h < self.defaults.minimumBarHeight && h > 0) {
-        return self.chartHeight - self.defaults.minimumBarHeight;
+      if (h < self.options.minimumBarHeight && h > 0) {
+        return self.chartHeight - self.options.minimumBarHeight;
       } else {
         return self.yScale(d.freq);
       }
@@ -36132,11 +36266,9 @@ module.exports = View.extend({
 
     bars
     .transition()
-    .ease(this.defaults.transitionType)
-    .duration(self.defaults.duration)
-    .delay(function(d, i) {
-      return Math.random() * (100 + i * 10);
-    })
+    .ease(this.options.transitionType)
+    .duration(this.options.animationSpeed)
+    .delay(this.options.animationBarDelay)
     .transition()
     .attr('height', function(d) {
 
@@ -36146,8 +36278,8 @@ module.exports = View.extend({
 
       var h = self.chartHeight - self.yScale(d.freq);
 
-      if (h < self.defaults.minimumBarHeight && h > 0) {
-        h = self.defaults.minimumBarHeight;
+      if (h < self.options.minimumBarHeight && h > 0) {
+        h = self.options.minimumBarHeight;
       }
       return h;
     })
@@ -36158,8 +36290,8 @@ module.exports = View.extend({
 
       var h = self.chartHeight - self.yScale(d.freq);
 
-      if (h < self.defaults.minimumBarHeight && h > 0) {
-        return self.chartHeight - self.defaults.minimumBarHeight;
+      if (h < self.options.minimumBarHeight && h > 0) {
+        return self.chartHeight - self.options.minimumBarHeight;
       } else {
         return self.yScale(d.freq);
       }
@@ -36167,14 +36299,14 @@ module.exports = View.extend({
   }
 });
 
-},{"cdb/core/model":23,"cdb/core/view":29,"d3":2,"jquery":"jquery","underscore":5}],150:[function(require,module,exports){
+},{"cdb/core/model":23,"cdb/core/view":29,"d3":2,"jquery":"jquery","underscore":5}],147:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var d3 = require('d3');
 var Model = require('cdb/core/model');
 var View = require('cdb/core/view');
 var WidgetContent = require('../standard/widget_content_view');
-var WidgetHistogramChart = require('./chart');
+var HistogramChartView = require('./chart');
 var placeholder = require('./placeholder.tpl');
 var template = require('./content.tpl');
 var xAxisTickFormatter = d3.format('.2s');
@@ -36244,12 +36376,12 @@ module.exports = WidgetContent.extend({
         this.originalData = this.dataModel.getData();
       }
 
-      this.chart.replaceData(this.dataModel.getData());
+      this.histogramChartView.replaceData(this.dataModel.getData());
     }
 
     if (this.unsettingRange) {
       this.unsettingRange = false;
-      this.chart.replaceData(this.originalData);
+      this.histogramChartView.replaceData(this.originalData);
       this.viewModel.set({ lo_index: null, hi_index: null });
     } else {
       if (this._isZoomed() && !this.lockZoomedData) {
@@ -36296,58 +36428,44 @@ module.exports = WidgetContent.extend({
 
   _onWindowResize: function() {
     this._setupDimensions();
-    if (this.chart) this.chart.resize(this.canvasWidth);
-    if (this.miniChart) this.miniChart.resize(this.canvasWidth);
+    if (this.histogramChartView) this.histogramChartView.resize(this.canvasWidth);
+    if (this.miniHistogramChartView) this.miniHistogramChartView.resize(this.canvasWidth);
   },
 
   _renderMainChart: function() {
-    this.chart = new WidgetHistogramChart(({
-      y: 0,
+    this.histogramChartView = new HistogramChartView(({
       margin: { top: 4, right: 4, bottom: 20, left: 4 },
       handles: true,
       width: this.canvasWidth,
       height: this.canvasHeight,
-      data: this.dataModel.getData(),
-      xAxisTickFormat: this._xAxisTickFormat.bind(this)
+      data: this.dataModel.getData()
     }));
 
-    this.$('.js-content').append(this.chart.el);
-    this.addView(this.chart);
+    this.$('.js-content').append(this.histogramChartView.el);
+    this.addView(this.histogramChartView);
 
-    this.chart.bind('range_updated', this._onRangeUpdated, this);
-    this.chart.bind('on_brush_end', this._onBrushEnd, this);
-    this.chart.bind('hover', this._onValueHover, this);
-    this.chart.render().show();
+    this.histogramChartView.bind('range_updated', this._onRangeUpdated, this);
+    this.histogramChartView.bind('on_brush_end', this._onBrushEnd, this);
+    this.histogramChartView.bind('hover', this._onValueHover, this);
+    this.histogramChartView.render().show();
 
     this._updateStats();
   },
 
-  _xAxisTickFormat: function(d, i, data) {
-    return (i === data.length - 1)
-      ? this._formatNumber(data[i].end)
-      : this._formatNumber(data[i].start);
-  },
-
-  _formatNumber: function(value, unit) {
-    return xAxisTickFormatter(value) + (unit ? ' ' + unit : '');
-  },
-
   _renderMiniChart: function() {
-    this.miniChart = new WidgetHistogramChart(({
+    this.miniHistogramChartView = new HistogramChartView(({
       className: 'mini',
       handles: false,
       width: this.canvasWidth,
       margin: { top: 0, right: 0, bottom: 20, left: 4 },
-      y: 0,
       height: 40,
-      data: this.dataModel.getData(),
-      xAxisTickFormat: this._xAxisTickFormat.bind(this)
+      data: this.dataModel.getData()
     }));
 
-    this.addView(this.miniChart);
-    this.$('.js-content').append(this.miniChart.el);
-    this.miniChart.bind('on_brush_end', this._onMiniRangeUpdated, this);
-    this.miniChart.render().hide();
+    this.addView(this.miniHistogramChartView);
+    this.$('.js-content').append(this.miniHistogramChartView.el);
+    this.miniHistogramChartView.bind('on_brush_end', this._onMiniRangeUpdated, this);
+    this.miniHistogramChartView.render().hide();
   },
 
   _setupBindings: function() {
@@ -36355,6 +36473,7 @@ module.exports = WidgetContent.extend({
     this.viewModel.bind('change:zoom_enabled', this._onChangeZoomEnabled, this);
     this.viewModel.bind('change:filter_enabled', this._onChangeFilterEnabled, this);
     this.viewModel.bind('change:total', this._onChangeTotal, this);
+    this.viewModel.bind('change:nulls', this._onChangeNulls, this);
     this.viewModel.bind('change:max',   this._onChangeMax, this);
     this.viewModel.bind('change:min',   this._onChangeMin, this);
     this.viewModel.bind('change:avg',   this._onChangeAvg, this);
@@ -36389,7 +36508,7 @@ module.exports = WidgetContent.extend({
     this.lockZoomedData = false;
 
     this._clearTooltip();
-    this.chart.removeSelection();
+    this.histogramChartView.removeSelection();
 
     var data = this.originalData;
     var start = data[loBarIndex].start;
@@ -36422,6 +36541,7 @@ module.exports = WidgetContent.extend({
     var end = data[hiBarIndex - 1].end;
 
     this._setRange(start, end);
+    this._updateStats();
   },
 
   _onRangeUpdated: function(loBarIndex, hiBarIndex) {
@@ -36454,9 +36574,14 @@ module.exports = WidgetContent.extend({
     this.$(".js-zoom").toggleClass('is-hidden', !this.viewModel.get('zoom_enabled'));
   },
 
+  _onChangeNulls: function() {
+    //this._animateValue('.js-val', 'nulls', ' SELECTED');
+    this.$('.js-nulls').text(this.histogramChartView.formatNumber(this.viewModel.get('nulls')) + ' NULLS');
+  },
+
   _onChangeTotal: function() {
     //this._animateValue('.js-val', 'total', ' SELECTED');
-    this.$('.js-val').text(this.chart.formatNumber(this.viewModel.get('total')) + ' SELECTED');
+    this.$('.js-val').text(this.histogramChartView.formatNumber(this.viewModel.get('total')) + ' SELECTED');
   },
 
   _onChangeMax: function() {
@@ -36464,7 +36589,7 @@ module.exports = WidgetContent.extend({
     if (this.viewModel.get('max') === undefined) {
       return '0 MAX';
     }
-    this.$('.js-max').text(this.chart.formatNumber(this.viewModel.get('max')) + ' MAX');
+    this.$('.js-max').text(this.histogramChartView.formatNumber(this.viewModel.get('max')) + ' MAX');
   },
 
   _onChangeMin: function() {
@@ -36472,11 +36597,11 @@ module.exports = WidgetContent.extend({
     if (this.viewModel.get('min') === undefined) {
       return '0 MIN';
     }
-    this.$('.js-min').text(this.chart.formatNumber(this.viewModel.get('min')) + ' MIN');
+    this.$('.js-min').text(this.histogramChartView.formatNumber(this.viewModel.get('min')) + ' MIN');
   },
 
   _onChangeAvg: function() {
-    this.$('.js-avg').text(this.chart.formatNumber(this.viewModel.get('avg')) + ' AVG');
+    this.$('.js-avg').text(this.histogramChartView.formatNumber(this.viewModel.get('avg')) + ' AVG');
     //this._animateValue('.js-avg', 'avg', 'AVG');
   },
 
@@ -36501,29 +36626,42 @@ module.exports = WidgetContent.extend({
 
   _updateStats: function() {
     var data = this._getData();
+    var nulls = this.dataModel.get('nulls');
+
     var min, max;
 
     if (data && data.length) {
       var loBarIndex = this.viewModel.get('lo_index') || 0;
       var hiBarIndex = this.viewModel.get('hi_index') || data.length;
 
+
       var sum = this._calcSum(data, loBarIndex, hiBarIndex);
-      var avg = this._calcAvg(data);
+      var avg = this._calcAvg(data, loBarIndex, hiBarIndex);
 
       if (loBarIndex >= 0 && loBarIndex < data.length) {
-        min = data[loBarIndex].min;
+        min = data[loBarIndex].start;
       }
 
       if (hiBarIndex >= 0 && hiBarIndex - 1 < data.length) {
-        max = data[hiBarIndex - 1].max;
+        max = data[hiBarIndex - 1].end;
       }
 
-      this.viewModel.set({ total: sum, min: min, max: max, avg: avg });
+      this.viewModel.set({ total: sum, nulls: nulls, min: min, max: max, avg: avg });
     }
   },
 
-  _calcAvg: function(data) {
-    return Math.round(d3.mean(data, function(d) { return _.isEmpty(d) ? 0 : d.freq; }));
+  _calcAvg: function(data, start, end) {
+    var total = this._calcSum(data, start, end);
+
+    var area = _.reduce(data.slice(start, end), function(memo, d) {
+      return !d.start ? memo : ((d.end - d.start) * d.freq) + memo;
+    }, 0);
+
+    if (total > 0) {
+      return area / total;
+    } else {
+      return 0;
+    }
   },
 
   _calcSum: function(data, start, end) {
@@ -36541,8 +36679,8 @@ module.exports = WidgetContent.extend({
   },
 
   _onZoomIn: function() {
-    this.miniChart.show();
-    this.chart.expand(this.canvasHeight + 60);
+    this.miniHistogramChartView.show();
+    this.histogramChartView.expand(this.canvasHeight + 60);
 
     this._showMiniRange();
 
@@ -36554,7 +36692,7 @@ module.exports = WidgetContent.extend({
   _zoom: function() {
     this.lockedByUser = true;
     this.viewModel.set({ zoomed: true, zoom_enabled: false });
-    this.chart.removeSelection();
+    this.histogramChartView.removeSelection();
   },
 
   _onZoomOut: function() {
@@ -36566,10 +36704,10 @@ module.exports = WidgetContent.extend({
     this.viewModel.set({ zoom_enabled: false, filter_enabled: false, lo_index: null, hi_index: null });
     this.filter.unsetRange();
 
-    this.chart.contract(this.canvasHeight);
-    this.chart.resetIndexes();
+    this.histogramChartView.contract(this.canvasHeight);
+    this.histogramChartView.resetIndexes();
 
-    this.miniChart.hide();
+    this.miniHistogramChartView.hide();
   },
 
   _showMiniRange: function() {
@@ -36578,12 +36716,12 @@ module.exports = WidgetContent.extend({
     var loBarIndex = this.viewModel.get('lo_index');
     var hiBarIndex = this.viewModel.get('hi_index');
 
-    this.miniChart.selectRange(loBarIndex, hiBarIndex);
-    this.miniChart.show();
+    this.miniHistogramChartView.selectRange(loBarIndex, hiBarIndex);
+    this.miniHistogramChartView.show();
   },
 
   _clear: function() {
-    this.chart.removeSelection();
+    this.histogramChartView.removeSelection();
     this.viewModel.set({ zoomed: false, zoom_enabled: false });
     this.viewModel.trigger('change:zoomed');
   },
@@ -36594,19 +36732,19 @@ module.exports = WidgetContent.extend({
   }
 });
 
-},{"../standard/widget_content_view":161,"./chart":149,"./content.tpl":151,"./placeholder.tpl":153,"cdb/core/model":23,"cdb/core/view":29,"d3":2,"jquery":"jquery","underscore":5}],151:[function(require,module,exports){
+},{"../standard/widget_content_view":158,"./chart":146,"./content.tpl":148,"./placeholder.tpl":150,"cdb/core/model":23,"cdb/core/view":29,"d3":2,"jquery":"jquery","underscore":5}],148:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
 with(obj||{}){
 __p+='<div class="Widget-header"> <div class="Widget-title Widget-contentSpaced"> <h3 class="Widget-textBig">'+
 ((__t=( title ))==null?'':__t)+
-'</h3> </div> <dl class="Widget-info Widget-textSmaller Widget-textSmaller--upper"> <dt class="Widget-infoItem js-null">0 NULL ROWS</dt> <dt class="Widget-infoItem js-min">0 MIN</dt> <dt class="Widget-infoItem js-avg">0 AVG</dt> <dt class="Widget-infoItem js-max">0 MAX</dt> </dl> </div> <div class="Widget-content js-content"> <div class="Widget-chartTooltip js-tooltip"></div> <div class="Widget-filter Widget-contentSpaced js-filter is-hidden"> <p class="Widget-textSmaller Widget-textSmaller--bold Widget-textSmaller--upper js-val"></p> <div class="Widget-filterButtons"> <button class="Widget-link Widget-filterButton js-zoom">zoom</button> <button class="Widget-link Widget-filterButton js-clear">clear</button> </div> </div> </div>';
+'</h3> </div> <dl class="Widget-info Widget-textSmaller Widget-textSmaller--upper"> <dt class="Widget-infoItem js-nulls">0 NULL ROWS</dt> <dt class="Widget-infoItem js-min">0 MIN</dt> <dt class="Widget-infoItem js-avg">0 AVG</dt> <dt class="Widget-infoItem js-max">0 MAX</dt> </dl> </div> <div class="Widget-content js-content"> <div class="Widget-chartTooltip js-tooltip"></div> <div class="Widget-filter Widget-contentSpaced js-filter is-hidden"> <p class="Widget-textSmaller Widget-textSmaller--bold Widget-textSmaller--upper js-val"></p> <div class="Widget-filterButtons"> <button class="Widget-link Widget-filterButton js-zoom">zoom</button> <button class="Widget-link Widget-filterButton js-clear">clear</button> </div> </div> </div>';
 }
 return __p;
 };
 
-},{"underscore":5}],152:[function(require,module,exports){
+},{"underscore":5}],149:[function(require,module,exports){
 var Backbone = require('backbone');
 var WidgetModel = require('../widget_model');
 var _ = require('underscore');
@@ -36722,12 +36860,12 @@ module.exports = WidgetModel.extend({
   }
 });
 
-},{"../widget_model":168,"backbone":1,"underscore":5}],153:[function(require,module,exports){
+},{"../widget_model":172,"backbone":1,"underscore":5}],150:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
 with(obj||{}){
-__p+='<ul> ';
+__p+='<ul class="Widget-chart Widget-chart--fake"> ';
  for (var i = 0; i < 15; i++) { 
 __p+=' <li class="Widget-chartItem Widget-chartItem--'+
 ((__t=( _.sample(['small', 'medium', 'big'], 1)[0] ))==null?'':_.escape(__t))+
@@ -36738,7 +36876,7 @@ __p+=' </ul>';
 return __p;
 };
 
-},{"underscore":5}],154:[function(require,module,exports){
+},{"underscore":5}],151:[function(require,module,exports){
 var View = require('cdb/core/view');
 
 module.exports = View.extend({
@@ -36767,7 +36905,7 @@ module.exports = View.extend({
   }
 });
 
-},{"cdb/core/view":29}],155:[function(require,module,exports){
+},{"cdb/core/view":29}],152:[function(require,module,exports){
 var _ = require('underscore');
 var format = require('cdb/core/format');
 var WidgetContentView = require('../standard/widget_content_view');
@@ -36859,7 +36997,7 @@ module.exports = WidgetContentView.extend({
 
 });
 
-},{"../standard/widget_content_view":161,"./edges_view":156,"./items_view":158,"./paginator_view":160,"cdb/core/format":18,"underscore":5}],156:[function(require,module,exports){
+},{"../standard/widget_content_view":158,"./edges_view":153,"./items_view":155,"./paginator_view":157,"cdb/core/format":18,"underscore":5}],153:[function(require,module,exports){
 var _ = require('underscore');
 var View = require('cdb/core/view');
 
@@ -36918,7 +37056,7 @@ module.exports = View.extend({
 
 });
 
-},{"cdb/core/view":29,"underscore":5}],157:[function(require,module,exports){
+},{"cdb/core/view":29,"underscore":5}],154:[function(require,module,exports){
 var _ = require('underscore');
 var format = require('cdb/core/format');
 var View = require('cdb/core/view');
@@ -37032,7 +37170,7 @@ module.exports = View.extend({
 
 });
 
-},{"cdb/core/format":18,"cdb/core/view":29,"underscore":5}],158:[function(require,module,exports){
+},{"cdb/core/format":18,"cdb/core/view":29,"underscore":5}],155:[function(require,module,exports){
 var View = require('cdb/core/view');
 var WidgetListItemView = require('./item_view');
 
@@ -37069,7 +37207,7 @@ module.exports = View.extend({
 
 });
 
-},{"./item_view":157,"cdb/core/view":29}],159:[function(require,module,exports){
+},{"./item_view":154,"cdb/core/view":29}],156:[function(require,module,exports){
 var Backbone = require('backbone');
 var WidgetModel = require('../widget_model');
 
@@ -37094,7 +37232,7 @@ module.exports = WidgetModel.extend({
   },
 
   parse: function(data) {
-    var rows = data.ownFilterOff.rows;
+    var rows = data.rows;
     this._data.reset(rows);
     return {
       data: rows
@@ -37111,7 +37249,7 @@ module.exports = WidgetModel.extend({
   }
 });
 
-},{"../widget_model":168,"backbone":1}],160:[function(require,module,exports){
+},{"../widget_model":172,"backbone":1}],157:[function(require,module,exports){
 var _ = require('underscore');
 var View = require('cdb/core/view');
 
@@ -37216,7 +37354,7 @@ module.exports = View.extend({
 
 });
 
-},{"cdb/core/view":29,"underscore":5}],161:[function(require,module,exports){
+},{"cdb/core/view":29,"underscore":5}],158:[function(require,module,exports){
 var _ = require('underscore');
 var log = require('cdb.log');
 var View = require('cdb/core/view');
@@ -37284,9 +37422,20 @@ module.exports = View.extend({
 
 });
 
-},{"cdb.log":14,"cdb/core/view":29,"underscore":5}],162:[function(require,module,exports){
+},{"cdb.log":14,"cdb/core/view":29,"underscore":5}],159:[function(require,module,exports){
+var _ = require('underscore');
+module.exports = function(obj){
+var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
+with(obj||{}){
+__p+='<button class="Widget-button Widget-errorButton js-refresh"> <span class="Widget-textSmall Widget-textSmall--bold">REFRESH</span> </button>';
+}
+return __p;
+};
+
+},{"underscore":5}],160:[function(require,module,exports){
 var _ = require('underscore');
 var View = require('cdb/core/view');
+var template = require('./widget_error_template.tpl');
 
 /**
  *  Default widget error view:
@@ -37296,12 +37445,7 @@ var View = require('cdb/core/view');
  */
 module.exports = View.extend({
 
-  className: 'Widget-error',
-
-  _TEMPLATE: ' ' +
-    '<button class="Widget-button Widget-errorButton js-refresh">'+
-      '<span class="Widget-textSmall Widget-textSmall--bold">REFRESH</span>' +
-    '</button>',
+  className: 'Widget-error is-hidden',
 
   events: {
     'click .js-refresh': '_onRefreshClick'
@@ -37312,36 +37456,30 @@ module.exports = View.extend({
   },
 
   render: function() {
-    var template = _.template(this._TEMPLATE);
     this.$el.html(template());
     return this;
   },
 
   _initBinds: function() {
     this.model.bind('error', this.show, this);
-    this.model.bind('loading sync', this.hide, this);
+    this.model.bind('loading', this.hide, this);
   },
 
   _onRefreshClick: function() {
-    this.model.fetch();
+    this.model.refresh();
   },
 
   show: function() {
-    this.$el.css('display', 'flex');
-    this.$el.addClass('is-visible');
+    this.$el.removeClass('is-hidden');
   },
 
   hide: function() {
-    var self = this;
-    this.$el.removeClass('is-visible');
-    setTimeout(function() {
-      self.$el.hide();
-    }, 500);
+    this.$el.addClass('is-hidden');
   }
 
 });
 
-},{"cdb/core/view":29,"underscore":5}],163:[function(require,module,exports){
+},{"./widget_error_template.tpl":159,"cdb/core/view":29,"underscore":5}],161:[function(require,module,exports){
 var View = require('cdb/core/view');
 
 /**
@@ -37376,27 +37514,81 @@ module.exports = View.extend({
 
 });
 
-},{"cdb/core/view":29}],164:[function(require,module,exports){
+},{"cdb/core/view":29}],162:[function(require,module,exports){
+var _ = require('underscore');
+var View = require('cdb/core/view');
+var placeholderTemplate = require('../histogram/placeholder.tpl');
+var HistogramView = require('./histogram-view');
+
+/**
+ * Widget content view for a time-series
+ */
+module.exports = View.extend({
+
+  initialize: function() {
+    this.model.once('change:data', this._onFirstLoad, this);
+  },
+
+  render: function() {
+    this.clearSubViews();
+    this.$el.html(''); // to remove placeholder if there is any
+
+    if (this._isDataEmpty()) {
+      this.$el.append(placeholderTemplate());
+    } else {
+      this._appendView(new HistogramView(this.options));
+    }
+
+    return this;
+  },
+
+  _onFirstLoad: function() {
+    this._storeBounds();
+    this.model.once('change:data', this.render, this);
+    this.model._fetch();
+  },
+
+  _storeBounds: function() {
+    var data = this.model.getData();
+    if (data && data.length > 0) {
+      var start = data[0].start;
+      var end = data[data.length - 1].end;
+      this.model.set({ start: start, end: end, bins: data.length });
+    }
+  },
+
+  _appendView: function(view) {
+    this.addView(view);
+    this.$el.append(view.render().el);
+  },
+
+  _isDataEmpty: function() {
+    var data = this.model.getData();
+    return _.isEmpty(data) || _.size(data) === 0;
+  }
+});
+
+},{"../histogram/placeholder.tpl":150,"./histogram-view":163,"cdb/core/view":29,"underscore":5}],163:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var Model = require('cdb/core/model');
-var WidgetContentView = require('../standard/widget_content_view.js');
+var View = require('cdb/core/view');
 var HistogramChartView = require('../histogram/chart');
-var placeholderTemplate = require('../histogram/placeholder.tpl');
 
 /**
- * Widget view representing a histogram of date/time-series.
+ * Time-series histogram view.
  */
-module.exports = WidgetContentView.extend({
+module.exports = View.extend({
 
   defaults: {
     width: 400
   },
 
   initialize: function() {
-    WidgetContentView.prototype.initialize.apply(this, arguments);
     _.bindAll(this, '_onWindowResize');
     $(window).bind('resize', this._onWindowResize);
+
+    this.filter = this.options.filter;
 
     this.viewModel = new Model({
       width: this.defaults.width,
@@ -37415,23 +37607,10 @@ module.exports = WidgetContentView.extend({
     this.viewModel.bind('change:width', this._onChangeWidth, this);
   },
 
-  _initBinds: function() {
-    // TODO overrides parent view's private function, can we remove this and have things more clear?
-    this.model.once('change:data', this.render, this);
-  },
-
   render: function() {
     this.clearSubViews();
-    this.$el.html(''); // to remove placeholder if there is any
-
-    if (this._isDataEmpty()) {
-      this.$el.append(placeholderTemplate());
-    } else {
-      this._createHistogramView();
-    }
-
+    this._createHistogramView();
     this._onWindowResize();
-
     return this;
   },
 
@@ -37441,8 +37620,9 @@ module.exports = WidgetContentView.extend({
   },
 
   _createHistogramView: function() {
-    this.histogramChartView = new HistogramChartView({
-      y: 0,
+    this.chartView = new HistogramChartView({
+      type: 'time',
+      animationSpeed: 100,
       margin: {
         top: 4,
         right: 4,
@@ -37450,16 +37630,17 @@ module.exports = WidgetContentView.extend({
         left: 4
       },
       handles: true,
+      delayBar: function(d, i) {
+        return 100 + (i * 10);
+      },
       width: this._histogramChartWidth(),
       height: this.viewModel.get('histogramChartHeight'),
-      data: this.model.getData(),
-      xAxisTickFormat: function(d, i) {
-        return i;
-      }
+      data: this.model.getData()
     });
-    this._appendView(this.histogramChartView);
-    this.histogramChartView.bind('on_brush_end', this._onBrushEnd, this);
-    this.histogramChartView.show();
+    this.addView(this.chartView);
+    this.$el.append(this.chartView.render().el);
+    this.chartView.bind('on_brush_end', this._onBrushEnd, this);
+    this.chartView.show();
   },
 
   _onBrushEnd: function(loBarIndex, hiBarIndex) {
@@ -37474,26 +37655,15 @@ module.exports = WidgetContentView.extend({
     this.filter.setRange({ min: start, max: end });
   },
 
-  _appendView: function(view) {
-    this.addView(view);
-    this.$el.append(view.el);
-    view.render();
-  },
-
   _onChangeWidth: function() {
-    if (this.histogramChartView) {
-      this.histogramChartView.resize(this._histogramChartWidth());
+    if (this.chartView) {
+      this.chartView.resize(this._histogramChartWidth());
     }
   },
 
   _histogramChartWidth: function() {
     var margins = this.viewModel.get('margins');
     return this.viewModel.get('width') - margins.left - margins.right;
-  },
-
-  _isDataEmpty: function() {
-    var data = this.model.getData();
-    return _.isEmpty(data) || _.size(data) === 0;
   },
 
   _onWindowResize: _.debounce(function() {
@@ -37504,7 +37674,348 @@ module.exports = WidgetContentView.extend({
 
 });
 
-},{"../histogram/chart":149,"../histogram/placeholder.tpl":153,"../standard/widget_content_view.js":161,"cdb/core/model":23,"jquery":"jquery","underscore":5}],165:[function(require,module,exports){
+},{"../histogram/chart":146,"cdb/core/model":23,"cdb/core/view":29,"jquery":"jquery","underscore":5}],164:[function(require,module,exports){
+var _ = require('underscore');
+var View = require('cdb/core/view');
+var TorqueControlsView = require('./torque-controls-view');
+var placeholderTemplate = require('../histogram/placeholder.tpl');
+var TorqueHistogramView = require('./torque-histogram-view');
+
+/**
+ * Widget content view for a Torque time-series
+ */
+module.exports = View.extend({
+
+  initialize: function() {
+    this.model.once('change:data', this.render, this);
+  },
+
+  render: function() {
+    this.clearSubViews();
+    this.$el.html(''); // to remove placeholder if there is any
+
+    if (this._isDataEmpty()) {
+      this.$el.append(placeholderTemplate());
+    } else {
+      this._renderContent();
+    }
+
+    return this;
+  },
+
+  _renderContent: function() {
+    this._appendView(new TorqueControlsView({
+      model: this.options.torqueLayerModel
+    }));
+    this._appendView(new TorqueHistogramView(this.options));
+  },
+
+  _appendView: function(view) {
+    this.addView(view);
+    this.$el.append(view.el);
+    view.render();
+  },
+
+  _isDataEmpty: function() {
+    var data = this.model.getData();
+    return _.isEmpty(data) || _.size(data) === 0;
+  }
+});
+
+},{"../histogram/placeholder.tpl":150,"./torque-controls-view":165,"./torque-histogram-view":167,"cdb/core/view":29,"underscore":5}],165:[function(require,module,exports){
+var _ = require('underscore');
+var View = require('cdb/core/view');
+var template = require('./torque-controls.tpl');
+
+/**
+ * Torque animation controls, to manage run state
+ */
+module.exports = View.extend({
+
+  events: {
+    'click': '_onClick'
+  },
+
+  initialize: function() {
+    this.model.bind('change:isRunning', this.render, this);
+  },
+
+  render: function() {
+    if (_.isNumber(this.model.get('step'))) {
+      this.$el.html(
+        template({
+          label: this.model.get('isRunning')
+            ? '❚❚'
+            : '▶'
+        })
+      );
+      this.show();
+    } else {
+      this.hide();
+    }
+
+    return this;
+  },
+
+  _onClick: function() {
+    if (this.model.get('isRunning')) {
+      this.model.pause();
+    } else {
+      this.model.play();
+    }
+  }
+});
+
+},{"./torque-controls.tpl":166,"cdb/core/view":29,"underscore":5}],166:[function(require,module,exports){
+var _ = require('underscore');
+module.exports = function(obj){
+var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
+with(obj||{}){
+__p+='<button> <span>'+
+((__t=( label ))==null?'':_.escape(__t))+
+'</span> </button>';
+}
+return __p;
+};
+
+},{"underscore":5}],167:[function(require,module,exports){
+var $ = require('jquery');
+var _ = require('underscore');
+var Model = require('cdb/core/model');
+var View = require('cdb/core/view');
+var HistogramChartView = require('../histogram/chart');
+var TorqueTimeMarkerview = require('./torque-time-marker-view');
+
+/**
+ * Torque time-series histogram view.
+ * Extends the common histogram chart view with time-control
+ */
+module.exports = View.extend({
+
+  // TODO could be calculated from element styles instead of duplicated numbers here?
+  defaults: {
+    width: 400,
+    margins: {
+      top: 0,
+      right: 24,
+      bottom: 0,
+      left: 24
+    }
+  },
+
+  initialize: function() {
+    if (!this.options.torqueLayerModel) throw new Error('torqeLayerModel is required');
+    if (!this.options.filter) throw new Error('filter is required');
+
+    this._filter = this.options._filter;
+
+    _.bindAll(this, '_onWindowResize');
+    $(window).bind('resize', this._onWindowResize);
+
+    this._viewModel = new Model({
+      width: this.defaults.width,
+      histogramChartMargins: {
+        top: 4,
+        right: 4,
+        bottom: 20,
+        left: 4
+      },
+      margins: this.defaults.margins,
+      histogramChartHeight:
+        48 + // inline bars height
+        20 + // bottom labels
+        4 // margins
+    });
+    this._viewModel.bind('change:width', this._onChangeWidth, this);
+    this.add_related_model(this._viewModel);
+    this._onChangeWidth();
+  },
+
+  render: function() {
+    this.clearSubViews();
+    this._createHistogramView();
+    this._onWindowResize();
+    return this;
+  },
+
+  clean: function() {
+    $(window).unbind('resize', this._onWindowResize);
+    View.prototype.clean.call(this);
+  },
+
+  _createHistogramView: function() {
+    this._chartView = new HistogramChartView({
+      type: 'time',
+      animationSpeed: 100,
+      margin: this._viewModel.get('histogramChartMargins'),
+      handles: true,
+      width: this._viewModel.get('histogramChartWidth'),
+      height: this._viewModel.get('histogramChartHeight'),
+      data: this.model.getData()
+    });
+    this.addView(this._chartView);
+    this.$el.append(this._chartView.render().el);
+    this._chartView.bind('on_brush_end', this._onBrushEnd, this);
+    this._chartView.show();
+
+    var timeMarkerView = new TorqueTimeMarkerview({
+      chartCanvas: this._chartView.canvas,
+      viewModel: this._viewModel,
+      torqueLayerModel: this.options.torqueLayerModel
+    });
+    this.addView(timeMarkerView);
+    timeMarkerView.render();
+  },
+
+  _onBrushEnd: function(loBarIndex, hiBarIndex) {
+    var data = this.model.getData();
+    this._setRange(
+      data[loBarIndex].start,
+      data[hiBarIndex - 1].end
+    );
+  },
+
+  _setRange: function(start, end) {
+    this._filter.setRange({ min: start, max: end });
+  },
+
+  _onChangeWidth: function() {
+    var margins = this._viewModel.get('margins');
+    var histogramChartWidth = this._viewModel.get('width') - margins.left - margins.right;
+    this._viewModel.set('histogramChartWidth', histogramChartWidth);
+
+    if (this._chartView) {
+      this._chartView.resize(histogramChartWidth);
+    }
+  },
+
+  _onWindowResize: _.debounce(function() {
+    // $el.width might not be available, e.g. if $el is not present in DOM yet
+    // TODO width is not always accurate, because of other elements also resizing which affects this element
+    this._viewModel.set('width', this.$el.width() || this.defaults.width);
+  }, 50)
+
+});
+
+},{"../histogram/chart":146,"./torque-time-marker-view":168,"cdb/core/model":23,"cdb/core/view":29,"jquery":"jquery","underscore":5}],168:[function(require,module,exports){
+var d3 = require('d3');
+var View = require('cdb/core/view');
+
+/**
+ * Time-marker, expected to be used in a histogram view
+ */
+module.exports = View.extend({
+
+  initialize: function() {
+    if (!this.options.chartCanvas) throw new Error('chartCanvas is required');
+    if (!this.options.viewModel) throw new Error('viewModel is required');
+    if (!this.options.torqueLayerModel) throw new Error('torqeLayerModel is required');
+
+    this._chartCanvas = this.options.chartCanvas;
+    this._viewModel = this.options.viewModel;
+    this._torqueLayerModel = this.options.torqueLayerModel;
+
+    this._torqueLayerModel.bind('change:step', this._updatePosition, this);
+    this.add_related_model(this._torqueLayerModel);
+
+    this._viewModel.bind('change:histogramChartWidth', this._updateXScale, this);
+    this.add_related_model(this._viewModel);
+    this._updateXScale();
+  },
+
+  render: function() {
+    // Make the render call idempotent; only create time marker once
+    if (!this._timeMarker) {
+      var dragBehavior = d3.behavior.drag()
+        .on('dragstart', this._onDragStart.bind(this))
+        .on('drag', this._onDrag.bind(this))
+        .on('dragend', this._onDragEnd.bind(this));
+
+      var margins = this._viewModel.get('histogramChartMargins');
+      var height = this._viewModel.get('histogramChartHeight') - margins.top - margins.bottom + 8;
+
+      this._timeMarker = this._chartCanvas.append('rect')
+        .attr('class', 'TimeMarker')
+        .attr('width', 4)
+        .attr('height', height)
+        .attr('rx', 3)
+        .attr('ry', 3)
+        .data([{ x: 0, y: 0 }])
+        .attr('transform', this._translateXY)
+        .call(dragBehavior);
+    }
+
+    return this;
+  },
+
+  clean: function() {
+    if (this._timeMarker) {
+      this._timeMarker.remove();
+    }
+    View.prototype.clean.call(this);
+  },
+
+  _onDragStart: function() {
+    var isRunning = this._torqueLayerModel.get('isRunning');
+    if (isRunning) {
+      this._torqueLayerModel.pause();
+    }
+    this._viewModel.set({
+      isDragging: true,
+      wasRunning: isRunning
+    });
+  },
+
+  _onDrag: function(d, i) {
+    var nextX = d.x + d3.event.dx;
+    if (this._isWithinRange(nextX)) {
+      d.x = nextX;
+      this._timeMarker.attr('transform', this._translateXY);
+
+      var step = Math.round(this._xScale.invert(d.x));
+      this._torqueLayerModel.setStep(step);
+    }
+  },
+
+  _onDragEnd: function() {
+    this._viewModel.set('isDragging', false);
+    if (this._viewModel.get('wasRunning')) {
+      this._torqueLayerModel.play();
+    }
+  },
+
+  _translateXY: function(d) {
+    return 'translate(' + [d.x, d.y] + ')';
+  },
+
+  _isWithinRange: function(x) {
+    return 0 <= x && x <= this._viewModel.get('histogramChartWidth');
+  },
+
+  _updatePosition: function(m, step) {
+    // Time marker might not be created yet, when this method is first called
+    if (this._timeMarker && !this._viewModel.get('isDragging')) {
+      var data = this._timeMarker.data();
+      data[0].x = this._xScale(step);
+
+      this._timeMarker
+        .data(data)
+        .transition()
+        .ease('linear')
+        .attr('transform', function(d) {
+          return 'translate(' + [d.x, d.y] + ')';
+        });
+    }
+  },
+
+  _updateXScale: function() {
+    this._xScale = d3.scale.linear()
+      .domain([0, this._torqueLayerModel.get('steps')])
+      .range([0, this._viewModel.get('histogramChartWidth')]);
+  }
+});
+
+},{"cdb/core/view":29,"d3":2}],169:[function(require,module,exports){
 var _ = require('underscore');
 var log = require('cdb.log');
 
@@ -37537,7 +38048,7 @@ WidgetModelFactory.prototype.createModel = function (attrs, layerIndex) {
 
 module.exports = WidgetModelFactory;
 
-},{"cdb.log":14,"underscore":5}],166:[function(require,module,exports){
+},{"cdb.log":14,"underscore":5}],170:[function(require,module,exports){
 var _ = require('underscore');
 var WidgetView = require('cdb/geo/ui/widgets/widget-view');
 
@@ -37588,7 +38099,7 @@ WidgetViewFactory.prototype.createWidgetView = function(widget, layer) {
 
 module.exports = WidgetViewFactory;
 
-},{"cdb/geo/ui/widgets/widget-view":167,"underscore":5}],167:[function(require,module,exports){
+},{"cdb/geo/ui/widgets/widget-view":171,"underscore":5}],171:[function(require,module,exports){
 var View = require('cdb/core/view');
 var WidgetLoaderView = require('./standard/widget_loader_view');
 var WidgetErrorView = require('./standard/widget_error_view');
@@ -37638,7 +38149,7 @@ module.exports = View.extend({
   }
 });
 
-},{"./standard/widget_error_view":162,"./standard/widget_loader_view":163,"cdb/core/view":29}],168:[function(require,module,exports){
+},{"./standard/widget_error_view":160,"./standard/widget_loader_view":161,"cdb/core/view":29}],172:[function(require,module,exports){
 var Model = require('cdb/core/model');
 
 /**
@@ -37703,6 +38214,10 @@ module.exports = Model.extend({
     });
   },
 
+  refresh: function() {
+    this._fetch();
+  },
+
   _onFilterChanged: function(filter) {
     this.trigger('change:filter', this, filter);
   },
@@ -37725,7 +38240,7 @@ module.exports = Model.extend({
   }
 });
 
-},{"cdb/core/model":23}],169:[function(require,module,exports){
+},{"cdb/core/model":23}],173:[function(require,module,exports){
 var View = require('cdb/core/view');
 var LayerWidgetsView = require('cdb/geo/ui/widgets/layer_widgets_view');
 require('simplebar');
@@ -37758,7 +38273,7 @@ module.exports = View.extend({
   }
 });
 
-},{"cdb/core/view":29,"cdb/geo/ui/widgets/layer_widgets_view":154,"simplebar":206}],170:[function(require,module,exports){
+},{"cdb/core/view":29,"cdb/geo/ui/widgets/layer_widgets_view":151,"simplebar":210}],174:[function(require,module,exports){
 var View = require('../../core/view');
 
 /**
@@ -37784,7 +38299,7 @@ module.exports = View.extend({
   }
 });
 
-},{"../../core/view":29}],171:[function(require,module,exports){
+},{"../../core/view":29}],175:[function(require,module,exports){
 var _ = require('underscore');
 var templates = require('cdb.templates');
 var View = require('../../core/view');
@@ -37851,7 +38366,7 @@ module.exports = View.extend({
 
 });
 
-},{"../../core/view":29,"cdb.templates":15,"underscore":5}],172:[function(require,module,exports){
+},{"../../core/view":29,"cdb.templates":15,"underscore":5}],176:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var templates = require('cdb.templates');
@@ -38023,7 +38538,7 @@ module.exports = View.extend({
 
 });
 
-},{"../../core/view":29,"cdb.templates":15,"jquery":"jquery","underscore":5}],173:[function(require,module,exports){
+},{"../../core/view":29,"cdb.templates":15,"jquery":"jquery","underscore":5}],177:[function(require,module,exports){
 var $ = require('jquery');
 var cdb = require('cdb');
 var _ = require('underscore');
@@ -38182,7 +38697,7 @@ var Dropdown = View.extend({
 
 module.exports = Dropdown;
 
-},{"../../core/view":29,"cdb":13,"cdb.templates":15,"jquery":"jquery","underscore":5}],174:[function(require,module,exports){
+},{"../../core/view":29,"cdb":13,"cdb.templates":15,"jquery":"jquery","underscore":5}],178:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var log = require('cdb.log');
@@ -38303,7 +38818,7 @@ var FullScreen = View.extend({
 
 module.exports = FullScreen;
 
-},{"../../core/view":29,"cdb.log":14,"jquery":"jquery","underscore":5}],175:[function(require,module,exports){
+},{"../../core/view":29,"cdb.log":14,"jquery":"jquery","underscore":5}],179:[function(require,module,exports){
 var _ = require('underscore');
 var templates = require('cdb.templates');
 var View = require('../../core/view');
@@ -38390,7 +38905,7 @@ var Notification = View.extend({
 
 module.exports = Notification;
 
-},{"../../core/view":29,"cdb.templates":15,"underscore":5}],176:[function(require,module,exports){
+},{"../../core/view":29,"cdb.templates":15,"underscore":5}],180:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var Dialog = require('./dialog');
@@ -38579,7 +39094,7 @@ module.exports = Dialog.extend({
 
 });
 
-},{"../../core/sanitize":25,"./dialog":172,"jquery":"jquery","underscore":5}],177:[function(require,module,exports){
+},{"../../core/sanitize":25,"./dialog":176,"jquery":"jquery","underscore":5}],181:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var View = require('../../core/view');
@@ -38888,7 +39403,7 @@ var Table = View.extend({
 
 module.exports = Table;
 
-},{"../../core/view":29,"./table/row-view":178,"jquery":"jquery","underscore":5}],178:[function(require,module,exports){
+},{"../../core/view":29,"./table/row-view":182,"jquery":"jquery","underscore":5}],182:[function(require,module,exports){
 var _ = require('underscore');
 var View = require('../../../core/view');
 
@@ -38988,7 +39503,7 @@ var RowView = View.extend({
 
 module.exports = RowView;
 
-},{"../../../core/view":29,"underscore":5}],179:[function(require,module,exports){
+},{"../../../core/view":29,"underscore":5}],183:[function(require,module,exports){
 var Model = require('../../../core/model');
 
 /**
@@ -38999,7 +39514,7 @@ var Row = Model.extend({
 
 module.exports = Row;
 
-},{"../../../core/model":23}],180:[function(require,module,exports){
+},{"../../../core/model":23}],184:[function(require,module,exports){
 var Backbone = require('backbone');
 var Row = require('./row');
 
@@ -39033,7 +39548,7 @@ var TableData = Backbone.Collection.extend({
 
 module.exports = TableData;
 
-},{"./row":179,"backbone":1}],181:[function(require,module,exports){
+},{"./row":183,"backbone":1}],185:[function(require,module,exports){
 var _ = require('underscore');
 var Model = require('../../../core/model');
 
@@ -39055,7 +39570,7 @@ var TableProperties = Model.extend({
 
 module.exports = TableProperties;
 
-},{"../../../core/model":23,"underscore":5}],182:[function(require,module,exports){
+},{"../../../core/model":23,"underscore":5}],186:[function(require,module,exports){
 var Layers = require('./vis/layers');
 var TileLayer = require('../geo/map/tile-layer');
 var WMSLayer = require('../geo/map/wms-layer');
@@ -39203,7 +39718,7 @@ Layers.register('torque', function(vis, data) {
   return new TorqueLayer(data);
 });
 
-},{"../geo/map/cartodb-layer":66,"../geo/map/cartodb-layer-group-anonymous":63,"../geo/map/cartodb-layer-group-named":65,"../geo/map/gmaps-base-layer":67,"../geo/map/plain-layer":70,"../geo/map/tile-layer":71,"../geo/map/torque-layer":72,"../geo/map/wms-layer":73,"./vis/layers":186}],183:[function(require,module,exports){
+},{"../geo/map/cartodb-layer":63,"../geo/map/cartodb-layer-group-anonymous":60,"../geo/map/cartodb-layer-group-named":62,"../geo/map/gmaps-base-layer":64,"../geo/map/plain-layer":67,"../geo/map/tile-layer":68,"../geo/map/torque-layer":69,"../geo/map/wms-layer":70,"./vis/layers":190}],187:[function(require,module,exports){
 var _ = require('underscore');
 var Overlay = require('./vis/overlay');
 var SlidesController = require('../geo/ui/slides-controller');
@@ -39388,16 +39903,6 @@ Overlay.register('loader', function(data) {
   return tilesLoader.render();
 });
 
-Overlay.register('time_slider', function(data, viz) {
-  // Expected to be loaded through torque
-  if (!cdb.geo.ui.TimeSlider) {
-    throw new Error('torque library must be loaded for the cdb.geo.ui.TimeSlider to work');
-  }
-  var slider = new cdb.geo.ui.TimeSlider(data);
-  return slider.render();
-});
-
-
 // Header to show informtion (title and description)
 Overlay.register('_header', function(data, vis) {
   var MAX_SHORT_DESCRIPTION_LENGTH = 100;
@@ -39528,34 +40033,19 @@ Overlay.register('layer_selector', function(data, vis) {
     layer_names: data.layer_names
   });
 
-  var timeSlider = vis.timeSlider;
-  if (timeSlider) {
-    layerSelector.bind('change:visible', function(visible, order, layer) {
-      if (layer.get('type') === 'torque') {
-        timeSlider[visible ? 'show': 'hide']();
-      }
-    });
-  }
   if (vis.legends) {
-
     layerSelector.bind('change:visible', function(visible, order, layer) {
-
-
       if (layer.get('type') === 'layergroup' || layer.get('type') === 'torque') {
-
         var legend = vis.legends && vis.legends.getLegendByIndex(order);
 
         if (legend) {
           legend[visible ? 'show': 'hide']();
         }
-
       }
-
     });
   }
 
   return layerSelector.render();
-
 });
 
 // fullscreen
@@ -39659,7 +40149,7 @@ Overlay.register('infobox', function(data, vis) {
 
 });
 
-},{"../core/model":23,"../core/template":27,"../geo/ui/annotation":74,"../geo/ui/header":75,"../geo/ui/infobox":77,"../geo/ui/infowindow":79,"../geo/ui/infowindow-model":78,"../geo/ui/layer-selector":80,"../geo/ui/mobile":111,"../geo/ui/search":112,"../geo/ui/share":113,"../geo/ui/slides-controller":115,"../geo/ui/text":116,"../geo/ui/tiles-loader":117,"../geo/ui/tooltip":118,"../geo/ui/zoom":171,"../ui/common/fullscreen":174,"./vis/overlay":187,"underscore":5}],184:[function(require,module,exports){
+},{"../core/model":23,"../core/template":27,"../geo/ui/annotation":71,"../geo/ui/header":72,"../geo/ui/infobox":74,"../geo/ui/infowindow":76,"../geo/ui/infowindow-model":75,"../geo/ui/layer-selector":77,"../geo/ui/mobile":108,"../geo/ui/search":109,"../geo/ui/share":110,"../geo/ui/slides-controller":112,"../geo/ui/text":113,"../geo/ui/tiles-loader":114,"../geo/ui/tooltip":115,"../geo/ui/zoom":175,"../ui/common/fullscreen":178,"./vis/overlay":191,"underscore":5}],188:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 var $ = require('jquery');
@@ -39697,13 +40187,14 @@ var WidgetViewFactory = require('cdb/geo/ui/widgets/widget-view-factory');
 var ListContentView = require('cdb/geo/ui/widgets/list/content_view');
 var HistogramContentView = require('cdb/geo/ui/widgets/histogram/content-view');
 var TimeSeriesContentView = require('cdb/geo/ui/widgets/time-series/content-view');
+var TorqueTimeSeriesContentView = require('cdb/geo/ui/widgets/time-series/torque-content-view');
 var CategoryContentView = require('cdb/geo/ui/widgets/category/content_view');
 var FormulaContentView = require('cdb/geo/ui/widgets/formula/content_view');
 var WindshaftConfig = require('cdb/windshaft/config');
 var WindshaftClient = require('cdb/windshaft/client');
 var WindshaftDashboard = require('cdb/windshaft/dashboard');
-var WindshaftPrivateDashboardConfig = require('cdb/windshaft/private_dashboard_config');
-var WindshaftPublicDashboardConfig = require('cdb/windshaft/public_dashboard_config');
+var WindshaftPrivateDashboardConfig = require('cdb/windshaft/private-dashboard-config');
+var WindshaftPublicDashboardConfig = require('cdb/windshaft/public-dashboard-config');
 
 // Used to identify time-series widget for both the widget view factory as well as render it below the map instead of
 // the default widgets list view
@@ -39773,6 +40264,22 @@ var Vis = View.extend({
           });
         }
       }, {
+        // Torque time-series widget, keep before the normal time-series type to be instantiated if it's an torque layer
+        match: function(widget, layer) {
+          return layer.get('type') === 'torque' && isTimeSeriesWidget(widget);
+        },
+        createContentView: function(widget, layer) {
+          return new TorqueTimeSeriesContentView({
+            model: widget,
+            filter: widget.filter,
+            torqueLayerModel: layer
+          });
+        },
+        customizeWidgetAttrs: function(attrs) {
+          attrs.className += ' Dashboard-time';
+          return attrs;
+        }
+      }, {
         match: isTimeSeriesWidget,
         createContentView: function(widget) {
           return new TimeSeriesContentView({
@@ -39783,7 +40290,7 @@ var Vis = View.extend({
         customizeWidgetAttrs: function(attrs) {
           attrs.className += ' Dashboard-time';
           return attrs;
-        },
+        }
       }, {
         type: 'histogram',
         createContentView: function(widget) {
@@ -39898,9 +40405,6 @@ var Vis = View.extend({
       if(subLayer.model && subLayer.model.get('type') === 'torque') {
         if (o.visible === false) {
           subLayer.model.set('visible', false);
-          if (this.timeSlider) {
-            this.timeSlider.hide();
-          }
         }
       }
     }
@@ -39920,23 +40424,6 @@ var Vis = View.extend({
     }
 
     this._createOverlays(overlays, data, options);
-  },
-
-  addTimeSlider: function(torqueLayer) {
-    // if a timeslides already exists don't create it again
-    if (torqueLayer && (torqueLayer.options.steps > 1) && !this.timeSlider) {
-      var self = this;
-      // dont use add overlay since this overlay is managed by torque layer
-      var timeSlider = Overlay.create('time_slider', this, { layer: torqueLayer });
-      this.mapView.addOverlay(timeSlider);
-      this.timeSlider = timeSlider;
-      // remove when layer is done
-      torqueLayer.bind('remove', function _remove() {
-        self.timeSlider = null;
-        timeSlider.remove();
-        torqueLayer.unbind('remove', _remove);
-      });
-    }
   },
 
   _setupSublayers: function(layers, options) {
@@ -40161,10 +40648,6 @@ var Vis = View.extend({
 
     this.mapView.bind('newLayerView', this._addLoading, this);
 
-    if (options.time_slider) {
-      this.mapView.bind('newLayerView', this._addTimeSlider, this);
-    }
-
     if (this.infowindow) {
       this.mapView.bind('newLayerView', this.addInfowindow, this);
     }
@@ -40254,7 +40737,7 @@ var Vis = View.extend({
 
     var windshaftClient = new WindshaftClient({
       endpoint: endpoint,
-      windshaftURLTemplate: datasource.maps_api_template,
+      urlTemplate: datasource.maps_api_template,
       userName: datasource.user_name,
       statTag: datasource.stat_tag,
       forceCors: datasource.force_cors
@@ -40312,23 +40795,6 @@ var Vis = View.extend({
 
   _addWidget: function() {
 
-  },
-
-  _addTimeSlider: function() {
-    var self = this;
-    var torque = _(this.getLayers()).find(function(layer) {
-      return layer.model.get('type') === 'torque' && layer.model.get('visible');
-    });
-    if (torque) {
-      this.torqueLayer = torque;
-      // send step events from torque layer
-      this.torqueLayer.bind('change:time', function(s) {
-        this.trigger('change:step', this.torqueLayer, this.torqueLayer.getStep());
-      }, this);
-      if (!this.mobile_enabled && this.torqueLayer) {
-        this.addTimeSlider(this.torqueLayer);
-      }
-    }
   },
 
   // sets the animation step if there is an animation
@@ -41000,7 +41466,11 @@ var Vis = View.extend({
           t.setFilter(null);
         }
       }
-    })
+    });
+
+    infowindow.model.bind('domready', function() {
+      layerView.trigger('infowindow_ready', infowindow, this);
+    }, this);
 
     // if the layer has no infowindow just pass the interaction
     // data to the infowindow
@@ -41312,7 +41782,7 @@ var Vis = View.extend({
 
 module.exports = Vis;
 
-},{"../api/sql":9,"../core/loader":19,"../core/template":27,"../core/view":29,"../geo/map":62,"../geo/map-view":61,"../geo/ui/infowindow":79,"../geo/ui/infowindow-model":78,"../geo/ui/legend":87,"../geo/ui/legend-model":86,"../geo/ui/legend/stacked-legend":108,"../geo/ui/tooltip":118,"./vis/infowindow-template":185,"./vis/layers":186,"./vis/overlay":187,"backbone":1,"cdb":13,"cdb.config":11,"cdb.core.util":28,"cdb.log":14,"cdb/core/model":23,"cdb/geo/map/cartodb-layer-group-anonymous":63,"cdb/geo/map/cartodb-layer-group-named":65,"cdb/geo/ui/widgets/category/content_view":122,"cdb/geo/ui/widgets/category/model":132,"cdb/geo/ui/widgets/formula/content_view":146,"cdb/geo/ui/widgets/formula/model":147,"cdb/geo/ui/widgets/histogram/content-view":150,"cdb/geo/ui/widgets/histogram/model":152,"cdb/geo/ui/widgets/list/content_view":155,"cdb/geo/ui/widgets/list/model":159,"cdb/geo/ui/widgets/time-series/content-view":164,"cdb/geo/ui/widgets/widget-model-factory":165,"cdb/geo/ui/widgets/widget-view-factory":166,"cdb/geo/ui/widgets/widgets_view":169,"cdb/windshaft/client":189,"cdb/windshaft/config":190,"cdb/windshaft/dashboard":191,"cdb/windshaft/filters/category":195,"cdb/windshaft/filters/range":197,"cdb/windshaft/private_dashboard_config":198,"cdb/windshaft/public_dashboard_config":199,"jquery":"jquery","underscore":5}],185:[function(require,module,exports){
+},{"../api/sql":9,"../core/loader":19,"../core/template":27,"../core/view":29,"../geo/map":59,"../geo/map-view":58,"../geo/ui/infowindow":76,"../geo/ui/infowindow-model":75,"../geo/ui/legend":84,"../geo/ui/legend-model":83,"../geo/ui/legend/stacked-legend":105,"../geo/ui/tooltip":115,"./vis/infowindow-template":189,"./vis/layers":190,"./vis/overlay":191,"backbone":1,"cdb":13,"cdb.config":11,"cdb.core.util":28,"cdb.log":14,"cdb/core/model":23,"cdb/geo/map/cartodb-layer-group-anonymous":60,"cdb/geo/map/cartodb-layer-group-named":62,"cdb/geo/ui/widgets/category/content_view":117,"cdb/geo/ui/widgets/category/model":127,"cdb/geo/ui/widgets/formula/content_view":143,"cdb/geo/ui/widgets/formula/model":144,"cdb/geo/ui/widgets/histogram/content-view":147,"cdb/geo/ui/widgets/histogram/model":149,"cdb/geo/ui/widgets/list/content_view":152,"cdb/geo/ui/widgets/list/model":156,"cdb/geo/ui/widgets/time-series/content-view":162,"cdb/geo/ui/widgets/time-series/torque-content-view":164,"cdb/geo/ui/widgets/widget-model-factory":169,"cdb/geo/ui/widgets/widget-view-factory":170,"cdb/geo/ui/widgets/widgets_view":173,"cdb/windshaft/client":193,"cdb/windshaft/config":194,"cdb/windshaft/dashboard":196,"cdb/windshaft/filters/category":199,"cdb/windshaft/filters/range":201,"cdb/windshaft/private-dashboard-config":202,"cdb/windshaft/public-dashboard-config":203,"jquery":"jquery","underscore":5}],189:[function(require,module,exports){
 var INFOWINDOW_TEMPLATE = {
   light: [
     '<div class="cartodb-popup v2">',
@@ -41337,7 +41807,7 @@ var INFOWINDOW_TEMPLATE = {
 
 module.exports = INFOWINDOW_TEMPLATE;
 
-},{}],186:[function(require,module,exports){
+},{}],190:[function(require,module,exports){
 var _ = require('underscore');
 var log = require('cdb.log');
 
@@ -41381,7 +41851,7 @@ var Layers = {
 
 module.exports = Layers;
 
-},{"cdb.log":14,"underscore":5}],187:[function(require,module,exports){
+},{"cdb.log":14,"underscore":5}],191:[function(require,module,exports){
 var log = require('cdb.log');
 
 /**
@@ -41422,7 +41892,7 @@ var Overlay = {
 
 module.exports = Overlay;
 
-},{"cdb.log":14}],188:[function(require,module,exports){
+},{"cdb.log":14}],192:[function(require,module,exports){
 var Backbone = require('backbone');
 
 var Overlays = Backbone.Collection.extend({
@@ -41432,25 +41902,37 @@ var Overlays = Backbone.Collection.extend({
 
 module.exports = Overlays;
 
-},{"backbone":1}],189:[function(require,module,exports){
+},{"backbone":1}],193:[function(require,module,exports){
 var $ = require('jquery');
+var _ = require('underscore');
 var LZMA = require('lzma');
 var util = require('cdb/core/util');
-var WindshaftDashboardInstance = require('./dashboard_instance');
+var WindshaftDashboardInstance = require('cdb/windshaft/dashboard-instance');
+
+var validatePresenceOfOptions = function(options, requiredOptions) {
+  var missingOptions = _.filter(requiredOptions, function(option) {
+    return !options[option];
+  });
+  if (missingOptions.length) {
+    throw 'The following options are required: ' + missingOptions.join(', ');
+  }
+};
 
 /**
  * Windshaft client. It provides a method to create instances of dashboards.
  * @param {object} options Options to set up the client
  */
 WindshaftClient = function(options) {
-  this.windshaftURLTemplate = options.windshaftURLTemplate;
+  validatePresenceOfOptions(options, ['urlTemplate', 'userName', 'endpoint', 'statTag']);
+
+  this.urlTemplate = options.urlTemplate;
   this.userName = options.userName;
-  this.url = this.windshaftURLTemplate.replace('{user}', this.userName);
-  this.statTag = options.statTag;
-  this.isCorsSupported = util.isCORSSupported();
-  this.forceCors = options.forceCors;
   this.endpoint = options.endpoint;
-}
+  this.statTag = options.statTag;
+  this.forceCors = options.forceCors || false;
+
+  this.url = this.urlTemplate.replace('{user}', this.userName);
+};
 
 WindshaftClient.DEFAULT_COMPRESSION_LEVEL = 3;
 WindshaftClient.MAX_GET_SIZE = 2033;
@@ -41473,7 +41955,7 @@ WindshaftClient.prototype.instantiateMap = function(options) {
       if (data.errors) {
         errorCallback(data.errors[0]);
       } else {
-        data.windshaftURLTemplate = this.windshaftURLTemplate;
+        data.urlTemplate = this.urlTemplate;
         data.userName = this.userName;
         successCallback(new WindshaftDashboardInstance(data));
       }
@@ -41505,7 +41987,7 @@ WindshaftClient.prototype.instantiateMap = function(options) {
 }
 
 WindshaftClient.prototype._usePOST = function(payload, params) {
-  if (this.isCorsSupported && this.forceCors) {
+  if (util.isCORSSupported() && this.forceCors) {
     return true;
   }
   return payload.length >= this.constructor.MAX_GET_SIZE;
@@ -41514,7 +41996,6 @@ WindshaftClient.prototype._usePOST = function(payload, params) {
 WindshaftClient.prototype._post = function(payload, params, options) {
   $.ajax({
     crossOrigin: true,
-    type: 'POST',
     method: 'POST',
     dataType: 'json',
     contentType: 'application/json',
@@ -41531,6 +42012,7 @@ WindshaftClient.prototype._get = function(payload, params, options) {
     params.push(dataParameter);
     $.ajax({
       url: this._getURL(params),
+      method: 'GET',
       dataType: 'jsonp',
       jsonpCallback: this._jsonpCallbackName(payload),
       cache: true,
@@ -41566,130 +42048,13 @@ WindshaftClient.prototype._jsonpCallbackName = function(payload) {
 
 module.exports = WindshaftClient;
 
-},{"./dashboard_instance":192,"cdb/core/util":28,"jquery":"jquery","lzma":203}],190:[function(require,module,exports){
+},{"cdb/core/util":28,"cdb/windshaft/dashboard-instance":195,"jquery":"jquery","lzma":207,"underscore":5}],194:[function(require,module,exports){
 var config = {};
 config.MAPS_API_BASE_URL = 'api/v1/map'
 
 module.exports = config;
 
-},{}],191:[function(require,module,exports){
-var _ = require('underscore');
-var Backbone = require('backbone');
-var WindshaftFiltersCollection = require('./filters/collection');
-var WindshaftFiltersBoundingBoxFilter = require('./filters/bounding_box');
-var WindshaftDashboardInstance = require('./dashboard_instance');
-
-var WindshaftDashboard = function(options) {
-  BOUNDING_BOX_FILTER_WAIT = 500;
-
-  this.layerGroup = options.layerGroup;
-  this.layers = new Backbone.Collection(options.layers);
-  this.map = options.map;
-  this.client = options.client;
-  this.statTag = options.statTag;
-  this.configGenerator = options.configGenerator;
-
-  this.instance = new WindshaftDashboardInstance();
-
-  this.map.bind('change:center change:zoom', _.debounce(this._boundingBoxChanged, BOUNDING_BOX_FILTER_WAIT), this);
-
-  this.layers.bind('change', this._layerChanged, this);
-  this.layers.bind('change:filter', this._layerChanged, this);
-
-  this._createInstance();
-};
-
-WindshaftDashboard.prototype._createInstance = function(options) {
-  var options = options || {};
-
-  var dashboardConfig = this.configGenerator.generate({
-    layers: this.layers.models
-  });
-
-  var visibleLayers = this.layers.filter(function(layer) { return layer.isVisible(); });
-  var filtersFromVisibleLayers = _.chain(this.layers.models)
-    .filter(function(layer) { return layer.isVisible(); })
-    .map(function(layer) { return layer.getFilters(); })
-    .flatten()
-    .value();
-
-  var filters = new WindshaftFiltersCollection(filtersFromVisibleLayers);
-
-  this.client.instantiateMap({
-    mapDefinition: dashboardConfig,
-    filters: filters.toJSON(),
-    success: function(dashboardInstance) {
-
-      // Update the dashboard instance with the attributes of the new one
-      this.instance.set(dashboardInstance.toJSON());
-
-      // TODO: Set the URL of the attributes service once it's available
-      this.layerGroup && this.layerGroup.set({
-        baseURL: dashboardInstance.getBaseURL(),
-        urls: dashboardInstance.getTiles('mapnik')
-      });
-
-      this._updateWidgetURLs({
-        layerId: options.layerId
-      });
-
-      // update other kind of layers too
-      this.layers.each(function(layer) {
-        if (layer.get('type') === 'torque') {
-          console.log(dashboardInstance.getTiles('torque'));
-          layer.set('urls', dashboardInstance.getTiles('torque'));
-        }
-      });
-
-    }.bind(this),
-    error: function(error) {
-      console.log('Error creating dashboard instance: ' + error);
-    }
-  });
-
-  return this.instance;
-};
-
-WindshaftDashboard.prototype._boundingBoxChanged = function() {
-  if (this.instance.isLoaded()) {
-    this._updateWidgetURLs();
-  }
-};
-
-WindshaftDashboard.prototype._updateWidgetURLs = function(options) {
-  var options = options || {};
-  var self = this;
-  var boundingBoxFilter = new WindshaftFiltersBoundingBoxFilter(this.map.getViewBounds());
-  var layerId = options.layerId;
-
-  this.layers.each(function(layer) {
-    layer.widgets.each(function(widget) {
-      var silent = layerId && layer.get('id') !== layerId;
-      var url = self.instance.getWidgetURL({
-        widgetId: widget.get('id'),
-        protocol: 'http'
-      });
-
-      widget.set({
-        'url': url,
-        'boundingBox': boundingBoxFilter.toString()
-      }, {
-        silent: silent
-      });
-    });
-  });
-};
-
-WindshaftDashboard.prototype._layerChanged = function(layer) {
-  var layerId = layer.get('id');
-  this._createInstance({
-    layerId: layerId
-  });
-};
-
-module.exports = WindshaftDashboard;
-
-},{"./dashboard_instance":192,"./filters/bounding_box":194,"./filters/collection":196,"backbone":1,"underscore":5}],192:[function(require,module,exports){
+},{}],195:[function(require,module,exports){
 var _ = require('underscore');
 var Model = require('cdb/core/model');
 var WindshaftConfig = require('./config');
@@ -41728,8 +42093,8 @@ module.exports = Model.extend({
   _getHost: function(subhost) {
     var userName = this.get('userName');
     var protocol = this._useHTTPS() ? 'https' : 'http';
-    var subhost = subhost || '';
-    var host = this.get('windshaftURLTemplate').replace('{user}', userName);
+    var subhost = subhost ? subhost + '.' : '';
+    var host = this.get('urlTemplate').replace('{user}', userName);
     var cdnHost = this.get('cdn_url') && this.get('cdn_url')[protocol];
     if (cdnHost) {
       host = [protocol, '://', subhost, cdnHost, '/', userName].join('');
@@ -41739,7 +42104,7 @@ module.exports = Model.extend({
   },
 
   _useHTTPS: function() {
-    return this.get('windshaftURLTemplate').indexOf('https') === 0;
+    return this.get('urlTemplate').indexOf('https') === 0;
   },
 
   getTiles: function(layerType, params) {
@@ -41777,16 +42142,18 @@ module.exports = Model.extend({
         if (layerType === 'mapnik') {
           for(var layer = 0; layer < this.get('metadata').layers.length; ++layer) {
             var index = this._getLayerIndexByType(layer, "mapnik");
-            var gridURLTemplate = [
-              this.getBaseURL(subdomain),
-              "/",
-              index,
-              gridTemplate,
-              ".grid.json",
-              (gridParams ? "?" + gridParams: '')
-            ].join("");
-            grids[layer] = grids[layer] || [];
-            grids[layer].push(gridURLTemplate);
+            if (index >= 0) {
+              var gridURLTemplate = [
+                this.getBaseURL(subdomain),
+                "/",
+                index,
+                gridTemplate,
+                ".grid.json",
+                (gridParams ? "?" + gridParams: '')
+              ].join("");
+              grids[layer] = grids[layer] || [];
+              grids[layer].push(gridURLTemplate);
+            }
           }
         }
       }
@@ -41896,7 +42263,123 @@ module.exports = Model.extend({
   }
 });
 
-},{"./config":190,"cdb/core/model":23,"underscore":5}],193:[function(require,module,exports){
+},{"./config":194,"cdb/core/model":23,"underscore":5}],196:[function(require,module,exports){
+var _ = require('underscore');
+var Backbone = require('backbone');
+var WindshaftFiltersCollection = require('./filters/collection');
+var WindshaftFiltersBoundingBoxFilter = require('./filters/bounding_box');
+var WindshaftDashboardInstance = require('./dashboard-instance');
+
+var WindshaftDashboard = function(options) {
+  BOUNDING_BOX_FILTER_WAIT = 500;
+
+  this.layerGroup = options.layerGroup;
+  this.layers = new Backbone.Collection(options.layers);
+  this.map = options.map;
+  this.client = options.client;
+  this.statTag = options.statTag;
+  this.configGenerator = options.configGenerator;
+
+  this.instance = new WindshaftDashboardInstance();
+
+  this.map.bind('change:center change:zoom', _.debounce(this._boundingBoxChanged, BOUNDING_BOX_FILTER_WAIT), this);
+
+  this.layers.bind('change', this._layerChanged, this);
+  this.layers.bind('change:filter', this._layerChanged, this);
+
+  this._createInstance();
+};
+
+WindshaftDashboard.prototype._createInstance = function(options) {
+  var options = options || {};
+
+  var dashboardConfig = this.configGenerator.generate({
+    layers: this.layers.models
+  });
+
+  var visibleLayers = this.layers.filter(function(layer) { return layer.isVisible(); });
+  var filtersFromVisibleLayers = _.chain(this.layers.models)
+    .filter(function(layer) { return layer.isVisible(); })
+    .map(function(layer) { return layer.getFilters(); })
+    .flatten()
+    .value();
+
+  var filters = new WindshaftFiltersCollection(filtersFromVisibleLayers);
+
+  this.client.instantiateMap({
+    mapDefinition: dashboardConfig,
+    filters: filters.toJSON(),
+    success: function(dashboardInstance) {
+
+      // Update the dashboard instance with the attributes of the new one
+      this.instance.set(dashboardInstance.toJSON());
+
+      // TODO: Set the URL of the attributes service once it's available
+      this.layerGroup && this.layerGroup.set({
+        baseURL: dashboardInstance.getBaseURL(),
+        urls: dashboardInstance.getTiles('mapnik')
+      });
+
+      this._updateWidgetURLs({
+        layerId: options.layerId
+      });
+
+      // update other kind of layers too
+      this.layers.each(function(layer) {
+        if (layer.get('type') === 'torque') {
+          layer.set('urls', dashboardInstance.getTiles('torque'));
+        }
+      });
+
+    }.bind(this),
+    error: function(error) {
+      console.log('Error creating dashboard instance: ' + error);
+    }
+  });
+
+  return this.instance;
+};
+
+WindshaftDashboard.prototype._boundingBoxChanged = function() {
+  if (this.instance.isLoaded()) {
+    this._updateWidgetURLs();
+  }
+};
+
+WindshaftDashboard.prototype._updateWidgetURLs = function(options) {
+  var options = options || {};
+  var self = this;
+  var boundingBoxFilter = new WindshaftFiltersBoundingBoxFilter(this.map.getViewBounds());
+  var layerId = options.layerId;
+
+  this.layers.each(function(layer) {
+    layer.widgets.each(function(widget) {
+      var silent = layerId && layer.get('id') !== layerId;
+      var url = self.instance.getWidgetURL({
+        widgetId: widget.get('id'),
+        protocol: 'http'
+      });
+
+      widget.set({
+        'url': url,
+        'boundingBox': boundingBoxFilter.toString()
+      }, {
+        silent: silent
+      });
+    });
+  });
+};
+
+WindshaftDashboard.prototype._layerChanged = function(layer) {
+  var layerId = layer.get('id');
+  this._createInstance({
+    layerId: layerId
+  });
+};
+
+module.exports = WindshaftDashboard;
+
+},{"./dashboard-instance":195,"./filters/bounding_box":198,"./filters/collection":200,"backbone":1,"underscore":5}],197:[function(require,module,exports){
 var Model = require('cdb/core/model');
 
 module.exports = Model.extend({
@@ -41910,7 +42393,7 @@ module.exports = Model.extend({
   }
 });
 
-},{"cdb/core/model":23}],194:[function(require,module,exports){
+},{"cdb/core/model":23}],198:[function(require,module,exports){
 var Model = require('cdb/core/model');
 
 module.exports = Model.extend({
@@ -41938,7 +42421,7 @@ module.exports = Model.extend({
   }
 });
 
-},{"cdb/core/model":23}],195:[function(require,module,exports){
+},{"cdb/core/model":23}],199:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 var WindshaftFilterBase = require('./base');
@@ -41994,6 +42477,7 @@ module.exports = WindshaftFilterBase.extend({
   },
 
   acceptAll: function() {
+    this.set('rejectAll', false);
     this.acceptedCategories.reset();
     this.rejectedCategories.reset();
     this.applyFilter();
@@ -42005,10 +42489,6 @@ module.exports = WindshaftFilterBase.extend({
 
   getAccepted: function() {
     return this.acceptedCategories;
-  },
-
-  hasAccepts: function() {
-    return this.acceptedCategories.size() > 0;
   },
 
   reject: function(values, applyFilter) {
@@ -42050,13 +42530,9 @@ module.exports = WindshaftFilterBase.extend({
     return this.rejectedCategories;
   },
 
-  hasRejects: function() {
-    return this.rejectedCategories.size() > 0;
-  },
-
   rejectAll: function(d) {
     this.acceptedCategories.reset();
-    this.reject(d, false);
+    this.rejectedCategories.reset();
     this.set('rejectAll', true);
     this.applyFilter();
   },
@@ -42083,12 +42559,10 @@ module.exports = WindshaftFilterBase.extend({
     if (this.get('rejectAll')) {
       // TODO: replace this by empty array when it is available through API
       filter = { accept: ['___@___'] };
-    } else if (acceptCount > 0 && rejectCount === 0) {
+    } else if (acceptCount > 0) {
       filter = acceptedCats;
     } else if (rejectCount > 0 && acceptCount === 0) {
       filter = rejectedCats;
-    } else {
-      _.extend(filter, rejectedCats, acceptedCats);
     }
 
     var json = {};
@@ -42098,7 +42572,7 @@ module.exports = WindshaftFilterBase.extend({
   }
 });
 
-},{"./base":193,"backbone":1,"underscore":5}],196:[function(require,module,exports){
+},{"./base":197,"backbone":1,"underscore":5}],200:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 
@@ -42135,7 +42609,7 @@ module.exports = Backbone.Collection.extend({
   }
 });
 
-},{"backbone":1,"underscore":5}],197:[function(require,module,exports){
+},{"backbone":1,"underscore":5}],201:[function(require,module,exports){
 var _ = require('underscore');
 var WindshaftFilterBase = require('./base');
 
@@ -42164,7 +42638,7 @@ module.exports = WindshaftFilterBase.extend({
   }
 });
 
-},{"./base":193,"underscore":5}],198:[function(require,module,exports){
+},{"./base":197,"underscore":5}],202:[function(require,module,exports){
 var _ = require('underscore');
 var WindshaftPrivateDashboardConfig = {};
 
@@ -42183,7 +42657,7 @@ WindshaftPrivateDashboardConfig.generate = function(options) {
 
 module.exports = WindshaftPrivateDashboardConfig;
 
-},{"underscore":5}],199:[function(require,module,exports){
+},{"underscore":5}],203:[function(require,module,exports){
 var _ = require('underscore');
 var WindshaftPublicDashboardConfig = {};
 
@@ -42208,8 +42682,8 @@ WindshaftPublicDashboardConfig.generate = function(options) {
         };
       }
 
+      layerConfig.options.widgets = {};
       if (layer.widgets.length > 0) {
-        layerConfig.options.widgets = {};
         layer.widgets.each(function(widget) {
           layerConfig.options.widgets[widget.get('id')] = widget.toJSON();
         });
@@ -42224,7 +42698,7 @@ WindshaftPublicDashboardConfig.generate = function(options) {
 
 module.exports = WindshaftPublicDashboardConfig;
 
-},{"underscore":5}],200:[function(require,module,exports){
+},{"underscore":5}],204:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 var GeoJSON = function( geojson, options ){
@@ -42463,7 +42937,7 @@ type: "Error",
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],201:[function(require,module,exports){
+},{}],205:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 // -------------------------------------------------------------------------------------------------------------------
@@ -47320,7 +47794,7 @@ if (typeof window !== 'undefined') {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],202:[function(require,module,exports){
+},{}],206:[function(require,module,exports){
 (function (global){
 
 ; jQuery = global.jQuery = require("jquery");
@@ -48765,7 +49239,7 @@ if (typeof window !== 'undefined') {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"jquery":"jquery"}],203:[function(require,module,exports){
+},{"jquery":"jquery"}],207:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 var LZMA = (function () {
@@ -52657,7 +53131,7 @@ this.LZMA = LZMA;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],204:[function(require,module,exports){
+},{}],208:[function(require,module,exports){
 (function (global){
 
 ; jQuery = global.jQuery = require("jquery");
@@ -52750,7 +53224,7 @@ function handler(event) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"jquery":"jquery"}],205:[function(require,module,exports){
+},{"jquery":"jquery"}],209:[function(require,module,exports){
 (function (global){
 
 ; jQuery = global.jQuery = require("jquery");
@@ -52837,7 +53311,7 @@ function handler(event) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"jquery":"jquery"}],206:[function(require,module,exports){
+},{"jquery":"jquery"}],210:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /*
@@ -52855,7 +53329,7 @@ function handler(event) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],207:[function(require,module,exports){
+},{}],211:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 //fgnass.github.com/spin.js#v1.2.5
@@ -52867,7 +53341,7 @@ function handler(event) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],208:[function(require,module,exports){
+},{}],212:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /* wax - 7.0.1 - v6.0.4-181-ga34788e */
