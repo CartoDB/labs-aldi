@@ -1,6 +1,6 @@
 require=// cartodb.js version: 3.15.8
 // uncompressed version: cartodb.uncompressed.js
-// sha: 60dbb728e22ad86a01de734a55a0b9fe6cf40bbd
+// sha: 33f442ea97b86f82ac9397e28dae4785e7e4042e
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.2.3
@@ -24366,20 +24366,38 @@ var d3 = require('d3');
 
 var format = {};
 
-format._formatNumber = function(value) {
-  return d3.format(",")(value);
+format.formatNumber = function(value, unit) {
+  var format = d3.format('.2s');
+
+  if (value < 1000) {
+    v = (value).toFixed(2);
+    // v ends with .00
+    if (v.match('.00' + "$")) {
+      v = v.replace('.00', '');
+    }
+    return v;
+  }
+
+  value = format(value) + (unit ? ' ' + unit : '');
+
+  // value ends with .0
+  if (value.match('.0' + "$")) {
+    value = value.replace('.0', '');
+  }
+
+  return value == '0.0' ? 0 : value;
 }
 
-format._formatDate = function(value) {
+format.formatDate = function(value) {
   return d3.time.format("%Y-%m-%d")(value);
 }
 
 format.formatValue = function(value) {
   if (_.isNumber(value)) {
-    return format._formatNumber(value);
+    return format.formatNumber(value);
   }
   if (_.isDate(value)) {
-    return format._formatDate(value);
+    return format.formatDate(value);
   }
   return value;
 }
@@ -34230,7 +34248,7 @@ __p+='<button type="button" class="Widget-listItemInner Widget-listButton js-but
 '">'+
 ((__t=( prefix ))==null?'':_.escape(__t))+
 ''+
-((__t=( value ))==null?'':_.escape(__t))+
+((__t=( formattedValue ))==null?'':_.escape(__t))+
 ''+
 ((__t=( suffix ))==null?'':_.escape(__t))+
 '</p> </div> <div class="Widget-progressBar"> <div class="Widget-progressState '+
@@ -34260,7 +34278,7 @@ __p+='<div class="Widget-listItemInner '+
 '">'+
 ((__t=( prefix ))==null?'':_.escape(__t))+
 ''+
-((__t=( value ))==null?'':_.escape(__t))+
+((__t=( formattedValue ))==null?'':_.escape(__t))+
 ''+
 ((__t=( suffix ))==null?'':_.escape(__t))+
 '</p> </div> <div class="Widget-progressBar"> <div class="Widget-progressState Widget-progressState--pattern '+
@@ -34279,7 +34297,7 @@ var _ = require('underscore');
 var View = require('cdb/core/view');
 var clickableTemplate = require('./item_clickable_template.tpl');
 var unclickableTemplate = require('./item_unclickable_template.tpl');
-var d3 = require('d3');
+var formatter = require('cdb/core/format');
 
 /**
  * Category list item view
@@ -34302,14 +34320,14 @@ module.exports = View.extend({
     var value = this.model.get('value');
     var template = this.model.get('agg') || this.dataModel.isLocked() ?
       unclickableTemplate : clickableTemplate;
-    var format = d3.format('0,000');
 
     this.$el.html(
       template({
         customColor: this.dataModel.isColorApplied(),
         isAggregated: this.model.get('agg'),
         name: this.model.get('name'),
-        value: format(Math.ceil(value)),
+        value: value,
+        formattedValue: formatter.formatNumber(value),
         percentage: ((value / this.dataModel.get('max')) * 100),
         color: this.model.get('color'),
         isDisabled: !this.model.get('selected') ? 'is-disabled' : '',
@@ -34333,7 +34351,7 @@ module.exports = View.extend({
 
 });
 
-},{"./item_clickable_template.tpl":120,"./item_unclickable_template.tpl":121,"cdb/core/view":31,"d3":4,"underscore":7}],123:[function(require,module,exports){
+},{"./item_clickable_template.tpl":120,"./item_unclickable_template.tpl":121,"cdb/core/format":20,"cdb/core/view":31,"underscore":7}],123:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -34366,7 +34384,7 @@ var $ = require('jquery');
 var _ = require('underscore');
 var View = require('cdb/core/view');
 var template = require('./search_item_clickable_template.tpl');
-var d3 = require('d3');
+var formatter = require('cdb/core/format');
 
 /**
  * Category search list view
@@ -34390,12 +34408,12 @@ module.exports = View.extend({
 
   render: function() {
     var value = this.model.get('value');
-    var format = d3.format('0,000');
 
     this.$el.html(
       template({
         name: this.model.get('name'),
-        value: format(Math.ceil(value)),
+        value: value,
+        formattedValue: formatter.formatNumber(value),
         percentage: ((value / this.dataModel.get('max')) * 100),
         isDisabled: !this.model.get('selected'),
         prefix: this.dataModel.get('prefix'),
@@ -34416,7 +34434,7 @@ module.exports = View.extend({
 
 });
 
-},{"./search_item_clickable_template.tpl":123,"cdb/core/view":31,"d3":4,"jquery":"jquery","underscore":7}],125:[function(require,module,exports){
+},{"./search_item_clickable_template.tpl":123,"cdb/core/format":20,"cdb/core/view":31,"jquery":"jquery","underscore":7}],125:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -35386,7 +35404,7 @@ var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
 with(obj||{}){
-__p+='<div class="Widget-contentFlex"> <button class="u-rSpace--m Widget-buttonIcon Widget-textSmaller Widget-textSmaller--upper js-searchToggle"> <i class="CDBIcon CDBIcon-Lens"></i> search </button> </div> ';
+__p+='<div class="Widget-contentFlex"> <button class="u-rSpace--m Widget-buttonIcon Widget-textSmaller Widget-textSmaller--upper js-searchToggle"> <i class="CDBIcon CDBIcon-Lens"></i> <span class="u-iBlock"> search </span> </button> </div> ';
  if (showPaginator) { 
 __p+=' <div class="Widget-navDots js-dots"> ';
  for (var i = 0, l = pages; i < l; i++) { 
@@ -35692,9 +35710,9 @@ __p+=' <div class="Widget-title Widget-contentSpaced"> <h3 class="Widget-textBig
  if (canBeLocked) { 
 __p+=' ';
  if (isLocked) { 
-__p+=' <button class="Widget-buttonIcon Widget-buttonIcon--circle is-selected js-unlock"> <i class="CDBIcon CDBIcon-Unlock"></i> </button> ';
+__p+=' <button class="Widget-buttonIcon Widget-buttonIcon--circle is-selected js-unlock"> <i class="CDBIcon CDBIcon-Unlock CDBIcon--top"></i> </button> ';
  } else { 
-__p+=' <button class="Widget-buttonIcon Widget-buttonIcon--circle js-lock"> <i class="CDBIcon CDBIcon-Lock"></i> </button> ';
+__p+=' <button class="Widget-buttonIcon Widget-buttonIcon--circle js-lock"> <i class="CDBIcon CDBIcon-Lock CDBIcon--top"></i> </button> ';
  } 
 __p+=' ';
  } 
@@ -35702,7 +35720,7 @@ __p+=' <button class="Widget-buttonIcon Widget-buttonIcon--circle '+
 ((__t=( isColorApplied ? 'is-selected' : '' ))==null?'':_.escape(__t))+
 ' '+
 ((__t=( isColorApplied ? 'js-cancelColors' : 'js-applyColors' ))==null?'':_.escape(__t))+
-'"> <i class="CDBIcon CDBIcon-Syringe"></i> </button> <button class="Widget-arrow js-collapse '+
+'"> <i class="CDBIcon CDBIcon-Syringe CDBIcon--top"></i> </button> <button class="Widget-arrow js-collapse '+
 ((__t=( isCollapsed ? 'Widget-arrow--down' : 'Widget-arrow--up' ))==null?'':_.escape(__t))+
 '"></button> </div> </div> ';
  } 
@@ -35931,6 +35949,7 @@ module.exports = WidgetModel.extend({
     {},
     WidgetModel.prototype.defaults,
     {
+      data: '',
       suffix: '',
       prefix: ''
     }
@@ -35972,7 +35991,7 @@ __p+='<div class="Widget-header"> <div class="Widget-title Widget-contentSpaced"
 '"></button> </div> <dl class="Widget-info"> <dt class="Widget-infoItem Widget-textSmaller Widget-textSmaller--upper">'+
 ((__t=( nulls ))==null?'':_.escape(__t))+
 ' null rows</dt> </dl> </div> <div class="Widget-content"> ';
- if (!_.isUndefined(value)) { 
+ if (value) { 
 __p+=' <h4 class="Widget-textBigger" title="'+
 ((__t=( value ))==null?'':_.escape(__t))+
 '"> '+
@@ -35994,12 +36013,14 @@ return __p;
 var $ = require('jquery');
 var _ = require('underscore');
 var d3 = require('d3');
+var formatter = require('cdb/core/format');
 var Model = require('cdb/core/model');
 var View = require('cdb/core/view');
 
 module.exports = View.extend({
 
   defaults: {
+    axis_tip: false,
     minimumBarHeight: 2,
     animationSpeed: 750,
     handleWidth: 6,
@@ -36047,6 +36068,45 @@ module.exports = View.extend({
     this.model.set({ data: data });
   },
 
+  _onChangeLeftAxisTip: function() {
+    this._updateAxisTip('left');
+  },
+
+  _onChangeRightAxisTip: function() {
+    this._updateAxisTip('right');
+  },
+
+  _updateAxisTip: function(className) {
+    var textLabel = this.chart.select('.AxisTip-text.AxisTip-' + className);
+    var axisTip  = this.chart.select('.AxisTip.AxisTip-' + className);
+    var rectLabel = this.chart.select('.AxisTip-rect.AxisTip-' + className);
+    var handle    = this.chart.select('.Handle.Handle-' + className);
+
+    textLabel.data([this.model.get(className + '_axis_tip')]).text(function(d) {
+      return formatter.formatNumber(d);
+    });
+
+    var width = textLabel.node().getBBox().width;
+    rectLabel.attr('width', width + 4);
+
+    var parts = /translate\(\s*([^\s,)]+), ([^\s,)]+)/.exec(handle.attr('transform'));
+    var xPos = +parts[1] + 3;
+
+    if ((xPos - width/2) < 0) {
+      axisTip.attr('transform', 'translate(0, 52)');
+      textLabel.attr('dx', -xPos);
+      rectLabel.attr('x',  -xPos);
+    } else if ((xPos + width/2 + 2) >= this.chartWidth) {
+      axisTip.attr('transform', 'translate(0, 52)');
+      textLabel.attr('dx', this.chartWidth - (xPos + width - 2));
+      rectLabel.attr('x', this.chartWidth - (xPos + width));
+    } else {
+      axisTip.attr('transform', 'translate(-' + (width/2) + ', 52)');
+      rectLabel.attr('x', 0);
+      textLabel.attr('dx', +2);
+    }
+  },
+
   _onChangeData: function() {
     if (this.model.previous('data').length != this.model.get('data').length) {
       this.reset();
@@ -36089,11 +36149,51 @@ module.exports = View.extend({
   },
 
   _onBrushStart: function() {
+    var extent = this.brush.extent();
+    var hiExtent = extent[1];
+    var rightX = this.xScale(hiExtent) - this.options.handleWidth / 2;
+
     this.chart.classed('is-selectable', true);
   },
 
   _onChangeDragging: function() {
     this.chart.classed('is-dragging', this.model.get('dragging'));
+    this._updateAxisTipOpacity('right');
+    this._updateAxisTipOpacity('left');
+  },
+
+  _showAxisTip: function(className) {
+    var textLabel = this.chart.select('.AxisTip-text.AxisTip-' + className);
+    var axisTip   = this.chart.select('.AxisTip.AxisTip-' + className);
+    var rectLabel = this.chart.select('.AxisTip-rect.AxisTip-' + className);
+
+    if (textLabel) {
+      textLabel.transition().duration(200).attr('opacity',  1);
+    }
+    if (rectLabel) {
+      rectLabel.transition().duration(200).attr('opacity',  1);
+    }
+  },
+
+  _hideAxisTip: function(className) {
+    var textLabel = this.chart.select('.AxisTip-text.AxisTip-' + className);
+    var axisTip   = this.chart.select('.AxisTip.AxisTip-' + className);
+    var rectLabel = this.chart.select('.AxisTip-rect.AxisTip-' + className);
+
+    if (textLabel) {
+      textLabel.transition().duration(200).attr('opacity',  0);
+    }
+    if (rectLabel) {
+      rectLabel.transition().duration(200).attr('opacity',  0);
+    }
+  },
+
+  _updateAxisTipOpacity: function(className) {
+    if (this.model.get('dragging')) {
+      this._showAxisTip(className);
+    } else {
+      this._hideAxisTip(className);
+    }
   },
 
   _onBrushMove: function() {
@@ -36136,8 +36236,8 @@ module.exports = View.extend({
         top = this.chartHeight + this.model.get('pos').y + this.$el.position().top - 20 - this.options.minimumBarHeight;
       }
 
-      if (!this._isDragging()) {
-        var d = this.formatNumber(freq);
+      if (!this._isDragging() && freq > 0) {
+        var d = formatter.formatNumber(freq);
         hoverProperties = { top: top, left: left, data: d };
       } else {
         hoverProperties = null;
@@ -36163,6 +36263,8 @@ module.exports = View.extend({
     this.model.bind('change:lo_index change:hi_index', this._onChangeRange, this);
     this.model.bind('change:data', this._onChangeData, this);
     this.model.bind('change:dragging', this._onChangeDragging, this);
+    this.model.bind('change:right_axis_tip', this._onChangeRightAxisTip, this);
+    this.model.bind('change:left_axis_tip', this._onChangeLeftAxisTip, this);
   },
 
   reset: function() {
@@ -36177,32 +36279,18 @@ module.exports = View.extend({
     this._removeAxis();
     this._generateAxis();
     this._updateChart();
+
+    // Recreate the handles so they appear on top
+    this._removeHandles();
+    this._generateHandles();
+
+    // Recreate the brush so it appears on top
+    this._removeBrush();
+    this._setupBrush();
   },
 
   resetIndexes: function() {
     this.model.set({ lo_index: null, hi_index: null });
-  },
-
-  formatNumber: function(value, unit) {
-    var format = d3.format('.2s');
-
-    if (value < 1000) {
-      v = (value).toFixed(2);
-      // v ends with .00
-      if (v.match('.00' + "$")) {
-        v = v.replace('.00', '');
-      }
-      return v;
-    }
-
-    value = format(value) + (unit ? ' ' + unit : '');
-
-    // value ends with .0
-    if (value.match('.0' + "$")) {
-      value = value.replace('.0', '');
-    }
-
-    return value == '0.0' ? 0 : value;
   },
 
   _removeBars: function() {
@@ -36210,7 +36298,7 @@ module.exports = View.extend({
   },
 
   _removeBrush: function() {
-    this.chart.select('.Brush').remove();
+    this.chart.selectAll('.Brush').remove();
     this.chart.classed('is-selectable', false);
   },
 
@@ -36227,11 +36315,11 @@ module.exports = View.extend({
   },
 
   _generateChartContent: function() {
+    this._generateAxis();
     this._generateLines();
     this._generateBars();
     this._generateHandles();
     this._setupBrush();
-    this._generateAxis();
   },
 
   resize: function(width) {
@@ -36521,17 +36609,50 @@ module.exports = View.extend({
 
     this.chart.select('.Handle-right')
     .attr('transform', 'translate(' + rightX + ', 0)');
+
+    if (this.options.axis_tip) {
+      this.model.set({
+        left_axis_tip: this.xAxisScale(leftX + 3),
+        right_axis_tip: this.xAxisScale(rightX + 3)
+      });
+    }
+  },
+
+  _generateAxisTip: function(className) {
+
+    var handle = this.chart.select('.Handle.Handle-' + className);
+
+    var axisTip = handle.selectAll("g")
+    .data([''])
+    .enter().append("g")
+    .attr('class', 'AxisTip AxisTip-' + className)
+    .attr("transform", function(d, i) { return "translate(0,52)"; });
+
+    this.rectLabel = axisTip.append("rect")
+    .attr('class', 'AxisTip-rect AxisTip-' + className)
+    .attr("height", 12)
+    .attr("width", 10);
+
+    this.textLabel = axisTip.append("text")
+    .attr('class', 'AxisTip-text AxisTip-' + className)
+    .attr("dy", "11")
+    .attr("dx", "0")
+    .text(function(d) { return d; });
   },
 
   _generateHandle: function(className) {
-    var handle = { width: this.options.handleWidth, height: this.options.handleHeight, radius: this.options.handleRadius };
+    var opts = { width: this.options.handleWidth, height: this.options.handleHeight, radius: this.options.handleRadius };
     var yPos = (this.chartHeight / 2) - (this.options.handleHeight / 2);
 
-    var handles = this.chart.select('.Handles')
+    var handle = this.chart.select('.Handles')
     .append('g')
-    .attr('class', 'Handle ' + className);
+    .attr('class', 'Handle Handle-' + className);
 
-    handles
+    if (this.options.axis_tip) {
+      this._generateAxisTip(className);
+    }
+
+    handle
     .append('line')
     .attr('class', 'HandleLine')
     .attr('x1', 3)
@@ -36540,19 +36661,19 @@ module.exports = View.extend({
     .attr('y2', this.chartHeight + 4);
 
     if (this.options.handles) {
-      handles
+      handle
       .append('rect')
       .attr('class', 'HandleRect')
       .attr('transform', 'translate(0, ' + yPos + ')')
-      .attr('width', handle.width)
-      .attr('height', handle.height)
-      .attr('rx', handle.radius)
-      .attr('ry', handle.radius);
+      .attr('width', opts.width)
+      .attr('height', opts.height)
+      .attr('rx', opts.radius)
+      .attr('ry', opts.radius);
 
       var y = 21; // initial position of the first grip
 
       for (var i = 0; i < 3; i++) {
-        handles
+        handle
         .append('line')
         .attr('class', 'HandleGrip')
         .attr('x1', 2)
@@ -36562,13 +36683,13 @@ module.exports = View.extend({
       }
     }
 
-    return handles;
+    return handle;
   },
 
   _generateHandles: function() {
     this.chart.append('g').attr('class', 'Handles');
-    this.leftHandle  = this._generateHandle('Handle-left');
-    this.rightHandle = this._generateHandle('Handle-right');
+    this.leftHandle  = this._generateHandle('left');
+    this.rightHandle = this._generateHandle('right');
   },
 
   _generateHandleLine: function() {
@@ -36625,7 +36746,7 @@ module.exports = View.extend({
     .attr("y", function(d) { return self.chartHeight + 15; })
     .attr("text-anchor", adjustTextAnchor)
     .text(function(d) {
-      return self.formatNumber(self.xAxisScale(d));
+      return formatter.formatNumber(self.xAxisScale(d));
     });
   },
 
@@ -36782,18 +36903,19 @@ module.exports = View.extend({
   }
 });
 
-},{"cdb/core/model":25,"cdb/core/view":31,"d3":4,"jquery":"jquery","underscore":7}],149:[function(require,module,exports){
+},{"cdb/core/format":20,"cdb/core/model":25,"cdb/core/view":31,"d3":4,"jquery":"jquery","underscore":7}],149:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var d3 = require('d3');
+var formatter = require('cdb/core/format');
 var Model = require('cdb/core/model');
 var View = require('cdb/core/view');
 var HistogramTitleView = require('./histogram_title_view');
 var WidgetContent = require('../standard/widget_content_view');
+var WidgetViewModel = require('../widget_content_model');
 var HistogramChartView = require('./chart');
 var placeholder = require('./placeholder.tpl');
 var template = require('./content.tpl');
-var xAxisTickFormatter = d3.format('.2s');
 
 /**
  * Widget content view for a histogram
@@ -36812,7 +36934,7 @@ module.exports = WidgetContent.extend({
   initialize: function() {
     this.dataModel = this.options.dataModel;
     this.firstData = _.clone(this.options.dataModel);
-    this.viewModel = new Model();
+    this.viewModel = new WidgetViewModel();
     this.lockedByUser = false;
     WidgetContent.prototype.initialize.call(this);
   },
@@ -36931,10 +37053,12 @@ module.exports = WidgetContent.extend({
     this.histogramChartView = new HistogramChartView(({
       margin: { top: 4, right: 4, bottom: 20, left: 4 },
       handles: true,
+      axis_tip: true,
       width: this.canvasWidth,
       height: this.canvasHeight,
       data: this.dataModel.getData()
     }));
+    window.c = this.histogramChartView;
 
     this.$('.js-content').append(this.histogramChartView.el);
     this.addView(this.histogramChartView);
@@ -37006,11 +37130,16 @@ module.exports = WidgetContent.extend({
     this.histogramChartView.removeSelection();
 
     var data = this.originalData;
-    this.filter.setRange(
-      data[loBarIndex].start,
-      data[hiBarIndex - 1].end
-    );
-    this._updateStats();
+
+    if (loBarIndex >= 0 && loBarIndex < data.length && (hiBarIndex - 1) >= 0 && (hiBarIndex - 1) < data.length) {
+      this.filter.setRange(
+        data[loBarIndex].start,
+        data[hiBarIndex - 1].end
+      );
+      this._updateStats();
+    } else {
+      console.error('Error accessing array bounds', loBarIndex, hiBarIndex, data);
+    }
   },
 
   _onBrushEnd: function(loBarIndex, hiBarIndex) {
@@ -37021,16 +37150,22 @@ module.exports = WidgetContent.extend({
     }
 
     var properties = { filter_enabled: true, lo_index: loBarIndex, hi_index: hiBarIndex };
+
     if (!this.viewModel.get('zoomed')) {
       properties.zoom_enabled = true;
     }
+
     this.viewModel.set(properties);
 
-    this.filter.setRange(
-      data[loBarIndex].start,
-      data[hiBarIndex - 1].end
-    );
-    this._updateStats();
+    if (loBarIndex >= 0 && loBarIndex < data.length && (hiBarIndex - 1) >= 0 && (hiBarIndex - 1) < data.length) {
+      this.filter.setRange(
+        data[loBarIndex].start,
+        data[hiBarIndex - 1].end
+      );
+      this._updateStats();
+    } else {
+      console.error('Error accessing array bounds', loBarIndex, hiBarIndex, data);
+    }
   },
 
   _onRangeUpdated: function(loBarIndex, hiBarIndex) {
@@ -37064,20 +37199,21 @@ module.exports = WidgetContent.extend({
   },
 
   _onChangeNulls: function() {
-    this.$('.js-nulls').text(this.histogramChartView.formatNumber(this.viewModel.get('nulls')) + ' NULLS');
+    this.$('.js-nulls').text(formatter.formatNumber(this.viewModel.get('nulls')) + ' NULLS');
     this.$('.js-nulls').attr('title', this._formatNumberWithCommas(this.viewModel.get('nulls').toFixed(2)) + ' NULLS');
   },
 
   _onChangeTotal: function() {
-    this.$('.js-val').text(this.histogramChartView.formatNumber(this.viewModel.get('total')) + ' SELECTED');
+    this.$('.js-val').text(formatter.formatNumber(this.viewModel.get('total')) + ' SELECTED');
     this.$('.js-val').attr('title', this._formatNumberWithCommas(this.viewModel.get('total').toFixed(2)) + ' SELECTED');
   },
 
   _onChangeMax: function() {
     if (this.viewModel.get('max') === undefined) {
-      return '0 MAX';
+      this.$('.js-min').text('0 MAX');
+      return;
     }
-    this.$('.js-max').text(this.histogramChartView.formatNumber(this.viewModel.get('max')) + ' MAX');
+    this.$('.js-max').text(formatter.formatNumber(this.viewModel.get('max')) + ' MAX');
     this.$('.js-max').attr('title', this._formatNumberWithCommas(this.viewModel.get('max').toFixed(2)) + ' MAX');
   },
 
@@ -37086,12 +37222,12 @@ module.exports = WidgetContent.extend({
       this.$('.js-min').text('0 MIN');
       return;
     }
-    this.$('.js-min').text(this.histogramChartView.formatNumber(this.viewModel.get('min')) + ' MIN');
+    this.$('.js-min').text(formatter.formatNumber(this.viewModel.get('min')) + ' MIN');
     this.$('.js-min').attr('title', this._formatNumberWithCommas(this.viewModel.get('min').toFixed(2)) + ' MIN');
   },
 
   _onChangeAvg: function() {
-    this.$('.js-avg').text(this.histogramChartView.formatNumber(this.viewModel.get('avg')) + ' AVG');
+    this.$('.js-avg').text(formatter.formatNumber(this.viewModel.get('avg')) + ' AVG');
     this.$('.js-avg').attr('title', this._formatNumberWithCommas(this.viewModel.get('avg').toFixed(2)) + ' AVG');
   },
 
@@ -37235,7 +37371,7 @@ module.exports = WidgetContent.extend({
   }
 });
 
-},{"../standard/widget_content_view":162,"./chart":148,"./content.tpl":150,"./histogram_title_view":152,"./placeholder.tpl":154,"cdb/core/model":25,"cdb/core/view":31,"d3":4,"jquery":"jquery","underscore":7}],150:[function(require,module,exports){
+},{"../standard/widget_content_view":162,"../widget_content_model":177,"./chart":148,"./content.tpl":150,"./histogram_title_view":152,"./placeholder.tpl":154,"cdb/core/format":20,"cdb/core/model":25,"cdb/core/view":31,"d3":4,"jquery":"jquery","underscore":7}],150:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -37260,7 +37396,7 @@ __p+='<h3 class="Widget-textBig" title="'+
 ((__t=( isSizesApplied ? 'is-selected' : '' ))==null?'':_.escape(__t))+
 ' '+
 ((__t=( isSizesApplied ? 'js-cancelSizes' : 'js-applySizes' ))==null?'':_.escape(__t))+
-'"> <i class="CDBIcon CDBIcon-Syringe"></i> </button> <button class="Widget-arrow js-collapse '+
+'"> <i class="CDBIcon CDBIcon-Syringe CDBIcon--top"></i> </button> <button class="Widget-arrow js-collapse '+
 ((__t=( isCollapsed ? 'Widget-arrow--down' : 'Widget-arrow--up' ))==null?'':_.escape(__t))+
 '"></button> </div>';
 }
@@ -37300,7 +37436,7 @@ module.exports = View.extend({
       template({
         title: this.dataModel.get('title'),
         isSizesApplied: this.dataModel.get('histogramSizes'),
-        isCollapsed: this.viewModel.get('collapsed')
+        isCollapsed: this.viewModel.isCollapsed()
       })
     );
     return this;
@@ -37322,7 +37458,7 @@ module.exports = View.extend({
   },
 
   _toggleCollapse: function() {
-    this.viewModel.set('collapsed', !this.viewModel.get('collapsed'));
+    this.viewModel.toggleCollapsed();
   }
 
 });
