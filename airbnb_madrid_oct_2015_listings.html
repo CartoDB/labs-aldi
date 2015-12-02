@@ -372,8 +372,8 @@
               }
           };
 
-          cartodb.createVis('map', VIZJSON, {
-            no_cdn: false
+          cartodb.createVis('dashboard', VIZJSON, {
+              no_cdn: false
           })
           .done(function(vis, layers) {
             window.vis = vis;
