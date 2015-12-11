@@ -5,9 +5,6 @@ Examples are currently updated manually:
 # go to dir where you clone this repo
 cd widgets-examples/
 
-# copy built deep-insights.js dependencies here:
-cp -r ../deep-insights.js/dist/ dist/
-
-# copy built cartodb.js dependencies here:
-cp -r ../deep-insights.js/vendor/ dist/
+# copy built deep-insights.js+cartodb.js dependencies here:
+cp -r ../deep-insights.js/dist/ dist/ && cp -r ../deep-insights.js/vendor/ dist/
 ```

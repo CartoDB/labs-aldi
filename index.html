@@ -297,7 +297,14 @@
 
       cartodb.deepInsights.createDashboard('#dashboard', diJSON, {
         no_cdn: false
-      });
+      })
+        .vis.done(function(vis, layers) {
+          console.info('vis done', arguments);
+          window.layers = layers.models[1].layers;
+        })
+        .error(function(err) {
+          console.error(err);
+        });
     }
   </script>
 </body>
