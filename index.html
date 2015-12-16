@@ -4,10 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Deep-Insights.js – Populated places</title>
+  <link href="http://cartodb.com/favicon.ico" rel="shortcut icon" />
   <meta name=viewport content="width=device-width initial-scale=1">
-  <link href="./dist/themes/css/cartodb.css" rel="stylesheet" />
   <link href="./dist/themes/css/deep-insights.css" rel="stylesheet" />
-  <script src="./dist/cartodb.uncompressed.js"></script>
   <script src="./dist/deep-insights.js"></script>
   <style type="text/css">
     html,
@@ -157,34 +156,38 @@
                 "layers": [{
                   "id": "4d82e8df-f21b-4225-b776-61b1bdffde6c",
                   "type": "CartoDB",
-                  "interactivity": "cartodb_id,adm0name,name,pop_max",
+                  "interactivity": "cartodb_id,adm0name,name,pop_max,latitude,longitude",
                   "infowindow": {
-                    "fields": [],
+                    "fields": [
+                      {
+                        "name": "adm0name",
+                        "title": true,
+                        "position": 0
+                      },{
+                        "name": "name",
+                        "title": true,
+                        "position": 1
+                      },{
+                        "name": "pop_max",
+                        "title": true,
+                        "position": 2
+                      },{
+                        "name": "longitude",
+                        "title": true,
+                        "position": 3
+                      },{
+                        "name": "latitude",
+                        "title": true,
+                        "position": 4
+                      }
+                    ],
                     "template_name": "table/views/infowindow_light",
-                    "template": "<div class=\"cartodb-popup v2\">\n  <a href=\"#close\" class=\"cartodb-popup-close-button close\">x</a>\n  <div class=\"cartodb-popup-content-wrapper\">\n    <div class=\"cartodb-popup-content\">\n      {{#content.fields}}\n        {{#title}}<h4>{{title}}</h4>{{/title}}\n        {{#value}}\n          <p {{#type}}class=\"{{ type }}\"{{/type}}>{{{ value }}}</p>\n        {{/value}}\n        {{^value}}\n          <p class=\"empty\">null</p>\n        {{/value}}\n      {{/content.fields}}\n    </div>\n  </div>\n  <div class=\"cartodb-popup-tip-container\"></div>\n</div>\n",
+                    "template": "<div class=\"CDB-infowindow CDB-infowindow--light js-infowindow is-header-image\" data-cover=\"true\"><div class=\"CDB-infowindow-container\"><div class=\"CDB-infowindow-header CDB-infowindow-headerMedia js-cover\"><div class=\"CDB-infowindow-mediaTitle\"><h4 class=\"CDB-infowindow-title\"><span>{{ name }}, {{ adm0name }}</span></h4></div><img src='http://maps.googleapis.com/maps/api/staticmap?center={{adm0name}}&size=400x200&style=element:labels|visibility:off&style=element:geometry.stroke|visibility:off&style=feature:landscape|element:geometry|saturation:-100&style=feature:water|saturation:-100|invert_lightness:true' /></div><div class=\"CDB-hook-image\"> <div class=\"CDB-hook-image-inner js-hook\"></div></div></div></div>",
                     "alternative_names": {},
                     "width": 226,
                     "maxHeight": 180
                   },
-                  "tooltip": {
-                    "fields": [{
-                      "name": "adm0name",
-                      "title": true,
-                      "position": 1
-                    }, {
-                      "name": "name",
-                      "title": true,
-                      "position": 2
-                    }, {
-                      "name": "pop_max",
-                      "title": true,
-                      "position": 3
-                    }],
-                    "template_name": "tooltip_light",
-                    "template": "<div class=\"cartodb-tooltip-content-wrapper\">\n  <div class=\"cartodb-tooltip-content\">\n  {{#fields}}\n    {{#title}}\n    <h4>{{title}}</h4>\n    {{/title}}\n    <p>{{{ value }}}</p>\n  {{/fields}}\n  </div>\n</div>",
-                    "alternative_names": {},
-                    "maxHeight": 180
-                  },
+                  "tooltip": null,
                   "legend": {
                     "type": "none",
                     "show_title": false,
@@ -267,16 +270,11 @@
               "x": 20,
               "y": 20
             },
-            "template": "<a href=\"#zoom_in\" class=\"zoom_in\">+</a> <a href=\"#zoom_out\" class=\"zoom_out\">-</a>"
-          }, {
-            "type": "loader",
-            "order": 8,
-            "options": {
-              "display": true,
-              "x": 20,
-              "y": 150
-            },
-            "template": "<div class=\"loader\" original-title=\"\"></div>"
+            "template": '<div class="CDB-Overlay">' +
+                '<button class="CDB-Zoom-action CDB-Zoom-action--out js-zoomOut"></button>' +
+                '<button class="CDB-Zoom-action CDB-Zoom-action--in js-zoomIn"></button>' +
+              '</div>' +
+              '<div class="CDB-Zoom-info js-zoomInfo">-</div>'
           }, {
             "type": "logo",
             "order": 9,
