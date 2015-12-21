@@ -1896,7 +1896,7 @@
 }));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":218,"underscore":241}],2:[function(require,module,exports){
+},{"jquery":225,"underscore":248}],2:[function(require,module,exports){
 
 },{}],3:[function(require,module,exports){
 // http://wiki.commonjs.org/wiki/Unit_Testing/1.0
@@ -3203,138 +3203,6 @@ function hasOwnProperty(obj, prop) {
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"./support/isBuffer":7,"_process":6,"inherits":4}],9:[function(require,module,exports){
-/*!
- * jQuery clip-path-polygon Plugin v0.1.5 (2015-04-01)
- * jQuery plugin that makes easy to use clip-path on whatever tag under different browsers
- * https://github.com/andrusieczko/clip-path-polygon
- *
- * Copyright 2015 Karol Andrusieczko
- * Released under MIT license
- */
-
-var jQuery = jQuery || (require && require('jquery'));
-(function($) {
-
-  var id = 0;
-
-  var ClipPath = function(jQuery, $el, points, options) {
-    this.$ = jQuery;
-    this.$el = $el;
-    this.points = points;
-    this.svgDefId = 'clipPathPolygonGenId' + id++;
-
-    this.processOptions(options);
-  };
-
-  if (typeof exports !== 'undefined') {
-    if (typeof module !== 'undefined' && module.exports) {
-      exports = module.exports = ClipPath;
-    }
-    exports.ClipPath = ClipPath;
-  } else {
-    var globalVariable = window || root;
-    globalVariable.ClipPath = ClipPath;
-  }
-
-  ClipPath.prototype = {
-
-    $: null,
-    $el: null,
-    points: null,
-
-    isForWebkit: true,
-    isForSvg: true,
-    svgDefId: null,
-    isPercentage: false,
-
-    create: function() {
-      this._createClipPath(this.points);
-    },
-
-    _createClipPath: function(points) {
-      this._createSvgDefs();
-      if (this.isForWebkit) {
-        this._createWebkitClipPath(points);
-      }
-      if (this.isForSvg) {
-        this._createSvgBasedClipPath(points);
-      }
-    },
-
-    _createWebkitClipPath: function(points) {
-      var clipPath = "polygon(" + this._translatePoints(points, true, this.isPercentage) + ")";
-      this.$el.css('-webkit-clip-path', clipPath);
-    },
-
-    _createSvgBasedClipPath: function(points) {
-      this.$('#' + this.svgDefId + '').find('polygon').attr('points', this._translatePoints(points, false, this.isPercentage));
-      this.$el.css('clip-path', 'url(#' + this.svgDefId + ')');
-    },
-
-
-    _translatePoints: function(points, withUnit, isPercentage) {
-      var result = [];
-      for (var i in points) {
-        var x = this._handlePxs(points[i][0], withUnit, isPercentage);
-        var y = this._handlePxs(points[i][1], withUnit, isPercentage);
-        result.push(x + ' ' + y);
-      }
-      return result.join(', ');
-    },
-
-    _handlePxs: function(number, withUnit, isPercentage) {
-      if (number === 0) {
-        return number;
-      }
-      if (!withUnit) {
-        if (isPercentage) {
-          return number / 100;
-        }
-        return number;
-      }
-
-      return number + (isPercentage ? "%" : "px");
-    },
-
-    _createSvgElement: function(elementName) {
-      return this.$(document.createElementNS('http://www.w3.org/2000/svg', elementName));
-    },
-
-    _createSvgDefs: function() {
-      if (this.$('#' + this.svgDefId + '').length === 0) {
-        var $svg = this._createSvgElement('svg').attr('width', 0).attr('height', 0);
-        var $defs = this._createSvgElement('defs');
-        $svg.append($defs);
-        var $clippath = this._createSvgElement('clipPath').attr('id', this.svgDefId);
-        if (this.isPercentage) {
-          $clippath.get(0).setAttribute('clipPathUnits', 'objectBoundingBox');
-        }
-        $defs.append($clippath);
-        var $polygon = this._createSvgElement('polygon');
-        $clippath.append($polygon);
-        this.$('body').append($svg);
-      }
-    },
-
-    processOptions: function(options) {
-      this.isForWebkit = (options && options.isForWebkit) || this.isForWebkit;
-      this.isForSvg = (options && options.isForSvg) || this.isForSvg;
-      this.svgDefId = (options && options.svgDefId) || this.svgDefId;
-      this.isPercentage = (options && options.isPercentage || this.isPercentage);
-    }
-  };
-
-  $.fn.clipPath = function(points, options) {
-    return this.each(function() {
-      var $el = $(this);
-      var clipPath = new ClipPath($, $el, points, options);
-      clipPath.create();
-    });
-  };
-
-}).call(this, jQuery);
-
-},{"jquery":218}],10:[function(require,module,exports){
 /*
  Leaflet, a JavaScript library for mobile-friendly interactive maps. http://leafletjs.com
  (c) 2010-2013, Vladimir Agafonkin
@@ -12515,7 +12383,7 @@ L.Map.include({
 
 
 }(window, document));
-},{}],11:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 /*!
  * mustache.js - Logic-less {{mustache}} templates with JavaScript
  * http://github.com/janl/mustache.js
@@ -13102,7 +12970,7 @@ L.Map.include({
 
 }));
 
-},{}],12:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 /**
  * Abstract handler for animator steps
  */
@@ -13128,7 +12996,7 @@ AnimatorStepsRange.prototype = {
 
 module.exports = AnimatorStepsRange;
 
-},{}],13:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 (function (global){
 var torque = require('./');
 var AnimatorStepsRange = require('./animator-steps-range');
@@ -13299,7 +13167,7 @@ var cancelAnimationFrame = global.cancelAnimationFrame
 module.exports = Animator;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./":22,"./animator-steps-range":12}],14:[function(require,module,exports){
+},{"./":21,"./animator-steps-range":11}],13:[function(require,module,exports){
 var _torque_reference_latest = {
     "version": "1.0.0",
     "style": {
@@ -13717,7 +13585,7 @@ module.exports = {
   }
 };
 
-},{}],15:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 (function (global){
 //
 // common functionallity for torque layers
@@ -13760,7 +13628,7 @@ TorqueLayer.optionsFromCartoCSS = function(cartocss) {
 module.exports.TorqueLayer = TorqueLayer;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"carto":42}],16:[function(require,module,exports){
+},{"carto":41}],15:[function(require,module,exports){
 (function (global){
   var Event = {};
   Event.on = function(evt, callback) {
@@ -13855,7 +13723,7 @@ module.exports = {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],17:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 /**
  * @license
  * Copyright 2013 Google Inc. All Rights Reserved.
@@ -14380,7 +14248,7 @@ CanvasLayer.prototype.scheduleUpdate = function() {
 
 module.exports = CanvasLayer;
 
-},{}],18:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 /*
  ====================
  canvas setup for drawing tiles
@@ -14478,7 +14346,7 @@ CanvasTileLayer.prototype.releaseTile = function (tile) {
 
 module.exports = CanvasTileLayer;
 
-},{}],19:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 function GMapsTileLoader() {
 }
 
@@ -14686,7 +14554,7 @@ GMapsTileLoader.prototype = {
 
 module.exports = GMapsTileLoader;
 
-},{}],20:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 var gmaps = {};
 if (typeof google !== 'undefined' && typeof google.maps !== 'undefined') {
     gmaps = require('./torque');
@@ -14694,7 +14562,7 @@ if (typeof google !== 'undefined' && typeof google.maps !== 'undefined') {
 }
 module.exports = gmaps;
 
-},{"./gmaps_tileloader_mixin":19,"./torque":21}],21:[function(require,module,exports){
+},{"./gmaps_tileloader_mixin":18,"./torque":20}],20:[function(require,module,exports){
 (function (global){
 var carto = global.carto || require('carto');
 var torque = require('../');
@@ -15200,7 +15068,7 @@ module.exports = {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../":22,"./CanvasLayer":17,"./canvas_tile_layer":18,"./gmaps_tileloader_mixin":19,"carto":42}],22:[function(require,module,exports){
+},{"../":21,"./CanvasLayer":16,"./canvas_tile_layer":17,"./gmaps_tileloader_mixin":18,"carto":41}],21:[function(require,module,exports){
 module.exports = require('./core');
 
 module.exports.Animator = require('./animator');
@@ -15219,7 +15087,7 @@ module.exports.GMapsTileLoader = gmaps.GMapsTileLoader;
 module.exports.GMapsTorqueLayer = gmaps.GMapsTorqueLayer;
 module.exports.GMapsTiledTorqueLayer = gmaps.GMapsTiledTorqueLayer;
 
-},{"./animator":13,"./cartocss_reference":14,"./common":15,"./core":16,"./gmaps":20,"./leaflet":24,"./math":27,"./mercator":28,"./provider":30,"./renderer":36,"./request":40}],23:[function(require,module,exports){
+},{"./animator":12,"./cartocss_reference":13,"./common":14,"./core":15,"./gmaps":19,"./leaflet":23,"./math":26,"./mercator":27,"./provider":29,"./renderer":35,"./request":39}],22:[function(require,module,exports){
 require('./leaflet_tileloader_mixin');
 
 /**
@@ -15474,12 +15342,12 @@ L.CanvasLayer = L.Class.extend({
 
 });
 
-},{"./leaflet_tileloader_mixin":25}],24:[function(require,module,exports){
+},{"./leaflet_tileloader_mixin":24}],23:[function(require,module,exports){
 if (typeof L !== 'undefined') {
     require('./torque');
 }
 
-},{"./torque":26}],25:[function(require,module,exports){
+},{"./torque":25}],24:[function(require,module,exports){
 L.Mixin.TileLoader = {
 
   _initTileLoader: function() {
@@ -15629,7 +15497,7 @@ L.Mixin.TileLoader = {
 
 }
 
-},{}],26:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 (function (global){
 var carto = global.carto || require('carto');
 var torque = require('../');
@@ -16116,7 +15984,7 @@ L.TorqueLayer = L.CanvasLayer.extend({
 });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../":22,"./canvas_layer":23,"carto":42}],27:[function(require,module,exports){
+},{"../":21,"./canvas_layer":22,"carto":41}],26:[function(require,module,exports){
   function clamp(a, b) {
     return function(t) {
       return Math.max(Math.min(t, b), a);
@@ -16149,7 +16017,7 @@ module.exports = {
     invLinear: invLinear
 };
 
-},{}],28:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 var Point = function(x, y) {
   this.x = x || 0;
   this.y = y || 0;
@@ -16242,7 +16110,7 @@ MercatorProjection.prototype.latLonToTilePoint = function(lat, lon, tileX, tileY
 
 module.exports = MercatorProjection;
 
-},{}],29:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 /*
 # metrics profiler
 
@@ -16386,7 +16254,7 @@ Profiler.metric = function(name) {
 
 module.exports = Profiler;
 
-},{}],30:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 module.exports = {
     json: require('./json'),
     JsonArray: require('./jsonarray'),
@@ -16394,7 +16262,7 @@ module.exports = {
     tileJSON: require('./tilejson')
 };
 
-},{"./json":31,"./jsonarray":32,"./tilejson":33,"./windshaft":34}],31:[function(require,module,exports){
+},{"./json":30,"./jsonarray":31,"./tilejson":32,"./windshaft":33}],30:[function(require,module,exports){
 var torque = require('../');
 var Profiler = require('../profiler');
 
@@ -16973,7 +16841,7 @@ var Profiler = require('../profiler');
 
 module.exports = json;
 
-},{"../":22,"../profiler":29}],32:[function(require,module,exports){
+},{"../":21,"../profiler":28}],31:[function(require,module,exports){
 var torque = require('../');
 var Profiler = require('../profiler');
 
@@ -17203,7 +17071,7 @@ var Profiler = require('../profiler');
 
   module.exports = json;
 
-},{"../":22,"../profiler":29}],33:[function(require,module,exports){
+},{"../":21,"../profiler":28}],32:[function(require,module,exports){
   var torque = require('../');
 
   var Uint8Array = torque.types.Uint8Array;
@@ -17543,7 +17411,7 @@ var Profiler = require('../profiler');
   };
 
   module.exports = tileJSON;
-},{"../":22}],34:[function(require,module,exports){
+},{"../":21}],33:[function(require,module,exports){
   var torque = require('../');
   var Profiler = require('../profiler');
 
@@ -18033,7 +17901,7 @@ var Profiler = require('../profiler');
 
   module.exports = windshaft;
 
-},{"../":22,"../profiler":29}],35:[function(require,module,exports){
+},{"../":21,"../profiler":28}],34:[function(require,module,exports){
   var TAU = Math.PI*2;
   // min value to render a line. 
   // it does not make sense to render a line of a width is not even visible
@@ -18126,13 +17994,13 @@ module.exports = {
     MAX_SPRITE_RADIUS: MAX_SPRITE_RADIUS
 };
 
-},{}],36:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 module.exports = {
     cartocss: require('./cartocss_render'),
     Point: require('./point'),
     Rectangle: require('./rectangle')
 };
-},{"./cartocss_render":35,"./point":37,"./rectangle":38}],37:[function(require,module,exports){
+},{"./cartocss_render":34,"./point":36,"./rectangle":37}],36:[function(require,module,exports){
 (function (global){
 var torque = require('../');
 var cartocss = require('./cartocss_render');
@@ -18608,7 +18476,7 @@ var Filters = require('./torque_filters');
 module.exports = PointRenderer;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../":22,"../profiler":29,"./cartocss_render":35,"./torque_filters":39,"carto":42}],38:[function(require,module,exports){
+},{"../":21,"../profiler":28,"./cartocss_render":34,"./torque_filters":38,"carto":41}],37:[function(require,module,exports){
 (function (global){
 var carto = global.carto || require('carto');
 
@@ -18772,7 +18640,7 @@ var carto = global.carto || require('carto');
 module.exports = RectanbleRenderer;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"carto":42}],39:[function(require,module,exports){
+},{"carto":41}],38:[function(require,module,exports){
 /*
  Based on simpleheat, a tiny JavaScript library for drawing heatmaps with Canvas, 
  by Vladimir Agafonkin
@@ -18864,7 +18732,7 @@ torque_filters.prototype = {
 
 module.exports = torque_filters;
 
-},{}],40:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 (function (global){
 var torque = require('./core');
 
@@ -18968,7 +18836,7 @@ module.exports = {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./core":16}],41:[function(require,module,exports){
+},{"./core":15}],40:[function(require,module,exports){
 (function (tree) {
 
 tree.functions = {
@@ -19181,7 +19049,7 @@ function clamp(val) {
 
 })(require('./tree'));
 
-},{"./tree":47}],42:[function(require,module,exports){
+},{"./tree":46}],41:[function(require,module,exports){
 (function (process,__dirname){
 var util = require('util'),
     fs = require('fs'),
@@ -19301,7 +19169,7 @@ function stylize(str, style) {
 }
 
 }).call(this,require('_process'),"/node_modules/cartodb.js/node_modules/torque.js/node_modules/carto/lib/carto")
-},{"../../package.json":78,"./functions":41,"./parser":43,"./renderer":44,"./renderer_js":45,"./torque-reference":46,"./tree":47,"./tree/call":48,"./tree/color":49,"./tree/comment":50,"./tree/definition":51,"./tree/dimension":52,"./tree/element":53,"./tree/expression":54,"./tree/field":55,"./tree/filter":56,"./tree/filterset":57,"./tree/fontset":58,"./tree/frame_offset":59,"./tree/imagefilter":60,"./tree/invalid":61,"./tree/keyword":62,"./tree/layer":63,"./tree/literal":64,"./tree/operation":65,"./tree/quoted":66,"./tree/reference":67,"./tree/rule":68,"./tree/ruleset":69,"./tree/selector":70,"./tree/style":71,"./tree/url":72,"./tree/value":73,"./tree/variable":74,"./tree/zoom":75,"_process":6,"fs":2,"path":5,"util":8}],43:[function(require,module,exports){
+},{"../../package.json":77,"./functions":40,"./parser":42,"./renderer":43,"./renderer_js":44,"./torque-reference":45,"./tree":46,"./tree/call":47,"./tree/color":48,"./tree/comment":49,"./tree/definition":50,"./tree/dimension":51,"./tree/element":52,"./tree/expression":53,"./tree/field":54,"./tree/filter":55,"./tree/filterset":56,"./tree/fontset":57,"./tree/frame_offset":58,"./tree/imagefilter":59,"./tree/invalid":60,"./tree/keyword":61,"./tree/layer":62,"./tree/literal":63,"./tree/operation":64,"./tree/quoted":65,"./tree/reference":66,"./tree/rule":67,"./tree/ruleset":68,"./tree/selector":69,"./tree/style":70,"./tree/url":71,"./tree/value":72,"./tree/variable":73,"./tree/zoom":74,"_process":6,"fs":2,"path":5,"util":8}],42:[function(require,module,exports){
 (function (global){
 var carto = exports,
     tree = require('./tree'),
@@ -20086,7 +19954,7 @@ carto.Parser = function Parser(env) {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./tree":47,"underscore":77}],44:[function(require,module,exports){
+},{"./tree":46,"underscore":76}],43:[function(require,module,exports){
 (function (global){
 var _ = global._ || require('underscore');
 var carto = require('./index');
@@ -20492,7 +20360,7 @@ module.exports.inheritDefinitions = inheritDefinitions;
 module.exports.sortStyles = sortStyles;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./index":42,"underscore":77}],45:[function(require,module,exports){
+},{"./index":41,"underscore":76}],44:[function(require,module,exports){
 (function (global){
 (function(carto) {
 var tree = require('./tree');
@@ -20784,7 +20652,7 @@ if(typeof(module) !== 'undefined') {
 })(require('../carto'));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../carto":42,"./torque-reference":46,"./tree":47,"underscore":77}],46:[function(require,module,exports){
+},{"../carto":41,"./torque-reference":45,"./tree":46,"underscore":76}],45:[function(require,module,exports){
 var _mapnik_reference_latest = {
     "version": "2.1.1",
     "style": {
@@ -22698,7 +22566,7 @@ module.exports = {
   }
 };
 
-},{}],47:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 /**
  * TODO: document this. What does this do?
  */
@@ -22711,7 +22579,7 @@ if(typeof(module) !== "undefined") {
   };
 }
 
-},{}],48:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 (function (global){
 (function(tree) {
 var _ = global._ || require('underscore');
@@ -22827,7 +22695,7 @@ tree.Call.prototype = {
 })(require('../tree'));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../tree":47,"underscore":77}],49:[function(require,module,exports){
+},{"../tree":46,"underscore":76}],48:[function(require,module,exports){
 (function(tree) {
 // RGB Colors - #ff0014, #eee
 // can be initialized with a 3 or 6 char string or a 3 or 4 element
@@ -22924,7 +22792,7 @@ tree.Color.prototype = {
 
 })(require('../tree'));
 
-},{"../tree":47}],50:[function(require,module,exports){
+},{"../tree":46}],49:[function(require,module,exports){
 (function(tree) {
 
 tree.Comment = function Comment(value, silent) {
@@ -22941,7 +22809,7 @@ tree.Comment.prototype = {
 
 })(require('../tree'));
 
-},{"../tree":47}],51:[function(require,module,exports){
+},{"../tree":46}],50:[function(require,module,exports){
 (function (global){
 (function(tree) {
 var assert = require('assert'),
@@ -23204,7 +23072,7 @@ tree.Definition.prototype.toJS = function(env) {
 })(require('../tree'));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../tree":47,"assert":3,"underscore":77}],52:[function(require,module,exports){
+},{"../tree":46,"assert":3,"underscore":76}],51:[function(require,module,exports){
 (function (global){
 (function(tree) {
 var _ = global._ || require('underscore');
@@ -23307,7 +23175,7 @@ tree.Dimension.prototype = {
 })(require('../tree'));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../tree":47,"underscore":77}],53:[function(require,module,exports){
+},{"../tree":46,"underscore":76}],52:[function(require,module,exports){
 (function(tree) {
 
 // An element is an id or class selector
@@ -23339,7 +23207,7 @@ tree.Element.prototype.toString = function() { return this.value; };
 
 })(require('../tree'));
 
-},{"../tree":47}],54:[function(require,module,exports){
+},{"../tree":46}],53:[function(require,module,exports){
 (function(tree) {
 
 tree.Expression = function Expression(value) {
@@ -23367,7 +23235,7 @@ tree.Expression.prototype = {
 
 })(require('../tree'));
 
-},{"../tree":47}],55:[function(require,module,exports){
+},{"../tree":46}],54:[function(require,module,exports){
 (function(tree) {
 
 tree.Field = function Field(content) {
@@ -23386,7 +23254,7 @@ tree.Field.prototype = {
 
 })(require('../tree'));
 
-},{"../tree":47}],56:[function(require,module,exports){
+},{"../tree":46}],55:[function(require,module,exports){
 (function(tree) {
 
 tree.Filter = function Filter(key, op, val, index, filename) {
@@ -23456,7 +23324,7 @@ tree.Filter.prototype.toString = function() {
 
 })(require('../tree'));
 
-},{"../tree":47}],57:[function(require,module,exports){
+},{"../tree":46}],56:[function(require,module,exports){
 (function (global){
 var tree = require('../tree');
 var _ = global._ || require('underscore');
@@ -23727,7 +23595,7 @@ tree.Filterset.prototype.add = function(filter, env) {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../tree":47,"underscore":77}],58:[function(require,module,exports){
+},{"../tree":46,"underscore":76}],57:[function(require,module,exports){
 (function(tree) {
 
 tree._getFontSet = function(env, fonts) {
@@ -23760,7 +23628,7 @@ tree.FontSet.prototype.toXML = function(env) {
 
 })(require('../tree'));
 
-},{"../tree":47}],59:[function(require,module,exports){
+},{"../tree":46}],58:[function(require,module,exports){
 var tree = require('../tree');
 
 // Storage for Frame offset value
@@ -23789,7 +23657,7 @@ tree.FrameOffset.max = 32;
 tree.FrameOffset.none = 0;
 
 
-},{"../tree":47}],60:[function(require,module,exports){
+},{"../tree":46}],59:[function(require,module,exports){
 (function(tree) {
 
 tree.ImageFilter = function ImageFilter(filter, args) {
@@ -23813,7 +23681,7 @@ tree.ImageFilter.prototype = {
 
 })(require('../tree'));
 
-},{"../tree":47}],61:[function(require,module,exports){
+},{"../tree":46}],60:[function(require,module,exports){
 (function (tree) {
 tree.Invalid = function Invalid(chunk, index, message) {
     this.chunk = chunk;
@@ -23837,7 +23705,7 @@ tree.Invalid.prototype.ev = function(env) {
 };
 })(require('../tree'));
 
-},{"../tree":47}],62:[function(require,module,exports){
+},{"../tree":46}],61:[function(require,module,exports){
 (function(tree) {
 
 tree.Keyword = function Keyword(value) {
@@ -23856,7 +23724,7 @@ tree.Keyword.prototype = {
 
 })(require('../tree'));
 
-},{"../tree":47}],63:[function(require,module,exports){
+},{"../tree":46}],62:[function(require,module,exports){
 (function(tree) {
 
 tree.LayerXML = function(obj, styles) {
@@ -23895,7 +23763,7 @@ tree.LayerXML = function(obj, styles) {
 
 })(require('../tree'));
 
-},{"../tree":47}],64:[function(require,module,exports){
+},{"../tree":46}],63:[function(require,module,exports){
 // A literal is a literal string for Mapnik - the
 // result of the combination of a `tree.Field` with any
 // other type.
@@ -23917,7 +23785,7 @@ tree.Literal.prototype = {
 
 })(require('../tree'));
 
-},{"../tree":47}],65:[function(require,module,exports){
+},{"../tree":46}],64:[function(require,module,exports){
 // An operation is an expression with an op in between two operands,
 // like 2 + 1.
 (function(tree) {
@@ -24016,7 +23884,7 @@ tree.operate = function(op, a, b) {
 
 })(require('../tree'));
 
-},{"../tree":47}],66:[function(require,module,exports){
+},{"../tree":46}],65:[function(require,module,exports){
 (function(tree) {
 
 tree.Quoted = function Quoted(content) {
@@ -24048,7 +23916,7 @@ tree.Quoted.prototype = {
 
 })(require('../tree'));
 
-},{"../tree":47}],67:[function(require,module,exports){
+},{"../tree":46}],66:[function(require,module,exports){
 (function (global){
 // Carto pulls in a reference from the `mapnik-reference`
 // module. This file builds indexes from that file for its various
@@ -24271,7 +24139,7 @@ tree.Reference = ref;
 })(require('../tree'));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../tree":47,"mapnik-reference":76,"underscore":77}],68:[function(require,module,exports){
+},{"../tree":46,"mapnik-reference":75,"underscore":76}],67:[function(require,module,exports){
 (function(tree) {
 // a rule is a single property and value combination, or variable
 // name and value combination, like
@@ -24393,7 +24261,7 @@ tree.Rule.prototype.ev = function(context) {
 
 })(require('../tree'));
 
-},{"../tree":47}],69:[function(require,module,exports){
+},{"../tree":46}],68:[function(require,module,exports){
 (function(tree) {
 
 tree.Ruleset = function Ruleset(selectors, rules) {
@@ -24572,7 +24440,7 @@ tree.Ruleset.prototype = {
 };
 })(require('../tree'));
 
-},{"../tree":47}],70:[function(require,module,exports){
+},{"../tree":46}],69:[function(require,module,exports){
 (function(tree) {
 
 tree.Selector = function Selector(filters, zoom, frame_offset, elements, attachment, conditions, index) {
@@ -24601,7 +24469,7 @@ tree.Selector.prototype.specificity = function() {
 
 })(require('../tree'));
 
-},{"../tree":47}],71:[function(require,module,exports){
+},{"../tree":46}],70:[function(require,module,exports){
 (function (global){
 (function(tree) {
 var _ = global._ || require('underscore');
@@ -24673,7 +24541,7 @@ tree.StyleXML = function(name, attachment, definitions, env) {
 })(require('../tree'));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../tree":47,"underscore":77}],72:[function(require,module,exports){
+},{"../tree":46,"underscore":76}],71:[function(require,module,exports){
 (function(tree) {
 
 tree.URL = function URL(val, paths) {
@@ -24693,7 +24561,7 @@ tree.URL.prototype = {
 
 })(require('../tree'));
 
-},{"../tree":47}],73:[function(require,module,exports){
+},{"../tree":46}],72:[function(require,module,exports){
 (function(tree) {
 
 tree.Value = function Value(value) {
@@ -24746,7 +24614,7 @@ tree.Value.prototype = {
 
 })(require('../tree'));
 
-},{"../tree":47}],74:[function(require,module,exports){
+},{"../tree":46}],73:[function(require,module,exports){
 (function(tree) {
 
 tree.Variable = function Variable(name, index, filename) {
@@ -24789,7 +24657,7 @@ tree.Variable.prototype = {
 
 })(require('../tree'));
 
-},{"../tree":47}],75:[function(require,module,exports){
+},{"../tree":46}],74:[function(require,module,exports){
 var tree = require('../tree');
 
 // Storage for zoom ranges. Only supports continuous ranges,
@@ -24909,7 +24777,7 @@ tree.Zoom.prototype.toString = function() {
     return str;
 };
 
-},{"../tree":47}],76:[function(require,module,exports){
+},{"../tree":46}],75:[function(require,module,exports){
 (function (__dirname){
 var fs = require('fs'),
     path = require('path'),
@@ -24938,1352 +24806,9 @@ refs.map(function(version) {
 });
 
 }).call(this,"/node_modules/cartodb.js/node_modules/torque.js/node_modules/carto/node_modules/mapnik-reference")
-},{"fs":2,"path":5}],77:[function(require,module,exports){
-//     Underscore.js 1.6.0
-//     http://underscorejs.org
-//     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-//     Underscore may be freely distributed under the MIT license.
-
-(function() {
-
-  // Baseline setup
-  // --------------
-
-  // Establish the root object, `window` in the browser, or `exports` on the server.
-  var root = this;
-
-  // Save the previous value of the `_` variable.
-  var previousUnderscore = root._;
-
-  // Establish the object that gets returned to break out of a loop iteration.
-  var breaker = {};
-
-  // Save bytes in the minified (but not gzipped) version:
-  var ArrayProto = Array.prototype, ObjProto = Object.prototype, FuncProto = Function.prototype;
-
-  // Create quick reference variables for speed access to core prototypes.
-  var
-    push             = ArrayProto.push,
-    slice            = ArrayProto.slice,
-    concat           = ArrayProto.concat,
-    toString         = ObjProto.toString,
-    hasOwnProperty   = ObjProto.hasOwnProperty;
-
-  // All **ECMAScript 5** native function implementations that we hope to use
-  // are declared here.
-  var
-    nativeForEach      = ArrayProto.forEach,
-    nativeMap          = ArrayProto.map,
-    nativeReduce       = ArrayProto.reduce,
-    nativeReduceRight  = ArrayProto.reduceRight,
-    nativeFilter       = ArrayProto.filter,
-    nativeEvery        = ArrayProto.every,
-    nativeSome         = ArrayProto.some,
-    nativeIndexOf      = ArrayProto.indexOf,
-    nativeLastIndexOf  = ArrayProto.lastIndexOf,
-    nativeIsArray      = Array.isArray,
-    nativeKeys         = Object.keys,
-    nativeBind         = FuncProto.bind;
-
-  // Create a safe reference to the Underscore object for use below.
-  var _ = function(obj) {
-    if (obj instanceof _) return obj;
-    if (!(this instanceof _)) return new _(obj);
-    this._wrapped = obj;
-  };
-
-  // Export the Underscore object for **Node.js**, with
-  // backwards-compatibility for the old `require()` API. If we're in
-  // the browser, add `_` as a global object via a string identifier,
-  // for Closure Compiler "advanced" mode.
-  if (typeof exports !== 'undefined') {
-    if (typeof module !== 'undefined' && module.exports) {
-      exports = module.exports = _;
-    }
-    exports._ = _;
-  } else {
-    root._ = _;
-  }
-
-  // Current version.
-  _.VERSION = '1.6.0';
-
-  // Collection Functions
-  // --------------------
-
-  // The cornerstone, an `each` implementation, aka `forEach`.
-  // Handles objects with the built-in `forEach`, arrays, and raw objects.
-  // Delegates to **ECMAScript 5**'s native `forEach` if available.
-  var each = _.each = _.forEach = function(obj, iterator, context) {
-    if (obj == null) return obj;
-    if (nativeForEach && obj.forEach === nativeForEach) {
-      obj.forEach(iterator, context);
-    } else if (obj.length === +obj.length) {
-      for (var i = 0, length = obj.length; i < length; i++) {
-        if (iterator.call(context, obj[i], i, obj) === breaker) return;
-      }
-    } else {
-      var keys = _.keys(obj);
-      for (var i = 0, length = keys.length; i < length; i++) {
-        if (iterator.call(context, obj[keys[i]], keys[i], obj) === breaker) return;
-      }
-    }
-    return obj;
-  };
-
-  // Return the results of applying the iterator to each element.
-  // Delegates to **ECMAScript 5**'s native `map` if available.
-  _.map = _.collect = function(obj, iterator, context) {
-    var results = [];
-    if (obj == null) return results;
-    if (nativeMap && obj.map === nativeMap) return obj.map(iterator, context);
-    each(obj, function(value, index, list) {
-      results.push(iterator.call(context, value, index, list));
-    });
-    return results;
-  };
-
-  var reduceError = 'Reduce of empty array with no initial value';
-
-  // **Reduce** builds up a single result from a list of values, aka `inject`,
-  // or `foldl`. Delegates to **ECMAScript 5**'s native `reduce` if available.
-  _.reduce = _.foldl = _.inject = function(obj, iterator, memo, context) {
-    var initial = arguments.length > 2;
-    if (obj == null) obj = [];
-    if (nativeReduce && obj.reduce === nativeReduce) {
-      if (context) iterator = _.bind(iterator, context);
-      return initial ? obj.reduce(iterator, memo) : obj.reduce(iterator);
-    }
-    each(obj, function(value, index, list) {
-      if (!initial) {
-        memo = value;
-        initial = true;
-      } else {
-        memo = iterator.call(context, memo, value, index, list);
-      }
-    });
-    if (!initial) throw new TypeError(reduceError);
-    return memo;
-  };
-
-  // The right-associative version of reduce, also known as `foldr`.
-  // Delegates to **ECMAScript 5**'s native `reduceRight` if available.
-  _.reduceRight = _.foldr = function(obj, iterator, memo, context) {
-    var initial = arguments.length > 2;
-    if (obj == null) obj = [];
-    if (nativeReduceRight && obj.reduceRight === nativeReduceRight) {
-      if (context) iterator = _.bind(iterator, context);
-      return initial ? obj.reduceRight(iterator, memo) : obj.reduceRight(iterator);
-    }
-    var length = obj.length;
-    if (length !== +length) {
-      var keys = _.keys(obj);
-      length = keys.length;
-    }
-    each(obj, function(value, index, list) {
-      index = keys ? keys[--length] : --length;
-      if (!initial) {
-        memo = obj[index];
-        initial = true;
-      } else {
-        memo = iterator.call(context, memo, obj[index], index, list);
-      }
-    });
-    if (!initial) throw new TypeError(reduceError);
-    return memo;
-  };
-
-  // Return the first value which passes a truth test. Aliased as `detect`.
-  _.find = _.detect = function(obj, predicate, context) {
-    var result;
-    any(obj, function(value, index, list) {
-      if (predicate.call(context, value, index, list)) {
-        result = value;
-        return true;
-      }
-    });
-    return result;
-  };
-
-  // Return all the elements that pass a truth test.
-  // Delegates to **ECMAScript 5**'s native `filter` if available.
-  // Aliased as `select`.
-  _.filter = _.select = function(obj, predicate, context) {
-    var results = [];
-    if (obj == null) return results;
-    if (nativeFilter && obj.filter === nativeFilter) return obj.filter(predicate, context);
-    each(obj, function(value, index, list) {
-      if (predicate.call(context, value, index, list)) results.push(value);
-    });
-    return results;
-  };
-
-  // Return all the elements for which a truth test fails.
-  _.reject = function(obj, predicate, context) {
-    return _.filter(obj, function(value, index, list) {
-      return !predicate.call(context, value, index, list);
-    }, context);
-  };
-
-  // Determine whether all of the elements match a truth test.
-  // Delegates to **ECMAScript 5**'s native `every` if available.
-  // Aliased as `all`.
-  _.every = _.all = function(obj, predicate, context) {
-    predicate || (predicate = _.identity);
-    var result = true;
-    if (obj == null) return result;
-    if (nativeEvery && obj.every === nativeEvery) return obj.every(predicate, context);
-    each(obj, function(value, index, list) {
-      if (!(result = result && predicate.call(context, value, index, list))) return breaker;
-    });
-    return !!result;
-  };
-
-  // Determine if at least one element in the object matches a truth test.
-  // Delegates to **ECMAScript 5**'s native `some` if available.
-  // Aliased as `any`.
-  var any = _.some = _.any = function(obj, predicate, context) {
-    predicate || (predicate = _.identity);
-    var result = false;
-    if (obj == null) return result;
-    if (nativeSome && obj.some === nativeSome) return obj.some(predicate, context);
-    each(obj, function(value, index, list) {
-      if (result || (result = predicate.call(context, value, index, list))) return breaker;
-    });
-    return !!result;
-  };
-
-  // Determine if the array or object contains a given value (using `===`).
-  // Aliased as `include`.
-  _.contains = _.include = function(obj, target) {
-    if (obj == null) return false;
-    if (nativeIndexOf && obj.indexOf === nativeIndexOf) return obj.indexOf(target) != -1;
-    return any(obj, function(value) {
-      return value === target;
-    });
-  };
-
-  // Invoke a method (with arguments) on every item in a collection.
-  _.invoke = function(obj, method) {
-    var args = slice.call(arguments, 2);
-    var isFunc = _.isFunction(method);
-    return _.map(obj, function(value) {
-      return (isFunc ? method : value[method]).apply(value, args);
-    });
-  };
-
-  // Convenience version of a common use case of `map`: fetching a property.
-  _.pluck = function(obj, key) {
-    return _.map(obj, _.property(key));
-  };
-
-  // Convenience version of a common use case of `filter`: selecting only objects
-  // containing specific `key:value` pairs.
-  _.where = function(obj, attrs) {
-    return _.filter(obj, _.matches(attrs));
-  };
-
-  // Convenience version of a common use case of `find`: getting the first object
-  // containing specific `key:value` pairs.
-  _.findWhere = function(obj, attrs) {
-    return _.find(obj, _.matches(attrs));
-  };
-
-  // Return the maximum element or (element-based computation).
-  // Can't optimize arrays of integers longer than 65,535 elements.
-  // See [WebKit Bug 80797](https://bugs.webkit.org/show_bug.cgi?id=80797)
-  _.max = function(obj, iterator, context) {
-    if (!iterator && _.isArray(obj) && obj[0] === +obj[0] && obj.length < 65535) {
-      return Math.max.apply(Math, obj);
-    }
-    var result = -Infinity, lastComputed = -Infinity;
-    each(obj, function(value, index, list) {
-      var computed = iterator ? iterator.call(context, value, index, list) : value;
-      if (computed > lastComputed) {
-        result = value;
-        lastComputed = computed;
-      }
-    });
-    return result;
-  };
-
-  // Return the minimum element (or element-based computation).
-  _.min = function(obj, iterator, context) {
-    if (!iterator && _.isArray(obj) && obj[0] === +obj[0] && obj.length < 65535) {
-      return Math.min.apply(Math, obj);
-    }
-    var result = Infinity, lastComputed = Infinity;
-    each(obj, function(value, index, list) {
-      var computed = iterator ? iterator.call(context, value, index, list) : value;
-      if (computed < lastComputed) {
-        result = value;
-        lastComputed = computed;
-      }
-    });
-    return result;
-  };
-
-  // Shuffle an array, using the modern version of the
-  // [Fisher-Yates shuffle](http://en.wikipedia.org/wiki/Fisher–Yates_shuffle).
-  _.shuffle = function(obj) {
-    var rand;
-    var index = 0;
-    var shuffled = [];
-    each(obj, function(value) {
-      rand = _.random(index++);
-      shuffled[index - 1] = shuffled[rand];
-      shuffled[rand] = value;
-    });
-    return shuffled;
-  };
-
-  // Sample **n** random values from a collection.
-  // If **n** is not specified, returns a single random element.
-  // The internal `guard` argument allows it to work with `map`.
-  _.sample = function(obj, n, guard) {
-    if (n == null || guard) {
-      if (obj.length !== +obj.length) obj = _.values(obj);
-      return obj[_.random(obj.length - 1)];
-    }
-    return _.shuffle(obj).slice(0, Math.max(0, n));
-  };
-
-  // An internal function to generate lookup iterators.
-  var lookupIterator = function(value) {
-    if (value == null) return _.identity;
-    if (_.isFunction(value)) return value;
-    return _.property(value);
-  };
-
-  // Sort the object's values by a criterion produced by an iterator.
-  _.sortBy = function(obj, iterator, context) {
-    iterator = lookupIterator(iterator);
-    return _.pluck(_.map(obj, function(value, index, list) {
-      return {
-        value: value,
-        index: index,
-        criteria: iterator.call(context, value, index, list)
-      };
-    }).sort(function(left, right) {
-      var a = left.criteria;
-      var b = right.criteria;
-      if (a !== b) {
-        if (a > b || a === void 0) return 1;
-        if (a < b || b === void 0) return -1;
-      }
-      return left.index - right.index;
-    }), 'value');
-  };
-
-  // An internal function used for aggregate "group by" operations.
-  var group = function(behavior) {
-    return function(obj, iterator, context) {
-      var result = {};
-      iterator = lookupIterator(iterator);
-      each(obj, function(value, index) {
-        var key = iterator.call(context, value, index, obj);
-        behavior(result, key, value);
-      });
-      return result;
-    };
-  };
-
-  // Groups the object's values by a criterion. Pass either a string attribute
-  // to group by, or a function that returns the criterion.
-  _.groupBy = group(function(result, key, value) {
-    _.has(result, key) ? result[key].push(value) : result[key] = [value];
-  });
-
-  // Indexes the object's values by a criterion, similar to `groupBy`, but for
-  // when you know that your index values will be unique.
-  _.indexBy = group(function(result, key, value) {
-    result[key] = value;
-  });
-
-  // Counts instances of an object that group by a certain criterion. Pass
-  // either a string attribute to count by, or a function that returns the
-  // criterion.
-  _.countBy = group(function(result, key) {
-    _.has(result, key) ? result[key]++ : result[key] = 1;
-  });
-
-  // Use a comparator function to figure out the smallest index at which
-  // an object should be inserted so as to maintain order. Uses binary search.
-  _.sortedIndex = function(array, obj, iterator, context) {
-    iterator = lookupIterator(iterator);
-    var value = iterator.call(context, obj);
-    var low = 0, high = array.length;
-    while (low < high) {
-      var mid = (low + high) >>> 1;
-      iterator.call(context, array[mid]) < value ? low = mid + 1 : high = mid;
-    }
-    return low;
-  };
-
-  // Safely create a real, live array from anything iterable.
-  _.toArray = function(obj) {
-    if (!obj) return [];
-    if (_.isArray(obj)) return slice.call(obj);
-    if (obj.length === +obj.length) return _.map(obj, _.identity);
-    return _.values(obj);
-  };
-
-  // Return the number of elements in an object.
-  _.size = function(obj) {
-    if (obj == null) return 0;
-    return (obj.length === +obj.length) ? obj.length : _.keys(obj).length;
-  };
-
-  // Array Functions
-  // ---------------
-
-  // Get the first element of an array. Passing **n** will return the first N
-  // values in the array. Aliased as `head` and `take`. The **guard** check
-  // allows it to work with `_.map`.
-  _.first = _.head = _.take = function(array, n, guard) {
-    if (array == null) return void 0;
-    if ((n == null) || guard) return array[0];
-    if (n < 0) return [];
-    return slice.call(array, 0, n);
-  };
-
-  // Returns everything but the last entry of the array. Especially useful on
-  // the arguments object. Passing **n** will return all the values in
-  // the array, excluding the last N. The **guard** check allows it to work with
-  // `_.map`.
-  _.initial = function(array, n, guard) {
-    return slice.call(array, 0, array.length - ((n == null) || guard ? 1 : n));
-  };
-
-  // Get the last element of an array. Passing **n** will return the last N
-  // values in the array. The **guard** check allows it to work with `_.map`.
-  _.last = function(array, n, guard) {
-    if (array == null) return void 0;
-    if ((n == null) || guard) return array[array.length - 1];
-    return slice.call(array, Math.max(array.length - n, 0));
-  };
-
-  // Returns everything but the first entry of the array. Aliased as `tail` and `drop`.
-  // Especially useful on the arguments object. Passing an **n** will return
-  // the rest N values in the array. The **guard**
-  // check allows it to work with `_.map`.
-  _.rest = _.tail = _.drop = function(array, n, guard) {
-    return slice.call(array, (n == null) || guard ? 1 : n);
-  };
-
-  // Trim out all falsy values from an array.
-  _.compact = function(array) {
-    return _.filter(array, _.identity);
-  };
-
-  // Internal implementation of a recursive `flatten` function.
-  var flatten = function(input, shallow, output) {
-    if (shallow && _.every(input, _.isArray)) {
-      return concat.apply(output, input);
-    }
-    each(input, function(value) {
-      if (_.isArray(value) || _.isArguments(value)) {
-        shallow ? push.apply(output, value) : flatten(value, shallow, output);
-      } else {
-        output.push(value);
-      }
-    });
-    return output;
-  };
-
-  // Flatten out an array, either recursively (by default), or just one level.
-  _.flatten = function(array, shallow) {
-    return flatten(array, shallow, []);
-  };
-
-  // Return a version of the array that does not contain the specified value(s).
-  _.without = function(array) {
-    return _.difference(array, slice.call(arguments, 1));
-  };
-
-  // Split an array into two arrays: one whose elements all satisfy the given
-  // predicate, and one whose elements all do not satisfy the predicate.
-  _.partition = function(array, predicate) {
-    var pass = [], fail = [];
-    each(array, function(elem) {
-      (predicate(elem) ? pass : fail).push(elem);
-    });
-    return [pass, fail];
-  };
-
-  // Produce a duplicate-free version of the array. If the array has already
-  // been sorted, you have the option of using a faster algorithm.
-  // Aliased as `unique`.
-  _.uniq = _.unique = function(array, isSorted, iterator, context) {
-    if (_.isFunction(isSorted)) {
-      context = iterator;
-      iterator = isSorted;
-      isSorted = false;
-    }
-    var initial = iterator ? _.map(array, iterator, context) : array;
-    var results = [];
-    var seen = [];
-    each(initial, function(value, index) {
-      if (isSorted ? (!index || seen[seen.length - 1] !== value) : !_.contains(seen, value)) {
-        seen.push(value);
-        results.push(array[index]);
-      }
-    });
-    return results;
-  };
-
-  // Produce an array that contains the union: each distinct element from all of
-  // the passed-in arrays.
-  _.union = function() {
-    return _.uniq(_.flatten(arguments, true));
-  };
-
-  // Produce an array that contains every item shared between all the
-  // passed-in arrays.
-  _.intersection = function(array) {
-    var rest = slice.call(arguments, 1);
-    return _.filter(_.uniq(array), function(item) {
-      return _.every(rest, function(other) {
-        return _.contains(other, item);
-      });
-    });
-  };
-
-  // Take the difference between one array and a number of other arrays.
-  // Only the elements present in just the first array will remain.
-  _.difference = function(array) {
-    var rest = concat.apply(ArrayProto, slice.call(arguments, 1));
-    return _.filter(array, function(value){ return !_.contains(rest, value); });
-  };
-
-  // Zip together multiple lists into a single array -- elements that share
-  // an index go together.
-  _.zip = function() {
-    var length = _.max(_.pluck(arguments, 'length').concat(0));
-    var results = new Array(length);
-    for (var i = 0; i < length; i++) {
-      results[i] = _.pluck(arguments, '' + i);
-    }
-    return results;
-  };
-
-  // Converts lists into objects. Pass either a single array of `[key, value]`
-  // pairs, or two parallel arrays of the same length -- one of keys, and one of
-  // the corresponding values.
-  _.object = function(list, values) {
-    if (list == null) return {};
-    var result = {};
-    for (var i = 0, length = list.length; i < length; i++) {
-      if (values) {
-        result[list[i]] = values[i];
-      } else {
-        result[list[i][0]] = list[i][1];
-      }
-    }
-    return result;
-  };
-
-  // If the browser doesn't supply us with indexOf (I'm looking at you, **MSIE**),
-  // we need this function. Return the position of the first occurrence of an
-  // item in an array, or -1 if the item is not included in the array.
-  // Delegates to **ECMAScript 5**'s native `indexOf` if available.
-  // If the array is large and already in sort order, pass `true`
-  // for **isSorted** to use binary search.
-  _.indexOf = function(array, item, isSorted) {
-    if (array == null) return -1;
-    var i = 0, length = array.length;
-    if (isSorted) {
-      if (typeof isSorted == 'number') {
-        i = (isSorted < 0 ? Math.max(0, length + isSorted) : isSorted);
-      } else {
-        i = _.sortedIndex(array, item);
-        return array[i] === item ? i : -1;
-      }
-    }
-    if (nativeIndexOf && array.indexOf === nativeIndexOf) return array.indexOf(item, isSorted);
-    for (; i < length; i++) if (array[i] === item) return i;
-    return -1;
-  };
-
-  // Delegates to **ECMAScript 5**'s native `lastIndexOf` if available.
-  _.lastIndexOf = function(array, item, from) {
-    if (array == null) return -1;
-    var hasIndex = from != null;
-    if (nativeLastIndexOf && array.lastIndexOf === nativeLastIndexOf) {
-      return hasIndex ? array.lastIndexOf(item, from) : array.lastIndexOf(item);
-    }
-    var i = (hasIndex ? from : array.length);
-    while (i--) if (array[i] === item) return i;
-    return -1;
-  };
-
-  // Generate an integer Array containing an arithmetic progression. A port of
-  // the native Python `range()` function. See
-  // [the Python documentation](http://docs.python.org/library/functions.html#range).
-  _.range = function(start, stop, step) {
-    if (arguments.length <= 1) {
-      stop = start || 0;
-      start = 0;
-    }
-    step = arguments[2] || 1;
-
-    var length = Math.max(Math.ceil((stop - start) / step), 0);
-    var idx = 0;
-    var range = new Array(length);
-
-    while(idx < length) {
-      range[idx++] = start;
-      start += step;
-    }
-
-    return range;
-  };
-
-  // Function (ahem) Functions
-  // ------------------
-
-  // Reusable constructor function for prototype setting.
-  var ctor = function(){};
-
-  // Create a function bound to a given object (assigning `this`, and arguments,
-  // optionally). Delegates to **ECMAScript 5**'s native `Function.bind` if
-  // available.
-  _.bind = function(func, context) {
-    var args, bound;
-    if (nativeBind && func.bind === nativeBind) return nativeBind.apply(func, slice.call(arguments, 1));
-    if (!_.isFunction(func)) throw new TypeError;
-    args = slice.call(arguments, 2);
-    return bound = function() {
-      if (!(this instanceof bound)) return func.apply(context, args.concat(slice.call(arguments)));
-      ctor.prototype = func.prototype;
-      var self = new ctor;
-      ctor.prototype = null;
-      var result = func.apply(self, args.concat(slice.call(arguments)));
-      if (Object(result) === result) return result;
-      return self;
-    };
-  };
-
-  // Partially apply a function by creating a version that has had some of its
-  // arguments pre-filled, without changing its dynamic `this` context. _ acts
-  // as a placeholder, allowing any combination of arguments to be pre-filled.
-  _.partial = function(func) {
-    var boundArgs = slice.call(arguments, 1);
-    return function() {
-      var position = 0;
-      var args = boundArgs.slice();
-      for (var i = 0, length = args.length; i < length; i++) {
-        if (args[i] === _) args[i] = arguments[position++];
-      }
-      while (position < arguments.length) args.push(arguments[position++]);
-      return func.apply(this, args);
-    };
-  };
-
-  // Bind a number of an object's methods to that object. Remaining arguments
-  // are the method names to be bound. Useful for ensuring that all callbacks
-  // defined on an object belong to it.
-  _.bindAll = function(obj) {
-    var funcs = slice.call(arguments, 1);
-    if (funcs.length === 0) throw new Error('bindAll must be passed function names');
-    each(funcs, function(f) { obj[f] = _.bind(obj[f], obj); });
-    return obj;
-  };
-
-  // Memoize an expensive function by storing its results.
-  _.memoize = function(func, hasher) {
-    var memo = {};
-    hasher || (hasher = _.identity);
-    return function() {
-      var key = hasher.apply(this, arguments);
-      return _.has(memo, key) ? memo[key] : (memo[key] = func.apply(this, arguments));
-    };
-  };
-
-  // Delays a function for the given number of milliseconds, and then calls
-  // it with the arguments supplied.
-  _.delay = function(func, wait) {
-    var args = slice.call(arguments, 2);
-    return setTimeout(function(){ return func.apply(null, args); }, wait);
-  };
-
-  // Defers a function, scheduling it to run after the current call stack has
-  // cleared.
-  _.defer = function(func) {
-    return _.delay.apply(_, [func, 1].concat(slice.call(arguments, 1)));
-  };
-
-  // Returns a function, that, when invoked, will only be triggered at most once
-  // during a given window of time. Normally, the throttled function will run
-  // as much as it can, without ever going more than once per `wait` duration;
-  // but if you'd like to disable the execution on the leading edge, pass
-  // `{leading: false}`. To disable execution on the trailing edge, ditto.
-  _.throttle = function(func, wait, options) {
-    var context, args, result;
-    var timeout = null;
-    var previous = 0;
-    options || (options = {});
-    var later = function() {
-      previous = options.leading === false ? 0 : _.now();
-      timeout = null;
-      result = func.apply(context, args);
-      context = args = null;
-    };
-    return function() {
-      var now = _.now();
-      if (!previous && options.leading === false) previous = now;
-      var remaining = wait - (now - previous);
-      context = this;
-      args = arguments;
-      if (remaining <= 0) {
-        clearTimeout(timeout);
-        timeout = null;
-        previous = now;
-        result = func.apply(context, args);
-        context = args = null;
-      } else if (!timeout && options.trailing !== false) {
-        timeout = setTimeout(later, remaining);
-      }
-      return result;
-    };
-  };
-
-  // Returns a function, that, as long as it continues to be invoked, will not
-  // be triggered. The function will be called after it stops being called for
-  // N milliseconds. If `immediate` is passed, trigger the function on the
-  // leading edge, instead of the trailing.
-  _.debounce = function(func, wait, immediate) {
-    var timeout, args, context, timestamp, result;
-
-    var later = function() {
-      var last = _.now() - timestamp;
-      if (last < wait) {
-        timeout = setTimeout(later, wait - last);
-      } else {
-        timeout = null;
-        if (!immediate) {
-          result = func.apply(context, args);
-          context = args = null;
-        }
-      }
-    };
-
-    return function() {
-      context = this;
-      args = arguments;
-      timestamp = _.now();
-      var callNow = immediate && !timeout;
-      if (!timeout) {
-        timeout = setTimeout(later, wait);
-      }
-      if (callNow) {
-        result = func.apply(context, args);
-        context = args = null;
-      }
-
-      return result;
-    };
-  };
-
-  // Returns a function that will be executed at most one time, no matter how
-  // often you call it. Useful for lazy initialization.
-  _.once = function(func) {
-    var ran = false, memo;
-    return function() {
-      if (ran) return memo;
-      ran = true;
-      memo = func.apply(this, arguments);
-      func = null;
-      return memo;
-    };
-  };
-
-  // Returns the first function passed as an argument to the second,
-  // allowing you to adjust arguments, run code before and after, and
-  // conditionally execute the original function.
-  _.wrap = function(func, wrapper) {
-    return _.partial(wrapper, func);
-  };
-
-  // Returns a function that is the composition of a list of functions, each
-  // consuming the return value of the function that follows.
-  _.compose = function() {
-    var funcs = arguments;
-    return function() {
-      var args = arguments;
-      for (var i = funcs.length - 1; i >= 0; i--) {
-        args = [funcs[i].apply(this, args)];
-      }
-      return args[0];
-    };
-  };
-
-  // Returns a function that will only be executed after being called N times.
-  _.after = function(times, func) {
-    return function() {
-      if (--times < 1) {
-        return func.apply(this, arguments);
-      }
-    };
-  };
-
-  // Object Functions
-  // ----------------
-
-  // Retrieve the names of an object's properties.
-  // Delegates to **ECMAScript 5**'s native `Object.keys`
-  _.keys = function(obj) {
-    if (!_.isObject(obj)) return [];
-    if (nativeKeys) return nativeKeys(obj);
-    var keys = [];
-    for (var key in obj) if (_.has(obj, key)) keys.push(key);
-    return keys;
-  };
-
-  // Retrieve the values of an object's properties.
-  _.values = function(obj) {
-    var keys = _.keys(obj);
-    var length = keys.length;
-    var values = new Array(length);
-    for (var i = 0; i < length; i++) {
-      values[i] = obj[keys[i]];
-    }
-    return values;
-  };
-
-  // Convert an object into a list of `[key, value]` pairs.
-  _.pairs = function(obj) {
-    var keys = _.keys(obj);
-    var length = keys.length;
-    var pairs = new Array(length);
-    for (var i = 0; i < length; i++) {
-      pairs[i] = [keys[i], obj[keys[i]]];
-    }
-    return pairs;
-  };
-
-  // Invert the keys and values of an object. The values must be serializable.
-  _.invert = function(obj) {
-    var result = {};
-    var keys = _.keys(obj);
-    for (var i = 0, length = keys.length; i < length; i++) {
-      result[obj[keys[i]]] = keys[i];
-    }
-    return result;
-  };
-
-  // Return a sorted list of the function names available on the object.
-  // Aliased as `methods`
-  _.functions = _.methods = function(obj) {
-    var names = [];
-    for (var key in obj) {
-      if (_.isFunction(obj[key])) names.push(key);
-    }
-    return names.sort();
-  };
-
-  // Extend a given object with all the properties in passed-in object(s).
-  _.extend = function(obj) {
-    each(slice.call(arguments, 1), function(source) {
-      if (source) {
-        for (var prop in source) {
-          obj[prop] = source[prop];
-        }
-      }
-    });
-    return obj;
-  };
-
-  // Return a copy of the object only containing the whitelisted properties.
-  _.pick = function(obj) {
-    var copy = {};
-    var keys = concat.apply(ArrayProto, slice.call(arguments, 1));
-    each(keys, function(key) {
-      if (key in obj) copy[key] = obj[key];
-    });
-    return copy;
-  };
-
-   // Return a copy of the object without the blacklisted properties.
-  _.omit = function(obj) {
-    var copy = {};
-    var keys = concat.apply(ArrayProto, slice.call(arguments, 1));
-    for (var key in obj) {
-      if (!_.contains(keys, key)) copy[key] = obj[key];
-    }
-    return copy;
-  };
-
-  // Fill in a given object with default properties.
-  _.defaults = function(obj) {
-    each(slice.call(arguments, 1), function(source) {
-      if (source) {
-        for (var prop in source) {
-          if (obj[prop] === void 0) obj[prop] = source[prop];
-        }
-      }
-    });
-    return obj;
-  };
-
-  // Create a (shallow-cloned) duplicate of an object.
-  _.clone = function(obj) {
-    if (!_.isObject(obj)) return obj;
-    return _.isArray(obj) ? obj.slice() : _.extend({}, obj);
-  };
-
-  // Invokes interceptor with the obj, and then returns obj.
-  // The primary purpose of this method is to "tap into" a method chain, in
-  // order to perform operations on intermediate results within the chain.
-  _.tap = function(obj, interceptor) {
-    interceptor(obj);
-    return obj;
-  };
-
-  // Internal recursive comparison function for `isEqual`.
-  var eq = function(a, b, aStack, bStack) {
-    // Identical objects are equal. `0 === -0`, but they aren't identical.
-    // See the [Harmony `egal` proposal](http://wiki.ecmascript.org/doku.php?id=harmony:egal).
-    if (a === b) return a !== 0 || 1 / a == 1 / b;
-    // A strict comparison is necessary because `null == undefined`.
-    if (a == null || b == null) return a === b;
-    // Unwrap any wrapped objects.
-    if (a instanceof _) a = a._wrapped;
-    if (b instanceof _) b = b._wrapped;
-    // Compare `[[Class]]` names.
-    var className = toString.call(a);
-    if (className != toString.call(b)) return false;
-    switch (className) {
-      // Strings, numbers, dates, and booleans are compared by value.
-      case '[object String]':
-        // Primitives and their corresponding object wrappers are equivalent; thus, `"5"` is
-        // equivalent to `new String("5")`.
-        return a == String(b);
-      case '[object Number]':
-        // `NaN`s are equivalent, but non-reflexive. An `egal` comparison is performed for
-        // other numeric values.
-        return a != +a ? b != +b : (a == 0 ? 1 / a == 1 / b : a == +b);
-      case '[object Date]':
-      case '[object Boolean]':
-        // Coerce dates and booleans to numeric primitive values. Dates are compared by their
-        // millisecond representations. Note that invalid dates with millisecond representations
-        // of `NaN` are not equivalent.
-        return +a == +b;
-      // RegExps are compared by their source patterns and flags.
-      case '[object RegExp]':
-        return a.source == b.source &&
-               a.global == b.global &&
-               a.multiline == b.multiline &&
-               a.ignoreCase == b.ignoreCase;
-    }
-    if (typeof a != 'object' || typeof b != 'object') return false;
-    // Assume equality for cyclic structures. The algorithm for detecting cyclic
-    // structures is adapted from ES 5.1 section 15.12.3, abstract operation `JO`.
-    var length = aStack.length;
-    while (length--) {
-      // Linear search. Performance is inversely proportional to the number of
-      // unique nested structures.
-      if (aStack[length] == a) return bStack[length] == b;
-    }
-    // Objects with different constructors are not equivalent, but `Object`s
-    // from different frames are.
-    var aCtor = a.constructor, bCtor = b.constructor;
-    if (aCtor !== bCtor && !(_.isFunction(aCtor) && (aCtor instanceof aCtor) &&
-                             _.isFunction(bCtor) && (bCtor instanceof bCtor))
-                        && ('constructor' in a && 'constructor' in b)) {
-      return false;
-    }
-    // Add the first object to the stack of traversed objects.
-    aStack.push(a);
-    bStack.push(b);
-    var size = 0, result = true;
-    // Recursively compare objects and arrays.
-    if (className == '[object Array]') {
-      // Compare array lengths to determine if a deep comparison is necessary.
-      size = a.length;
-      result = size == b.length;
-      if (result) {
-        // Deep compare the contents, ignoring non-numeric properties.
-        while (size--) {
-          if (!(result = eq(a[size], b[size], aStack, bStack))) break;
-        }
-      }
-    } else {
-      // Deep compare objects.
-      for (var key in a) {
-        if (_.has(a, key)) {
-          // Count the expected number of properties.
-          size++;
-          // Deep compare each member.
-          if (!(result = _.has(b, key) && eq(a[key], b[key], aStack, bStack))) break;
-        }
-      }
-      // Ensure that both objects contain the same number of properties.
-      if (result) {
-        for (key in b) {
-          if (_.has(b, key) && !(size--)) break;
-        }
-        result = !size;
-      }
-    }
-    // Remove the first object from the stack of traversed objects.
-    aStack.pop();
-    bStack.pop();
-    return result;
-  };
-
-  // Perform a deep comparison to check if two objects are equal.
-  _.isEqual = function(a, b) {
-    return eq(a, b, [], []);
-  };
-
-  // Is a given array, string, or object empty?
-  // An "empty" object has no enumerable own-properties.
-  _.isEmpty = function(obj) {
-    if (obj == null) return true;
-    if (_.isArray(obj) || _.isString(obj)) return obj.length === 0;
-    for (var key in obj) if (_.has(obj, key)) return false;
-    return true;
-  };
-
-  // Is a given value a DOM element?
-  _.isElement = function(obj) {
-    return !!(obj && obj.nodeType === 1);
-  };
-
-  // Is a given value an array?
-  // Delegates to ECMA5's native Array.isArray
-  _.isArray = nativeIsArray || function(obj) {
-    return toString.call(obj) == '[object Array]';
-  };
-
-  // Is a given variable an object?
-  _.isObject = function(obj) {
-    return obj === Object(obj);
-  };
-
-  // Add some isType methods: isArguments, isFunction, isString, isNumber, isDate, isRegExp.
-  each(['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp'], function(name) {
-    _['is' + name] = function(obj) {
-      return toString.call(obj) == '[object ' + name + ']';
-    };
-  });
-
-  // Define a fallback version of the method in browsers (ahem, IE), where
-  // there isn't any inspectable "Arguments" type.
-  if (!_.isArguments(arguments)) {
-    _.isArguments = function(obj) {
-      return !!(obj && _.has(obj, 'callee'));
-    };
-  }
-
-  // Optimize `isFunction` if appropriate.
-  if (typeof (/./) !== 'function') {
-    _.isFunction = function(obj) {
-      return typeof obj === 'function';
-    };
-  }
-
-  // Is a given object a finite number?
-  _.isFinite = function(obj) {
-    return isFinite(obj) && !isNaN(parseFloat(obj));
-  };
-
-  // Is the given value `NaN`? (NaN is the only number which does not equal itself).
-  _.isNaN = function(obj) {
-    return _.isNumber(obj) && obj != +obj;
-  };
-
-  // Is a given value a boolean?
-  _.isBoolean = function(obj) {
-    return obj === true || obj === false || toString.call(obj) == '[object Boolean]';
-  };
-
-  // Is a given value equal to null?
-  _.isNull = function(obj) {
-    return obj === null;
-  };
-
-  // Is a given variable undefined?
-  _.isUndefined = function(obj) {
-    return obj === void 0;
-  };
-
-  // Shortcut function for checking if an object has a given property directly
-  // on itself (in other words, not on a prototype).
-  _.has = function(obj, key) {
-    return hasOwnProperty.call(obj, key);
-  };
-
-  // Utility Functions
-  // -----------------
-
-  // Run Underscore.js in *noConflict* mode, returning the `_` variable to its
-  // previous owner. Returns a reference to the Underscore object.
-  _.noConflict = function() {
-    root._ = previousUnderscore;
-    return this;
-  };
-
-  // Keep the identity function around for default iterators.
-  _.identity = function(value) {
-    return value;
-  };
-
-  _.constant = function(value) {
-    return function () {
-      return value;
-    };
-  };
-
-  _.property = function(key) {
-    return function(obj) {
-      return obj[key];
-    };
-  };
-
-  // Returns a predicate for checking whether an object has a given set of `key:value` pairs.
-  _.matches = function(attrs) {
-    return function(obj) {
-      if (obj === attrs) return true; //avoid comparing an object to itself.
-      for (var key in attrs) {
-        if (attrs[key] !== obj[key])
-          return false;
-      }
-      return true;
-    }
-  };
-
-  // Run a function **n** times.
-  _.times = function(n, iterator, context) {
-    var accum = Array(Math.max(0, n));
-    for (var i = 0; i < n; i++) accum[i] = iterator.call(context, i);
-    return accum;
-  };
-
-  // Return a random integer between min and max (inclusive).
-  _.random = function(min, max) {
-    if (max == null) {
-      max = min;
-      min = 0;
-    }
-    return min + Math.floor(Math.random() * (max - min + 1));
-  };
-
-  // A (possibly faster) way to get the current timestamp as an integer.
-  _.now = Date.now || function() { return new Date().getTime(); };
-
-  // List of HTML entities for escaping.
-  var entityMap = {
-    escape: {
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#x27;'
-    }
-  };
-  entityMap.unescape = _.invert(entityMap.escape);
-
-  // Regexes containing the keys and values listed immediately above.
-  var entityRegexes = {
-    escape:   new RegExp('[' + _.keys(entityMap.escape).join('') + ']', 'g'),
-    unescape: new RegExp('(' + _.keys(entityMap.unescape).join('|') + ')', 'g')
-  };
-
-  // Functions for escaping and unescaping strings to/from HTML interpolation.
-  _.each(['escape', 'unescape'], function(method) {
-    _[method] = function(string) {
-      if (string == null) return '';
-      return ('' + string).replace(entityRegexes[method], function(match) {
-        return entityMap[method][match];
-      });
-    };
-  });
-
-  // If the value of the named `property` is a function then invoke it with the
-  // `object` as context; otherwise, return it.
-  _.result = function(object, property) {
-    if (object == null) return void 0;
-    var value = object[property];
-    return _.isFunction(value) ? value.call(object) : value;
-  };
-
-  // Add your own custom functions to the Underscore object.
-  _.mixin = function(obj) {
-    each(_.functions(obj), function(name) {
-      var func = _[name] = obj[name];
-      _.prototype[name] = function() {
-        var args = [this._wrapped];
-        push.apply(args, arguments);
-        return result.call(this, func.apply(_, args));
-      };
-    });
-  };
-
-  // Generate a unique integer id (unique within the entire client session).
-  // Useful for temporary DOM ids.
-  var idCounter = 0;
-  _.uniqueId = function(prefix) {
-    var id = ++idCounter + '';
-    return prefix ? prefix + id : id;
-  };
-
-  // By default, Underscore uses ERB-style template delimiters, change the
-  // following template settings to use alternative delimiters.
-  _.templateSettings = {
-    evaluate    : /<%([\s\S]+?)%>/g,
-    interpolate : /<%=([\s\S]+?)%>/g,
-    escape      : /<%-([\s\S]+?)%>/g
-  };
-
-  // When customizing `templateSettings`, if you don't want to define an
-  // interpolation, evaluation or escaping regex, we need one that is
-  // guaranteed not to match.
-  var noMatch = /(.)^/;
-
-  // Certain characters need to be escaped so that they can be put into a
-  // string literal.
-  var escapes = {
-    "'":      "'",
-    '\\':     '\\',
-    '\r':     'r',
-    '\n':     'n',
-    '\t':     't',
-    '\u2028': 'u2028',
-    '\u2029': 'u2029'
-  };
-
-  var escaper = /\\|'|\r|\n|\t|\u2028|\u2029/g;
-
-  // JavaScript micro-templating, similar to John Resig's implementation.
-  // Underscore templating handles arbitrary delimiters, preserves whitespace,
-  // and correctly escapes quotes within interpolated code.
-  _.template = function(text, data, settings) {
-    var render;
-    settings = _.defaults({}, settings, _.templateSettings);
-
-    // Combine delimiters into one regular expression via alternation.
-    var matcher = new RegExp([
-      (settings.escape || noMatch).source,
-      (settings.interpolate || noMatch).source,
-      (settings.evaluate || noMatch).source
-    ].join('|') + '|$', 'g');
-
-    // Compile the template source, escaping string literals appropriately.
-    var index = 0;
-    var source = "__p+='";
-    text.replace(matcher, function(match, escape, interpolate, evaluate, offset) {
-      source += text.slice(index, offset)
-        .replace(escaper, function(match) { return '\\' + escapes[match]; });
-
-      if (escape) {
-        source += "'+\n((__t=(" + escape + "))==null?'':_.escape(__t))+\n'";
-      }
-      if (interpolate) {
-        source += "'+\n((__t=(" + interpolate + "))==null?'':__t)+\n'";
-      }
-      if (evaluate) {
-        source += "';\n" + evaluate + "\n__p+='";
-      }
-      index = offset + match.length;
-      return match;
-    });
-    source += "';\n";
-
-    // If a variable is not specified, place data values in local scope.
-    if (!settings.variable) source = 'with(obj||{}){\n' + source + '}\n';
-
-    source = "var __t,__p='',__j=Array.prototype.join," +
-      "print=function(){__p+=__j.call(arguments,'');};\n" +
-      source + "return __p;\n";
-
-    try {
-      render = new Function(settings.variable || 'obj', '_', source);
-    } catch (e) {
-      e.source = source;
-      throw e;
-    }
-
-    if (data) return render(data, _);
-    var template = function(data) {
-      return render.call(this, data, _);
-    };
-
-    // Provide the compiled function source as a convenience for precompilation.
-    template.source = 'function(' + (settings.variable || 'obj') + '){\n' + source + '}';
-
-    return template;
-  };
-
-  // Add a "chain" function, which will delegate to the wrapper.
-  _.chain = function(obj) {
-    return _(obj).chain();
-  };
-
-  // OOP
-  // ---------------
-  // If Underscore is called as a function, it returns a wrapped object that
-  // can be used OO-style. This wrapper holds altered versions of all the
-  // underscore functions. Wrapped objects may be chained.
-
-  // Helper function to continue chaining intermediate results.
-  var result = function(obj) {
-    return this._chain ? _(obj).chain() : obj;
-  };
-
-  // Add all of the Underscore functions to the wrapper object.
-  _.mixin(_);
-
-  // Add all mutator Array functions to the wrapper.
-  each(['pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift'], function(name) {
-    var method = ArrayProto[name];
-    _.prototype[name] = function() {
-      var obj = this._wrapped;
-      method.apply(obj, arguments);
-      if ((name == 'shift' || name == 'splice') && obj.length === 0) delete obj[0];
-      return result.call(this, obj);
-    };
-  });
-
-  // Add all accessor Array functions to the wrapper.
-  each(['concat', 'join', 'slice'], function(name) {
-    var method = ArrayProto[name];
-    _.prototype[name] = function() {
-      return result.call(this, method.apply(this._wrapped, arguments));
-    };
-  });
-
-  _.extend(_.prototype, {
-
-    // Start chaining a wrapped Underscore object.
-    chain: function() {
-      this._chain = true;
-      return this;
-    },
-
-    // Extracts the result from a wrapped and chained object.
-    value: function() {
-      return this._wrapped;
-    }
-
-  });
-
-  // AMD registration happens at the end for compatibility with AMD loaders
-  // that may not enforce next-turn semantics on modules. Even though general
-  // practice for AMD registration is to be anonymous, underscore registers
-  // as a named module because, like jQuery, it is a base library that is
-  // popular enough to be bundled in a third party lib, but not be part of
-  // an AMD load request. Those cases could generate an error when an
-  // anonymous define() is called outside of a loader request.
-  if (typeof define === 'function' && define.amd) {
-    define('underscore', [], function() {
-      return _;
-    });
-  }
-}).call(this);
-
-},{}],78:[function(require,module,exports){
+},{"fs":2,"path":5}],76:[function(require,module,exports){
+module.exports = require(248);
+},{"dup":248}],77:[function(require,module,exports){
 module.exports={
   "name": "carto",
   "version": "0.15.1-cdb1",
@@ -26369,7 +24894,7 @@ module.exports={
   "_from": "https://github.com/CartoDB/carto/archive/master.tar.gz"
 }
 
-},{}],79:[function(require,module,exports){
+},{}],78:[function(require,module,exports){
 module.exports={
   "name": "cartodb.js",
   "version": "4.0.0-alpha.1",
@@ -26432,8 +24957,9 @@ module.exports={
   ],
   "dependencies": {
     "backbone": "1.2.3",
-    "clip-path-polygon": "0.1.6",
+    "browserify-shim": "3.8.10",
     "jquery": "2.1.4",
+    "jstify": "0.12.0",
     "leaflet": "0.7.3",
     "mustache": "1.1.0",
     "perfect-scrollbar": "0.6.7",
@@ -26442,7 +24968,6 @@ module.exports={
   },
   "devDependencies": {
     "browserify": "11.2.0",
-    "browserify-shim": "3.8.10",
     "findup-sync": "0.1.3",
     "grunt": "0.4.5",
     "grunt-aws": "^0.4.0",
@@ -26453,7 +24978,7 @@ module.exports={
     "grunt-contrib-copy": "~0.7.0",
     "grunt-contrib-cssmin": "~0.7.0",
     "grunt-contrib-imagemin": "~1.0.0",
-    "grunt-contrib-jasmine": "~0.8.1",
+    "grunt-contrib-jasmine": "0.9.2",
     "grunt-contrib-jshint": "~0.8.0",
     "grunt-contrib-uglify": "0.10.0",
     "grunt-contrib-watch": "git://github.com/gruntjs/grunt-contrib-watch.git#b884948805940c663b1cbb91a3c28ba8afdebf78",
@@ -26469,7 +24994,6 @@ module.exports={
     "gulp-install": "0.2.0",
     "gulp-sketch": "0.0.7",
     "jshint-stylish": "~0.1.3",
-    "jstify": "0.12.0",
     "load-grunt-tasks": "~0.6.0",
     "semistandard": "7.0.4",
     "semver": "~4.1.0",
@@ -26494,6 +25018,7 @@ module.exports={
     "jquery.jscrollpane": "./vendor/jscrollpane.js",
     "geojson": "./vendor/GeoJSON.js",
     "html-css-sanitizer": "./vendor/html-css-sanitizer-bundle.js",
+    "clip-path": "./vendor/clip-path.js",
     "lzma": "./vendor/lzma.js",
     "mousewheel": "./vendor/mousewheel.js",
     "mwheelIntent": "./vendor/mwheelIntent.js",
@@ -26506,6 +25031,12 @@ module.exports={
     "lzma": "LZMA",
     "jquery.jscrollpane": {
       "depends": [
+        "jquery:jQuery"
+      ]
+    },
+    "clip-path": {
+      "depends": [
+        "underscore:_",
         "jquery:jQuery"
       ]
     },
@@ -26555,7 +25086,7 @@ module.exports={
       "/vendor"
     ]
   },
-  "gitHead": "86b2da3e25585d5b8473cd92cd27838366545dd4",
+  "gitHead": "719c54016ac9b226c818dc48bd27e9247f3e038c",
   "readme": "CartoDB.js (v3.15)\n===========\n\n[![Build Status](http://clinker.cartodb.net/desktop/plugin/public/status/CartoDB-js-develop-testing)]\n(http://clinker.cartodb.net/jenkins/job/CartoDB-js-develop-testing)\n\nThis library allows to embed visualizations created with CartoDB in your map or website in a simple way.\n\n\n## Quick start\n\n  1. Add cartodb.js and css to your site:\n\n    ```html\n\n        <link rel=\"stylesheet\" href=\"http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css\" />\n        <script src=\"http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js\"></script>\n\n        <!-- use these cartodb.css links if you are using https -->\n        <!--link rel=\"stylesheet\" href=\"https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/themes/css/cartodb.css\" /-->\n\n        <!-- use this cartodb.js link if you are using https -->\n        <!-- script src=\"https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/cartodb.js\"></script -->\n    ```\n\n\n  2. Create the map and add the layer\n\n    ```javascript\n      var map = L.map('map').setView([0, 0], 3);\n\n      // set a base layer\n      L.tileLayer('http://a.tile.stamen.com/toner/{z}/{x}/{y}.png', {\n        attribution: 'stamen http://maps.stamen.com/'\n      }).addTo(map);\n\n      // add the cartodb layer\n      var layerUrl = 'http://documentation.cartodb.com/api/v2/viz/2b13c956-e7c1-11e2-806b-5404a6a683d5/viz.json';\n      cartodb.createLayer(map, layerUrl).addTo(map);\n    ```\n\n### Usage with Bower\n\nYou can install **cartodb.js** with [bower](http://bower.io/) by running\n\n```sh\nbower install cartodb.js\n```\n\n\n## Documentation\nYou can find the documentation online [here](http://docs.cartodb.com/cartodb-platform/cartodb-js.html) and the [source](https://github.com/CartoDB/cartodb.js/blob/develop/doc/API.md) inside this repository.\n\n## Examples\n\n - [Load a layer with google maps](http://cartodb.github.com/cartodb.js/examples/gmaps_force_basemap.html)\n - [Load a layer with Leaflet](http://cartodb.github.com/cartodb.js/examples/leaflet.html)\n - [Show a complete visualization](http://cartodb.github.com/cartodb.js/examples/easy.html)\n - [A visualization with a layer selector](http://cartodb.github.com/cartodb.js/examples/layer_selector.html)\n - [How to create a custom infowindow](http://cartodb.github.com/cartodb.js/examples/custom_infowindow.html)\n - [The Hobbit filming location paths](http://cartodb.github.com/cartodb.js/examples/TheHobbitLocations/) a full example with some widgets\n\n\n## How to build\nBuild CartoDB.js library:\n\n  - Install [node.js](http://nodejs.org/download/), from 0.10 version\n  - Install grunt & bower: `npm install -g grunt-cli bower`\n  - Install node dependencies: `npm install`\n  - Install bower dependencies: `bower install`\n  - Install [ruby](https://www.ruby-lang.org/en/installation/) and [bundler](https://github.com/bundler/bundler)\n  - Install ruby dependencies: `bundle install` (necessary for compass gem)\n  - Start the server: `grunt build`\n  - Happy mapping!\n  - \n  \n## Submitting Contributions\n\nYou will need to sign a Contributor License Agreement (CLA) before making a submission. [Learn more here.](https://cartodb.com/contributing)\n\n",
   "readmeFilename": "README.md",
   "bugs": {
@@ -26563,12 +25094,12 @@ module.exports={
   },
   "homepage": "https://github.com/CartoDB/cartodb.js#readme",
   "_id": "cartodb.js@4.0.0-alpha.1",
-  "_shasum": "456605bebdc5c6be057b1387ec3a87b58e3e2538",
-  "_from": "cartodb/cartodb.js#v4",
-  "_resolved": "git://github.com/cartodb/cartodb.js.git#86b2da3e25585d5b8473cd92cd27838366545dd4"
+  "_shasum": "8d677d68d06f22c6d2123b735317c365ca24d8fa",
+  "_from": "cartodb/cartodb.js#enhancements",
+  "_resolved": "git://github.com/cartodb/cartodb.js.git#719c54016ac9b226c818dc48bd27e9247f3e038c"
 }
 
-},{}],80:[function(require,module,exports){
+},{}],79:[function(require,module,exports){
 var _ = require('underscore');
 var L = require('leaflet');
 var cdb = require('cdb'); // cdb.geo.GoogleMapsMapView, cdb.geo.LeafletMapView
@@ -26774,7 +25305,7 @@ module.exports = function(map, layer, options, callback) {
   return promise;
 };
 
-},{"../core/loader":94,"../geo/map":136,"../vis/vis":205,"../vis/vis/layers":207,"./promise":83,"cdb":89,"leaflet":10,"underscore":241}],81:[function(require,module,exports){
+},{"../core/loader":92,"../geo/map":133,"../vis/vis":206,"../vis/vis/layers":208,"./promise":82,"cdb":88,"leaflet":9,"underscore":248}],80:[function(require,module,exports){
 var _ = require('underscore');
 var Vis = require('../vis/vis');
 
@@ -26810,7 +25341,7 @@ var createVis = function(el, vizjson, options, callback) {
 
 module.exports = createVis;
 
-},{"../vis/vis":205,"underscore":241}],82:[function(require,module,exports){
+},{"../vis/vis":206,"underscore":248}],81:[function(require,module,exports){
 var cdb = require('cdb');
 var config = require('cdb.config');
 
@@ -26822,7 +25353,7 @@ module.exports = function (name, mod) {
   });
 };
 
-},{"cdb":89,"cdb.config":87}],83:[function(require,module,exports){
+},{"cdb":88,"cdb.config":86}],82:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 
@@ -26841,7 +25372,7 @@ _.extend(Promise.prototype, Backbone.Events, {
 
 module.exports = Promise;
 
-},{"backbone":1,"underscore":241}],84:[function(require,module,exports){
+},{"backbone":1,"underscore":248}],83:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var Mustache = require('mustache');
@@ -27519,7 +26050,7 @@ SQL.prototype.describe = function(sql, column, options) {
 
 module.exports = SQL;
 
-},{"./promise":83,"jquery":218,"mustache":11,"underscore":241}],85:[function(require,module,exports){
+},{"./promise":82,"jquery":225,"mustache":10,"underscore":248}],84:[function(require,module,exports){
 var isLeafletAlreadyLoaded = !!window.L;
 
 var _ = require('underscore');
@@ -27548,7 +26079,6 @@ cdb.config = require('cdb.config');
 cdb.log = require('cdb.log');
 cdb.errors = require('cdb.errors');
 cdb.templates = require('cdb.templates');
-cdb.decorators = require('./core/decorators');
 cdb.createVis = require('./api/create-vis');
 cdb.createLayer = require('./api/create-layer');
 cdb.LZMA = require('lzma');
@@ -27575,8 +26105,6 @@ cdb.ui.common.TableData = require('./ui/common/table/table-data');
 cdb.ui.common.TableProperties = require('./ui/common/table/table-properties');
 cdb.ui.common.RowView = require('./ui/common/table/row-view');
 cdb.ui.common.Table = require('./ui/common/table');
-
-cdb.geo.common.CartoDBLogo = require('./geo/cartodb-logo');
 
 cdb.geo.geocoder.NOKIA = require('./geo/geocoder/nokia-geocoder');
 cdb.geo.geocoder.YAHOO = require('./geo/geocoder/yahoo-geocoder');
@@ -27616,7 +26144,7 @@ cdb.geo.ui.Infowindow = require('./geo/ui/infowindow');
 
 cdb.geo.ui.Header = require('./geo/ui/header');
 
-cdb.geo.ui.Search = require('./geo/ui/search');
+cdb.geo.ui.Search = require('./geo/ui/search/search');
 
 cdb.geo.ui.LayerSelector = require('./geo/ui/layer-selector');
 cdb.geo.ui.LayerView = require('./geo/ui/layer-view');
@@ -27637,7 +26165,7 @@ require('./vis/layers'); // Layers.register calls
 
 module.exports = cdb;
 
-},{"./api/create-layer":80,"./api/create-vis":81,"./api/module-load":82,"./api/promise":83,"./api/sql":84,"./core/decorators":93,"./core/loader":94,"./core/model":98,"./core/sanitize":100,"./core/template":102,"./core/template-list":101,"./core/view":104,"./geo/cartodb-logo":106,"./geo/geocoder/nokia-geocoder":107,"./geo/geocoder/yahoo-geocoder":108,"./geo/geometry":110,"./geo/gmaps":111,"./geo/leaflet":124,"./geo/map":136,"./geo/map-view":135,"./geo/map/cartodb-layer":140,"./geo/map/cartodb-layer-group-anonymous":137,"./geo/map/cartodb-layer-group-named":139,"./geo/map/gmaps-base-layer":141,"./geo/map/layers":142,"./geo/map/map-layer":143,"./geo/map/plain-layer":144,"./geo/map/tile-layer":145,"./geo/map/torque-layer":146,"./geo/map/wms-layer":147,"./geo/ui/annotation":148,"./geo/ui/header":149,"./geo/ui/image":150,"./geo/ui/infobox":151,"./geo/ui/infowindow":153,"./geo/ui/infowindow-model":152,"./geo/ui/layer-selector":154,"./geo/ui/layer-view":155,"./geo/ui/legend":161,"./geo/ui/legend-exports":156,"./geo/ui/legend/legend-view-exports":180,"./geo/ui/mobile":185,"./geo/ui/mobile-layer":184,"./geo/ui/search":186,"./geo/ui/share":187,"./geo/ui/text":188,"./geo/ui/tiles-loader":189,"./geo/ui/tooltip":190,"./geo/ui/zoom":191,"./ui/common/dialog":193,"./ui/common/dropdown":194,"./ui/common/fullscreen":195,"./ui/common/notification":196,"./ui/common/share":197,"./ui/common/table":198,"./ui/common/table/row":200,"./ui/common/table/row-view":199,"./ui/common/table/table-data":201,"./ui/common/table/table-properties":202,"./vis/layers":203,"./vis/overlays":204,"./vis/vis":205,"./vis/vis/infowindow-template":206,"./vis/vis/layers":207,"./vis/vis/overlay":208,"./vis/vis/overlays":209,"backbone":1,"cdb":89,"cdb.config":87,"cdb.core.Profiler":99,"cdb.core.util":103,"cdb.errors":88,"cdb.log":90,"cdb.templates":91,"jquery":218,"leaflet":10,"lzma":213,"mousewheel":214,"mustache":11,"mwheelIntent":215,"underscore":241}],86:[function(require,module,exports){
+},{"./api/create-layer":79,"./api/create-vis":80,"./api/module-load":81,"./api/promise":82,"./api/sql":83,"./core/loader":92,"./core/model":96,"./core/sanitize":98,"./core/template":100,"./core/template-list":99,"./core/view":102,"./geo/geocoder/nokia-geocoder":104,"./geo/geocoder/yahoo-geocoder":105,"./geo/geometry":107,"./geo/gmaps":108,"./geo/leaflet":121,"./geo/map":133,"./geo/map-view":132,"./geo/map/cartodb-layer":137,"./geo/map/cartodb-layer-group-anonymous":134,"./geo/map/cartodb-layer-group-named":136,"./geo/map/gmaps-base-layer":138,"./geo/map/layers":139,"./geo/map/map-layer":140,"./geo/map/plain-layer":141,"./geo/map/tile-layer":142,"./geo/map/torque-layer":143,"./geo/map/wms-layer":144,"./geo/ui/annotation":145,"./geo/ui/header":148,"./geo/ui/image":149,"./geo/ui/infobox":150,"./geo/ui/infowindow":152,"./geo/ui/infowindow-model":151,"./geo/ui/layer-selector":153,"./geo/ui/layer-view":154,"./geo/ui/legend":160,"./geo/ui/legend-exports":155,"./geo/ui/legend/legend-view-exports":179,"./geo/ui/mobile":184,"./geo/ui/mobile-layer":183,"./geo/ui/search/search":185,"./geo/ui/share":188,"./geo/ui/text":189,"./geo/ui/tiles-loader":190,"./geo/ui/tooltip":191,"./geo/ui/zoom":192,"./ui/common/dialog":194,"./ui/common/dropdown":195,"./ui/common/fullscreen":196,"./ui/common/notification":197,"./ui/common/share":198,"./ui/common/table":199,"./ui/common/table/row":201,"./ui/common/table/row-view":200,"./ui/common/table/table-data":202,"./ui/common/table/table-properties":203,"./vis/layers":204,"./vis/overlays":205,"./vis/vis":206,"./vis/vis/infowindow-template":207,"./vis/vis/layers":208,"./vis/vis/overlay":209,"./vis/vis/overlays":210,"backbone":1,"cdb":88,"cdb.config":86,"cdb.core.Profiler":97,"cdb.core.util":101,"cdb.errors":87,"cdb.log":89,"cdb.templates":90,"jquery":225,"leaflet":9,"lzma":220,"mousewheel":221,"mustache":10,"mwheelIntent":222,"underscore":248}],85:[function(require,module,exports){
 /* global google */
 var cdb = require('cdb');
 var moduleLoad = require('./api/module-load');
@@ -27652,22 +26180,22 @@ cdb.geo.LeafletTorqueLayer = require('./geo/leaflet/leaflet-torque-layer');
 moduleLoad('torque', torque);
 module.exports = torque;
 
-},{"./api/module-load":82,"./geo/gmaps/gmaps-torque-layer-view":122,"./geo/leaflet/leaflet-torque-layer":133,"cdb":89,"torque.js":22}],87:[function(require,module,exports){
+},{"./api/module-load":81,"./geo/gmaps/gmaps-torque-layer-view":119,"./geo/leaflet/leaflet-torque-layer":130,"cdb":88,"torque.js":21}],86:[function(require,module,exports){
 var Config = require('./core/config');
 
 var config = new Config();
 config.set({
-  cartodb_attributions: "CartoDB <a href=\"http://cartodb.com/attributions\" target=\"_blank\">attribution</a>",
-  cartodb_logo_link: "http://www.cartodb.com"
+  cartodb_attributions: 'CartoDB <a href="http://cartodb.com/attributions" target="_blank">attribution</a>',
+  cartodb_logo_link: 'http://www.cartodb.com'
 });
 
 module.exports = config;
 
-},{"./core/config":92}],88:[function(require,module,exports){
+},{"./core/config":91}],87:[function(require,module,exports){
 var ErrorList = require('./core/log/error-list');
 module.exports = new ErrorList();
 
-},{"./core/log/error-list":96}],89:[function(require,module,exports){
+},{"./core/log/error-list":94}],88:[function(require,module,exports){
 // Creates cdb object, mutated in the entry file cartodb.js
 // Used to avoid circular dependencies
 var cdb = {};
@@ -27698,17 +26226,17 @@ cdb.vis = {};
 
 module.exports = cdb;
 
-},{"../package.json":79}],90:[function(require,module,exports){
+},{"../package.json":78}],89:[function(require,module,exports){
 var Log = require('./core/log');
 
 module.exports = new Log({tag: 'cdb'});
 
-},{"./core/log":95}],91:[function(require,module,exports){
+},{"./core/log":93}],90:[function(require,module,exports){
 var TemplateList = require('./core/template-list');
 
 module.exports = new TemplateList();
 
-},{"./core/template-list":101}],92:[function(require,module,exports){
+},{"./core/template-list":99}],91:[function(require,module,exports){
 var Backbone = require('backbone');
 
 /**
@@ -27774,77 +26302,7 @@ var Config = Backbone.Model.extend({
 
 module.exports = Config;
 
-},{"backbone":1}],93:[function(require,module,exports){
-var Backbone = require('backbone');
-
-/**
-* Decorators to extend funcionality of cdb related objects
-*/
-var decorators = {};
-
-/**
-* Adds .elder method to call for the same method of the parent class
-* usage:
-*   insanceOfClass.elder('name_of_the_method');
-*/
-decorators.elder = (function() {
-  // we need to backup one of the backbone extend models
-  // (it doesn't matter which, they are all the same method)
-  var backboneExtend = Backbone.Router.extend;
-  var superMethod = function(method, options) {
-      var result = null;
-      if (this.parent != null) {
-          var currentParent = this.parent;
-          // we need to change the parent of "this", because
-          // since we are going to call the elder (super) method
-          // in the context of "this", if the super method has
-          // another call to elder (super), we need to provide a way of
-          // redirecting to the grandparent
-          this.parent = this.parent.parent;
-          var options = Array.prototype.slice.call(arguments, 1);
-
-          if (currentParent.hasOwnProperty(method)) {
-              result = currentParent[method].apply(this, options);
-          } else {
-              options.splice(0,0, method);
-              result = currentParent.elder.apply(this, options);
-          }
-          this.parent = currentParent;
-      }
-      return result;
-  }
-  var extend = function(protoProps, classProps) {
-      var child = backboneExtend.call(this, protoProps, classProps);
-
-      child.prototype.parent = this.prototype;
-      child.prototype.elder = function(method) {
-          var options = Array.prototype.slice.call(arguments, 1);
-          if (method) {
-              options.splice(0,0, method)
-              return superMethod.apply(this, options);
-          } else {
-              return child.prototype.parent;
-          }
-      }
-      return child;
-  };
-  var decorate = function(objectToDecorate) {
-    objectToDecorate.extend = extend;
-    objectToDecorate.prototype.elder = function() {};
-    objectToDecorate.prototype.parent = null;
-  }
-  return decorate;
-})()
-
-// TODO: should move to setup-cartodb to keep global mutations in one place? modifies all the Backbone.* objects
-// but only the ones created from this point and forth
-decorators.elder(Backbone.Model);
-decorators.elder(Backbone.View);
-decorators.elder(Backbone.Collection);
-
-module.exports = decorators;
-
-},{"backbone":1}],94:[function(require,module,exports){
+},{"backbone":1}],92:[function(require,module,exports){
 var cdb = require('cdb'); // cdb.DEBUG
 
 var Loader = {
@@ -27920,7 +26378,7 @@ window.vizjson = function(data) {
 
 module.exports = Loader;
 
-},{"cdb":89}],95:[function(require,module,exports){
+},{"cdb":88}],93:[function(require,module,exports){
 var Backbone = require('backbone');
 var cdb = require('cdb'); // cdb.DEBUG
 var errors = require('cdb.errors');
@@ -27970,7 +26428,7 @@ var Log = Backbone.Model.extend({
 
 module.exports = Log;
 
-},{"backbone":1,"cdb":89,"cdb.config":87,"cdb.errors":88}],96:[function(require,module,exports){
+},{"backbone":1,"cdb":88,"cdb.config":86,"cdb.errors":87}],94:[function(require,module,exports){
 var Backbone = require('backbone');
 var ErrorModel = require('./error');
 
@@ -27994,7 +26452,7 @@ var ErrorList = Backbone.Collection.extend({
 
 module.exports = ErrorList;
 
-},{"./error":97,"backbone":1}],97:[function(require,module,exports){
+},{"./error":95,"backbone":1}],95:[function(require,module,exports){
 var Backbone = require('backbone');
 var $ = require('jquery');
 var config = require('cdb.config');
@@ -28011,11 +26469,10 @@ var ErrorModel = Backbone.Model.extend({
 
 module.exports = ErrorModel;
 
-},{"backbone":1,"cdb.config":87,"jquery":218}],98:[function(require,module,exports){
+},{"backbone":1,"cdb.config":86,"jquery":225}],96:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var Backbone = require('backbone');
-require('./decorators'); // since it monkey-patches Backbone.Model
 
 /**
  * Base Model for all CartoDB model.
@@ -28037,7 +26494,7 @@ var Model = Backbone.Model.extend({
     var self = this;
     // var date = new Date();
     this.trigger('loadModelStarted');
-    $.when(this.elder('fetch', args)).done(function(ev){
+    $.when(Backbone.Model.prototype.fetch.call(this, args)).done(function(ev){
       self.trigger('loadModelCompleted', ev);
       // var dateComplete = new Date()
       // console.log('completed in '+(dateComplete - date));
@@ -28095,7 +26552,7 @@ var Model = Backbone.Model.extend({
 
 module.exports = Model;
 
-},{"./decorators":93,"backbone":1,"jquery":218,"underscore":241}],99:[function(require,module,exports){
+},{"backbone":1,"jquery":225,"underscore":248}],97:[function(require,module,exports){
 /*
 # metrics profiler
 
@@ -28258,7 +26715,7 @@ Profiler.metric = function(name) {
 
 module.exports = Profiler;
 
-},{}],100:[function(require,module,exports){
+},{}],98:[function(require,module,exports){
 var htmlCssSanitizer = require('html-css-sanitizer');
 
 /**
@@ -28284,7 +26741,7 @@ htmlCssSanitizer.html = function(inputHtml, optionalSanitizer) {
 
 module.exports = htmlCssSanitizer;
 
-},{"html-css-sanitizer":211}],101:[function(require,module,exports){
+},{"html-css-sanitizer":218}],99:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 var log = require('cdb.log');
@@ -28314,7 +26771,7 @@ var TemplateList = Backbone.Collection.extend({
 
 module.exports = TemplateList;
 
-},{"./template":102,"backbone":1,"cdb.log":90,"underscore":241}],102:[function(require,module,exports){
+},{"./template":100,"backbone":1,"cdb.log":89,"underscore":248}],100:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 var Mustache = require('mustache');
@@ -28409,7 +26866,7 @@ var Template = Backbone.Model.extend({
 
 module.exports = Template;
 
-},{"backbone":1,"cdb.log":90,"mustache":11,"underscore":241}],103:[function(require,module,exports){
+},{"backbone":1,"cdb.log":89,"mustache":10,"underscore":248}],101:[function(require,module,exports){
 var util = {};
 
 util.isCORSSupported = function() {
@@ -28537,7 +26994,7 @@ util.browser = util._inferBrowser();
 
 module.exports = util;
 
-},{}],104:[function(require,module,exports){
+},{}],102:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 var Profiler = require('cdb.core.Profiler');
@@ -28711,7 +27168,7 @@ var View = Backbone.View.extend({
 
 module.exports = View;
 
-},{"backbone":1,"cdb.core.Profiler":99,"cdb.templates":91,"underscore":241}],105:[function(require,module,exports){
+},{"backbone":1,"cdb.core.Profiler":97,"cdb.templates":90,"underscore":248}],103:[function(require,module,exports){
 var _ = require('underscore');
 
 /**
@@ -28876,60 +27333,7 @@ CartoDBLayerCommon.prototype = {
 
 module.exports = CartoDBLayerCommon;
 
-},{"underscore":241}],106:[function(require,module,exports){
-var config = require('cdb.config');
-
-var CartoDBLogo = {
-
-  /**
-   * Check if any class already exists
-   * in the provided container
-   */
-  isWadusAdded: function(container, className) {
-    // Check if any cartodb-logo exists within container
-    var a = [];
-    var re = new RegExp('\\b' + className + '\\b');
-    var els = container.getElementsByTagName("*");
-    for(var i=0,j=els.length; i<j; i++)
-      if(re.test(els[i].className))a.push(els[i]);
-
-    return a.length > 0;
-  },
-
-  /**
-   *  Check if browser supports retina images
-   */
-  isRetinaBrowser: function() {
-    return  ('devicePixelRatio' in window && window.devicePixelRatio > 1) ||
-            ('matchMedia' in window && window.matchMedia('(min-resolution:144dpi)') &&
-            window.matchMedia('(min-resolution:144dpi)').matches);
-  },
-
-  /**
-   * Add Cartodb logo
-   * It needs a position, timeout if it is needed and the container where to add it
-   */
-  addWadus: function(position, timeout, container) {
-    var self = this;
-    setTimeout(function() {
-      if (!self.isWadusAdded(container, 'cartodb-logo')) {
-        var cartodb_link = document.createElement("div");
-        var is_retina = self.isRetinaBrowser();
-        cartodb_link.setAttribute('class','cartodb-logo');
-        cartodb_link.setAttribute('style',"position:absolute; bottom:0; left:0; display:block; border:none; z-index:1000000;");
-        var protocol = location.protocol.indexOf('https') === -1 ? 'http': 'https';
-        var link = config.get('cartodb_logo_link');
-        cartodb_link.innerHTML = "<a href='" + link + "' target='_blank'><img width='71' height='29' src='" + protocol + "://cartodb.s3.amazonaws.com/static/new_logo" + (is_retina ? '@2x' : '') + ".png' style='position:absolute; bottom:" +
-          ( position.bottom || 0 ) + "px; left:" + ( position.left || 0 ) + "px; display:block; width:71px!important; height:29px!important; border:none; outline:none;' alt='CartoDB' title='CartoDB' />";
-        container.appendChild(cartodb_link);
-      }
-    },( timeout || 0 ));
-  }
-};
-
-module.exports = CartoDBLogo;
-
-},{"cdb.config":87}],107:[function(require,module,exports){
+},{"underscore":248}],104:[function(require,module,exports){
 var $ = require('jquery');
 
 /**
@@ -29001,7 +27405,7 @@ var NOKIA = {
 
 module.exports = NOKIA;
 
-},{"jquery":218}],108:[function(require,module,exports){
+},{"jquery":225}],105:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 
@@ -29070,7 +27474,7 @@ var YAHOO = {
 
 module.exports = YAHOO;
 
-},{"jquery":218,"underscore":241}],109:[function(require,module,exports){
+},{"jquery":225,"underscore":248}],106:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 
@@ -29090,7 +27494,7 @@ _.extend(GeometryView.prototype, Backbone.Events,{
 
 module.exports = GeometryView;
 
-},{"backbone":1,"underscore":241}],110:[function(require,module,exports){
+},{"backbone":1,"underscore":248}],107:[function(require,module,exports){
 var Model = require('../core/model');
 
 /**
@@ -29107,7 +27511,7 @@ var Geometry = Model.extend({
 
 module.exports = Geometry;
 
-},{"../core/model":98}],111:[function(require,module,exports){
+},{"../core/model":96}],108:[function(require,module,exports){
 var gmapsModels = {};
 
 // only add models if google.maps lib is loaded
@@ -29128,7 +27532,7 @@ if (typeof(window.google) != 'undefined' && typeof(window.google.maps) != 'undef
 
 module.exports = gmapsModels;
 
-},{"./gmaps/gmaps-base-layer-view":113,"./gmaps/gmaps-cartodb-layer-group-view":114,"./gmaps/gmaps-layer-view":116,"./gmaps/gmaps-map-view":117,"./gmaps/gmaps-path-view":118,"./gmaps/gmaps-plain-layer-view":119,"./gmaps/gmaps-point-view":120,"./gmaps/gmaps-tiled-layer-view":121}],112:[function(require,module,exports){
+},{"./gmaps/gmaps-base-layer-view":110,"./gmaps/gmaps-cartodb-layer-group-view":111,"./gmaps/gmaps-layer-view":113,"./gmaps/gmaps-map-view":114,"./gmaps/gmaps-path-view":115,"./gmaps/gmaps-plain-layer-view":116,"./gmaps/gmaps-point-view":117,"./gmaps/gmaps-tiled-layer-view":118}],109:[function(require,module,exports){
 var config = require('cdb.config');
 
 var CartoDBDefaultOptions = {
@@ -29151,7 +27555,7 @@ var CartoDBDefaultOptions = {
 
 module.exports = CartoDBDefaultOptions;
 
-},{"cdb.config":87}],113:[function(require,module,exports){
+},{"cdb.config":86}],110:[function(require,module,exports){
 var _ = require('underscore');
 var DEFAULT_MAP_STYLE = require('./gmaps-default-map-style');
 var GMapsLayerView = require('./gmaps-layer-view');
@@ -29188,28 +27592,27 @@ _.extend(
 
 module.exports = GMapsBaseLayerView;
 
-},{"./gmaps-default-map-style":115,"./gmaps-layer-view":116,"underscore":241}],114:[function(require,module,exports){
+},{"./gmaps-default-map-style":112,"./gmaps-layer-view":113,"underscore":248}],111:[function(require,module,exports){
 var _ = require('underscore');
 var GMapsLayerView = require('./gmaps-layer-view');
 var wax = require('wax.cartodb.js');
 var CartoDBDefaultOptions = require('./cartodb-default-options');
 var Projector = require('./projector');
 var CartoDBLayerCommon = require('../cartodb-layer-common');
-var CartoDBLogo = require('../cartodb-logo');
 var Profiler = require('cdb.core.Profiler');
 
-var OPACITY_FILTER = "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)";
+var OPACITY_FILTER = 'progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)';
 
-function setImageOpacityIE8(img, opacity) {
-  var v = Math.round(opacity*100);
+function setImageOpacityIE8 (img, opacity) {
+  var v = Math.round(opacity * 100);
   if (v >= 99) {
     img.style.filter = OPACITY_FILTER;
   } else {
-    img.style.filter = "alpha(opacity=" + (opacity) + ");";
+    img.style.filter = 'alpha(opacity=' + (opacity) + ');';
   }
 }
 
-var GMapsCartoDBLayerGroupView = function(layerModel, gmapsMap) {
+var GMapsCartoDBLayerGroupView = function (layerModel, gmapsMap) {
   var self = this;
   var hovers = [];
 
@@ -29217,50 +27620,50 @@ var GMapsCartoDBLayerGroupView = function(layerModel, gmapsMap) {
 
   var opts = _.clone(layerModel.attributes);
 
-  opts.map =  gmapsMap;
+  opts.map = gmapsMap;
 
-  var _featureOver  = opts.featureOver;
-  var _featureOut   = opts.featureOut;
+  var _featureOver = opts.featureOver;
+  var _featureOut = opts.featureOut;
   var _featureClick = opts.featureClick;
 
   var previousEvent;
   var eventTimeout = -1;
 
-  opts.featureOver  = function(e, latlon, pxPos, data, layer) {
+  opts.featureOver = function (e, latlon, pxPos, data, layer) {
     if (!hovers[layer]) {
       self.trigger('layerenter', e, latlon, pxPos, data, layer);
     }
     hovers[layer] = 1;
-    _featureOver  && _featureOver.apply(this, arguments);
-    self.featureOver  && self.featureOver.apply(this, arguments);
+    _featureOver && _featureOver.apply(this, arguments);
+    self.featureOver && self.featureOver.apply(this, arguments);
 
     // if the event is the same than before just cancel the event
     // firing because there is a layer on top of it
     if (e.timeStamp === previousEvent) {
       clearTimeout(eventTimeout);
     }
-    eventTimeout = setTimeout(function() {
+    eventTimeout = setTimeout(function () {
       self.trigger('mouseover', e, latlon, pxPos, data, layer);
       self.trigger('layermouseover', e, latlon, pxPos, data, layer);
     }, 0);
     previousEvent = e.timeStamp;
   };
 
-  opts.featureOut  = function(m, layer) {
+  opts.featureOut = function (m, layer) {
     if (hovers[layer]) {
       self.trigger('layermouseout', layer);
     }
     hovers[layer] = 0;
-    if(!_.any(hovers)) {
+    if (!_.any(hovers)) {
       self.trigger('mouseout');
     }
-    _featureOut  && _featureOut.apply(this, arguments);
-    self.featureOut  && self.featureOut.apply(this, arguments);
+    _featureOut && _featureOut.apply(this, arguments);
+    self.featureOut && self.featureOut.apply(this, arguments);
   };
 
-  opts.featureClick  = _.debounce(function() {
-    _featureClick  && _featureClick.apply(this, arguments);
-    self.featureClick  && self.featureClick.apply(opts, arguments);
+  opts.featureClick = _.debounce(function () {
+    _featureClick && _featureClick.apply(this, arguments);
+    self.featureClick && self.featureClick.apply(opts, arguments);
   }, 10);
 
   this.options = _.defaults(opts, CartoDBDefaultOptions);
@@ -29268,13 +27671,8 @@ var GMapsCartoDBLayerGroupView = function(layerModel, gmapsMap) {
   this.tilejson = null;
   this.interaction = [];
 
-  // Add CartoDB logo
-  if (this.options.cartodb_logo != false) {
-    CartoDBLogo.addWadus({ left: 74, bottom:8 }, 2000, this.options.map.getDiv());
-  }
-
   // Bind changes to the urls of the layer model
-  layerModel.bind('change:urls', function() {
+  layerModel.bind('change:urls', function () {
     this.update();
   }, this);
 
@@ -29282,7 +27680,7 @@ var GMapsCartoDBLayerGroupView = function(layerModel, gmapsMap) {
 
   // lovely wax connector overwrites options so set them again
   // TODO: remove wax.connector here
-   _.extend(this.options, opts);
+  _.extend(this.options, opts);
   GMapsLayerView.call(this, layerModel, this, gmapsMap);
   this.projector = new Projector(opts.map);
   CartoDBLayerCommon.call(this);
@@ -29298,78 +27696,76 @@ _.extend(
   GMapsCartoDBLayerGroupView.prototype,
   GMapsLayerView.prototype,
   {
-    reload: function() {
+    reload: function () {
       this.model.invalidate();
     },
 
-    remove: function() {
+    remove: function () {
       GMapsLayerView.prototype.remove.call(this);
       this.clear();
     },
 
-    featureOver: function(e, latlon, pixelPos, data, layer) {
+    featureOver: function (e, latlon, pixelPos, data, layer) {
       // dont pass gmaps LatLng
       this.trigger('featureOver', e, [latlon.lat(), latlon.lng()], pixelPos, data, layer);
     },
 
-    featureOut: function(e, layer) {
+    featureOut: function (e, layer) {
       this.trigger('featureOut', e, layer);
     },
 
-    featureClick: function(e, latlon, pixelPos, data, layer) {
+    featureClick: function (e, latlon, pixelPos, data, layer) {
       // dont pass leaflet lat/lon
       this.trigger('featureClick', e, [latlon.lat(), latlon.lng()], pixelPos, data, layer);
     },
 
-    error: function(e) {
-      if(this.model) {
+    error: function (e) {
+      if (this.model) {
         this.model.trigger('error', e ? e.errors : 'unknown error');
         this.model.trigger('tileError', e ? e.errors : 'unknown error');
       }
     },
 
-    ok: function(e) {
+    ok: function (e) {
       this.model.trigger('tileOk');
     },
 
-    tilesOk: function(e) {
+    tilesOk: function (e) {
       this.model.trigger('tileOk');
     },
 
-    loading: function() {
-      this.trigger("loading");
+    loading: function () {
+      this.trigger('loading');
     },
 
-    finishLoading: function() {
-      this.trigger("load");
+    finishLoading: function () {
+      this.trigger('load');
     },
 
-    setOpacity: function(opacity) {
+    setOpacity: function (opacity) {
       if (isNaN(opacity) || opacity > 1 || opacity < 0) {
         throw new Error(opacity + ' is not a valid value, should be in [0, 1] range');
       }
       this.opacity = this.options.opacity = opacity;
-      for(var key in this.cache) {
+      for (var key in this.cache) {
         var img = this.cache[key];
         img.style.opacity = opacity;
         setImageOpacityIE8(img, opacity);
       }
     },
 
-    setAttribution: function() {
+    setAttribution: function () {},
 
-    },
-
-    getTile: function(coord, zoom, ownerDocument) {
-      var EMPTY_GIF = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+    getTile: function (coord, zoom, ownerDocument) {
+      var EMPTY_GIF = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
       var self = this;
       var ie = 'ActiveXObject' in window,
-          ielt9 = ie && !document.addEventListener;
+        ielt9 = ie && !document.addEventListener;
 
       this.options.added = true;
 
-      if(this.tilejson === null) {
+      if (this.tilejson === null) {
         var key = zoom + '/' + coord.x + '/' + coord.y;
         var i = this.cache[key] = new Image(256, 256);
         i.src = EMPTY_GIF;
@@ -29381,7 +27777,7 @@ _.extend(
       var im = wax.g.connector.prototype.getTile.call(this, coord, zoom, ownerDocument);
 
       // in IE8 semi transparency does not work and needs filter
-      if( ielt9 ) {
+      if ( ielt9 ) {
         setImageOpacityIE8(im, this.options.opacity);
       }
       im.style.opacity = this.options.opacity;
@@ -29393,7 +27789,7 @@ _.extend(
 
       var loadTime = Profiler.metric('cartodb-js.tile.png.load.time').start();
 
-      var finished = function() {
+      var finished = function () {
         loadTime.end();
         self.tiles--;
         if (self.tiles === 0) {
@@ -29401,16 +27797,15 @@ _.extend(
         }
       };
       im.onload = finished;
-      im.onerror = function() {
+      im.onerror = function () {
         Profiler.metric('cartodb-js.tile.png.error').inc();
         finished();
-      }
+      };
 
       return im;
     },
 
-    onAdd: function () {
-    },
+    onAdd: function () {},
 
     clear: function () {
       this._clearInteraction();
@@ -29421,7 +27816,7 @@ _.extend(
       this.loading && this.loading();
 
       var tilejson = this.model.get('urls');
-      if(tilejson) {
+      if (tilejson) {
         this.tilejson = tilejson;
         this.options.tiles = tilejson.tiles;
         this.tiles = 0;
@@ -29436,11 +27831,11 @@ _.extend(
       }
     },
 
-    refreshView: function() {
+    refreshView: function () {
       var self = this;
       var map = this.options.map;
       map.overlayMapTypes.forEach(
-        function(layer, i) {
+        function (layer, i) {
           if (layer == self) {
             map.overlayMapTypes.setAt(i, self);
             return;
@@ -29449,13 +27844,13 @@ _.extend(
       );
     },
 
-    _checkLayer: function() {
+    _checkLayer: function () {
       if (!this.options.added) {
         throw new Error('the layer is not still added to the map');
       }
     },
 
-    _findPos: function (map,o) {
+    _findPos: function (map, o) {
       var curleft = 0;
       var curtop = 0;
       var obj = map.getDiv();
@@ -29483,8 +27878,8 @@ _.extend(
         var scrollX = (window.scrollX || window.pageXOffset);
         var scrollY = (window.scrollY || window.pageYOffset);
         var point = this._newPoint(
-          (o.e.clientX? o.e.clientX: x) - rect.left - obj.clientLeft - scrollX,
-          (o.e.clientY? o.e.clientY: y) - rect.top - obj.clientTop - scrollY);
+          (o.e.clientX ? o.e.clientX : x) - rect.left - obj.clientLeft - scrollX,
+          (o.e.clientY ? o.e.clientY : y) - rect.top - obj.clientTop - scrollY);
       }
       return point;
     },
@@ -29492,26 +27887,25 @@ _.extend(
     /**
      * Creates an instance of a googleMaps Point
      */
-    _newPoint: function(x, y) {
+    _newPoint: function (x, y) {
       return new google.maps.Point(x, y);
     },
 
-    _manageOffEvents: function(map, o){
+    _manageOffEvents: function (map, o) {
       if (this.options.featureOut) {
         return this.options.featureOut && this.options.featureOut(o.e, o.layer);
       }
     },
 
-    _manageOnEvents: function(map,o) {
-      var point  = this._findPos(map, o);
+    _manageOnEvents: function (map, o) {
+      var point = this._findPos(map, o);
       var latlng = this.projector.pixelToLatLng(point);
       var event_type = o.e.type.toLowerCase();
-
 
       switch (event_type) {
         case 'mousemove':
           if (this.options.featureOver) {
-            return this.options.featureOver(o.e,latlng, point, o.data, o.layer);
+            return this.options.featureOver(o.e, latlng, point, o.data, o.layer);
           }
           break;
 
@@ -29522,7 +27916,7 @@ _.extend(
         case 'pointerup':
         case 'pointermove':
           if (this.options.featureClick) {
-            this.options.featureClick(o.e,latlng, point, o.data, o.layer);
+            this.options.featureClick(o.e, latlng, point, o.data, o.layer);
           }
           break;
         default:
@@ -29532,9 +27926,9 @@ _.extend(
   }
 );
 
-
 module.exports = GMapsCartoDBLayerGroupView;
-},{"../cartodb-layer-common":105,"../cartodb-logo":106,"./cartodb-default-options":112,"./gmaps-layer-view":116,"./projector":123,"cdb.core.Profiler":99,"underscore":241,"wax.cartodb.js":216}],115:[function(require,module,exports){
+
+},{"../cartodb-layer-common":103,"./cartodb-default-options":109,"./gmaps-layer-view":113,"./projector":120,"cdb.core.Profiler":97,"underscore":248,"wax.cartodb.js":223}],112:[function(require,module,exports){
 var DEFAULT_MAP_STYLE = [{
     stylers: [{
         saturation: -65
@@ -29605,7 +27999,7 @@ var DEFAULT_MAP_STYLE = [{
 
 module.exports = DEFAULT_MAP_STYLE;
 
-},{}],116:[function(require,module,exports){
+},{}],113:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 
@@ -29679,7 +28073,7 @@ _.extend(GMapsLayerView.prototype, {
 
 module.exports = GMapsLayerView;
 
-},{"backbone":1,"underscore":241}],117:[function(require,module,exports){
+},{"backbone":1,"underscore":248}],114:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cdb'); // cdb.geo.GMapsTorqueLayerView
 var log = require('cdb.log');
@@ -29770,7 +28164,6 @@ var GoogleMapsMapView = MapView.extend({
 
     this._bindModel();
     this._addLayers();
-    this.setAttribution();
 
     google.maps.event.addListener(this.map_googlemaps, 'center_changed', function() {
       var c = self.map_googlemaps.getCenter();
@@ -29935,26 +28328,6 @@ var GoogleMapsMapView = MapView.extend({
     return [ [0,0], [0,0] ];
   },
 
-setAttribution: function() {
-  // Remove old one
-  var old = document.getElementById("cartodb-gmaps-attribution")
-    , attribution = this.map.get("attribution").join(", ");
-
-    // If div already exists, remove it
-    if (old) {
-      old.parentNode.removeChild(old);
-    }
-
-    // Add new one
-    var container           = this.map_googlemaps.getDiv()
-      , cartodb_attribution = document.createElement("div");
-
-    cartodb_attribution.setAttribute('id','cartodb-gmaps-attribution');
-    cartodb_attribution.setAttribute('class', 'gmaps');
-    container.appendChild(cartodb_attribution);
-    cartodb_attribution.innerHTML = attribution;
-  },
-
   setCursor: function(cursor) {
     this.map_googlemaps.setOptions({ draggableCursor: cursor });
   },
@@ -30016,7 +28389,7 @@ setAttribution: function() {
 
 module.exports = GoogleMapsMapView;
 
-},{"../leaflet/leaflet-wms-layer-view":134,"../map-view":135,"./gmaps-base-layer-view":113,"./gmaps-cartodb-layer-group-view":114,"./gmaps-path-view":118,"./gmaps-plain-layer-view":119,"./gmaps-point-view":120,"./gmaps-tiled-layer-view":121,"./projector":123,"cdb":89,"cdb.log":90,"underscore":241}],118:[function(require,module,exports){
+},{"../leaflet/leaflet-wms-layer-view":131,"../map-view":132,"./gmaps-base-layer-view":110,"./gmaps-cartodb-layer-group-view":111,"./gmaps-path-view":115,"./gmaps-plain-layer-view":116,"./gmaps-point-view":117,"./gmaps-tiled-layer-view":118,"./projector":120,"cdb":88,"cdb.log":89,"underscore":248}],115:[function(require,module,exports){
 var _ = require('underscore');
 var GeoJSON = require('geojson');
 var GeometryView = require('../geometry-view');
@@ -30172,7 +28545,7 @@ PathView.prototype.edit = function(enable) {
 
 module.exports = PathView;
 
-},{"../geometry-view":109,"geojson":210,"underscore":241}],119:[function(require,module,exports){
+},{"../geometry-view":106,"geojson":216,"underscore":248}],116:[function(require,module,exports){
 var _ = require('underscore');
 var GMapsLayerView = require('./gmaps-layer-view');
 
@@ -30207,7 +28580,7 @@ _.extend(
 
 module.exports = GMapsPlainLayerView;
 
-},{"./gmaps-layer-view":116,"underscore":241}],120:[function(require,module,exports){
+},{"./gmaps-layer-view":113,"underscore":248}],117:[function(require,module,exports){
 var _ = require('underscore');
 var GeoJSON = require('geojson');
 var config = require('cdb.config');
@@ -30295,7 +28668,7 @@ PointView.prototype.edit = function(enable) {
 
 module.exports = PointView;
 
-},{"../geometry-view":109,"cdb.config":87,"geojson":210,"underscore":241}],121:[function(require,module,exports){
+},{"../geometry-view":106,"cdb.config":86,"geojson":216,"underscore":248}],118:[function(require,module,exports){
 var _ = require('underscore');
 var GMapsLayerView = require('./gmaps-layer-view');
 
@@ -30338,53 +28711,50 @@ _.extend(
 
 module.exports = GMapsTiledLayerView;
 
-},{"./gmaps-layer-view":116,"underscore":241}],122:[function(require,module,exports){
+},{"./gmaps-layer-view":113,"underscore":248}],119:[function(require,module,exports){
 var _ = require('underscore');
 var torque = require('torque.js');
 var Backbone = require('backbone');
-var CartoDBLogo = require('../cartodb-logo');
 var GMapsLayerView = require('./gmaps-layer-view');
 
-var GMapsTorqueLayerView = function(layerModel, gmapsMap) {
-
+var GMapsTorqueLayerView = function (layerModel, gmapsMap) {
   var extra = layerModel.get('extra_params');
   GMapsLayerView.call(this, layerModel, this, gmapsMap);
 
   var query = this._getQuery(layerModel);
   torque.GMapsTorqueLayer.call(this, {
-      table: layerModel.get('table_name'),
-      user: layerModel.get('user_name'),
-      column: layerModel.get('property'),
-      blendmode: layerModel.get('torque-blend-mode'),
-      resolution: 1,
-      //TODO: manage time columns
-      countby: 'count(cartodb_id)',
-      sql_api_domain: layerModel.get('sql_api_domain'),
-      sql_api_protocol: layerModel.get('sql_api_protocol'),
-      sql_api_port: layerModel.get('sql_api_port'),
-      tiler_protocol: layerModel.get('tiler_protocol'),
-      tiler_domain: layerModel.get('tiler_domain'),
-      tiler_port: layerModel.get('tiler_port'),
-      maps_api_template: layerModel.get('maps_api_template'),
-      stat_tag: layerModel.get('stat_tag'),
-      animationDuration: layerModel.get('torque-duration'),
-      steps: layerModel.get('torque-steps'),
-      sql: query,
-      visible: layerModel.get('visible'),
-      extra_params: {
-        api_key: extra ? extra.map_key: ''
-      },
-      map: gmapsMap,
-      cartodb_logo: layerModel.get('cartodb_logo'),
-      attribution: layerModel.get('attribution'),
-      cartocss: layerModel.get('cartocss') || layerModel.get('tile_style'),
-      named_map: layerModel.get('named_map'),
-      auth_token: layerModel.get('auth_token'),
-      no_cdn: layerModel.get('no_cdn'),
-      loop: layerModel.get('loop') === false? false: true,
+    table: layerModel.get('table_name'),
+    user: layerModel.get('user_name'),
+    column: layerModel.get('property'),
+    blendmode: layerModel.get('torque-blend-mode'),
+    resolution: 1,
+    // TODO: manage time columns
+    countby: 'count(cartodb_id)',
+    sql_api_domain: layerModel.get('sql_api_domain'),
+    sql_api_protocol: layerModel.get('sql_api_protocol'),
+    sql_api_port: layerModel.get('sql_api_port'),
+    tiler_protocol: layerModel.get('tiler_protocol'),
+    tiler_domain: layerModel.get('tiler_domain'),
+    tiler_port: layerModel.get('tiler_port'),
+    maps_api_template: layerModel.get('maps_api_template'),
+    stat_tag: layerModel.get('stat_tag'),
+    animationDuration: layerModel.get('torque-duration'),
+    steps: layerModel.get('torque-steps'),
+    sql: query,
+    visible: layerModel.get('visible'),
+    extra_params: {
+      api_key: extra ? extra.map_key : ''
+    },
+    map: gmapsMap,
+    attribution: layerModel.get('attribution'),
+    cartocss: layerModel.get('cartocss') || layerModel.get('tile_style'),
+    named_map: layerModel.get('named_map'),
+    auth_token: layerModel.get('auth_token'),
+    no_cdn: layerModel.get('no_cdn'),
+    loop: layerModel.get('loop') === false ? false : true,
   });
 
-  //this.setCartoCSS(this.model.get('tile_style'));
+  // this.setCartoCSS(this.model.get('tile_style'));
   if (layerModel.get('visible')) {
     this.play();
   }
@@ -30397,52 +28767,48 @@ _.extend(
   GMapsLayerView.prototype,
   torque.GMapsTorqueLayer.prototype,
   {
+    _update: function () {
+      var changed = this.model.changedAttributes();
+      if (changed === false) return;
+      changed.tile_style && this.setCartoCSS(this.model.get('tile_style'));
+      if ('query' in changed || 'query_wrapper' in changed) {
+        this.setSQL(this._getQuery(this.model));
+      }
+      if ('visible' in changed)
+        this.model.get('visible') ? this.show() : this.hide();
+    },
 
-  _update: function() {
-    var changed = this.model.changedAttributes();
-    if(changed === false) return;
-    changed.tile_style && this.setCartoCSS(this.model.get('tile_style'));
-    if ('query' in changed || 'query_wrapper' in changed) {
-      this.setSQL(this._getQuery(this.model));
+    _getQuery: function (layerModel) {
+      var query = layerModel.get('query');
+      var qw = layerModel.get('query_wrapper');
+      if (qw) {
+        query = _.template(qw)({ sql: query || ('select * from ' + layerModel.get('table_name')) });
+      }
+      return query;
+    },
+
+    refreshView: function () {
+      // TODO: update screen
+    },
+
+    onAdd: function () {
+      torque.GMapsTorqueLayer.prototype.onAdd.apply(this);
+    },
+
+    onTilesLoaded: function () {
+      // this.trigger('load');
+      Backbone.Events.trigger.call(this, 'load');
+    },
+
+    onTilesLoading: function () {
+      Backbone.Events.trigger.call(this, 'loading');
     }
-    if ('visible' in changed)
-      this.model.get('visible') ? this.show(): this.hide();
-  },
 
-  _getQuery: function(layerModel) {
-    var query = layerModel.get('query');
-    var qw = layerModel.get('query_wrapper');
-    if(qw) {
-      query = _.template(qw)({ sql: query || ('select * from ' + layerModel.get('table_name')) });
-    }
-    return query;
-  },
-
-  refreshView: function() {
-    //TODO: update screen
-  },
-
-  onAdd: function() {
-    torque.GMapsTorqueLayer.prototype.onAdd.apply(this);
-    // Add CartoDB logo
-    if (this.options.cartodb_logo != false)
-      CartoDBLogo.addWadus({ left: 74, bottom:8 }, 2000, this.map.getDiv())
-  },
-
-  onTilesLoaded: function() {
-    //this.trigger('load');
-    Backbone.Events.trigger.call(this, 'load');
-  },
-
-  onTilesLoading: function() {
-    Backbone.Events.trigger.call(this, 'loading');
-  }
-
-});
+  });
 
 module.exports = GMapsTorqueLayerView;
 
-},{"../cartodb-logo":106,"./gmaps-layer-view":116,"backbone":1,"torque.js":22,"underscore":241}],123:[function(require,module,exports){
+},{"./gmaps-layer-view":113,"backbone":1,"torque.js":21,"underscore":248}],120:[function(require,module,exports){
 // helper to get pixel position from latlon
 var Projector = function(map) { this.setMap(map); };
 Projector.prototype = new google.maps.OverlayView();
@@ -30464,7 +28830,7 @@ Projector.prototype.pixelToLatLng = function(point) {
 
 module.exports = Projector;
 
-},{}],124:[function(require,module,exports){
+},{}],121:[function(require,module,exports){
 module.exports = {
   LeafletLayerView: require('./leaflet/leaflet-layer-view'),
 
@@ -30482,19 +28848,17 @@ module.exports = {
   LeafletMapView: require('./leaflet/leaflet-map-view')
 };
 
-},{"./leaflet/leaflet-cartodb-layer-group-view":125,"./leaflet/leaflet-gmaps-tiled-layer-view":126,"./leaflet/leaflet-layer-view":127,"./leaflet/leaflet-map-view":128,"./leaflet/leaflet-path-view":129,"./leaflet/leaflet-plain-layer-view":130,"./leaflet/leaflet-point-view":131,"./leaflet/leaflet-tiled-layer-view":132,"./leaflet/leaflet-wms-layer-view":134}],125:[function(require,module,exports){
+},{"./leaflet/leaflet-cartodb-layer-group-view":122,"./leaflet/leaflet-gmaps-tiled-layer-view":123,"./leaflet/leaflet-layer-view":124,"./leaflet/leaflet-map-view":125,"./leaflet/leaflet-path-view":126,"./leaflet/leaflet-plain-layer-view":127,"./leaflet/leaflet-point-view":128,"./leaflet/leaflet-tiled-layer-view":129,"./leaflet/leaflet-wms-layer-view":131}],122:[function(require,module,exports){
 var wax = require('wax.cartodb.js');
 var L = require('leaflet');
 var config = require('cdb.config');
 var Profiler = require('cdb.core.Profiler');
 var LeafletLayerView = require('./leaflet-layer-view');
 var CartoDBLayerCommon = require('../cartodb-layer-common');
-var CartoDBLogo = require('../cartodb-logo');
 var _ = require('underscore');
 var Backbone = require('backbone');
 
 var LeafletCartoDBLayerGroupView = L.TileLayer.extend({
-
   includes: [
     Backbone.Events,
     LeafletLayerView.prototype,
@@ -30504,25 +28868,25 @@ var LeafletCartoDBLayerGroupView = L.TileLayer.extend({
   interactionClass: wax.leaf.interaction,
 
   options: {
-    opacity:        0.99,
-    attribution:    config.get('cartodb_attributions'),
-    debug:          false,
-    visible:        true,
-    added:          false,
-    tiler_domain:   "cartodb.com",
-    tiler_port:     "80",
-    tiler_protocol: "http",
-    sql_api_domain:     "cartodb.com",
-    sql_api_port:       "80",
-    sql_api_protocol:   "http",
+    opacity: 0.99,
+    attribution: config.get('cartodb_attributions'),
+    debug: false,
+    visible: true,
+    added: false,
+    tiler_domain: 'cartodb.com',
+    tiler_port: '80',
+    tiler_protocol: 'http',
+    sql_api_domain: 'cartodb.com',
+    sql_api_port: '80',
+    sql_api_protocol: 'http',
     maxZoom: 30, // default leaflet zoom level for a layers is 18, raise it
-    extra_params:   {
+    extra_params: {
     },
-    cdn_url:        null,
-    subdomains:     null
+    cdn_url: null,
+    subdomains: null
   },
 
-  initialize: function(layerModel, leafletMap) {
+  initialize: function (layerModel, leafletMap) {
     var self = this;
     var hovers = [];
     this.interaction = [];
@@ -30530,29 +28894,29 @@ var LeafletCartoDBLayerGroupView = L.TileLayer.extend({
     // TODO: Be more explicit about the options that are really used by the L.TileLayer
     var opts = _.clone(layerModel.attributes);
 
-    opts.map =  leafletMap;
+    opts.map = leafletMap;
 
     // preserve the user's callbacks
-    var _featureOver  = opts.featureOver;
-    var _featureOut   = opts.featureOut;
+    var _featureOver = opts.featureOver;
+    var _featureOut = opts.featureOut;
     var _featureClick = opts.featureClick;
 
     var previousEvent;
     var eventTimeout = -1;
 
-    opts.featureOver  = function(e, latlon, pxPos, data, layer) {
+    opts.featureOver = function (e, latlon, pxPos, data, layer) {
       if (!hovers[layer]) {
         self.trigger('layerenter', e, latlon, pxPos, data, layer);
       }
       hovers[layer] = 1;
-      _featureOver  && _featureOver.apply(this, arguments);
-      self.featureOver  && self.featureOver.apply(self, arguments);
+      _featureOver && _featureOver.apply(this, arguments);
+      self.featureOver && self.featureOver.apply(self, arguments);
       // if the event is the same than before just cancel the event
       // firing because there is a layer on top of it
       if (e.timeStamp === previousEvent) {
         clearTimeout(eventTimeout);
       }
-      eventTimeout = setTimeout(function() {
+      eventTimeout = setTimeout(function () {
         self.trigger('mouseover', e, latlon, pxPos, data, layer);
         self.trigger('layermouseover', e, latlon, pxPos, data, layer);
       }, 0);
@@ -30560,21 +28924,21 @@ var LeafletCartoDBLayerGroupView = L.TileLayer.extend({
 
     };
 
-    opts.featureOut  = function(m, layer) {
+    opts.featureOut = function (m, layer) {
       if (hovers[layer]) {
         self.trigger('layermouseout', layer);
       }
       hovers[layer] = 0;
-      if(!_.any(hovers)) {
+      if (!_.any(hovers)) {
         self.trigger('mouseout');
       }
-      _featureOut  && _featureOut.apply(this, arguments);
-      self.featureOut  && self.featureOut.apply(self, arguments);
+      _featureOut && _featureOut.apply(this, arguments);
+      self.featureOut && self.featureOut.apply(self, arguments);
     };
 
-    opts.featureClick  = _.debounce(function() {
-      _featureClick  && _featureClick.apply(self, arguments);
-      self.featureClick  && self.featureClick.apply(self, arguments);
+    opts.featureClick = _.debounce(function () {
+      _featureClick && _featureClick.apply(self, arguments);
+      self.featureClick && self.featureClick.apply(self, arguments);
     }, 10);
 
     // Set options
@@ -30583,8 +28947,8 @@ var LeafletCartoDBLayerGroupView = L.TileLayer.extend({
     this.fire = this.trigger;
 
     // Bind changes to the urls of the model
-    layerModel.bind('change:urls', function() {
-      self.__update(function() {
+    layerModel.bind('change:urls', function () {
+      self.__update(function () {
         // if while the layer was processed in the server is removed
         // it should not be added to the map
         var id = L.stamp(self);
@@ -30605,54 +28969,53 @@ var LeafletCartoDBLayerGroupView = L.TileLayer.extend({
     LeafletLayerView.call(this, layerModel, this, leafletMap);
   },
 
-  featureOver: function(e, latlon, pixelPos, data, layer) {
+  featureOver: function (e, latlon, pixelPos, data, layer) {
     // dont pass leaflet lat/lon
     this.trigger('featureOver', e, [latlon.lat, latlon.lng], pixelPos, data, layer);
   },
 
-  featureOut: function(e, layer) {
+  featureOut: function (e, layer) {
     this.trigger('featureOut', e, layer);
   },
 
-  featureClick: function(e, latlon, pixelPos, data, layer) {
+  featureClick: function (e, latlon, pixelPos, data, layer) {
     // dont pass leaflet lat/lon
     this.trigger('featureClick', e, [latlon.lat, latlon.lng], pixelPos, data, layer);
   },
 
-  error: function(e) {
+  error: function (e) {
     this.trigger('error', e ? (e.errors || e) : 'unknown error');
-    this.model.trigger('error', e?e.errors:'unknown error');
+    this.model.trigger('error', e ? e.errors : 'unknown error');
   },
 
-  ok: function(e) {
+  ok: function (e) {
     this.model.trigger('tileOk');
   },
 
-  addProfiling: function() {
-    this.bind('tileloadstart', function(e) {
+  addProfiling: function () {
+    this.bind('tileloadstart', function (e) {
       var s = this.tileStats || (this.tileStats = {});
       s[e.tile.src] = Profiler.metric('cartodb-js.tile.png.load.time').start();
     });
-    var finish = function(e) {
+    var finish = function (e) {
       var s = this.tileStats && this.tileStats[e.tile.src];
       s && s.end();
     };
     this.bind('tileload', finish);
-    this.bind('tileerror', function(e) {
+    this.bind('tileerror', function (e) {
       Profiler.metric('cartodb-js.tile.png.error').inc();
       finish(e);
     });
   },
 
-
   // overwrite getTileUrl in order to
   // support different tiles subdomains in tilejson way
   getTileUrl: function (tilePoint) {
-    var EMPTY_GIF = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+    var EMPTY_GIF = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
     this._adjustTilePoint(tilePoint);
 
     var tiles = [EMPTY_GIF];
-    if(this.tilejson) {
+    if (this.tilejson) {
       tiles = this.tilejson.tiles;
     }
 
@@ -30669,9 +29032,8 @@ var LeafletCartoDBLayerGroupView = L.TileLayer.extend({
    * Change opacity of the layer
    * @params {Integer} New opacity
    */
-  setOpacity: function(opacity) {
-
-    if (isNaN(opacity) || opacity>1 || opacity<0) {
+  setOpacity: function (opacity) {
+    if (isNaN(opacity) || opacity > 1 || opacity < 0) {
       throw new Error(opacity + ' is not a valid value');
     }
 
@@ -30688,21 +29050,16 @@ var LeafletCartoDBLayerGroupView = L.TileLayer.extend({
    * When Leaflet adds the layer... go!
    * @params {map}
    */
-  onAdd: function(map) {
+  onAdd: function (map) {
     var self = this;
     this.options.map = map;
-
-    // Add cartodb logo
-    if (this.options.cartodb_logo != false) {
-      CartoDBLogo.addWadus({ left:8, bottom:8 }, 0, map._container);
-    }
   },
 
   /**
    * When removes the layer, destroy interactivity if exist
    */
-  onRemove: function(map) {
-    if(this.options.added) {
+  onRemove: function (map) {
+    if (this.options.added) {
       this.options.added = false;
       L.TileLayer.prototype.onRemove.call(this, map);
     }
@@ -30713,14 +29070,14 @@ var LeafletCartoDBLayerGroupView = L.TileLayer.extend({
    * generates a new url for tiles and refresh leaflet layer
    * do not collide with leaflet _update
    */
-  __update: function(done) {
+  __update: function (done) {
     var self = this;
     this.fire('updated');
     this.fire('loading');
     var map = this.options.map;
 
     var tilejson = self.model.get('urls');
-    if(tilejson) {
+    if (tilejson) {
       self.tilejson = tilejson;
       self.setUrl(self.tilejson.tiles[0]);
       // manage interaction
@@ -30733,7 +29090,7 @@ var LeafletCartoDBLayerGroupView = L.TileLayer.extend({
     }
   },
 
-  _checkLayer: function() {
+  _checkLayer: function () {
     if (!this.options.added) {
       throw new Error('the layer is not still added to the map');
     }
@@ -30743,17 +29100,11 @@ var LeafletCartoDBLayerGroupView = L.TileLayer.extend({
    * Set a new layer attribution
    * @params {String} New attribution string
    */
-  setAttribution: function(attribution) {
+  setAttribution: function (attribution) {
     this._checkLayer();
-
-    // Remove old one
-    this.map.attributionControl.removeAttribution(this.options.attribution);
 
     // Set new attribution in the options
     this.options.attribution = attribution;
-
-    // Change text
-    this.map.attributionControl.addAttribution(this.options.attribution);
 
     // Change in the layer
     this.options.attribution = this.options.attribution;
@@ -30767,8 +29118,8 @@ var LeafletCartoDBLayerGroupView = L.TileLayer.extend({
    * @param {Object} Layer map object
    * @param {Event} Wax event
    */
-  _manageOnEvents: function(map, o) {
-    var layer_point = this._findPos(map,o);
+  _manageOnEvents: function (map, o) {
+    var layer_point = this._findPos(map, o);
 
     if (!layer_point || isNaN(layer_point.x) || isNaN(layer_point.y)) {
       // If layer_point doesn't contain x and y,
@@ -30783,7 +29134,7 @@ var LeafletCartoDBLayerGroupView = L.TileLayer.extend({
     switch (event_type) {
       case 'mousemove':
         if (this.options.featureOver) {
-          return this.options.featureOver(o.e,latlng, screenPos, o.data, o.layer);
+          return this.options.featureOver(o.e, latlng, screenPos, o.data, o.layer);
         }
         break;
 
@@ -30794,7 +29145,7 @@ var LeafletCartoDBLayerGroupView = L.TileLayer.extend({
       case 'pointerup':
       case 'pointermove':
         if (this.options.featureClick) {
-          this.options.featureClick(o.e,latlng, screenPos, o.data, o.layer);
+          this.options.featureClick(o.e, latlng, screenPos, o.data, o.layer);
         }
         break;
       default:
@@ -30805,7 +29156,7 @@ var LeafletCartoDBLayerGroupView = L.TileLayer.extend({
   /**
    * Bind off event for wax interaction
    */
-  _manageOffEvents: function(map, o) {
+  _manageOffEvents: function (map, o) {
     if (this.options.featureOut) {
       return this.options.featureOut && this.options.featureOut(o.e, o.layer);
     }
@@ -30844,8 +29195,8 @@ var LeafletCartoDBLayerGroupView = L.TileLayer.extend({
       var scrollX = (window.scrollX || window.pageXOffset);
       var scrollY = (window.scrollY || window.pageYOffset);
       var point = this._newPoint(
-        (o.e.clientX? o.e.clientX: x) - rect.left - obj.clientLeft - scrollX,
-        (o.e.clientY? o.e.clientY: y) - rect.top - obj.clientTop - scrollY);
+        (o.e.clientX ? o.e.clientX : x) - rect.left - obj.clientLeft - scrollX,
+        (o.e.clientY ? o.e.clientY : y) - rect.top - obj.clientTop - scrollY);
     }
     return map.containerPointToLayerPoint(point);
   },
@@ -30853,17 +29204,16 @@ var LeafletCartoDBLayerGroupView = L.TileLayer.extend({
   /**
    * Creates an instance of a Leaflet Point
    */
-  _newPoint: function(x, y) {
+  _newPoint: function (x, y) {
     return new L.Point(x, y);
   },
 
-  _modelUpdated: function() {
-  }
+  _modelUpdated: function () {}
 });
 
 module.exports = LeafletCartoDBLayerGroupView;
 
-},{"../cartodb-layer-common":105,"../cartodb-logo":106,"./leaflet-layer-view":127,"backbone":1,"cdb.config":87,"cdb.core.Profiler":99,"leaflet":10,"underscore":241,"wax.cartodb.js":216}],126:[function(require,module,exports){
+},{"../cartodb-layer-common":103,"./leaflet-layer-view":124,"backbone":1,"cdb.config":86,"cdb.core.Profiler":97,"leaflet":9,"underscore":248,"wax.cartodb.js":223}],123:[function(require,module,exports){
 var _ = require('underscore');
 var L = require('leaflet');
 var LeafletLayerView = require('./leaflet-layer-view');
@@ -30924,7 +29274,7 @@ _.extend(LeafletGmapsTiledLayerView.prototype, LeafletLayerView.prototype, {
 
 module.exports = LeafletGmapsTiledLayerView;
 
-},{"./leaflet-layer-view":127,"leaflet":10,"underscore":241}],127:[function(require,module,exports){
+},{"./leaflet-layer-view":124,"leaflet":9,"underscore":248}],124:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 
@@ -30971,7 +29321,7 @@ _.extend(LeafletLayerView.prototype, {
 
 module.exports = LeafletLayerView;
 
-},{"backbone":1,"underscore":241}],128:[function(require,module,exports){
+},{"backbone":1,"underscore":248}],125:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var L = require('leaflet');
@@ -31007,14 +29357,13 @@ var LeafletMapView = MapView.extend({
       center: new L.LatLng(center[0], center[1]),
       zoom: this.map.get('zoom'),
       minZoom: this.map.get('minZoom'),
-      maxZoom: this.map.get('maxZoom')
+      maxZoom: this.map.get('maxZoom'),
+      attributionControl: false
     };
 
     if (!this.options.map_object) {
 
       this.map_leaflet = new L.Map(this.el, mapConfig);
-      // remove the "powered by leaflet"
-      this.map_leaflet.attributionControl.setPrefix('');
       if (this.map.get("scrollwheel") == false) this.map_leaflet.scrollWheelZoom.disable();
       if (this.map.get("keyboard") == false) this.map_leaflet.keyboard.disable();
       if (this.map.get("drag") == false) {
@@ -31047,7 +29396,6 @@ var LeafletMapView = MapView.extend({
 
     this._bindModel();
     this._addLayers();
-    this.setAttribution();
 
     this.map_leaflet.on('layeradd', function(lyr) {
       this.trigger('layeradd', lyr, self);
@@ -31162,7 +29510,6 @@ var LeafletMapView = MapView.extend({
       delete this.layers[layer];
     }
 
-    // do not change by elder
     View.prototype.clean.call(this);
   },
 
@@ -31256,38 +29603,6 @@ var LeafletMapView = MapView.extend({
       [sw.lat, sw.lng],
       [ne.lat, ne.lng]
     ];
-  },
-
-  setAttribution: function() {
-    var attributionControl = this._getAttributionControl();
-
-    // Save the attributions that were in the map the first time a new layer
-    // is added and the attributions of the map have changed
-    if (!this._originalAttributions) {
-      this._originalAttributions = Object.keys(attributionControl._attributions);
-    }
-
-    // Clear the attributions and re-add the original and custom attributions in
-    // the order we want
-    attributionControl._attributions = {};
-    var newAttributions = this._originalAttributions.concat(this.map.get('attribution'));
-    _.each(newAttributions, function(attribution) {
-      attributionControl.addAttribution(attribution);
-    });
-  },
-
-  _getAttributionControl: function() {
-    if (this._attributionControl) {
-      return this._attributionControl;
-    }
-
-    this._attributionControl = this.map_leaflet.attributionControl;
-    if (!this._attributionControl) {
-      this._attributionControl = L.control.attribution({ prefix: '' });
-      this.map_leaflet.addControl(this._attributionControl);
-    }
-
-    return this._attributionControl;
   },
 
   getSize: function() {
@@ -31400,7 +29715,7 @@ L.Icon.Default.imagePath = (function () {
 
 module.exports = LeafletMapView;
 
-},{"../../core/view":104,"../map-view":135,"./leaflet-cartodb-layer-group-view":125,"./leaflet-gmaps-tiled-layer-view":126,"./leaflet-path-view":129,"./leaflet-plain-layer-view":130,"./leaflet-point-view":131,"./leaflet-tiled-layer-view":132,"./leaflet-wms-layer-view":134,"cdb":89,"cdb.log":90,"jquery":218,"leaflet":10,"underscore":241}],129:[function(require,module,exports){
+},{"../../core/view":102,"../map-view":132,"./leaflet-cartodb-layer-group-view":122,"./leaflet-gmaps-tiled-layer-view":123,"./leaflet-path-view":126,"./leaflet-plain-layer-view":127,"./leaflet-point-view":128,"./leaflet-tiled-layer-view":129,"./leaflet-wms-layer-view":131,"cdb":88,"cdb.log":89,"jquery":225,"leaflet":9,"underscore":248}],126:[function(require,module,exports){
  var _ = require('underscore');
  var L = require('leaflet');
  var GeometryView = require('../geometry-view');
@@ -31469,7 +29784,7 @@ PathView.prototype.edit = function(enable) {
 
 module.exports = PathView;
 
-},{"../geometry-view":109,"leaflet":10,"underscore":241}],130:[function(require,module,exports){
+},{"../geometry-view":106,"leaflet":9,"underscore":248}],127:[function(require,module,exports){
 var _ = require('underscore');
 var L = require('leaflet');
 var LeafletLayerView = require('./leaflet-layer-view');
@@ -31518,7 +29833,7 @@ _.extend(LeafletPlainLayerView.prototype, LeafletLayerView.prototype);
 
 module.exports = LeafletPlainLayerView;
 
-},{"./leaflet-layer-view":127,"leaflet":10,"underscore":241}],131:[function(require,module,exports){
+},{"./leaflet-layer-view":124,"leaflet":9,"underscore":248}],128:[function(require,module,exports){
  var L = require('leaflet');
  var config = require('cdb.config');
  var GeometryView = require('../geometry-view');
@@ -31599,7 +29914,7 @@ PointView.prototype._eventHandler = function(evtType) {
 
 module.exports = PointView;
 
-},{"../geometry-view":109,"cdb.config":87,"leaflet":10}],132:[function(require,module,exports){
+},{"../geometry-view":106,"cdb.config":86,"leaflet":9}],129:[function(require,module,exports){
 var _ = require('underscore');
 var L = require('leaflet');
 var LeafletLayerView = require('./leaflet-layer-view');
@@ -31636,11 +29951,10 @@ _.extend(LeafletTiledLayerView.prototype, LeafletLayerView.prototype, {
 
 module.exports = LeafletTiledLayerView;
 
-},{"./leaflet-layer-view":127,"leaflet":10,"underscore":241}],133:[function(require,module,exports){
+},{"./leaflet-layer-view":124,"leaflet":9,"underscore":248}],130:[function(require,module,exports){
 var torque = require('torque.js');
 var _ = require('underscore');
 var util = require('cdb.core.util');
-var CartoDBLogo = require('../cartodb-logo');
 var LeafletLayerView = require('./leaflet-layer-view');
 
 /**
@@ -31648,8 +29962,7 @@ var LeafletLayerView = require('./leaflet-layer-view');
  * Assumes torque.js to have been loaded
  */
 var LeafletTorqueLayer = L.TorqueLayer.extend({
-
-  initialize: function(layerModel, leafletMap) {
+  initialize: function (layerModel, leafletMap) {
     var extra = layerModel.get('extra_params');
 
     var query = this._getQuery(layerModel);
@@ -31661,7 +29974,7 @@ var LeafletTorqueLayer = L.TorqueLayer.extend({
       column: layerModel.get('property'),
       blendmode: layerModel.get('torque-blend-mode'),
       resolution: 1,
-      //TODO: manage time columns
+      // TODO: manage time columns
       countby: 'count(cartodb_id)',
       sql_api_domain: layerModel.get('sql_api_domain'),
       sql_api_protocol: layerModel.get('sql_api_protocol'),
@@ -31676,17 +29989,16 @@ var LeafletTorqueLayer = L.TorqueLayer.extend({
       sql: query,
       visible: layerModel.get('visible'),
       extra_params: {
-        api_key: extra ? extra.map_key: ''
+        api_key: extra ? extra.map_key : ''
       },
-      cartodb_logo: layerModel.get('cartodb_logo'),
       attribution: layerModel.get('attribution'),
       cartocss: layerModel.get('cartocss') || layerModel.get('tile_style'),
       named_map: layerModel.get('named_map'),
       auth_token: layerModel.get('auth_token'),
       no_cdn: layerModel.get('no_cdn'),
       dynamic_cdn: layerModel.get('dynamic_cdn'),
-      loop: layerModel.get('loop') === false? false: true,
-      instanciateCallback: function() {
+      loop: layerModel.get('loop') === false ? false : true,
+      instanciateCallback: function () {
         var cartocss = layerModel.get('cartocss') || layerModel.get('tile_style');
 
         return '_cdbct_' + util.uniqueCallbackName(cartocss + query);
@@ -31698,41 +30010,34 @@ var LeafletTorqueLayer = L.TorqueLayer.extend({
     // match leaflet events with backbone events
     this.fire = this.trigger;
 
-    //this.setCartoCSS(layerModel.get('tile_style'));
+    // this.setCartoCSS(layerModel.get('tile_style'));
     if (layerModel.get('visible')) {
       this.play();
     }
 
-    this.bind('tilesLoaded', function() {
+    this.bind('tilesLoaded', function () {
       this.trigger('load');
     }, this);
 
-    this.bind('tilesLoading', function() {
+    this.bind('tilesLoading', function () {
       this.trigger('loading');
     }, this);
 
     layerModel.initForTorqueLayerView(this);
   },
 
-  onAdd: function(map) {
-    L.TorqueLayer.prototype.onAdd.apply(this, [map]);
-    // Add CartoDB logo
-    if (this.options.cartodb_logo != false)
-      CartoDBLogo.addWadus({ left:8, bottom:8 }, 0, map._container)
-  },
-
-  _getQuery: function(layerModel) {
+  _getQuery: function (layerModel) {
     var query = layerModel.get('query');
     var qw = layerModel.get('query_wrapper');
-    if(qw) {
+    if (qw) {
       query = _.template(qw)({ sql: query || ('select * from ' + layerModel.get('table_name')) });
     }
     return query;
   },
 
-  _modelUpdated: function(model) {
+  _modelUpdated: function (model) {
     var changed = this.model.changedAttributes();
-    if(changed === false) return;
+    if (changed === false) return;
     /*
     changed.tile_style && this.setCartoCSS(this.model.get('tile_style'));
     if ('query' in changed || 'query_wrapper' in changed) {
@@ -31741,7 +30046,7 @@ var LeafletTorqueLayer = L.TorqueLayer.extend({
     */
 
     if ('visible' in changed)
-      this.model.get('visible') ? this.show(): this.hide();
+      this.model.get('visible') ? this.show() : this.hide();
 
     if ('urls' in changed) {
       // REAL HACK
@@ -31756,7 +30061,7 @@ _.extend(LeafletTorqueLayer.prototype, LeafletLayerView.prototype);
 
 module.exports = LeafletTorqueLayer;
 
-},{"../cartodb-logo":106,"./leaflet-layer-view":127,"cdb.core.util":103,"torque.js":22,"underscore":241}],134:[function(require,module,exports){
+},{"./leaflet-layer-view":124,"cdb.core.util":101,"torque.js":21,"underscore":248}],131:[function(require,module,exports){
 var _ = require('underscore');
 var L = require('leaflet');
 var LeafletLayerView = require('./leaflet-layer-view.js');
@@ -31792,7 +30097,7 @@ _.extend(LeafletWMSLayerView.prototype, LeafletLayerView.prototype, {
 
 module.exports = LeafletWMSLayerView;
 
-},{"./leaflet-layer-view.js":127,"leaflet":10,"underscore":241}],135:[function(require,module,exports){
+},{"./leaflet-layer-view.js":124,"leaflet":9,"underscore":248}],132:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cdb'); // cdb.geo.LeafletMapView, cdb.geo.GoogleMapsMapView
 var log = require('cdb.log');
@@ -32010,7 +30315,7 @@ var MapView = View.extend({
 
 module.exports = MapView;
 
-},{"../core/view":104,"./ui/infowindow":153,"cdb":89,"cdb.log":90,"underscore":241}],136:[function(require,module,exports){
+},{"../core/view":102,"./ui/infowindow":152,"cdb":88,"cdb.log":89,"underscore":248}],133:[function(require,module,exports){
 var _ = require('underscore');
 var L = require('leaflet');
 var Backbone = require('backbone');
@@ -32318,7 +30623,7 @@ var Map = Model.extend({
 
 module.exports = Map;
 
-},{"../core/model":98,"../core/sanitize":100,"./map/layers":142,"backbone":1,"cdb.config":87,"cdb.log":90,"leaflet":10,"underscore":241}],137:[function(require,module,exports){
+},{"../core/model":96,"../core/sanitize":98,"./map/layers":139,"backbone":1,"cdb.config":86,"cdb.log":89,"leaflet":9,"underscore":248}],134:[function(require,module,exports){
 var CartoDBLayerGroupBase = require('./cartodb-layer-group-base');
 
 var CartoDBLayerGroupAnonymous = CartoDBLayerGroupBase.extend({
@@ -32350,7 +30655,7 @@ var CartoDBLayerGroupAnonymous = CartoDBLayerGroupBase.extend({
 
 module.exports = CartoDBLayerGroupAnonymous;
 
-},{"./cartodb-layer-group-base":138}],138:[function(require,module,exports){
+},{"./cartodb-layer-group-base":135}],135:[function(require,module,exports){
 var $ = require('jquery');
 var Backbone = require('backbone');
 var MapLayer = require('./map-layer');
@@ -32431,7 +30736,7 @@ var CartoDBLayerGroupBase = MapLayer.extend({
 
 module.exports = CartoDBLayerGroupBase;
 
-},{"./layers":142,"./map-layer":143,"backbone":1,"cdb.core.util":103,"jquery":218}],139:[function(require,module,exports){
+},{"./layers":139,"./map-layer":140,"backbone":1,"cdb.core.util":101,"jquery":225}],136:[function(require,module,exports){
 var CartoDBLayerGroupBase = require('./cartodb-layer-group-base');
 
 var CartoDBLayerGroupNamed = CartoDBLayerGroupBase.extend({
@@ -32461,7 +30766,7 @@ var CartoDBLayerGroupNamed = CartoDBLayerGroupBase.extend({
 
 module.exports = CartoDBLayerGroupNamed;
 
-},{"./cartodb-layer-group-base":138}],140:[function(require,module,exports){
+},{"./cartodb-layer-group-base":135}],137:[function(require,module,exports){
 var _ = require('underscore');
 var config = require('cdb.config');
 var MapLayer = require('./map-layer');
@@ -32569,7 +30874,7 @@ var CartoDBLayer = MapLayer.extend({
 
 module.exports = CartoDBLayer;
 
-},{"./map-layer":143,"cdb.config":87,"underscore":241}],141:[function(require,module,exports){
+},{"./map-layer":140,"cdb.config":86,"underscore":248}],138:[function(require,module,exports){
 var MapLayer = require('./map-layer');
 
 var GMapsBaseLayer = MapLayer.extend({
@@ -32583,7 +30888,7 @@ var GMapsBaseLayer = MapLayer.extend({
 
 module.exports = GMapsBaseLayer;
 
-},{"./map-layer":143}],142:[function(require,module,exports){
+},{"./map-layer":140}],139:[function(require,module,exports){
 var Backbone = require('backbone');
 var MapLayer = require('./map-layer');
 
@@ -32642,7 +30947,7 @@ var Layers = Backbone.Collection.extend({
 
 module.exports = Layers;
 
-},{"./map-layer":143,"backbone":1}],143:[function(require,module,exports){
+},{"./map-layer":140,"backbone":1}],140:[function(require,module,exports){
 var _ = require('underscore');
 var log = require('cdb.log');
 
@@ -32729,7 +31034,7 @@ var MapLayer = Model.extend({
 
 module.exports = MapLayer;
 
-},{"../../core/model":98,"cdb":89,"cdb.log":90,"underscore":241}],144:[function(require,module,exports){
+},{"../../core/model":96,"cdb":88,"cdb.log":89,"underscore":248}],141:[function(require,module,exports){
 var MapLayer = require('./map-layer');
 
 /**
@@ -32747,7 +31052,7 @@ var PlainLayer = MapLayer.extend({
 
 module.exports = PlainLayer;
 
-},{"./map-layer":143}],145:[function(require,module,exports){
+},{"./map-layer":140}],142:[function(require,module,exports){
 var MapLayer = require('./map-layer');
 
 var TileLayer = MapLayer.extend({
@@ -32757,7 +31062,7 @@ var TileLayer = MapLayer.extend({
 
 module.exports = TileLayer
 
-},{"./map-layer":143}],146:[function(require,module,exports){
+},{"./map-layer":140}],143:[function(require,module,exports){
 var _ = require('underscore');
 var log = require('cdb.log');
 var MapLayer = require('./map-layer');
@@ -32910,7 +31215,7 @@ var TorqueLayer = MapLayer.extend({
 
 module.exports = TorqueLayer;
 
-},{"./map-layer":143,"cdb.log":90,"underscore":241}],147:[function(require,module,exports){
+},{"./map-layer":140,"cdb.log":89,"underscore":248}],144:[function(require,module,exports){
 var MapLayer = require('./map-layer');
 
 /**
@@ -32930,7 +31235,7 @@ var WMSLayer = MapLayer.extend({
 
 module.exports = WMSLayer;
 
-},{"./map-layer":143}],148:[function(require,module,exports){
+},{"./map-layer":140}],145:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var Model = require('../../core/model');
@@ -33292,7 +31597,96 @@ var Annotation = View.extend({
 
 module.exports = Annotation;
 
-},{"../../core/model":98,"../../core/sanitize":100,"../../core/template":102,"../../core/view":104,"jquery":218,"underscore":241}],149:[function(require,module,exports){
+},{"../../core/model":96,"../../core/sanitize":98,"../../core/template":100,"../../core/view":102,"jquery":225,"underscore":248}],146:[function(require,module,exports){
+var _ = require('underscore');
+module.exports = function(obj){
+var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
+with(obj||{}){
+__p+='<button type="button" class="CDB-Attribution-button js-button is-visible">?</button> <div class="CDB-Attribution-text js-text">'+
+((__t=( attributions ))==null?'':__t)+
+'</div>';
+}
+return __p;
+};
+
+},{"underscore":248}],147:[function(require,module,exports){
+var $ = require('jquery');
+var _ = require('underscore');
+var View = require('../../../core/view');
+var template = require('./attribution_template.tpl');
+var Sanitize = require('../../../core/sanitize');
+
+/**
+ *  Attribution overlay
+ *
+ */
+
+var Attribution = View.extend({
+  className: 'CDB-Attribution',
+
+  events: {
+    'click .js-button': '_showAttributions',
+    'dblclick': 'killEvent'
+  },
+
+  initialize: function () {
+    this.map = this.options.map;
+    _.bindAll(this, '_onKeyDown', '_hideAttributions');
+  },
+
+  render: function () {
+    this._disableBinds();
+    var attributions = _.compact(this.map.get('attribution')).join(', ');
+    var isGMaps = this.map.get('provider') !== 'leaflet';
+    this.$el.html(
+      template({
+        attributions: Sanitize.html(attributions)
+      })
+    );
+    this.$el.toggleClass('CDB-Attribution--gmaps', !!isGMaps);
+    return this;
+  },
+
+  _initBinds: function () {
+    $(document).bind('keydown', this._onKeyDown);
+    $(document).bind('click', this._hideAttributions);
+    this.map.bind('change:attribution', this.render, this);
+  },
+
+  _disableBinds: function () {
+    $(document).unbind('keydown', this._onKeyDown);
+    $(document).unbind('click', this._hideAttributions);
+    this.map.unbind(null, null, this);
+  },
+
+  _onKeyDown: function (e) {
+    if (e && e.keyCode === 27) {
+      this._hideAttributions();
+    }
+  },
+
+  _showAttributions: function (e) {
+    this.killEvent(e);
+    this.$('.js-text').addClass('is-visible');
+    this.$('.js-button').removeClass('is-visible');
+    this._initBinds();
+  },
+
+  _hideAttributions: function () {
+    this.$('.js-text').removeClass('is-visible');
+    this.$('.js-button').addClass('is-visible');
+    this._disableBinds();
+  },
+
+  clean: function () {
+    this._disableBinds();
+    View.prototype.clean.call(this);
+  }
+});
+
+module.exports = Attribution;
+
+},{"../../../core/sanitize":98,"../../../core/view":102,"./attribution_template.tpl":146,"jquery":225,"underscore":248}],148:[function(require,module,exports){
 var _ = require('underscore');
 var sanitize = require('../../core/sanitize');
 var View = require('../../core/view');
@@ -33351,7 +31745,7 @@ var Header = View.extend({
 
 module.exports = Header;
 
-},{"../../core/sanitize":100,"../../core/view":104,"underscore":241}],150:[function(require,module,exports){
+},{"../../core/sanitize":98,"../../core/view":102,"underscore":248}],149:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var sanitize = require('../../core/sanitize');
@@ -33441,7 +31835,7 @@ module.exports = Text.extend({
 
 });
 
-},{"../../core/sanitize":100,"./text":188,"jquery":218,"underscore":241}],151:[function(require,module,exports){
+},{"../../core/sanitize":98,"./text":189,"jquery":225,"underscore":248}],150:[function(require,module,exports){
 var _ = require('underscore');
 var View = require('../../core/view');
 var Template = require('../../core/template');
@@ -33519,7 +31913,7 @@ var InfoBox = View.extend({
 
 module.exports = InfoBox;
 
-},{"../../core/template":102,"../../core/view":104,"underscore":241}],152:[function(require,module,exports){
+},{"../../core/template":100,"../../core/view":102,"underscore":248}],151:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var Backbone = require('backbone');
@@ -33729,11 +32123,11 @@ var InfowindowModel = Backbone.Model.extend({
 
 module.exports = InfowindowModel;
 
-},{"backbone":1,"jquery":218,"underscore":241}],153:[function(require,module,exports){
+},{"backbone":1,"jquery":225,"underscore":248}],152:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
-var ClipPath = require('clip-path-polygon');
 var Ps = require('perfect-scrollbar');
+require('clip-path');
 var log = require('cdb.log');
 var templates = require('cdb.templates');
 var sanitize = require('../../core/sanitize');
@@ -33753,33 +32147,33 @@ var util = require('../../core/util');
  */
 
 var Infowindow = View.extend({
-
   options: {
     imageTransitionSpeed: 300,
+    hookMargin: 24,
     hookHeight: 16
   },
 
-  className: "CDB-infowindow-wrapper",
+  className: 'CDB-infowindow-wrapper',
 
   events: {
     // Close bindings
-    "click .close":         "_closeInfowindow",
-    "touchstart .close":    "_closeInfowindow",
-    "MSPointerDown .close": "_closeInfowindow",
+    'click .close': '_closeInfowindow',
+    'touchstart .close': '_closeInfowindow',
+    'MSPointerDown .close': '_closeInfowindow',
     // Rest infowindow bindings
-    "dragstart":            "_checkOrigin",
-    "mousedown":            "_checkOrigin",
-    "touchstart":           "_checkOrigin",
-    "MSPointerDown":        "_checkOrigin",
-    "dblclick":             "_stopPropagation",
-    "DOMMouseScroll":       "_stopBubbling",
-    'MozMousePixelScroll':  "_stopBubbling",
-    "mousewheel":           "_stopBubbling",
-    "dbclick":              "_stopPropagation",
-    "click":                "_stopPropagation"
+    'dragstart': '_checkOrigin',
+    'mousedown': '_checkOrigin',
+    'touchstart': '_checkOrigin',
+    'MSPointerDown': '_checkOrigin',
+    'dblclick': '_stopPropagation',
+    'DOMMouseScroll': '_stopBubbling',
+    'MozMousePixelScroll': '_stopBubbling',
+    'mousewheel': '_stopBubbling',
+    'dbclick': '_stopPropagation',
+    'click': '_stopPropagation'
   },
 
-  initialize: function(){
+  initialize: function () {
     this.mapView = this.options.mapView;
 
     // Set template if it is defined in options
@@ -33801,16 +32195,13 @@ var Infowindow = View.extend({
     this.$el.hide();
   },
 
-
   /**
    *  Render infowindow content
    */
-  render: function() {
-
-    if(this.template) {
-
+  render: function () {
+    if (this.template) {
       // Clone fields and template name
-      var fields = _.map(this.model.attributes.content.fields, function(field){
+      var fields = _.map(this.model.attributes.content.fields, function (field) {
         return _.clone(field);
       });
 
@@ -33829,7 +32220,7 @@ var Infowindow = View.extend({
       // custom infowindows and CartoDB infowindows.
       var values = {};
 
-      _.each(this.model.get('content').fields, function(pair) {
+      _.each(this.model.get('content').fields, function (pair) {
         values[pair.title] = pair.value;
       });
 
@@ -33868,8 +32259,7 @@ var Infowindow = View.extend({
     return this;
   },
 
-  _initBinds: function() {
-
+  _initBinds: function () {
     _.bindAll(this, '_onKeyUp');
 
     this.model.bind('change:content change:alternative_names change:width change:maxHeight', this.render, this);
@@ -33880,11 +32270,11 @@ var Infowindow = View.extend({
 
     this.mapView.map.bind('change', this._updatePosition, this);
 
-    this.mapView.bind('zoomstart', function(){
+    this.mapView.bind('zoomstart', function () {
       this.hide(true);
     }, this);
 
-    this.mapView.bind('zoomend', function() {
+    this.mapView.bind('zoomend', function () {
       this.show(true);
     }, this);
 
@@ -33892,14 +32282,14 @@ var Infowindow = View.extend({
     this.add_related_model(this.mapView);
   },
 
-  _onKeyUp: function(e) {
+  _onKeyUp: function (e) {
     if (e && e.keyCode === 27) {
       this._closeInfowindow();
     }
   },
 
-  _renderScroll: function() {
-    if (this.$(".has-scroll").length === 0) return;
+  _renderScroll: function () {
+    if (this.$('.has-scroll').length === 0) return;
 
     Ps.initialize(this.el.querySelector('.js-content'), {
       wheelSpeed: 2,
@@ -33908,14 +32298,14 @@ var Infowindow = View.extend({
     });
   },
 
-  _getModelTemplate: function() {
-    return this.model.get("template_name");
+  _getModelTemplate: function () {
+    return this.model.get('template_name');
   },
 
   /**
    *  Change template of the infowindow
    */
-  _setTemplate: function() {
+  _setTemplate: function () {
     if (this.model.get('template_name')) {
       this.template = templates.getTemplate(this._getModelTemplate());
       this.render();
@@ -33925,12 +32315,10 @@ var Infowindow = View.extend({
   /**
    *  Compile template of the infowindow
    */
-  _compileTemplate: function() {
-    var template = this.model.get('template') ?
-      this.model.get('template') :
-      templates.getTemplate(this._getModelTemplate());
+  _compileTemplate: function () {
+    var template = this.model.get('template') ? this.model.get('template') : templates.getTemplate(this._getModelTemplate());
 
-    if(typeof(template) !== 'function') {
+    if (typeof (template) !== 'function') {
       this.template = new Template({
         template: template,
         type: this.model.get('template_type') || 'mustache'
@@ -33945,11 +32333,11 @@ var Infowindow = View.extend({
   /**
    *  Check event origin
    */
-  _checkOrigin: function(ev) {
+  _checkOrigin: function (ev) {
     // If the mouse down come from jspVerticalBar
     // dont stop the propagation, but if the event
     // is a touchstart, stop the propagation
-    var come_from_scroll = (($(ev.target).closest(".jspVerticalBar").length > 0) && (ev.type != "touchstart"));
+    var come_from_scroll = (($(ev.target).closest('.jspVerticalBar').length > 0) && (ev.type !== 'touchstart'));
 
     if (!come_from_scroll) {
       ev.stopPropagation();
@@ -33959,11 +32347,11 @@ var Infowindow = View.extend({
   /**
    *  Convert values to string unless value is NULL
    */
-  _fieldsToString: function(fields, template_name) {
+  _fieldsToString: function (fields, template_name) {
     var fields_sanitized = [];
     if (fields && fields.length > 0) {
       var self = this;
-      fields_sanitized = _.map(fields, function(field,i) {
+      fields_sanitized = _.map(fields, function (field, i) {
         // Return whole attribute sanitized
         return self._sanitizeField(field, template_name, field.index || i);
       });
@@ -33979,13 +32367,13 @@ var Infowindow = View.extend({
    *  - If the value is a valid url, let's make it a link.
    *  - More to come...
    */
-  _sanitizeField: function(attr, template_name, pos) {
+  _sanitizeField: function (attr, template_name, pos) {
     // Check null or undefined :| and set both to empty == ''
     if (attr.value === null || attr.value === undefined) {
       attr.value = '';
     }
 
-    //Get the alternative title
+    // Get the alternative title
     var alternative_name = this.model.getAlternativeName(attr.title);
 
     if (attr.title && alternative_name) {
@@ -33993,7 +32381,7 @@ var Infowindow = View.extend({
       attr.title = alternative_name;
     } else if (attr.title) {
       // Remove '_' character from titles
-      attr.title = attr.title.replace(/_/g,' ');
+      attr.title = attr.title.replace(/_/g, ' ');
     }
 
     // Cast all values to string due to problems with Mustache 0 number rendering
@@ -34001,17 +32389,17 @@ var Infowindow = View.extend({
 
     // If it is index 0, not any field type, header template type and length bigger than 30... cut off the text!
     if (!attr.type && pos === 0 && attr.value.length > 35 && template_name && template_name.search('_header_') !== -1) {
-      new_value = attr.value.substr(0,32) + "...";
+      new_value = attr.value.substr(0, 32) + '...';
     }
 
     // If it is index 1, not any field type, header image template type and length bigger than 30... cut off the text!
-    if (!attr.type && pos==1 && attr.value.length > 35 && template_name && template_name.search('_header_with_image') != -1) {
-      new_value = attr.value.substr(0,32) + "...";
+    if (!attr.type && pos === 1 && attr.value.length > 35 && template_name && template_name.search('_header_with_image') !== -1) {
+      new_value = attr.value.substr(0, 32) + '...';
     }
 
     // Is it the value a link?
     if (this._isValidURL(attr.value)) {
-      new_value = "<a href='" + attr.value + "' target='_blank' class='CDB-infowindow-link'>" + new_value + "</a>";
+      new_value = "<a href='" + attr.value + "' target='_blank' class='CDB-infowindow-link'>" + new_value + '</a>';
     }
 
     // If it is index 0, not any field type, header image template type... don't cut off the text or add any link!!
@@ -34025,23 +32413,23 @@ var Infowindow = View.extend({
     return attr;
   },
 
-  isLoadingData: function() {
-    var content = this.model.get("content");
-    return content.fields && content.fields.length == 1 && content.fields[0].type === "loading";
+  isLoadingData: function () {
+    var content = this.model.get('content');
+    return content.fields && content.fields.length === 1 && content.fields[0].type === 'loading';
   },
 
   /**
    *  Does header contain cover?
    */
-  _containsCover: function() {
-    return this.$(".js-infowindow").attr("data-cover") ? true : false;
+  _containsCover: function () {
+    return !!this.$('.js-infowindow').attr('data-cover');
   },
 
   /**
    *  Get cover URL
    */
-  _getCoverURL: function() {
-    var content = this.model.get("content");
+  _getCoverURL: function () {
+    var content = this.model.get('content');
 
     if (content && content.fields && content.fields.length > 0) {
       return (content.fields[0].value || '').toString();
@@ -34050,21 +32438,20 @@ var Infowindow = View.extend({
     return false;
   },
 
-  _loadImageHook: function(url) {
-    var $hook = this.$(".js-hook");
-    var $cover = this.$(".js-cover");
+  _loadImageHook: function (width, height, y, url) {
+    var $hook = this.$('.js-hook');
+    var $cover = this.$('.js-cover');
 
     if ($hook) {
-      $hookImage = $("<img />").attr("src", url);
+      var $hookImage = $('<img />').attr('src', url);
       $hook.append($hookImage);
 
-      var hookPoints = [[0, 0], [0, 100], [100, 0]];
+      var $img = $hook.find('img');
 
-      $hook.clipPath(hookPoints, {
-        isPercentage: true
-      });
+      $img.attr('data-clipPath', 'M0,0 L0,16 L24,0 L0,0 Z');
+      $img.clipPath(width, height, -this.options.hookMargin, y);
 
-      $hookImage.load(function(){
+      $hookImage.load(function () {
         $hookImage.css({
           marginTop: -$cover.height(),
           width: $cover.width()
@@ -34076,16 +32463,15 @@ var Infowindow = View.extend({
   /**
    *  Attempts to load the cover URL and show it
    */
-  _loadCover: function() {
-
+  _loadCover: function () {
     if (!this._containsCover()) {
       return;
     }
 
     var self = this;
 
-    var $cover = this.$(".js-cover");
-    var $img = $cover.find("img");
+    var $cover = this.$('.js-cover');
+    var $img = $cover.find('img');
     var url = this._getCoverURL();
 
     if ($img.length > 0) {
@@ -34096,21 +32482,21 @@ var Infowindow = View.extend({
       var coverHeight = $cover.height();
       $cover.css({ height: h - this.options.hookHeight });
 
-      this._loadImageHook(url);
+      this._loadImageHook($img.width(), coverHeight, h - this.options.hookHeight, url);
 
       return false;
     }
 
     if (!this._isValidURL(url)) {
-      log.info("Header image url not valid");
+      log.info('Header image url not valid');
       return;
     }
 
-    $img = $("<img class='CDB-infowindow-media-item' />").attr("src", url);
+    $img = $("<img class='CDB-infowindow-media-item' />").attr('src', url);
 
     $cover.append($img);
 
-    $img.load(function(){
+    $img.load(function () {
       var w = $img.width();
       var h = $img.height();
 
@@ -34134,18 +32520,17 @@ var Infowindow = View.extend({
       $cover.css({ height: h - self.options.hookHeight });
       $img.fadeIn(self.options.imageTransitionSpeed);
 
-      self._loadImageHook(url);
-    })
-    .error();
+      self._loadImageHook($img.width(), $img.height(), h - self.options.hookHeight, url);
+    }).error();
   },
 
   /**
    *  Return true if the provided URL is valid
    */
-  _isValidURL: function(url) {
+  _isValidURL: function (url) {
     if (url) {
       var urlPattern = /^(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-|]*[\w@?^=%&amp;\/~+#-])?$/;
-      return String(url).match(urlPattern) !== null ? true : false;
+      return String(url).match(urlPattern) !== null;
     }
 
     return false;
@@ -34154,8 +32539,8 @@ var Infowindow = View.extend({
   /**
    *  Toggle infowindow visibility
    */
-  toggle: function() {
-    if (this.model.get("visibility")) {
+  toggle: function () {
+    if (this.model.get('visibility')) {
       this.show();
     } else {
       this.hide();
@@ -34173,23 +32558,23 @@ var Infowindow = View.extend({
   /**
    *  Stop event propagation
    */
-  _stopPropagation: function(ev) {
+  _stopPropagation: function (ev) {
     ev.stopPropagation();
   },
 
   /**
    *  Set loading state adding its content
    */
-  setLoading: function() {
+  setLoading: function () {
     this.model.set({
-      content:  {
+      content: {
         fields: [{
           title: null,
           loading: true,
           alternative_name: null,
           value: 'Loading content...',
           index: null,
-          type: "loading"
+          type: 'loading'
         }],
         data: {}
       }
@@ -34201,9 +32586,9 @@ var Infowindow = View.extend({
   /**
    *  Set loading state adding its content
    */
-  setError: function() {
+  setError: function () {
     this.model.set({
-      content:  {
+      content: {
         fields: [{
           title: null,
           alternative_name: null,
@@ -34222,39 +32607,40 @@ var Infowindow = View.extend({
    * Set the correct position for the infowindow
    */
   setLatLng: function (latlng) {
-    this.model.set("latlng", latlng);
+    this.model.set('latlng', latlng);
     return this;
   },
 
   /**
    *  Close infowindow
    */
-  _closeInfowindow: function(ev) {
+  _closeInfowindow: function (ev) {
     if (ev) {
       ev.preventDefault();
       ev.stopPropagation();
     }
-    if (this.model.get("visibility")) {
-       this.model.set("visibility", false);
-       this.trigger('close');
+    if (this.model.get('visibility')) {
+      this.model.set('visibility', false);
+      this.trigger('close');
     }
   },
 
   /**
    *  Set visibility infowindow
    */
-  showInfowindow: function() {
-    this.model.set("visibility", true);
+  showInfowindow: function () {
+    this.model.set('visibility', true);
   },
 
   /**
    *  Show infowindow (update, pan, etc)
    */
   show: function (no_pan) {
+    $(document)
+      .off('keyup', this._onKeyUp)
+      .on('keyup', this._onKeyUp);
 
-    $(document).on('keyup', this._onKeyUp);
-
-    if (this.model.get("visibility")) {
+    if (this.model.get('visibility')) {
       this.$el.css({ left: -5000 });
       this._update(no_pan);
     }
@@ -34264,7 +32650,7 @@ var Infowindow = View.extend({
    *  Get infowindow visibility
    */
   isHidden: function () {
-    return !this.model.get("visibility");
+    return !this.model.get('visibility');
   },
 
   /**
@@ -34272,15 +32658,14 @@ var Infowindow = View.extend({
    */
   hide: function (force) {
     $(document).off('keyup', this._onKeyUp);
-    if (force || !this.model.get("visibility")) this._animateOut();
+    if (force || !this.model.get('visibility')) this._animateOut();
   },
 
   /**
    *  Update infowindow
    */
   _update: function (no_pan) {
-
-    if(!this.isHidden()) {
+    if (!this.isHidden()) {
       var delay = 0;
 
       if (!no_pan) {
@@ -34295,21 +32680,21 @@ var Infowindow = View.extend({
   /**
    *  Animate infowindow to show up
    */
-  _animateIn: function(delay) {
+  _animateIn: function (delay) {
     if (!util.ie || (util.browser.ie && util.browser.ie.version > 8)) {
       this.$el.css({
-        'marginBottom':'-10px',
+        'marginBottom': '-10px',
         'display': 'block',
-        'visibility':'visible',
-        opacity:0
+        'visibility': 'visible',
+        opacity: 0
       });
 
       this.$el
-      .delay(delay)
-      .animate({
-        opacity: 1,
-        marginBottom: 0
-      },300);
+        .delay(delay)
+        .animate({
+          opacity: 1,
+          marginBottom: 0
+        }, 300);
     } else {
       this.$el.show();
     }
@@ -34318,15 +32703,15 @@ var Infowindow = View.extend({
   /**
    *  Animate infowindow to disappear
    */
-  _animateOut: function() {
+  _animateOut: function () {
     if (!util.ie || (util.browser.ie && util.browser.ie.version > 8)) {
       var self = this;
       this.$el.animate({
-        marginBottom: "-10px",
-        opacity:      "0",
-        display:      "block"
-      }, 180, function() {
-        self.$el.css({visibility: "hidden"});
+        marginBottom: '-10px',
+        opacity: '0',
+        display: 'block'
+      }, 180, function () {
+        self.$el.css({visibility: 'hidden'});
       });
     } else {
       this.$el.hide();
@@ -34337,18 +32722,15 @@ var Infowindow = View.extend({
    *  Update the position (private)
    */
   _updatePosition: function () {
-    if(this.isHidden()) return;
+    if (this.isHidden()) {
+      return;
+    }
 
-    var
-    offset          = this.model.get("offset"),
-    pos             = this.mapView.latLonToPixel(this.model.get("latlng")),
-    x               = this.$el.position().left,
-    y               = this.$el.position().top,
-    containerHeight = this.$el.outerHeight(true),
-    containerWidth  = this.$el.width(),
-    left            = pos.x - offset[0],
-    size            = this.mapView.getSize(),
-    bottom          = -1*(pos.y - offset[1] - size.y);
+    var offset = this.model.get('offset');
+    var pos = this.mapView.latLonToPixel(this.model.get('latlng'));
+    var left = pos.x - offset[0];
+    var size = this.mapView.getSize();
+    var bottom = -1 * (pos.y - offset[1] - size.y);
 
     this.$el.css({ bottom: bottom, left: left });
   },
@@ -34357,19 +32739,16 @@ var Infowindow = View.extend({
    *  Adjust pan to show correctly the infowindow
    */
   adjustPan: function () {
-    var offset = this.model.get("offset");
+    var offset = this.model.get('offset');
 
-    if (!this.model.get("autoPan") || this.isHidden()) { return; }
+    if (!this.model.get('autoPan') || this.isHidden()) { return; }
 
-    var
-    x               = this.$el.position().left,
-    y               = this.$el.position().top,
-    containerHeight = this.$el.outerHeight(true) + 15, // Adding some more space
-    containerWidth  = this.$el.width(),
-    pos             = this.mapView.latLonToPixel(this.model.get("latlng")),
-    adjustOffset    = {x: 0, y: 0};
-    size            = this.mapView.getSize();
-    wait_callback   = 0;
+    var containerHeight = this.$el.outerHeight(true) + 15; // Adding some more space
+    var containerWidth = this.$el.width();
+    var pos = this.mapView.latLonToPixel(this.model.get('latlng'));
+    var adjustOffset = {x: 0, y: 0};
+    var size = this.mapView.getSize();
+    var wait_callback = 0;
 
     if (pos.x - offset[0] < 0) {
       adjustOffset.x = pos.x - offset[0] - 10;
@@ -34394,12 +32773,11 @@ var Infowindow = View.extend({
 
     return wait_callback;
   }
-
 });
 
 module.exports = Infowindow;
 
-},{"../../core/sanitize":100,"../../core/template":102,"../../core/util":103,"../../core/view":104,"cdb.log":90,"cdb.templates":91,"clip-path-polygon":9,"jquery":218,"perfect-scrollbar":220,"underscore":241}],154:[function(require,module,exports){
+},{"../../core/sanitize":98,"../../core/template":100,"../../core/util":101,"../../core/view":102,"cdb.log":89,"cdb.templates":90,"clip-path":217,"jquery":225,"perfect-scrollbar":227,"underscore":248}],153:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cdb'); // cdb.god, cdb.geo.ui.*
 var Dropdown = require('../../ui/common/dropdown');
@@ -34544,7 +32922,7 @@ var LayerSelector = View.extend({
 
 module.exports = LayerSelector;
 
-},{"../../core/model":98,"../../core/view":104,"../../ui/common/dropdown":194,"./layer-view":155,"cdb":89,"underscore":241}],155:[function(require,module,exports){
+},{"../../core/model":96,"../../core/view":102,"../../ui/common/dropdown":195,"./layer-view":154,"cdb":88,"underscore":248}],154:[function(require,module,exports){
 var _ = require('underscore');
 var templates = require('cdb.templates');
 var View = require('../../core/view');
@@ -34621,7 +32999,7 @@ var LayerView = View.extend({
 
 module.exports = LayerView;
 
-},{"../../core/view":104,"cdb.templates":91,"underscore":241}],156:[function(require,module,exports){
+},{"../../core/view":102,"cdb.templates":90,"underscore":248}],155:[function(require,module,exports){
 module.exports = {
   LegendItemModel: require('./legend-item-model'),
   LegendItem: require('./legend-item'),
@@ -34641,7 +33019,7 @@ module.exports = {
   StackedLegend: require('./legend/stacked-legend')
 };
 
-},{"./legend-item":158,"./legend-item-model":157,"./legend-items":159,"./legend-model":160,"./legend/base-legend":162,"./legend/bubble-legend":163,"./legend/category-legend":164,"./legend/choropleth-legend":165,"./legend/color-legend":166,"./legend/custom-legend":167,"./legend/debug-legend":168,"./legend/density-legend":169,"./legend/intensity-legend":170,"./legend/none-legend":181,"./legend/stacked-legend":182,"./legends":183}],157:[function(require,module,exports){
+},{"./legend-item":157,"./legend-item-model":156,"./legend-items":158,"./legend-model":159,"./legend/base-legend":161,"./legend/bubble-legend":162,"./legend/category-legend":163,"./legend/choropleth-legend":164,"./legend/color-legend":165,"./legend/custom-legend":166,"./legend/debug-legend":167,"./legend/density-legend":168,"./legend/intensity-legend":169,"./legend/none-legend":180,"./legend/stacked-legend":181,"./legends":182}],156:[function(require,module,exports){
 var Model = require('../../core/model');
 
 var LegendItemModel = Model.extend({
@@ -34656,7 +33034,7 @@ var LegendItemModel = Model.extend({
 
 module.exports = LegendItemModel;
 
-},{"../../core/model":98}],158:[function(require,module,exports){
+},{"../../core/model":96}],157:[function(require,module,exports){
 var _ = require('underscore');
 var templates = require('cdb.templates');
 var View = require('../../core/view');
@@ -34697,7 +33075,7 @@ var LegendItem = View.extend({
 
 module.exports = LegendItem;
 
-},{"../../core/view":104,"cdb.templates":91,"underscore":241}],159:[function(require,module,exports){
+},{"../../core/view":102,"cdb.templates":90,"underscore":248}],158:[function(require,module,exports){
 var Backbone = require('backbone');
 var LegendItemModel = require('./legend-item-model');
 
@@ -34710,7 +33088,7 @@ var LegendItems = Backbone.Collection.extend({
 
 module.exports = LegendItems;
 
-},{"./legend-item-model":157,"backbone":1}],160:[function(require,module,exports){
+},{"./legend-item-model":156,"backbone":1}],159:[function(require,module,exports){
 var Model = require('../../core/model');
 var LegendItems = require('./legend-items');
 
@@ -34759,7 +33137,7 @@ var LegendModel = Model.extend({
 
 module.exports = LegendModel;
 
-},{"../../core/model":98,"./legend-items":159}],161:[function(require,module,exports){
+},{"../../core/model":96,"./legend-items":158}],160:[function(require,module,exports){
 var _ = require('underscore');
 var LegendModel = require('./legend-model');
 var LegendExports = require('./legend-exports');
@@ -34915,7 +33293,7 @@ var Legend = View.extend({
 
 module.exports = Legend;
 
-},{"../../core/view":104,"./legend-exports":156,"./legend-model":160,"underscore":241}],162:[function(require,module,exports){
+},{"../../core/view":102,"./legend-exports":155,"./legend-model":159,"underscore":248}],161:[function(require,module,exports){
 var $ = require('jquery');
 var View = require('../../../core/view');
 
@@ -34950,7 +33328,7 @@ var BaseLegend = View.extend({
 
 module.exports = BaseLegend;
 
-},{"../../../core/view":104,"jquery":218}],163:[function(require,module,exports){
+},{"../../../core/view":102,"jquery":225}],162:[function(require,module,exports){
 var _ = require('underscore');
 var sanitize = require('../../../core/sanitize.js')
 var BaseLegend = require('./base-legend');
@@ -35024,7 +33402,7 @@ var BubbleLegend = BaseLegend.extend({
 
 module.exports = BubbleLegend;
 
-},{"../../../core/sanitize.js":100,"./base-legend":162,"underscore":241}],164:[function(require,module,exports){
+},{"../../../core/sanitize.js":98,"./base-legend":161,"underscore":248}],163:[function(require,module,exports){
 var _ = require('underscore');
 var sanitize = require('../../../core/sanitize');
 var BaseLegend = require('./base-legend');
@@ -35092,7 +33470,7 @@ var CategoryLegend = BaseLegend.extend({
 
 module.exports = CategoryLegend;
 
-},{"../../../core/sanitize":100,"../legend-item":158,"./base-legend":162,"underscore":241}],165:[function(require,module,exports){
+},{"../../../core/sanitize":98,"../legend-item":157,"./base-legend":161,"underscore":248}],164:[function(require,module,exports){
 var _ = require('underscore');
 var sanitize = require('../../../core/sanitize');
 var BaseLegend = require('./base-legend');
@@ -35181,7 +33559,7 @@ var ChoroplethLegend = BaseLegend.extend({
 
 module.exports = ChoroplethLegend;
 
-},{"../../../core/sanitize":100,"./base-legend":162,"underscore":241}],166:[function(require,module,exports){
+},{"../../../core/sanitize":98,"./base-legend":161,"underscore":248}],165:[function(require,module,exports){
 var _ = require('underscore');
 var BaseLegend = require('./base-legend');
 var LegendItem = require('../legend-item');
@@ -35236,7 +33614,7 @@ var ColorLegend = BaseLegend.extend({
 
 module.exports = ColorLegend;
 
-},{"../legend-item":158,"./base-legend":162,"underscore":241}],167:[function(require,module,exports){
+},{"../legend-item":157,"./base-legend":161,"underscore":248}],166:[function(require,module,exports){
 var _ = require('underscore');
 var sanitize = require('../../../core/sanitize.js')
 var BaseLegend = require('./base-legend');
@@ -35308,13 +33686,13 @@ var CustomLegend = BaseLegend.extend({
 
 module.exports = CustomLegend;
 
-},{"../../../core/sanitize.js":100,"../legend-item":158,"../legend-items":159,"./base-legend":162,"underscore":241}],168:[function(require,module,exports){
+},{"../../../core/sanitize.js":98,"../legend-item":157,"../legend-items":158,"./base-legend":161,"underscore":248}],167:[function(require,module,exports){
 var View = require('../../../core/view');
 
 var DebugLegend = View.extend({ });
 module.exports = DebugLegend
 
-},{"../../../core/view":104}],169:[function(require,module,exports){
+},{"../../../core/view":102}],168:[function(require,module,exports){
 var _ = require('underscore');
 var sanitize = require('../../../core/sanitize');
 var BaseLegend = require('./base-legend');
@@ -35405,7 +33783,7 @@ var DensityLegend = BaseLegend.extend({
 
 module.exports = DensityLegend;
 
-},{"../../../core/sanitize":100,"./base-legend":162,"underscore":241}],170:[function(require,module,exports){
+},{"../../../core/sanitize":98,"./base-legend":161,"underscore":248}],169:[function(require,module,exports){
 var _ = require('underscore');
 var sanitize = require('../../../core/sanitize');
 var BaseLegend = require('./base-legend');
@@ -35552,7 +33930,7 @@ var IntensityLegend = BaseLegend.extend({
 
 module.exports = IntensityLegend;
 
-},{"../../../core/sanitize":100,"./base-legend":162,"underscore":241}],171:[function(require,module,exports){
+},{"../../../core/sanitize":98,"./base-legend":161,"underscore":248}],170:[function(require,module,exports){
 var LegendModel = require('../legend-model');
 var BubbleLegend = require('./bubble-legend');
 
@@ -35596,7 +33974,7 @@ var LegendBubble = BubbleLegend.extend({
 
 module.exports = LegendBubble;
 
-},{"../legend-model":160,"./bubble-legend":163}],172:[function(require,module,exports){
+},{"../legend-model":159,"./bubble-legend":162}],171:[function(require,module,exports){
 var CategoryLegend = require('./category-legend');
 var LegendItems = require('../legend-items');
 var LegendModel = require('../legend-model');
@@ -35638,7 +34016,7 @@ var LegendCategory = CategoryLegend.extend({
 
 module.exports = LegendCategory;
 
-},{"../legend-items":159,"../legend-model":160,"./category-legend":164}],173:[function(require,module,exports){
+},{"../legend-items":158,"../legend-model":159,"./category-legend":163}],172:[function(require,module,exports){
 var _ = require('underscore');
 var ChoroplethLegend = require('./choropleth-legend');
 var LegendModel = require('../legend-model');
@@ -35699,7 +34077,7 @@ var LegendChoropleth = ChoroplethLegend.extend({
 
 module.exports = LegendChoropleth;
 
-},{"../legend-model":160,"./choropleth-legend":165,"underscore":241}],174:[function(require,module,exports){
+},{"../legend-model":159,"./choropleth-legend":164,"underscore":248}],173:[function(require,module,exports){
 var LegendCategory = require('./legend-category');
 
 /**
@@ -35708,7 +34086,7 @@ var LegendCategory = require('./legend-category');
 var LegendColor = LegendCategory.extend({ });
 module.exports = LegendColor;
 
-},{"./legend-category":172}],175:[function(require,module,exports){
+},{"./legend-category":171}],174:[function(require,module,exports){
 var CustomLegend = require('./custom-legend');
 var LegendItems = require('../legend-items');
 var LegendModel = require('../legend-model');
@@ -35748,7 +34126,7 @@ var LegendCustom = CustomLegend.extend({
 
 module.exports = LegendCustom;
 
-},{"../legend-items":159,"../legend-model":160,"./custom-legend":167}],176:[function(require,module,exports){
+},{"../legend-items":158,"../legend-model":159,"./custom-legend":166}],175:[function(require,module,exports){
 var _ = require('underscore');
 var DensityLegend = require('./density-legend');
 var LegendModel = require('../legend-model');
@@ -35809,7 +34187,7 @@ var LegendDensity = DensityLegend.extend({
 
 module.exports = LegendDensity;
 
-},{"../legend-model":160,"./density-legend":169,"underscore":241}],177:[function(require,module,exports){
+},{"../legend-model":159,"./density-legend":168,"underscore":248}],176:[function(require,module,exports){
 var IntensityLegend = require('./intensity-legend');
 var LegendModel = require('../legend-model');
 
@@ -35859,14 +34237,14 @@ var LegendIntensity = IntensityLegend.extend({
 
 module.exports = LegendIntensity;
 
-},{"../legend-model":160,"./intensity-legend":170}],178:[function(require,module,exports){
+},{"../legend-model":159,"./intensity-legend":169}],177:[function(require,module,exports){
 var View = require('../../../core/view');
 
 var LegendNone = View.extend({ });
 
 module.exports = LegendNone;
 
-},{"../../../core/view":104}],179:[function(require,module,exports){
+},{"../../../core/view":102}],178:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cdb'); // cdb.geo.ui.Legend.*
 var Legends = require('../legends');
@@ -35967,7 +34345,7 @@ var LegendStacked = StackedLegend.extend({
 
 module.exports = LegendStacked;
 
-},{"../legend-model":160,"../legends":183,"./stacked-legend":182,"cdb":89,"underscore":241}],180:[function(require,module,exports){
+},{"../legend-model":159,"../legends":182,"./stacked-legend":181,"cdb":88,"underscore":248}],179:[function(require,module,exports){
 var Legend = {};
 Legend.Bubble = require('./legend-bubble');
 Legend.Category = require('./legend-category');
@@ -35981,14 +34359,14 @@ Legend.Stacked = require('./legend-stacked');
 
 module.exports = Legend;
 
-},{"./legend-bubble":171,"./legend-category":172,"./legend-choropleth":173,"./legend-color":174,"./legend-custom":175,"./legend-density":176,"./legend-intensity":177,"./legend-none":178,"./legend-stacked":179}],181:[function(require,module,exports){
+},{"./legend-bubble":170,"./legend-category":171,"./legend-choropleth":172,"./legend-color":173,"./legend-custom":174,"./legend-density":175,"./legend-intensity":176,"./legend-none":177,"./legend-stacked":178}],180:[function(require,module,exports){
 var BaseLegend = require('./base-legend');
 
 var NoneLegend  = BaseLegend.extend({ });
 
 module.exports = NoneLegend;
 
-},{"./base-legend":162}],182:[function(require,module,exports){
+},{"./base-legend":161}],181:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var View = require('../../../core/view');
@@ -36083,7 +34461,7 @@ var StackedLegend = View.extend({
 
 module.exports = StackedLegend;
 
-},{"../../../core/view":104,"jquery":218,"underscore":241}],183:[function(require,module,exports){
+},{"../../../core/view":102,"jquery":225,"underscore":248}],182:[function(require,module,exports){
 var Backbone = require('backbone');
 var LegendModel = require('./legend-model');
 
@@ -36091,7 +34469,7 @@ module.exports = Backbone.Collection.extend({
   model: LegendModel
 });
 
-},{"./legend-model":160,"backbone":1}],184:[function(require,module,exports){
+},{"./legend-model":159,"backbone":1}],183:[function(require,module,exports){
 var _ = require('underscore');
 var Template = require('../../core/template');
 var View = require('../../core/view');
@@ -36196,7 +34574,7 @@ var MobileLayer = View.extend({
 
 module.exports = MobileLayer;
 
-},{"../../core/template":102,"../../core/view":104,"./legend":161,"underscore":241}],185:[function(require,module,exports){
+},{"../../core/template":100,"../../core/view":102,"./legend":160,"underscore":248}],184:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 var cdb = require('cdb'); // cdb.geo.ui.*
@@ -36208,33 +34586,30 @@ var View = require('../../core/view');
 var Template = require('../../core/template');
 var Zoom = require('./zoom');
 var TilesLoader = require('./tiles-loader');
-var Search = require('./search');
+var Search = require('./search/search');
 var MobileLayer = require('./mobile-layer');
 
 var Mobile = View.extend({
-
-  className: "cartodb-mobile",
+  className: 'cartodb-mobile',
 
   events: {
-    "click .cartodb-attribution-button": "_onAttributionClick",
-    "click .toggle":                     "_toggle",
-    "click .fullscreen":                 "_toggleFullScreen",
-    "click .backdrop":                   "_onBackdropClick",
-    "dblclick .aside":                   "_stopPropagation",
-    "dragstart .aside":                  "_checkOrigin",
-    "mousedown .aside":                  "_checkOrigin",
-    "touchstart .aside":                 "_checkOrigin",
-    "MSPointerDown .aside":              "_checkOrigin",
+    'click .toggle': '_toggle',
+    'click .fullscreen': '_toggleFullScreen',
+    'click .backdrop': '_onBackdropClick',
+    'dblclick .aside': '_stopPropagation',
+    'dragstart .aside': '_checkOrigin',
+    'mousedown .aside': '_checkOrigin',
+    'touchstart .aside': '_checkOrigin',
+    'MSPointerDown .aside': '_checkOrigin',
   },
 
-  initialize: function() {
-
-    _.bindAll(this, "_toggle", "_reInitScrollpane");
+  initialize: function () {
+    _.bindAll(this, '_toggle', '_reInitScrollpane');
 
     _.defaults(this.options, this.default_options);
 
     this.hasLayerSelector = false;
-    this.layersLoading    = 0;
+    this.layersLoading = 0;
 
     this.visualization = this.options.visualization;
 
@@ -36242,8 +34617,8 @@ var Mobile = View.extend({
 
     this.visibility_options = this.options.visibility_options || {};
 
-    this.mapView  = this.options.mapView;
-    this.map      = this.mapView.map;
+    this.mapView = this.options.mapView;
+    this.map = this.mapView.map;
 
     this.template = this.options.template ? this.options.template : templates.getTemplate('geo/zoom');
 
@@ -36256,7 +34631,7 @@ var Mobile = View.extend({
     this._addWheelEvent();
   },
 
-  loadingTiles: function() {
+  loadingTiles: function () {
     if (this.loader) {
       this.loader.show();
     }
@@ -36267,27 +34642,26 @@ var Mobile = View.extend({
     this.layersLoading++;
   },
 
-  loadTiles: function() {
+  loadTiles: function () {
     if (this.loader) {
       this.loader.hide();
     }
     this.layersLoading--;
     // check less than 0 because loading event sometimes is
     // thrown before visualization creation
-    if(this.layersLoading <= 0) {
+    if (this.layersLoading <= 0) {
       this.layersLoading = 0;
       this.trigger('load');
     }
   },
 
-  _addWheelEvent: function() {
-    var self    = this;
+  _addWheelEvent: function () {
+    var self = this;
     var mapView = this.options.mapView;
 
-    $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange', function() {
-
+    $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange', function () {
       if ( !document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
-        mapView.options.map.set("scrollwheel", false);
+        mapView.options.map.set('scrollwheel', false);
       }
 
       mapView.invalidateSize();
@@ -36295,94 +34669,81 @@ var Mobile = View.extend({
     });
   },
 
-  _setupModel: function() {
+  _setupModel: function () {
     this.model = new Backbone.Model({
       open: false,
       layer_count: 0
     });
 
-    this.model.on("change:open", this._onChangeOpen, this);
-    this.model.on("change:layer_count", this._onChangeLayerCount, this);
+    this.model.on('change:open', this._onChangeOpen, this);
+    this.model.on('change:layer_count', this._onChangeLayerCount, this);
   },
 
   /**
    *  Check event origin
    */
-  _checkOrigin: function(ev) {
+  _checkOrigin: function (ev) {
     // If the mouse down come from jspVerticalBar
     // dont stop the propagation, but if the event
     // is a touchstart, stop the propagation
-    var come_from_scroll = (($(ev.target).closest(".jspVerticalBar").length > 0) && (ev.type != "touchstart"));
+    var come_from_scroll = (($(ev.target).closest('.jspVerticalBar').length > 0) && (ev.type != 'touchstart'));
 
     if (!come_from_scroll) {
       ev.stopPropagation();
     }
   },
 
-  _stopPropagation: function(ev) {
+  _stopPropagation: function (ev) {
     ev.stopPropagation();
   },
 
-  _onBackdropClick: function(e) {
+  _onBackdropClick: function (e) {
     e.preventDefault();
     e.stopPropagation();
 
-    this.$el.find(".backdrop").fadeOut(250);
-    this.$el.find(".cartodb-attribution").fadeOut(250);
+    this.$('.backdrop').fadeOut(250);
   },
 
-  _onAttributionClick: function(e) {
+  _toggle: function (e) {
     e.preventDefault();
     e.stopPropagation();
 
-    this.$el.find(".backdrop").fadeIn(250);
-    this.$el.find(".cartodb-attribution").fadeIn(250);
+    this.model.set('open', !this.model.get('open'));
   },
 
-  _toggle: function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    this.model.set("open", !this.model.get("open"));
-  },
-
-  _toggleFullScreen: function(ev) {
+  _toggleFullScreen: function (ev) {
     ev.stopPropagation();
     ev.preventDefault();
 
-    var doc   = window.document;
-    var docEl = $("#map > div")[0];
+    var doc = window.document;
+    var docEl = $('#map > div')[0];
 
     var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen;
-    var cancelFullScreen  = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen;
+    var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen;
 
     var mapView = this.options.mapView;
 
     if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement) {
       requestFullScreen.call(docEl);
       if (mapView) {
-        mapView.options.map.set("scrollwheel", true);
+        mapView.options.map.set('scrollwheel', true);
       }
     } else {
       cancelFullScreen.call(doc);
     }
   },
 
-  _open: function() {
-    var right = this.$el.find(".aside").width();
+  _open: function () {
+    var right = this.$el.find('.aside').width();
 
-    this.$el.find(".cartodb-header").animate({ right: right }, 200)
-    this.$el.find(".aside").animate({ right: 0 }, 200)
-    this.$el.find(".cartodb-attribution-button").animate({ right: right + parseInt(this.$el.find(".cartodb-attribution-button").css("right")) }, 200)
-    this.$el.find(".cartodb-attribution").animate({ right: right + parseInt(this.$el.find(".cartodb-attribution-button").css("right")) }, 200)
+    this.$el.find('.cartodb-header').animate({ right: right }, 200);
+    this.$el.find('.aside').animate({ right: 0 }, 200);
     this._initScrollPane();
   },
 
-  _close: function() {
-    this.$el.find(".cartodb-header").animate({ right: 0 }, 200)
-    this.$el.find(".aside").animate({ right: - this.$el.find(".aside").width() }, 200)
-    this.$el.find(".cartodb-attribution-button").animate({ right: 20 }, 200)
-    this.$el.find(".cartodb-attribution").animate({ right: 20 }, 200)
+  _close: function () {
+    this.$el.find('.cartodb-header').animate({ right: 0 }, 200);
+    this.$el.find('.aside').animate({ right: - this.$el.find('.aside').width() }, 200);
   },
 
   default_options: {
@@ -36390,78 +34751,77 @@ var Mobile = View.extend({
     msg: ''
   },
 
-  _stopPropagation: function(ev) {
+  _stopPropagation: function (ev) {
     ev.stopPropagation();
   },
 
-  doOnOrientationChange: function() {
-    switch(window.orientation) {
+  doOnOrientationChange: function () {
+    switch (window.orientation) {
       case -90:
-      case 90: this.recalc("landscape");
+      case 90: this.recalc('landscape');
         break;
-      default: this.recalc("portrait");
+      default: this.recalc('portrait');
         break;
     }
   },
 
-  recalc: function(orientation) {
-    var height = $(".legends > div.cartodb-legend-stack").height();
+  recalc: function (orientation) {
+    var height = $('.legends > div.cartodb-legend-stack').height();
 
-    if (this.$el.hasClass("open") && height < 100 && !this.$el.hasClass("torque")) {
-      this.$el.css("height", height);
-      this.$el.find(".top-shadow").hide();
-      this.$el.find(".bottom-shadow").hide();
-    } else if (this.$el.hasClass("open") && height < 100 && this.$el.hasClass("legends") && this.$el.hasClass("torque")) {
-      this.$el.css("height", height + $(".legends > div.torque").height() );
-      this.$el.find(".top-shadow").hide();
-      this.$el.find(".bottom-shadow").hide();
+    if (this.$el.hasClass('open') && height < 100 && !this.$el.hasClass('torque')) {
+      this.$el.css('height', height);
+      this.$el.find('.top-shadow').hide();
+      this.$el.find('.bottom-shadow').hide();
+    } else if (this.$el.hasClass('open') && height < 100 && this.$el.hasClass('legends') && this.$el.hasClass('torque')) {
+      this.$el.css('height', height + $('.legends > div.torque').height());
+      this.$el.find('.top-shadow').hide();
+      this.$el.find('.bottom-shadow').hide();
     }
   },
 
-  _onChangeLayerCount: function() {
-    var layer_count = this.model.get("layer_count");
-    var msg = layer_count + " layer" + (layer_count != 1 ? "s" : "");
-    this.$el.find(".aside .layer-container > h3").html(msg);
+  _onChangeLayerCount: function () {
+    var layer_count = this.model.get('layer_count');
+    var msg = layer_count + ' layer' + (layer_count != 1 ? 's' : '');
+    this.$el.find('.aside .layer-container > h3').html(msg);
   },
 
-  _onChangeOpen: function() {
-    this.model.get("open") ? this._open() : this._close();
+  _onChangeOpen: function () {
+    this.model.get('open') ? this._open() : this._close();
   },
 
-  _createLayer: function(_class, opts) {
+  _createLayer: function (_class, opts) {
     return new cdb.geo.ui[_class](opts);
   },
 
-  _getLayers: function() {
+  _getLayers: function () {
     this.layers = [];
 
     _.each(this.map.layers.models, this._getLayer, this);
   },
 
-  _getLayer: function(layer) {
-    if (layer.get("type") === 'layergroup' || layer.get("type") === 'namedmap') {
-      layer.layers.each(function(layer, i) {
-
+  _getLayer: function (layer) {
+    if (layer.get('type') === 'layergroup' || layer.get('type') === 'namedmap') {
+      layer.layers.each(function (layer, i) {
         // TODO: We could probably use layer.getName directly in the layer selector
         // instead of having to set this up here for layers inside `layer_group` layers.
         // We'd need to take `torque` layers into account to.
         layer.set('layer_name', layer.getName());
         this.layers.push(layer);
       }, this);
-    } else if (layer.get("type") === "CartoDB" || layer.get('type') === 'torque') {
+    } else if (layer.get('type') === 'CartoDB' || layer.get('type') === 'torque') {
       this.layers.push(layer);
     }
   },
 
-  _reInitScrollpane: function() {
+  _reInitScrollpane: function () {
     this.$('.scrollpane').data('jsp') && this.$('.scrollpane').data('jsp').reinitialise();
   },
 
-  _bindOrientationChange: function() {
+  _bindOrientationChange: function () {
     var self = this;
 
-    var onOrientationChange = function() {
-      $(".cartodb-mobile .scrollpane").css("max-height", self.$el.height() - 30);
+    var onOrientationChange = function () {
+      $('.cartodb-mobile .scrollpane').css('max-height', self.$el.height() - 30);
       $('.cartodb-mobile .scrollpane').data('jsp') && $('.cartodb-mobile .scrollpane').data('jsp').reinitialise();
     };
 
@@ -36472,30 +34832,29 @@ var Mobile = View.extend({
     }
   },
 
-  _renderOverlays: function() {
-    var hasSearchOverlay  = false;
-    var hasZoomOverlay    = false;
-    var hasLoaderOverlay  = false;
-    var hasLayerSelector  = false;
+  _renderOverlays: function () {
+    var hasSearchOverlay = false;
+    var hasZoomOverlay = false;
+    var hasLoaderOverlay = false;
+    var hasLayerSelector = false;
 
-    _.each(this.overlays, function(overlay) {
-
+    _.each(this.overlays, function (overlay) {
       if (!this.visibility_options.search && overlay.type == 'search') {
-        if (this.visibility_options.search !== false && this.visibility_options.search !== "false") {
+        if (this.visibility_options.search !== false && this.visibility_options.search !== 'false') {
           this._addSearch();
           hasSearchOverlay = true;
         }
       }
 
       if (!this.visibility_options.zoomControl && overlay.type === 'zoom') {
-        if (this.visibility_options.zoomControl !== "false") {
+        if (this.visibility_options.zoomControl !== 'false') {
           this._addZoom();
           hasZoomOverlay = true;
         }
       }
 
       if (!this.visibility_options.loaderControl && overlay.type === 'loader') {
-        if (this.visibility_options.loaderControl !== "false") {
+        if (this.visibility_options.loaderControl !== 'false') {
           this._addLoader();
           hasLoaderOverlay = true;
         }
@@ -36515,32 +34874,32 @@ var Mobile = View.extend({
 
     }, this);
 
-    var search_visibility = this.visibility_options.search === true        || this.visibility_options.search === "true";
-    var zoom_visibility   = this.visibility_options.zoomControl === true   || this.visibility_options.zoomControl === "true";
-    var loader_visibility = this.visibility_options.loaderControl === true || this.visibility_options.loaderControl === "true";
-    var layer_selector_visibility  = this.visibility_options.layer_selector;
+    var search_visibility = this.visibility_options.search === true || this.visibility_options.search === 'true';
+    var zoom_visibility = this.visibility_options.zoomControl === true || this.visibility_options.zoomControl === 'true';
+    var loader_visibility = this.visibility_options.loaderControl === true || this.visibility_options.loaderControl === 'true';
+    var layer_selector_visibility = this.visibility_options.layer_selector;
 
-    if (!hasSearchOverlay  && search_visibility) this._addSearch();
-    if (!hasZoomOverlay    && zoom_visibility)   this._addZoom();
-    if (!hasLoaderOverlay  && loader_visibility) this._addLoader();
+    if (!hasSearchOverlay && search_visibility) this._addSearch();
+    if (!hasZoomOverlay && zoom_visibility)   this._addZoom();
+    if (!hasLoaderOverlay && loader_visibility) this._addLoader();
     if (layer_selector_visibility || hasLayerSelector && layer_selector_visibility == undefined) this.hasLayerSelector = true;
   },
 
-  _initScrollPane: function() {
+  _initScrollPane: function () {
     if (this.$scrollpane) return;
 
     var self = this;
 
-    var height       = this.$el.height();
-    this.$scrollpane = this.$el.find(".scrollpane");
+    var height = this.$el.height();
+    this.$scrollpane = this.$el.find('.scrollpane');
 
-    setTimeout(function() {
-      self.$scrollpane.css("max-height", height - 60);
+    setTimeout(function () {
+      self.$scrollpane.css('max-height', height - 60);
       self.$scrollpane.jScrollPane({ showArrows: true });
     }, 500);
   },
 
-  _addZoom: function() {
+  _addZoom: function () {
     var template = Template.compile('\
     <a href="#zoom_in" class="zoom_in">+</a>\
     <a href="#zoom_out" class="zoom_out">-</a>\
@@ -36553,10 +34912,10 @@ var Mobile = View.extend({
     });
 
     this.$el.append(zoom.render().$el);
-    this.$el.addClass("with-zoom");
+    this.$el.addClass('with-zoom');
   },
 
-  _addLoader: function() {
+  _addLoader: function () {
     var template = Template.compile('<div class="loader"></div>', 'mustache');
 
     this.loader = new TilesLoader({
@@ -36564,17 +34923,17 @@ var Mobile = View.extend({
     });
 
     this.$el.append(this.loader.render().$el);
-    this.$el.addClass("with-loader");
+    this.$el.addClass('with-loader');
   },
 
-  _addFullscreen: function() {
+  _addFullscreen: function () {
     if (this.visibility_options.fullscreen != false) {
       this.hasFullscreen = true;
-      this.$el.addClass("with-fullscreen");
+      this.$el.addClass('with-fullscreen');
     }
   },
 
-  _addSearch: function() {
+  _addSearch: function () {
     this.hasSearch = true;
 
     var template = Template.compile('\
@@ -36592,15 +34951,15 @@ var Mobile = View.extend({
       model: this.mapView.map
     });
 
-    this.$el.find(".aside").prepend(search.render().$el);
-    this.$el.find(".cartodb-searchbox").show();
-    this.$el.addClass("with-search");
+    this.$el.find('.aside').prepend(search.render().$el);
+    this.$el.find('.cartodb-searchbox').show();
+    this.$el.addClass('with-search');
   },
 
-  _addHeader: function(overlay) {
+  _addHeader: function (overlay) {
     this.hasHeader = true;
 
-    this.$header = this.$el.find(".cartodb-header");
+    this.$header = this.$el.find('.cartodb-header');
 
     var title_template = _.template('<div class="hgroup"><% if (show_title) { %><div class="title"><%= title %></div><% } %><% if (show_description) { %><div class="description"><%= description %><% } %></div></div>');
 
@@ -36609,8 +34968,7 @@ var Mobile = View.extend({
     var show_title = false, show_description = false;
 
     if (extra) {
-
-      if (this.visibility_options.title || this.visibility_options.title != false && extra.show_title)      {
+      if (this.visibility_options.title || this.visibility_options.title != false && extra.show_title) {
         has_header = true;
         show_title = true;
       }
@@ -36622,50 +34980,23 @@ var Mobile = View.extend({
 
       var $hgroup = title_template({
         title: sanitize.html(extra.title),
-        show_title:show_title,
+        show_title: show_title,
         description: sanitize.html(extra.description),
         show_description: show_description
       });
 
       if (has_header) {
-        this.$el.addClass("with-header");
-        this.$header.find(".content").append($hgroup);
+        this.$el.addClass('with-header');
+        this.$header.find('.content').append($hgroup);
       }
     }
   },
 
-  _addAttributions: function() {
-    var attributions = "";
-
-    this.options.mapView.$el.find(".leaflet-control-attribution").hide(); // TODO: remove this from here
-
-    if (this.options.layerView) {
-
-      attributions = this.options.layerView.model.get("attribution");
-      this.$el.find(".cartodb-attribution").append(attributions);
-
-    } else if (this.options.map.get("attribution")) {
-
-      attributions = this.options.map.get("attribution");
-
-      _.each(attributions, function(attribution) {
-        var $li = $("<li></li>");
-        var $el = $li.html(attribution);
-        this.$el.find(".cartodb-attribution").append($li);
-      }, this);
-
-    }
-
-    if (attributions) {
-      this.$el.find(".cartodb-attribution-button").fadeIn(250);
-    }
-  },
-
-  _renderLayers: function() {
+  _renderLayers: function () {
     var hasLegendOverlay = this.visibility_options.legends;
 
-    var legends = this.layers.filter(function(layer) {
-      return layer.get("legend") && layer.get("legend").type !== "none";
+    var legends = this.layers.filter(function (layer) {
+      return layer.get('legend') && layer.get('legend').type !== 'none';
     });
 
     var hasLegends = legends.length ? true : false;
@@ -36675,21 +35006,21 @@ var Mobile = View.extend({
     if (this.layers.length == 0) return;
     if (this.layers.length == 1 && !hasLegends) return;
 
-    this.$el.addClass("with-layers");
+    this.$el.addClass('with-layers');
 
-    this.model.set("layer_count", 0);
+    this.model.set('layer_count', 0);
 
-    if (!this.hasSearch) this.$el.find(".aside .layer-container").prepend("<h3></h3>");
+    if (!this.hasSearch) this.$el.find('.aside .layer-container').prepend('<h3></h3>');
 
     _.each(this.layers, this._renderLayer, this);
   },
 
-  _renderLayer: function(data) {
-    var hasLegend = data.get("legend") && data.get("legend").type !== "" && data.get("legend").type !== "none";
+  _renderLayer: function (data) {
+    var hasLegend = data.get('legend') && data.get('legend').type !== '' && data.get('legend').type !== 'none';
 
     // When the layer selector is disabled, don't show the layer if it doesn't have legends
     if (!this.hasLayerSelector && !hasLegend) return;
-    if (!this.hasLayerSelector && !data.get("visible")) return;
+    if (!this.hasLayerSelector && !data.get('visible')) return;
 
     var hide_toggle = (this.layers.length == 1 || !this.hasLayerSelector);
 
@@ -36706,24 +35037,22 @@ var Mobile = View.extend({
       hide_toggle: hide_toggle
     });
 
-    this.$el.find(".aside .layers").append(layer.render().$el);
+    this.$el.find('.aside .layers').append(layer.render().$el);
 
-    layer.bind("change_visibility", this._reInitScrollpane, this);
+    layer.bind('change_visibility', this._reInitScrollpane, this);
 
-    this.model.set("layer_count", this.model.get("layer_count") + 1);
+    this.model.set('layer_count', this.model.get('layer_count') + 1);
   },
 
-  render: function() {
+  render: function () {
     this._bindOrientationChange();
 
     this.$el.html(this.template(this.options));
 
-    this.$header = this.$el.find(".cartodb-header");
+    this.$header = this.$el.find('.cartodb-header');
     this.$header.show();
 
     this._renderOverlays();
-
-    this._addAttributions();
 
     this._getLayers();
     this._renderLayers();
@@ -36734,21 +35063,22 @@ var Mobile = View.extend({
 
 module.exports = Mobile;
 
-},{"../../core/sanitize.js":100,"../../core/template":102,"../../core/view":104,"./mobile-layer":184,"./search":186,"./tiles-loader":189,"./zoom":191,"backbone":1,"cdb":89,"cdb.templates":91,"jquery":218,"jquery.jscrollpane":212,"underscore":241}],186:[function(require,module,exports){
-var $ = require('jquery');
-var View = require('../../core/view');
-var NOKIA = require('../../geo/geocoder/nokia-geocoder');
-var InfowindowModel = require('../../geo/ui/infowindow-model');
-var Infowindow = require('../../geo/ui/infowindow');
-var Geometry = require('../../geo/geometry');
+},{"../../core/sanitize.js":98,"../../core/template":100,"../../core/view":102,"./mobile-layer":183,"./search/search":185,"./tiles-loader":190,"./zoom":192,"backbone":1,"cdb":88,"cdb.templates":90,"jquery":225,"jquery.jscrollpane":219,"underscore":248}],185:[function(require,module,exports){
+var _ = require('underscore');
+var View = require('../../../core/view');
+var NOKIA = require('../../../geo/geocoder/nokia-geocoder');
+var InfowindowModel = require('../../../geo/ui/infowindow-model');
+var Infowindow = require('../../../geo/ui/infowindow');
+var Geometry = require('../../../geo/geometry');
+var template = require('./search_template.tpl');
+var infowindowTemplate = require('./search_infowindow_template.tpl');
 
 /**
  *  UI component to place the map in the
  *  location found by the geocoder.
  */
 var Search = View.extend({
-
-  className: 'cartodb-searchbox',
+  className: 'CDB-Search',
 
   _ZOOM_BY_CATEGORY: {
     'building': 18,
@@ -36757,95 +35087,58 @@ var Search = View.extend({
   },
 
   events: {
-    "click input[type='text']": '_onFocus',
-    "submit form": '_onSubmit',
-    "click": '_stopPropagation',
-    "dblclick": '_stopPropagation',
-    "mousedown": '_stopPropagation'
+    'click .js-toggle': '_onToggleClick',
+    'submit .js-form': '_onSubmit',
+    'click': '_stopPropagation',
+    'dblclick': '_stopPropagation',
+    'mousedown': '_stopPropagation'
   },
 
   options: {
     searchPin: true,
-    infowindowTemplate:
-    '<div class="cartodb-infowindow">'+
-      '<div class="cartodb-popup Cdb-infowindow Cdb-infowindow--light">'+
-        '<div class="Cdb-infowindow-container">'+
-          '<div class="Cdb-infowindow-inner">'+
-           ' <ul class="Cdb-infowindow-list ">'+
-              '<li class="Cdb-infowindow-list-item">'+
-                '<h4 class="Cdb-infowindow-title">{{ address }}</h4>'+
-              '</li>'+
-            '</ul>'+
-          '</div>'+
-          '<div class="Cdb-hook">'+
-            '<div class="Cdb-hook-inner">'+
-            '</div>'+
-          '</div>'+
-        '</div>'+
-      '</div>'+
-    '</div>',
     infowindowWidth: 186,
-    infowindowOffset: [30, 80],
+    infowindowOffset: [30, 30],
     iconUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAfCAYAAADXwvzvAAACuklEQVR4Ae3PQ+AsNxzA8e8vo/Xus237vVN9qW3b7qW2bdu2caxt29bu/meSmaTpqW63Pfc7wemTZPh9K/Xv3zhzxIgVrho0aMsLGo2N9o+iuYDwV02E5NJpM7d5fMGC515dMP/7l6dNMc+OGJY9Uq99cVMc33I4LOJXCQBQuXPBglNnDRm0Xa1RAWewP3yL/vJLul99Q/pNm0/b+qsnbLHngXAVgAI4b9KkXWc1m9vV58ykst56lKdMptyokdTKRJUIV1MMTGTgbOTknWABgFo2SSbOjuN9wlgIBrSIJ0yiVG9QUgGxUigRRAlpCQYrBs+A/QClliuXV6ppPVibDPPqi5irL8G+/QY2S3FZhityrLNYBWkAI2G5WTA2nGTthKDTJfP/FH1sCb76nNBa7I8/knba6Eyj8wJjLbk4qlCdAFNClWXKiiL72kGRUkSRhwUuTUm7XTqZ3z3KnMM7QhAFUfiKMZ9OQci+ydFFH32BIsDh8hxjDF2T0y0KtHHUczCg34P3wgesfWhZozstW1R/cJpuohA8dI7cWrSfxqM4gwEOnoJnn4HXBVDHwHnriNr2W3G0I8FEkKufMbjcIw1DC+iCuRw2OBduEYAKDD8drlkGlk6BHwAtIEDioD/QBnsnnHAI7A9YAAAGenwEnPuAd8+DewHcS+CeB3szvL0b7ADE/FWzYf5BCxa9dMvqa7oLll7WbTlsxKkDYRi9dPqhRz743L0PuKtOPMXtutHmm/InKf5Y6Co15Upl8qSCqVajXiEeUTRb6GqNIojoGaLEDwEA6B0KIKL8lH8JBeS/3AgK73qAPfc/tCLiAACUCmyvsJHnphwEAYFStNs/NoHgn2ATWPmlF54b/9GHH/Khn88/+9SywJx/+q0SsKTZbB45d/6CO0aNHnutv3kbYDQg9JAAIRDwF/0EjlkjUi3fkAMAAAAASUVORK5CYII=',
     iconAnchor: [7, 31]
   },
 
-  initialize: function() {
+  initialize: function () {
     this.mapView = this.options.mapView;
-    this.template = this.options.template;
+    this.template = this.options.template || template;
   },
 
-  render: function() {
+  render: function () {
     this.$el.html(this.template(this.options));
     return this;
   },
 
-  _stopPropagation: function(ev) {
+  _stopPropagation: function (ev) {
     if (ev) {
       ev.stopPropagation();
     }
   },
 
-  _onFocus: function(ev) {
-    if (ev) {
-      ev.preventDefault();
-      $(ev.target).focus();
-    }
-  },
-
-  _showLoader: function() {
-    this.$('span.loader').show();
-  },
-
-  _hideLoader: function() {
-    this.$('span.loader').hide();
-  },
-
-  _onSubmit: function(ev) {
+  _onSubmit: function (ev) {
     ev.preventDefault();
     var self = this;
-    var address = this.$('input.text').val();
+    var address = this.$('.js-textInput').val();
 
     if (!address) {
       return;
     }
-
-    // Show geocoder loader
-    this._showLoader();
-    // Remove previous pin
-    this._destroySearchPin();
-    NOKIA.geocode(address, function(places) {
+    // Remove previous pin without any timeout (0 represents the timeout for
+    // the animation)
+    this._destroySearchPin(0);
+    NOKIA.geocode(address, function (places) {
       self._onResult(places);
-      // Hide loader
-      self._hideLoader();
     });
   },
 
-  _onResult: function(places) {
+  _onResult: function (places) {
     var position = '';
-    var address = this.$('input.text').val();
+    var address = this.$('.js-textInput').val();
 
-    if (places && places.length>0) {
+    if (places && places.length > 0) {
       var location = places[0];
       var validBBox = this._isBBoxValid(location);
 
@@ -36856,8 +35149,8 @@ var Search = View.extend({
         var n = parseFloat(location.boundingbox.north);
         var e = parseFloat(location.boundingbox.east);
 
-        var centerLon = (w + e)/2;
-        var centerLat = (s + n)/2;
+        var centerLon = (w + e) / 2;
+        var centerLat = (s + n) / 2;
         position = [centerLat, centerLon];
         this.model.setBounds([ [ s, w ], [ n, e ] ]);
       }
@@ -36881,38 +35174,43 @@ var Search = View.extend({
     }
   },
 
+  _onToggleClick: function () {
+    this.$('.CDB-Search-inner').toggleClass('is-active');
+    this.$('.js-textInput').focus();
+  },
+
   // Getting zoom for each type of location
-  _getZoomByCategory: function(type) {
+  _getZoomByCategory: function (type) {
     if (type && this._ZOOM_BY_CATEGORY[type]) {
       return this._ZOOM_BY_CATEGORY[type];
     }
     return this._ZOOM_BY_CATEGORY['default'];
   },
 
-  _isBBoxValid: function(location) {
-    if(!location.boundingbox || location.boundingbox.south == location.boundingbox.north ||
-      location.boundingbox.east == location.boundingbox.west) {
+  _isBBoxValid: function (location) {
+    if (!location.boundingbox || location.boundingbox.south === location.boundingbox.north ||
+      location.boundingbox.east === location.boundingbox.west) {
       return false;
     }
     return true;
   },
 
-  _createSearchPin: function(position, address) {
+  _createSearchPin: function (position, address) {
     this._destroySearchPin();
     this._createPin(position, address);
     this._createInfowindow(position, address);
     this._bindEvents();
   },
 
-  _destroySearchPin: function() {
+  _destroySearchPin: function (timeout) {
     this._unbindEvents();
     this._destroyPin();
-    this._destroyInfowindow()
+    this._destroyInfowindow(timeout);
   },
 
-  _createInfowindow: function(position, address) {
+  _createInfowindow: function (position, address) {
     var infowindowModel = new InfowindowModel({
-      template: this.options.infowindowTemplate,
+      template: infowindowTemplate,
       latlng: position,
       width: this.options.infowindowWidth,
       offset: this.options.infowindowOffset,
@@ -36933,63 +35231,86 @@ var Search = View.extend({
     infowindowModel.set('visibility', true);
   },
 
-  _destroyInfowindow: function() {
+  _destroyInfowindow: function (timeout) {
     if (this._searchInfowindow) {
+      timeout = !_.isUndefined(timeout) && _.isNumber(timeout) ? timeout : 500;
       // Hide it and then destroy it (when animation ends)
       this._searchInfowindow.hide(true);
       var self = this;
-      setTimeout(function() {
+      setTimeout(function () {
         if (self._searchInfowindow) {
           self._searchInfowindow.clean();
           delete self._searchInfowindow;
         }
-      }, 1000);
+      }, timeout);
     }
   },
 
-  _createPin: function(position, address) {
+  _createPin: function (position, address) {
     this._searchPin = this.mapView._addGeomToMap(
       new Geometry({
-        geojson: { type: "Point", "coordinates": [ position[1], position[0] ] },
+        geojson: { type: 'Point', 'coordinates': [position[1], position[0]] },
         iconUrl: this.options.iconUrl,
         iconAnchor: this.options.iconAnchor
       })
     );
   },
 
-  _toggleSearchInfowindow: function() {
+  _toggleSearchInfowindow: function () {
     var infowindowVisibility = this._searchInfowindow.model.get('visibility');
     this._searchInfowindow.model.set('visibility', !infowindowVisibility);
   },
 
-  _destroyPin: function() {
+  _destroyPin: function () {
     if (this._searchPin) {
       this.mapView._removeGeomFromMap(this._searchPin);
       delete this._searchPin;
     }
   },
 
-  _bindEvents: function() {
+  _bindEvents: function () {
     this._searchPin && this._searchPin.bind('click', this._toggleSearchInfowindow, this);
     this.mapView.bind('click', this._destroySearchPin, this);
   },
 
-  _unbindEvents: function() {
+  _unbindEvents: function () {
     this._searchPin && this._searchPin.unbind('click', this._toggleSearchInfowindow, this);
     this.mapView.unbind('click', this._destroySearchPin, this);
   },
 
-  clean: function() {
+  clean: function () {
     this._unbindEvents();
     this._destroySearchPin();
-    this.elder('clean');
+    View.prototype.clean.call(this);
   }
 
 });
 
 module.exports = Search;
 
-},{"../../core/view":104,"../../geo/geocoder/nokia-geocoder":107,"../../geo/geometry":110,"../../geo/ui/infowindow":153,"../../geo/ui/infowindow-model":152,"jquery":218}],187:[function(require,module,exports){
+},{"../../../core/view":102,"../../../geo/geocoder/nokia-geocoder":104,"../../../geo/geometry":107,"../../../geo/ui/infowindow":152,"../../../geo/ui/infowindow-model":151,"./search_infowindow_template.tpl":186,"./search_template.tpl":187,"underscore":248}],186:[function(require,module,exports){
+var _ = require('underscore');
+module.exports = function(obj){
+var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
+with(obj||{}){
+__p+='<div class="CDB-infowindow CDB-infowindow--light js-infowindow"> <div class="CDB-infowindow-container"> <div class="CDB-infowindow-inner"> <div class="CDB-infowindow-list"> <div class="CDB-infowindow-listItem"> <h4 class="CDB-infowindow-title">'+
+((__t=( address ))==null?'':_.escape(__t))+
+'</h4> </div> </div> </div> <div class="CDB-hook"> <div class="CDB-hook-inner"> </div> </div> </div> </div>';
+}
+return __p;
+};
+
+},{"underscore":248}],187:[function(require,module,exports){
+var _ = require('underscore');
+module.exports = function(obj){
+var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
+with(obj||{}){
+__p+='<div class="CDB-Overlay"> <div class="CDB-Search-inner"> <form class="js-form"> <button type="button" class="CDB-Search-action js-toggle"> <span class="CDB-Shape-magnify"></span> </button> <input type="text" placeholder="Search Location" class="CDB-Search-text js-textInput" value=""> </form> </div> </div>';
+}
+return __p;
+};
+
+},{"underscore":248}],188:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var sanitize = require('../../core/sanitize');
@@ -37104,7 +35425,7 @@ module.exports = View.extend({
 
 });
 
-},{"../../core/sanitize":100,"../../core/template":102,"../../core/view":104,"../../ui/common/share":197,"jquery":218,"underscore":241}],188:[function(require,module,exports){
+},{"../../core/sanitize":98,"../../core/template":100,"../../core/view":102,"../../ui/common/share":198,"jquery":225,"underscore":248}],189:[function(require,module,exports){
 var _ = require('underscore');
 var View = require('../../core/view');
 var sanitize = require('../../core/sanitize');
@@ -37297,12 +35618,9 @@ var Text = View.extend({
 
 module.exports = Text;
 
-},{"../../core/sanitize":100,"../../core/view":104,"jquery":218,"underscore":241}],189:[function(require,module,exports){
+},{"../../core/sanitize":98,"../../core/view":102,"jquery":225,"underscore":248}],190:[function(require,module,exports){
 var _ = require('underscore');
-var $ = require('jquery');
-var templates = require('cdb.templates');
 var View = require('../../core/view');
-var util = require('../../core/util');
 
 /**
  * Show or hide tiles loader
@@ -37313,46 +35631,38 @@ var util = require('../../core/util');
  * mapWrapper.$el.append(tiles_loader.render().$el);
  */
 var TilesLoader = View.extend({
+  className: 'CDB-Loader',
 
-  className: "cartodb-tiles-loader",
-
-  default_options: {
+  options: {
     animationSpeed: 500
   },
 
-  initialize: function() {
-    _.defaults(this.options, this.default_options);
+  initialize: function () {
     this.isVisible = 0;
-    this.template = this.options.template ? this.options.template : templates.getTemplate('geo/tiles_loader');
   },
 
-  render: function() {
-    this.$el.html($(this.template(this.options)));
+  render: function () {
     return this;
   },
 
-  show: function(ev) {
-    if(this.isVisible) return;
-    if (!util.ie || (util.browser.ie && util.browser.ie.version >= 10)) {
-      this.$el.fadeTo(this.options.animationSpeed, 1)
-    } else {
-      this.$el.show();
+  show: function (ev) {
+    if (this.isVisible) {
+      return;
     }
+    this.$el.addClass('is-visible');
     this.isVisible++;
   },
 
-  hide: function(ev) {
+  hide: function (ev) {
     this.isVisible--;
-    if(this.isVisible > 0) return;
-    this.isVisible = 0;
-    if (!util.ie || (util.browser.ie && util.browser.ie.version >= 10)) {
-      this.$el.stop(true).fadeTo(this.options.animationSpeed, 0)
-    } else {
-      this.$el.hide();
+    if (this.isVisible > 0) {
+      return;
     }
+    this.isVisible = 0;
+    this.$el.removeClass('is-visible');
   },
 
-  visible: function() {
+  visible: function () {
     return this.isVisible > 0;
   }
 
@@ -37360,16 +35670,15 @@ var TilesLoader = View.extend({
 
 module.exports = TilesLoader;
 
-},{"../../core/util":103,"../../core/view":104,"cdb.templates":91,"jquery":218,"underscore":241}],190:[function(require,module,exports){
+},{"../../core/view":102,"underscore":248}],191:[function(require,module,exports){
 var _ = require('underscore');
 var InfoBox = require('./infobox');
 var sanitize = require('../../core/sanitize');
 var InfowindowModel = require('./infowindow-model');
 
 var Tooltip = InfoBox.extend({
-
   defaultTemplate: '<p>{{text}}</p>',
-  className: 'cartodb-tooltip',
+  className: 'CDB-Tooltip',
 
   defaults: {
     vertical_offset: 0,
@@ -37377,9 +35686,9 @@ var Tooltip = InfoBox.extend({
     position: 'top|center'
   },
 
-  initialize: function() {
-    if(!this.options.mapView) {
-      throw new Error("mapView should be present");
+  initialize: function () {
+    if (!this.options.mapView) {
+      throw new Error('mapView should be present');
     }
     this.options.template = this.options.template || this.defaultTemplate;
     InfoBox.prototype.initialize.call(this);
@@ -37388,7 +35697,13 @@ var Tooltip = InfoBox.extend({
     this.showhideTimeout = null;
   },
 
-  setLayer: function(layer) {
+  render: function (data) {
+    var sanitizedOutput = sanitize.html(this.template(data));
+    this.$el.html(sanitizedOutput);
+    return this;
+  },
+
+  setLayer: function (layer) {
     this.options.layer = layer;
     return this;
   },
@@ -37398,29 +35713,27 @@ var Tooltip = InfoBox.extend({
    * pass the filter the tooltip is shown
    * setFilter(null) removes the filter
    */
-  setFilter: function(f) {
+  setFilter: function (f) {
     this._filter = f;
     return this;
   },
 
-  setFields: function(fields) {
+  setFields: function (fields) {
     this.options.fields = fields;
     return this;
   },
 
-  setAlternativeNames: function(n) {
+  setAlternativeNames: function (n) {
     this.options.alternative_names = n;
   },
 
-  enable: function() {
-    if(this.options.layer) {
+  enable: function () {
+    if (this.options.layer) {
       // unbind previous events
       this.options.layer.unbind(null, null, this);
       this.options.layer
-        .on('mouseover', function(e, latlng, pos, data) {
-
+        .on('mouseover', function (e, latlng, pos, data) {
           if (this.options.fields && this.options.fields.length > 0) {
-
             var non_valid_keys = ['fields', 'content'];
 
             if (this.options.omit_columns) {
@@ -37441,7 +35754,7 @@ var Tooltip = InfoBox.extend({
             // alternamte names
             var names = this.options.alternative_names;
             if (names) {
-              for(var i = 0; i < data.fields.length; ++i) {
+              for (var i = 0; i < data.fields.length; ++i) {
                 var f = data.fields[i];
                 f.title = names[f.title] || f.title;
               }
@@ -37453,7 +35766,7 @@ var Tooltip = InfoBox.extend({
             this.showing = false;
           }
         }, this)
-        .on('mouseout', function() {
+        .on('mouseout', function () {
           if (this.showing) {
             this.hide();
             this.showing = false;
@@ -37463,37 +35776,36 @@ var Tooltip = InfoBox.extend({
     }
   },
 
-  disable: function() {
-    if(this.options.layer) {
+  disable: function () {
+    if (this.options.layer) {
       this.options.layer.unbind(null, null, this);
     }
     this.hide();
     this.showing = false;
   },
 
-  _visibility: function() {
+  _visibility: function () {
     var self = this;
     clearTimeout(this.showhideTimeout);
     this.showhideTimeout = setTimeout(self._showing ?
-      function() { self.$el.fadeIn(100); }
+      function () { self.$el.fadeIn(100); }
       :
-      function() { self.$el.fadeOut(200); }
-    , 50);
+      function () { self.$el.fadeOut(200); }
+      , 50);
   },
 
-  hide: function() {
+  hide: function () {
     if (this._showing) {
       this._showing = false;
       this._visibility();
     }
   },
 
-  show: function(pos, data) {
+  show: function (pos, data) {
     if (this._filter && !this._filter(data)) {
       return this;
     }
     this.render(data);
-    //this.elder('show', pos, data);
     this.setPosition(pos);
     if (!this._showing) {
       this._showing = true;
@@ -37502,19 +35814,23 @@ var Tooltip = InfoBox.extend({
     return this;
   },
 
-  setPosition: function(point) {
+  setPosition: function (point) {
     var pos = this.options.position;
     var height = this.$el.innerHeight();
     var width = this.$el.innerWidth();
     var mapViewSize = this.options.mapView.getSize();
     var top = 0;
     var left = 0;
+    var modifierClass = 'CDB-Tooltip--';
+
+    // Remove tick class
+    this.$el.attr('class', 'CDB-Tooltip');
 
     // Vertically
     if (pos.indexOf('top') !== -1) {
       top = point.y - height;
     } else if (pos.indexOf('middle') !== -1) {
-      top = point.y - (height/2);
+      top = point.y - (height / 2);
     } else { // bottom
       top = point.y;
     }
@@ -37522,15 +35838,19 @@ var Tooltip = InfoBox.extend({
     // Fix vertical overflow
     if (top < 0) {
       top = point.y;
+      modifierClass += 'top';
     } else if (top + height > mapViewSize.y) {
       top = point.y - height;
+      modifierClass += 'bottom';
+    } else {
+      modifierClass += 'top';
     }
 
     // Horizontally
-    if(pos.indexOf('left') !== -1) {
+    if (pos.indexOf('left') !== -1) {
       left = point.x - width;
-    } else if(pos.indexOf('center') !== -1) {
-      left = point.x - (width/2);
+    } else if (pos.indexOf('center') !== -1) {
+      left = point.x - (width / 2);
     } else { // right
       left = point.x;
     }
@@ -37538,8 +35858,12 @@ var Tooltip = InfoBox.extend({
     // Fix horizontal overflow
     if (left < 0) {
       left = point.x;
+      modifierClass += 'Left';
     } else if (left + width > mapViewSize.x) {
       left = point.x - width;
+      modifierClass += 'Right';
+    } else {
+      modifierClass += 'Left';
     }
 
     // Add offsets
@@ -37547,22 +35871,16 @@ var Tooltip = InfoBox.extend({
     left += this.options.horizontal_offset;
 
     this.$el.css({
-      top:  top,
+      top: top,
       left: left
-    });
-  },
-
-  render: function(data) {
-    var sanitizedOutput = sanitize.html(this.template(data));
-    this.$el.html( sanitizedOutput );
-    return this;
+    }).addClass(modifierClass);
   }
 
 });
 
 module.exports = Tooltip;
 
-},{"../../core/sanitize":100,"./infobox":151,"./infowindow-model":152,"underscore":241}],191:[function(require,module,exports){
+},{"../../core/sanitize":98,"./infobox":150,"./infowindow-model":151,"underscore":248}],192:[function(require,module,exports){
 var templates = require('cdb.templates');
 var View = require('../../core/view');
 
@@ -37627,7 +35945,7 @@ module.exports = View.extend({
 
 });
 
-},{"../../core/view":104,"cdb.templates":91}],192:[function(require,module,exports){
+},{"../../core/view":102,"cdb.templates":90}],193:[function(require,module,exports){
 var cdb = require('./cartodb.js');
 
 // Eager-load cartodb.mod.torque stuff for the default case
@@ -37635,7 +35953,7 @@ require('./cartodb.mod.torque.js');
 
 module.exports = cdb;
 
-},{"./cartodb.js":85,"./cartodb.mod.torque.js":86}],193:[function(require,module,exports){
+},{"./cartodb.js":84,"./cartodb.mod.torque.js":85}],194:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var templates = require('cdb.templates');
@@ -37807,7 +36125,7 @@ module.exports = View.extend({
 
 });
 
-},{"../../core/view":104,"cdb.templates":91,"jquery":218,"underscore":241}],194:[function(require,module,exports){
+},{"../../core/view":102,"cdb.templates":90,"jquery":225,"underscore":248}],195:[function(require,module,exports){
 var $ = require('jquery');
 var cdb = require('cdb');
 var _ = require('underscore');
@@ -37966,7 +36284,7 @@ var Dropdown = View.extend({
 
 module.exports = Dropdown;
 
-},{"../../core/view":104,"cdb":89,"cdb.templates":91,"jquery":218,"underscore":241}],195:[function(require,module,exports){
+},{"../../core/view":102,"cdb":88,"cdb.templates":90,"jquery":225,"underscore":248}],196:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var log = require('cdb.log');
@@ -38087,7 +36405,7 @@ var FullScreen = View.extend({
 
 module.exports = FullScreen;
 
-},{"../../core/view":104,"cdb.log":90,"jquery":218,"underscore":241}],196:[function(require,module,exports){
+},{"../../core/view":102,"cdb.log":89,"jquery":225,"underscore":248}],197:[function(require,module,exports){
 var _ = require('underscore');
 var templates = require('cdb.templates');
 var View = require('../../core/view');
@@ -38174,7 +36492,7 @@ var Notification = View.extend({
 
 module.exports = Notification;
 
-},{"../../core/view":104,"cdb.templates":91,"underscore":241}],197:[function(require,module,exports){
+},{"../../core/view":102,"cdb.templates":90,"underscore":248}],198:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var Dialog = require('./dialog');
@@ -38363,7 +36681,7 @@ module.exports = Dialog.extend({
 
 });
 
-},{"../../core/sanitize":100,"./dialog":193,"jquery":218,"underscore":241}],198:[function(require,module,exports){
+},{"../../core/sanitize":98,"./dialog":194,"jquery":225,"underscore":248}],199:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var View = require('../../core/view');
@@ -38672,7 +36990,7 @@ var Table = View.extend({
 
 module.exports = Table;
 
-},{"../../core/view":104,"./table/row-view":199,"jquery":218,"underscore":241}],199:[function(require,module,exports){
+},{"../../core/view":102,"./table/row-view":200,"jquery":225,"underscore":248}],200:[function(require,module,exports){
 var _ = require('underscore');
 var View = require('../../../core/view');
 
@@ -38772,7 +37090,7 @@ var RowView = View.extend({
 
 module.exports = RowView;
 
-},{"../../../core/view":104,"underscore":241}],200:[function(require,module,exports){
+},{"../../../core/view":102,"underscore":248}],201:[function(require,module,exports){
 var Model = require('../../../core/model');
 
 /**
@@ -38783,7 +37101,7 @@ var Row = Model.extend({
 
 module.exports = Row;
 
-},{"../../../core/model":98}],201:[function(require,module,exports){
+},{"../../../core/model":96}],202:[function(require,module,exports){
 var Backbone = require('backbone');
 var Row = require('./row');
 
@@ -38817,7 +37135,7 @@ var TableData = Backbone.Collection.extend({
 
 module.exports = TableData;
 
-},{"./row":200,"backbone":1}],202:[function(require,module,exports){
+},{"./row":201,"backbone":1}],203:[function(require,module,exports){
 var _ = require('underscore');
 var Model = require('../../../core/model');
 
@@ -38839,7 +37157,7 @@ var TableProperties = Model.extend({
 
 module.exports = TableProperties;
 
-},{"../../../core/model":98,"underscore":241}],203:[function(require,module,exports){
+},{"../../../core/model":96,"underscore":248}],204:[function(require,module,exports){
 var Layers = require('./vis/layers');
 var TileLayer = require('../geo/map/tile-layer');
 var WMSLayer = require('../geo/map/wms-layer');
@@ -38859,36 +37177,36 @@ var HTTPS_TO_HTTP = {
   'https://dnv9my2eseobd.cloudfront.net/': 'http://a.tiles.mapbox.com/',
   'https://maps.nlp.nokia.com/': 'http://maps.nlp.nokia.com/',
   'https://tile.stamen.com/': 'http://tile.stamen.com/',
-  "https://{s}.maps.nlp.nokia.com/": "http://{s}.maps.nlp.nokia.com/",
-  "https://cartocdn_{s}.global.ssl.fastly.net/": "http://{s}.api.cartocdn.com/",
-  "https://cartodb-basemaps-{s}.global.ssl.fastly.net/": "http://{s}.basemaps.cartocdn.com/"
+  'https://{s}.maps.nlp.nokia.com/': 'http://{s}.maps.nlp.nokia.com/',
+  'https://cartocdn_{s}.global.ssl.fastly.net/': 'http://{s}.api.cartocdn.com/',
+  'https://cartodb-basemaps-{s}.global.ssl.fastly.net/': 'http://{s}.basemaps.cartocdn.com/'
 };
 
-function transformToHTTP(tilesTemplate) {
-  for(var url in HTTPS_TO_HTTP) {
-    if(tilesTemplate.indexOf(url) !== -1) {
-      return tilesTemplate.replace(url, HTTPS_TO_HTTP[url])
+function transformToHTTP (tilesTemplate) {
+  for (var url in HTTPS_TO_HTTP) {
+    if (tilesTemplate.indexOf(url) !== -1) {
+      return tilesTemplate.replace(url, HTTPS_TO_HTTP[url]);
     }
   }
   return tilesTemplate;
 }
 
-function transformToHTTPS(tilesTemplate) {
-  for(var url in HTTPS_TO_HTTP) {
+function transformToHTTPS (tilesTemplate) {
+  for (var url in HTTPS_TO_HTTP) {
     var httpsUrl = HTTPS_TO_HTTP[url];
-    if(tilesTemplate.indexOf(httpsUrl) !== -1) {
+    if (tilesTemplate.indexOf(httpsUrl) !== -1) {
       return tilesTemplate.replace(httpsUrl, url);
     }
   }
   return tilesTemplate;
 }
 
-Layers.register('tilejson', function(vis, data) {
+Layers.register('tilejson', function (vis, data) {
   var url = data.tiles[0];
-  if(vis.https === true) {
+  if (vis.https === true) {
     url = transformToHTTPS(url);
   }
-  else if(vis.https === false) { // Checking for an explicit false value. If it's undefined the url is left as is.
+  else if (vis.https === false) { // Checking for an explicit false value. If it's undefined the url is left as is.
     url = transformToHTTP(url);
   }
   return new TileLayer({
@@ -38896,12 +37214,12 @@ Layers.register('tilejson', function(vis, data) {
   });
 });
 
-Layers.register('tiled', function(vis, data) {
+Layers.register('tiled', function (vis, data) {
   var url = data.urlTemplate;
-  if(vis.https === true) {
+  if (vis.https === true) {
     url = transformToHTTPS(url);
   }
-  else if(vis.https === false) { // Checking for an explicit false value. If it's undefined the url is left as is.
+  else if (vis.https === false) { // Checking for an explicit false value. If it's undefined the url is left as is.
     url = transformToHTTP(url);
   }
 
@@ -38909,48 +37227,46 @@ Layers.register('tiled', function(vis, data) {
   return new TileLayer(data);
 });
 
-Layers.register('wms', function(vis, data) {
+Layers.register('wms', function (vis, data) {
   return new WMSLayer(data);
 });
 
-Layers.register('gmapsbase', function(vis, data) {
+Layers.register('gmapsbase', function (vis, data) {
   return new GMapsBaseLayer(data);
 });
 
-Layers.register('plain', function(vis, data) {
+Layers.register('plain', function (vis, data) {
   return new PlainLayer(data);
 });
 
-Layers.register('background', function(vis, data) {
+Layers.register('background', function (vis, data) {
   return new PlainLayer(data);
 });
 
-
-function normalizeOptions(vis, data) {
-  if(data.infowindow && data.infowindow.fields) {
-    if(data.interactivity) {
-      if(data.interactivity.indexOf('cartodb_id') === -1) {
-        data.interactivity = data.interactivity + ",cartodb_id";
+function normalizeOptions (vis, data) {
+  if (data.infowindow && data.infowindow.fields) {
+    if (data.interactivity) {
+      if (data.interactivity.indexOf('cartodb_id') === -1) {
+        data.interactivity = data.interactivity + ',cartodb_id';
       }
     } else {
       data.interactivity = 'cartodb_id';
     }
   }
   // if https is forced
-  if(vis.https) {
+  if (vis.https) {
     data.tiler_protocol = 'https';
     data.tiler_port = 443;
     data.sql_api_protocol = 'https';
     data.sql_api_port = 443;
   }
-  data.cartodb_logo = vis.cartodb_logo == undefined ? data.cartodb_logo : vis.cartodb_logo;
 }
 
-var cartoLayer = function(vis, data) {
+var cartoLayer = function (vis, data) {
   normalizeOptions(vis, data);
   // if sublayers are included that means a layergroup should
   // be created
-  if(data.sublayers) {
+  if (data.sublayers) {
     data.type = 'layergroup';
     return new CartoDBGroupLayer(data);
   }
@@ -38961,33 +37277,32 @@ Layers.register('cartodb', cartoLayer);
 Layers.register('carto', cartoLayer);
 
 // TODO: This can be removed
-Layers.register('layergroup', function(vis, data) {
+Layers.register('layergroup', function (vis, data) {
   normalizeOptions(vis, data);
   return new CartoDBLayerGroupAnonymous(data);
 });
 
 // TODO: This can be removed
-Layers.register('namedmap', function(vis, data) {
+Layers.register('namedmap', function (vis, data) {
   normalizeOptions(vis, data);
   return new CartoDBLayerGroupNamed(data);
 });
 
-Layers.register('torque', function(vis, data) {
+Layers.register('torque', function (vis, data) {
   normalizeOptions(vis, data);
   // default is https
-  if(vis.https) {
-    if(data.sql_api_domain && data.sql_api_domain.indexOf('cartodb.com') !== -1) {
+  if (vis.https) {
+    if (data.sql_api_domain && data.sql_api_domain.indexOf('cartodb.com') !== -1) {
       data.sql_api_protocol = 'https';
       data.sql_api_port = 443;
       data.tiler_protocol = 'https';
       data.tiler_port = 443;
     }
   }
-  data.cartodb_logo = vis.cartodb_logo == undefined ? data.cartodb_logo : vis.cartodb_logo;
   return new TorqueLayer(data);
 });
 
-},{"../geo/map/cartodb-layer":140,"../geo/map/cartodb-layer-group-anonymous":137,"../geo/map/cartodb-layer-group-named":139,"../geo/map/gmaps-base-layer":141,"../geo/map/plain-layer":144,"../geo/map/tile-layer":145,"../geo/map/torque-layer":146,"../geo/map/wms-layer":147,"./vis/layers":207}],204:[function(require,module,exports){
+},{"../geo/map/cartodb-layer":137,"../geo/map/cartodb-layer-group-anonymous":134,"../geo/map/cartodb-layer-group-named":136,"../geo/map/gmaps-base-layer":138,"../geo/map/plain-layer":141,"../geo/map/tile-layer":142,"../geo/map/torque-layer":143,"../geo/map/wms-layer":144,"./vis/layers":208}],205:[function(require,module,exports){
 var _ = require('underscore');
 var Overlay = require('./vis/overlay');
 var Model = require('../core/model');
@@ -39000,19 +37315,25 @@ var Infowindow = require('../geo/ui/infowindow');
 var InfowindowModel = require('../geo/ui/infowindow-model');
 var LayerSelector = require('../geo/ui/layer-selector');
 var Share = require('../geo/ui/share');
-var Search = require('../geo/ui/search');
+var Search = require('../geo/ui/search/search');
 var Text = require('../geo/ui/text');
 var TilesLoader = require('../geo/ui/tiles-loader');
 var Tooltip = require('../geo/ui/tooltip');
 var Zoom = require('../geo/ui/zoom');
 var FullScreen = require('../ui/common/fullscreen');
+var Attribution = require('../geo/ui/attribution/attribution_view');
 
-Overlay.register('logo', function(data, vis) {
+Overlay.register('logo', function (data, vis) {});
 
+Overlay.register('attribution', function (data, vis) {
+  var overlay = new Attribution({
+    map: data.map
+  });
+
+  return overlay.render();
 });
 
-Overlay.register('mobile', function(data, vis) {
-
+Overlay.register('mobile', function (data, vis) {
   var template = Template.compile(
     data.template || '\
     <div class="backdrop"></div>\
@@ -39028,8 +37349,6 @@ Overlay.register('mobile', function(data, vis) {
     <div class="scrollpane"><ul class="layers"></ul></div>\
     </div>\
     </div>\
-    <div class="cartodb-attribution"></div>\
-    <a href="#" class="cartodb-attribution-button"></a>\
     <div class="torque"></div>\
     ',
     data.templateType || 'mustache'
@@ -39049,8 +37368,7 @@ Overlay.register('mobile', function(data, vis) {
   return mobile.render();
 });
 
-Overlay.register('text', function(data, vis) {
-
+Overlay.register('text', function (data, vis) {
   var options = data.options;
 
   var template = Template.compile(
@@ -39064,15 +37382,14 @@ Overlay.register('text', function(data, vis) {
   var widget = new Text({
     model: new Model(options),
     template: template,
-    className: "cartodb-overlay overlay-text " + options.device
+    className: 'cartodb-overlay overlay-text ' + options.device
   });
 
   return widget.render();
 
 });
 
-Overlay.register('annotation', function(data, vis) {
-
+Overlay.register('annotation', function (data, vis) {
   var options = data.options;
 
   var template = Template.compile(
@@ -39087,13 +37404,13 @@ Overlay.register('annotation', function(data, vis) {
   var options = data.options;
 
   var widget = new Annotation({
-    className: "cartodb-overlay overlay-annotation " + options.device,
+    className: 'cartodb-overlay overlay-annotation ' + options.device,
     template: template,
     mapView: vis.mapView,
     device: options.device,
     text: options.extra.rendered_text,
-    minZoom: options.style["min-zoom"],
-    maxZoom: options.style["max-zoom"],
+    minZoom: options.style['min-zoom'],
+    maxZoom: options.style['max-zoom'],
     latlng: options.extra.latlng,
     style: options.style
   });
@@ -39102,13 +37419,11 @@ Overlay.register('annotation', function(data, vis) {
 
 });
 
-
-Overlay.register('zoom_info', function(data, vis) {
-  //console.log("placeholder for the zoom_info overlay");
+Overlay.register('zoom_info', function (data, vis) {
+  // console.log("placeholder for the zoom_info overlay");
 });
 
-Overlay.register('header', function(data, vis) {
-
+Overlay.register('header', function (data, vis) {
   var options = data.options;
 
   var template = Template.compile(
@@ -39130,10 +37445,9 @@ Overlay.register('header', function(data, vis) {
 });
 
 // map zoom control
-Overlay.register('zoom', function(data, vis) {
-
-  if(!data.template) {
-    vis.trigger('error', 'zoom template is empty')
+Overlay.register('zoom', function (data, vis) {
+  if (!data.template) {
+    vis.trigger('error', 'zoom template is empty');
     return;
   }
 
@@ -39147,17 +37461,13 @@ Overlay.register('zoom', function(data, vis) {
 });
 
 // Tiles loader
-Overlay.register('loader', function(data) {
-
-  var tilesLoader = new TilesLoader({
-    template: Template.compile(data.template)
-  });
-
+Overlay.register('loader', function (data) {
+  var tilesLoader = new TilesLoader();
   return tilesLoader.render();
 });
 
 // Header to show informtion (title and description)
-Overlay.register('_header', function(data, vis) {
+Overlay.register('_header', function (data, vis) {
   var MAX_SHORT_DESCRIPTION_LENGTH = 100;
 
   // Add the complete url for facebook and twitter
@@ -39168,11 +37478,11 @@ Overlay.register('_header', function(data, vis) {
   }
 
   var template = Template.compile(
-    data.template || "\
+    data.template || '\
       {{#title}}\
         <h1>\
           {{#url}}\
-            <a href='#' onmousedown=\"window.open('{{url}}')\">{{title}}</a>\
+            <a href=\'#\' onmousedown="window.open(\'{{url}}\')">{{title}}</a>\
           {{/url}}\
           {{^url}}\
             {{title}}\
@@ -39181,38 +37491,38 @@ Overlay.register('_header', function(data, vis) {
       {{/title}}\
       {{#description}}<p>{{{description}}}</p>{{/description}}\
       {{#mobile_shareable}}\
-        <div class='social'>\
-          <a class='facebook' target='_blank'\
-            href='http://www.facebook.com/sharer.php?u={{share_url}}&text=Map of {{title}}: {{description}}'>F</a>\
-          <a class='twitter' href='https://twitter.com/share?url={{share_url}}&text={{twitter_title}}'\
-           target='_blank'>T</a>\
+        <div class=\'social\'>\
+          <a class=\'facebook\' target=\'_blank\'\
+            href=\'http://www.facebook.com/sharer.php?u={{share_url}}&text=Map of {{title}}: {{description}}\'>F</a>\
+          <a class=\'twitter\' href=\'https://twitter.com/share?url={{share_url}}&text={{twitter_title}}\'\
+           target=\'_blank\'>T</a>\
         </div>\
       {{/mobile_shareable}}\
-    ",
+    ',
     data.templateType || 'mustache'
   );
 
-  function truncate(s, length) {
-    return s.substr(0, length-1) + (s.length > length ? '…' : '');
+  function truncate (s, length) {
+    return s.substr(0, length - 1) + (s.length > length ? '…' : '');
   }
 
-  var title       = data.map.get('title');
+  var title = data.map.get('title');
   var description = data.map.get('description');
 
-  var facebook_title = title + ": " + description;
+  var facebook_title = title + ': ' + description;
   var twitter_title;
 
   if (title && description) {
-    twitter_title = truncate(title + ": " + description, 112) + " %23map "
+    twitter_title = truncate(title + ': ' + description, 112) + ' %23map ';
   } else if (title) {
-    twitter_title = truncate(title, 112) + " %23map"
-  } else if (description){
-    twitter_title = truncate(description, 112) + " %23map"
+    twitter_title = truncate(title, 112) + ' %23map';
+  } else if (description) {
+    twitter_title = truncate(description, 112) + ' %23map';
   } else {
-    twitter_title = "%23map"
+    twitter_title = '%23map';
   }
 
-  var shareable = (data.shareable == "false" || !data.shareable) ? null : data.shareable;
+  var shareable = (data.shareable == 'false' || !data.shareable) ? null : data.shareable;
   var mobile_shareable = shareable;
 
   mobile_shareable = mobile_shareable && (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
@@ -39233,8 +37543,7 @@ Overlay.register('_header', function(data, vis) {
 });
 
 // infowindow
-Overlay.register('infowindow', function(data, vis) {
-
+Overlay.register('infowindow', function (data, vis) {
   if (_.size(data.fields) == 0) {
     return null;
   }
@@ -39249,20 +37558,18 @@ Overlay.register('infowindow', function(data, vis) {
   });
 
   var infowindow = new Infowindow({
-     model: infowindowModel,
-     mapView: vis.mapView,
-     template: data.template
+    model: infowindowModel,
+    mapView: vis.mapView,
+    template: data.template
   });
 
   return infowindow;
 });
 
-
 // layer_selector
-Overlay.register('layer_selector', function(data, vis) {
-
+Overlay.register('layer_selector', function (data, vis) {
   var options = data.options;
-  //if (!options.display) return;
+  // if (!options.display) return;
 
   var template = Template.compile(
     data.template || '\
@@ -39287,12 +37594,12 @@ Overlay.register('layer_selector', function(data, vis) {
   });
 
   if (vis.legends) {
-    layerSelector.bind('change:visible', function(visible, order, layer) {
+    layerSelector.bind('change:visible', function (visible, order, layer) {
       if (layer.get('type') === 'layergroup' || layer.get('type') === 'torque') {
         var legend = vis.legends && vis.legends.getLegendByIndex(order);
 
         if (legend) {
-          legend[visible ? 'show': 'hide']();
+          legend[visible ? 'show' : 'hide']();
         }
       }
     });
@@ -39302,8 +37609,7 @@ Overlay.register('layer_selector', function(data, vis) {
 });
 
 // fullscreen
-Overlay.register('fullscreen', function(data, vis) {
-
+Overlay.register('fullscreen', function (data, vis) {
   var options = data.options;
 
   options.allowWheelOnFullscreen = false;
@@ -39314,7 +37620,7 @@ Overlay.register('fullscreen', function(data, vis) {
   );
 
   var fullscreen = new FullScreen({
-    doc: "#map > div",
+    doc: '#map > div',
     model: new Model(options),
     mapView: vis.mapView,
     template: template
@@ -39325,8 +37631,7 @@ Overlay.register('fullscreen', function(data, vis) {
 });
 
 // share content
-Overlay.register('share', function(data, vis) {
-
+Overlay.register('share', function (data, vis) {
   var options = data.options;
 
   var template = Template.compile(
@@ -39348,35 +37653,23 @@ Overlay.register('share', function(data, vis) {
 });
 
 // search content
-Overlay.register('search', function(data, vis) {
+Overlay.register('search', function (data, vis) {
+  var opts = _.extend(data, {
+    mapView: vis.mapView,
+    model: vis.map
+  });
 
-  var template = Template.compile(
-    data.template || '\
-      <form>\
-        <span class="loader"></span>\
-        <input type="text" class="text" value="" />\
-        <input type="submit" class="submit" value="" />\
-      </form>\
-    ',
-    data.templateType || 'mustache'
-  );
-
-  var search = new Search(
-    _.extend(data, {
-      template: template,
-      mapView: vis.mapView,
-      model: vis.map
-    })
-  );
-
+  if (data.template) {
+    opts.template = Template.compile(data.template, data.templateType || 'mustache');
+  }
+  var search = new Search(opts);
   return search.render();
-
 });
 
 // tooltip
-Overlay.register('tooltip', function(data, vis) {
+Overlay.register('tooltip', function (data, vis) {
   if (!data.layer && vis.getLayers().length <= 1) {
-    throw new Error("layer is null");
+    throw new Error('layer is null');
   }
   data.layer = data.layer || vis.getLayers()[1];
   data.layer.setInteraction(true);
@@ -39384,17 +37677,17 @@ Overlay.register('tooltip', function(data, vis) {
   return new Tooltip(data);
 });
 
-Overlay.register('infobox', function(data, vis) {
+Overlay.register('infobox', function (data, vis) {
   var layer;
   var layers = vis.getLayers();
   if (!data.layer) {
-    if(layers.length > 1) {
+    if (layers.length > 1) {
       layer = layers[1];
     }
     data.layer = layer;
   }
-  if(!data.layer) {
-    throw new Error("layer is null");
+  if (!data.layer) {
+    throw new Error('layer is null');
   }
   data.layer.setInteraction(true);
   var infobox = new InfoBox(data);
@@ -39402,7 +37695,7 @@ Overlay.register('infobox', function(data, vis) {
 
 });
 
-},{"../core/model":98,"../core/template":102,"../geo/ui/annotation":148,"../geo/ui/header":149,"../geo/ui/infobox":151,"../geo/ui/infowindow":153,"../geo/ui/infowindow-model":152,"../geo/ui/layer-selector":154,"../geo/ui/mobile":185,"../geo/ui/search":186,"../geo/ui/share":187,"../geo/ui/text":188,"../geo/ui/tiles-loader":189,"../geo/ui/tooltip":190,"../geo/ui/zoom":191,"../ui/common/fullscreen":195,"./vis/overlay":208,"underscore":241}],205:[function(require,module,exports){
+},{"../core/model":96,"../core/template":100,"../geo/ui/annotation":145,"../geo/ui/attribution/attribution_view":147,"../geo/ui/header":148,"../geo/ui/infobox":150,"../geo/ui/infowindow":152,"../geo/ui/infowindow-model":151,"../geo/ui/layer-selector":153,"../geo/ui/mobile":184,"../geo/ui/search/search":185,"../geo/ui/share":188,"../geo/ui/text":189,"../geo/ui/tiles-loader":190,"../geo/ui/tooltip":191,"../geo/ui/zoom":192,"../ui/common/fullscreen":196,"./vis/overlay":209,"underscore":248}],206:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 var $ = require('jquery');
@@ -39427,17 +37720,20 @@ var Overlay = require('./vis/overlay');
 var INFOWINDOW_TEMPLATE = require('./vis/infowindow-template');
 var CartoDBLayerGroupNamed = require('../geo/map/cartodb-layer-group-named');
 var CartoDBLayerGroupAnonymous = require('../geo/map/cartodb-layer-group-anonymous');
+var WindshaftConfig = require('../windshaft/config');
+var WindshaftClient = require('../windshaft/client');
+var WindshaftLayerGroupConfig = require('../windshaft/layergroup-config');
+var WindshaftNamedMapConfig = require('../windshaft/namedmap-config');
 
 /**
  * Visualization creation
  */
 var Vis = View.extend({
-
   DEFAULT_MAX_ZOOM: 20,
 
   DEFAULT_MIN_ZOOM: 0,
 
-  initialize: function() {
+  initialize: function () {
     _.bindAll(this, 'loadingTiles', 'loadTiles', '_onResize');
 
     this.https = false;
@@ -39453,15 +37749,15 @@ var Vis = View.extend({
   /**
    * check if all the modules needed to create layers are loaded
    */
-  checkModules: function(layers) {
+  checkModules: function (layers) {
     var mods = Layers.modulesForLayers(layers);
-    return _.every(_.map(mods, function(m) { return cdb[m] !== undefined; }));
+    return _.every(_.map(mods, function (m) { return cdb[m] !== undefined; }));
   },
 
-  loadModules: function(layers, done) {
+  loadModules: function (layers, done) {
     var self = this;
     var mods = Layers.modulesForLayers(layers);
-    for(var i = 0; i < mods.length; ++i) {
+    for (var i = 0; i < mods.length; ++i) {
       Loader.loadModule(mods[i]);
     }
     function loaded () {
@@ -39475,7 +37771,7 @@ var Vis = View.extend({
     _.defer(loaded);
   },
 
-  _addLegends: function(legends) {
+  _addLegends: function (legends) {
     if (this.legends) {
       this.legends.remove();
     }
@@ -39489,15 +37785,15 @@ var Vis = View.extend({
     }
   },
 
-  addLegends: function(layers) {
+  addLegends: function (layers) {
     this._addLegends(this.createLegendView(layers));
   },
 
-  _setLayerOptions: function(options) {
+  _setLayerOptions: function (options) {
     var layers = [];
 
     // flatten layers (except baselayer)
-    var layers = _.map(this.getLayers().slice(1), function(layer) {
+    var layers = _.map(this.getLayers().slice(1), function (layer) {
       if (layer.getSubLayers) {
         return layer.getSubLayers();
       }
@@ -39507,17 +37803,16 @@ var Vis = View.extend({
     layers = _.flatten(layers);
 
     for (i = 0; i < Math.min(options.sublayer_options.length, layers.length); ++i) {
-
       var o = options.sublayer_options[i];
       var subLayer = layers[i];
       var legend = this.legends && this.legends.getLegendByIndex(i);
 
       if (legend) {
-        legend[o.visible ? 'show': 'hide']();
+        legend[o.visible ? 'show' : 'hide']();
       }
 
       // HACK
-      if(subLayer.model && subLayer.model.get('type') === 'torque') {
+      if (subLayer.model && subLayer.model.get('type') === 'torque') {
         if (o.visible === false) {
           subLayer.model.set('visible', false);
         }
@@ -39525,12 +37820,11 @@ var Vis = View.extend({
     }
   },
 
-  _addOverlays: function(overlays, data, options) {
-
+  _addOverlays: function (overlays, data, options) {
     overlays = overlays.toJSON();
     // Sort the overlays by its internal order
-    overlays = _.sortBy(overlays, function(overlay) {
-      return overlay.order === null ? Number.MAX_VALUE: overlay.order;
+    overlays = _.sortBy(overlays, function (overlay) {
+      return overlay.order === null ? Number.MAX_VALUE : overlay.order;
     });
 
     // clean current overlays
@@ -39541,32 +37835,31 @@ var Vis = View.extend({
     this._createOverlays(overlays, data, options);
   },
 
-  _setupSublayers: function(layers, options) {
+  _setupSublayers: function (layers, options) {
     options.sublayer_options = [];
 
-    _.each(layers.slice(1), function(lyr) {
-
+    _.each(layers.slice(1), function (lyr) {
       if (lyr.type === 'layergroup') {
-        _.each(lyr.options.layer_definition.layers, function(l) {
-          options.sublayer_options.push({ visible: ( l.visible !== undefined ? l.visible : true ) })
+        _.each(lyr.options.layer_definition.layers, function (l) {
+          options.sublayer_options.push({ visible: ( l.visible !== undefined ? l.visible : true) });
         });
       } else if (lyr.type === 'namedmap') {
-        _.each(lyr.options.named_map.layers, function(l) {
-          options.sublayer_options.push({ visible: ( l.visible !== undefined ? l.visible : true ) })
+        _.each(lyr.options.named_map.layers, function (l) {
+          options.sublayer_options.push({ visible: ( l.visible !== undefined ? l.visible : true) });
         });
       } else if (lyr.type === 'torque') {
-        options.sublayer_options.push({ visible: ( lyr.options.visible !== undefined ? lyr.options.visible : true ) })
+        options.sublayer_options.push({ visible: ( lyr.options.visible !== undefined ? lyr.options.visible : true) });
       }
     });
   },
 
-  load: function(data, options) {
+  load: function (data, options) {
     var self = this;
 
-    if (typeof(data) === 'string') {
+    if (typeof (data) === 'string') {
       var url = data;
 
-      Loader.get(url, function(data) {
+      Loader.get(url, function (data) {
         if (data) {
           self.load(data, options);
         } else {
@@ -39588,7 +37881,7 @@ var Vis = View.extend({
 
       this.moduleChecked = true;
 
-      this.loadModules(layers, function() {
+      this.loadModules(layers, function () {
         self.load(data, options);
       });
 
@@ -39608,18 +37901,7 @@ var Vis = View.extend({
 
     this._applyOptions(data, options);
 
-    // to know if the logo is enabled search in the overlays and see if logo overlay is included and is shown
-    var has_logo_overlay = !!_.find(data.overlays, function(o) { return o.type === 'logo' && o.options.display; });
-
-    this.cartodb_logo = (options.cartodb_logo !== undefined) ? options.cartodb_logo: has_logo_overlay;
-
-    if (this.mobile) {
-      this.cartodb_logo = false;
-    } else if (!has_logo_overlay && options.cartodb_logo === undefined) {
-      this.cartodb_logo = true;
-    }
-
-    var scrollwheel  = (options.scrollwheel === undefined)  ? data.scrollwheel : options.scrollwheel;
+    var scrollwheel = (options.scrollwheel === undefined) ? data.scrollwheel : options.scrollwheel;
 
     // Do not allow pan map if zoom overlay and scrollwheel are disabled unless
     // mobile view is enabled
@@ -39627,16 +37909,15 @@ var Vis = View.extend({
 
     // Do not allow pan map if zoom overlay and scrollwheel are disabled
     // Check if zoom overlay is present.
-    var hasZoomOverlay = _.isObject(_.find(data.overlays, function(overlay) {
-      return overlay.type == "zoom";
+    var hasZoomOverlay = _.isObject(_.find(data.overlays, function (overlay) {
+      return overlay.type == 'zoom';
     }));
 
     var allowDragging = isMobileDevice || hasZoomOverlay || scrollwheel;
 
-    //Force using GMaps ?
-    if ( (this.gmaps_base_type) && (data.map_provider === "leaflet") ) {
-
-      //Check if base_type is correct
+    // Force using GMaps ?
+    if ( (this.gmaps_base_type) && (data.map_provider === 'leaflet')) {
+      // Check if base_type is correct
       var typesAllowed = ['roadmap', 'gray_roadmap', 'dark_roadmap', 'hybrid', 'satellite', 'terrain'];
       if (_.contains(typesAllowed, this.gmaps_base_type)) {
         if (data.layers) {
@@ -39645,11 +37926,11 @@ var Vis = View.extend({
           data.layers[0].options.name = this.gmaps_base_type;
 
           if (this.gmaps_style) {
-            data.layers[0].options.style = typeof this.gmaps_style === 'string' ? JSON.parse(this.gmaps_style): this.gmaps_style;
+            data.layers[0].options.style = typeof this.gmaps_style === 'string' ? JSON.parse(this.gmaps_style) : this.gmaps_style;
           }
 
           data.map_provider = 'googlemaps';
-          data.layers[0].options.attribution = ''; //GMaps has its own attribution
+          data.layers[0].options.attribution = ''; // GMaps has its own attribution
         } else {
           log.error('No base map loaded. Using Leaflet.');
         }
@@ -39682,12 +37963,12 @@ var Vis = View.extend({
     } else {
       var center = data.center;
 
-      if (typeof(center) === "string") {
+      if (typeof (center) === 'string') {
         center = $.parseJSON(center);
       }
 
       mapConfig.center = center || [0, 0];
-      mapConfig.zoom = data.zoom === undefined ? 4: data.zoom;
+      mapConfig.zoom = data.zoom === undefined ? 4 : data.zoom;
     }
 
     var map = new Map(mapConfig);
@@ -39717,9 +37998,9 @@ var Vis = View.extend({
 
     // Another div to prevent leaflet grabbing the div
     var div_hack = $('<div>')
-      .addClass("cartodb-map-wrapper")
+      .addClass('cartodb-map-wrapper')
       .css({
-        position: "absolute",
+        position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
@@ -39732,15 +38013,15 @@ var Vis = View.extend({
     this.$el.append(div);
 
     // Create the map
-    var mapView  = new MapView.create(div_hack, map);
+    var mapView = new MapView.create(div_hack, map);
 
     this.mapView = mapView;
 
-    if (options.legends || (options.legends === undefined && this.map.get("legends") !== false)) {
+    if (options.legends || (options.legends === undefined && this.map.get('legends') !== false)) {
       map.layers.bind('reset', this.addLegends, this);
     }
 
-    this.overlayModels.bind('reset', function(overlays) {
+    this.overlayModels.bind('reset', function (overlays) {
       this._addOverlays(overlays, data, options);
       this._addMobile(data, options);
     }, this);
@@ -39758,22 +38039,36 @@ var Vis = View.extend({
     var cartoDBLayers;
     var cartoDBLayerGroup;
     var layers = [];
-    _.each(data.layers, function(layerData) {
+    _.each(data.layers, function (layerData) {
       if (layerData.type === 'layergroup' || layerData.type === 'namedmap') {
         var layersData;
         var layerGroupClass;
+        var layerGroupOptions = layerData.options;
+        var layerGroupAttributes = {};
         if (layerData.type === 'layergroup') {
           layersData = layerData.options.layer_definition.layers;
           layerGroupClass = CartoDBLayerGroupAnonymous;
+          layerGroupAttributes = {
+            userName: layerGroupOptions['user_name'],
+            mapsApiTemplate: layerGroupOptions['maps_api_template'],
+            statTag: layerGroupOptions['layer_definition']['stat_tag']
+          };
         } else {
           layersData = layerData.options.named_map.layers;
           layerGroupClass = CartoDBLayerGroupNamed;
+          layerGroupAttributes = {
+            userName: layerGroupOptions['user_name'],
+            mapsApiTemplate: layerGroupOptions['maps_api_template'],
+            statTag: layerGroupOptions['named_map']['stat_tag'],
+            namedMapId: layerGroupOptions['named_map']['name']
+          };
         }
-        cartoDBLayers = _.map(layersData, function(layerData) {
-          var cartoDBLayer = Layers.create("cartodb", self, layerData);
+        cartoDBLayers = _.map(layersData, function (layerData) {
+          var cartoDBLayer = Layers.create('cartodb', self, layerData);
           return cartoDBLayer;
         });
-        cartoDBLayerGroup = new layerGroupClass({}, {
+
+        cartoDBLayerGroup = new layerGroupClass(layerGroupAttributes, {
           layers: cartoDBLayers
         });
         layers.push(cartoDBLayerGroup);
@@ -39794,26 +38089,79 @@ var Vis = View.extend({
 
     this._setLayerOptions(options);
 
-    _.defer(function() {
+    _.defer(function () {
       self.trigger('done', self, map.layers);
     });
+
+    // TODO: This method is creating an instance of the layer group
+    // and setting the tiles and grid urls on the layerGroup model, which
+    // cause the layergroup view to fetch and render the tiles. This needs
+    // to happen everytime a layer that belongs to the layerGroup changes
+    // (eg: when the layer is hidden or it's SQL is changed)
+    if (cartoDBLayerGroup) {
+      this._createLayerGroupInstance(cartoDBLayerGroup);
+    }
 
     return this;
   },
 
-  _createOverlays: function(overlays, vis_data, options) {
-    _(overlays).each(function(data) {
+  _createLayerGroupInstance: function (layerGroup) {
+    if (!layerGroup) {
+      throw new Error('Error creating instance of layergroup, layerGroup is not defined.');
+    }
+    if (layerGroup.get('type') === 'namedmap') {
+      var userName = layerGroup.get('userName');
+      var mapsApiTemplate = layerGroup.get('mapsApiTemplate');
+      var namedMapId = layerGroup.get('namedMapId');
+      var statTag = layerGroup.get('statTag');
+      var endpoint = [
+        WindshaftConfig.MAPS_API_BASE_URL, 'named', namedMapId
+      ].join('/');
+      var configGenerator = WindshaftNamedMapConfig;
+    } else if (layerGroup.get('type') === 'layergroup') {
+      var userName = layerGroup.get('userName');
+      var mapsApiTemplate = layerGroup.get('mapsApiTemplate');
+      var statTag = layerGroup.get('statTag');
+      var endpoint = WindshaftConfig.MAPS_API_BASE_URL;
+      var configGenerator = WindshaftLayerGroupConfig;
+    }
+
+    var windshaftClient = new WindshaftClient({
+      endpoint: endpoint,
+      urlTemplate: mapsApiTemplate,
+      userName: userName,
+      statTag: statTag,
+      forceCors: true
+    });
+
+    var mapConfig = configGenerator.generate({
+      layers: layerGroup.layers.models
+    });
+
+    windshaftClient.instantiateMap({
+      mapDefinition: mapConfig,
+      success: function (dashboardInstance) {
+        layerGroup.set({
+          baseURL: dashboardInstance.getBaseURL(),
+          urls: dashboardInstance.getTiles('mapnik')
+        });
+      }
+    });
+  },
+
+  _createOverlays: function (overlays, vis_data, options) {
+    _(overlays).each(function (data) {
       var type = data.type;
 
       // We don't render certain overlays if we are in mobile
-      if (this.isMobileEnabled && (type === "zoom" || type === "header" || type === "loader")) return;
+      if (this.isMobileEnabled && (type === 'zoom' || type === 'header' || type === 'loader')) return;
 
       // IE<10 doesn't support the Fullscreen API
       if (type === 'fullscreen' && util.browser.ie && util.browser.ie.version <= 10) return;
 
       // Decide to create or not the custom overlays
       if (type === 'image' || type === 'text' || type === 'annotation') {
-        var isDevice = data.options.device == "mobile" ? true : false;
+        var isDevice = data.options.device == 'mobile' ? true : false;
         if (this.mobile !== isDevice) return;
         if (!options[type] && options[type] !== undefined) {
           return;
@@ -39833,26 +38181,24 @@ var Vis = View.extend({
       var opt = data.options;
 
       if (!this.isMobileEnabled) {
-
-        if (type == 'share' && options["shareable"]  || type == 'share' && overlay.model.get("display") && options["shareable"] == undefined) overlay.show();
-        if (type == 'layer_selector' && options[type] || type == 'layer_selector' && overlay.model.get("display") && options[type] == undefined) overlay.show();
-        if (type == 'fullscreen' && options[type] || type == 'fullscreen' && overlay.model.get("display") && options[type] == undefined) overlay.show();
+        if (type == 'share' && options['shareable'] || type == 'share' && overlay.model.get('display') && options['shareable'] == undefined) overlay.show();
+        if (type == 'layer_selector' && options[type] || type == 'layer_selector' && overlay.model.get('display') && options[type] == undefined) overlay.show();
+        if (type == 'fullscreen' && options[type] || type == 'fullscreen' && overlay.model.get('display') && options[type] == undefined) overlay.show();
         if (type == 'search' && options[type] || type == 'search' && opt.display && options[type] == undefined) overlay.show();
 
         if (type === 'header') {
-
           var m = overlay.model;
 
           if (options.title !== undefined) {
-            m.set("show_title", options.title);
+            m.set('show_title', options.title);
           }
 
           if (options.description !== undefined) {
-            m.set("show_description", options.description);
+            m.set('show_description', options.description);
           }
 
           if (m.get('show_title') || m.get('show_description')) {
-            $(".cartodb-map-wrapper").addClass("with_header");
+            $('.cartodb-map-wrapper').addClass('with_header');
           }
 
           overlay.render();
@@ -39861,19 +38207,18 @@ var Vis = View.extend({
     }, this);
   },
 
-  _addHeader: function(data, vis_data) {
+  _addHeader: function (data, vis_data) {
     return this.addOverlay({
       type: 'header',
       options: data.options
     });
   },
 
-  _addMobile: function(data, options) {
+  _addMobile: function (data, options) {
     var layers;
     var layer = data.layers[1];
 
     if (this.isMobileEnabled) {
-
       if (options && options.legends === undefined) {
         options.legends = this.legends ? true : false;
       }
@@ -39894,7 +38239,7 @@ var Vis = View.extend({
     }
   },
 
-  _createLegendView: function(layer, layerView) {
+  _createLegendView: function (layer, layerView) {
     if (layer.legend) {
       layer.legend.data = layer.legend.items;
       var legend = layer.legend;
@@ -39905,8 +38250,8 @@ var Vis = View.extend({
         });
         var legendModel = new LegendModel(legendAttrs);
         var legendView = new Legend({ model: legendModel });
-        layerView.bind('change:visibility', function(layer, hidden) {
-          legendView[hidden ? 'hide': 'show']();
+        layerView.bind('change:visibility', function (layer, hidden) {
+          legendView[hidden ? 'hide' : 'show']();
         });
         layerView.legend = legendModel;
         return legendView;
@@ -39915,7 +38260,7 @@ var Vis = View.extend({
     return null;
   },
 
-  createLegendView: function(layers) {
+  createLegendView: function (layers) {
     var legends = [];
     var self = this;
     for (var i = layers.length - 1; i >= 0; --i) {
@@ -39932,33 +38277,33 @@ var Vis = View.extend({
     return _.flatten(legends);
   },
 
-  _createLayerLegendView: function(layer, layerView) {
+  _createLayerLegendView: function (layer, layerView) {
     var self = this;
     var legends = [];
     if (layer.options && layer.options.layer_definition) {
       var sublayers = layer.options.layer_definition.layers;
-      _(sublayers).each(function(sub, i) {
+      _(sublayers).each(function (sub, i) {
         legends.push(self._createLegendView(sub, layerView.getSubLayer(i)));
       });
-    } else if(layer.options && layer.options.named_map && layer.options.named_map.layers) {
+    } else if (layer.options && layer.options.named_map && layer.options.named_map.layers) {
       var sublayers = layer.options.named_map.layers;
-      _(sublayers).each(function(sub, i) {
+      _(sublayers).each(function (sub, i) {
         legends.push(self._createLegendView(sub, layerView.getSubLayer(i)));
       });
     } else {
-      legends.push(this._createLegendView(layer, layerView))
+      legends.push(this._createLegendView(layer, layerView));
     }
     return _.compact(legends).reverse();
   },
 
-  addOverlay: function(overlay) {
+  addOverlay: function (overlay) {
     overlay.map = this.map;
 
     var v = Overlay.create(overlay.type, this, overlay);
 
     if (v) {
       // Save tiles loader view for later
-      if (overlay.type == "loader") {
+      if (overlay.type == 'loader') {
         this.loader = v;
       }
 
@@ -39966,11 +38311,11 @@ var Vis = View.extend({
 
       this.overlays.push(v);
 
-      v.bind('clean', function() {
-        for(var i in this.overlays) {
+      v.bind('clean', function () {
+        for (var i in this.overlays) {
           var o = this.overlays[i];
           if (v.cid === o.cid) {
-            this.overlays.splice(i, 1)
+            this.overlays.splice(i, 1);
             return;
           }
         }
@@ -39980,7 +38325,7 @@ var Vis = View.extend({
   },
 
   // change vizjson based on options
-  _applyOptions: function(vizjson, opt) {
+  _applyOptions: function (vizjson, opt) {
     opt = opt || {};
     opt = _.defaults(opt, {
       tiles_loader: true,
@@ -39992,18 +38337,18 @@ var Vis = View.extend({
     vizjson.overlays = vizjson.overlays || [];
     vizjson.layers = vizjson.layers || [];
 
-    function search_overlay(name) {
+    function search_overlay (name) {
       if (!vizjson.overlays) return null;
-      for(var i = 0; i < vizjson.overlays.length; ++i) {
+      for (var i = 0; i < vizjson.overlays.length; ++i) {
         if (vizjson.overlays[i].type === name) {
           return vizjson.overlays[i];
         }
       }
     }
 
-    function remove_overlay(name) {
+    function remove_overlay (name) {
       if (!vizjson.overlays) return;
-      for(var i = 0; i < vizjson.overlays.length; ++i) {
+      for (var i = 0; i < vizjson.overlays.length; ++i) {
         if (vizjson.overlays[i].type === name) {
           vizjson.overlays.splice(i, 1);
           return;
@@ -40012,7 +38357,7 @@ var Vis = View.extend({
     }
 
     this.infowindow = opt.infowindow;
-    this.tooltip    = opt.tooltip;
+    this.tooltip = opt.tooltip;
 
     if (opt.https) {
       this.https = true;
@@ -40029,7 +38374,7 @@ var Vis = View.extend({
     this.mobile = this.isMobileDevice();
     this.isMobileEnabled = (opt.mobile_layout && this.mobile) || opt.force_mobile;
 
-    if (opt.force_mobile === false || opt.force_mobile === "false") this.isMobileEnabled = false;
+    if (opt.force_mobile === false || opt.force_mobile === 'false') this.isMobileEnabled = false;
 
     // if (!opt.title) {
     //   vizjson.title = null;
@@ -40054,19 +38399,18 @@ var Vis = View.extend({
     if (!this.isMobileEnabled && opt.search) {
       if (!search_overlay('search')) {
         vizjson.overlays.push({
-           type: "search",
-           order: 3
+          type: 'search',
+          order: 3
         });
       }
     }
 
-    if ( (opt.title && vizjson.title) || (opt.description && vizjson.description) ) {
-
+    if ( (opt.title && vizjson.title) || (opt.description && vizjson.description)) {
       if (!search_overlay('header')) {
         vizjson.overlays.unshift({
-          type: "header",
+          type: 'header',
           order: 1,
-          shareable: opt.shareable ? true: false,
+          shareable: opt.shareable ? true : false,
           url: vizjson.url,
           options: {
             extra: {
@@ -40083,7 +38427,7 @@ var Vis = View.extend({
     if (opt.layer_selector) {
       if (!search_overlay('layer_selector')) {
         vizjson.overlays.push({
-          type: "layer_selector"
+          type: 'layer_selector'
         });
       }
     }
@@ -40091,12 +38435,17 @@ var Vis = View.extend({
     if (opt.shareable && !this.isMobileEnabled) {
       if (!search_overlay('share')) {
         vizjson.overlays.push({
-          type: "share",
+          type: 'share',
           order: 2,
           url: vizjson.url
         });
       }
     }
+
+    vizjson.overlays.push({
+      type: 'attribution',
+      order: 5
+    });
 
     // We remove certain overlays in mobile devices
     if (this.isMobileEnabled) {
@@ -40104,11 +38453,11 @@ var Vis = View.extend({
       remove_overlay('share');
     }
 
-    if (this.mobile || ((opt.zoomControl !== undefined) && (!opt.zoomControl)) ){
+    if (this.mobile || ((opt.zoomControl !== undefined) && (!opt.zoomControl))) {
       remove_overlay('zoom');
     }
 
-    if (this.mobile || ((opt.search !== undefined) && (!opt.search)) ){
+    if (this.mobile || ((opt.search !== undefined) && (!opt.search))) {
       remove_overlay('search');
     }
 
@@ -40122,7 +38471,7 @@ var Vis = View.extend({
     // Center coordinates?
     var center_lat = parseFloat(opt.center_lat);
     var center_lon = parseFloat(opt.center_lon);
-    if ( !isNaN(center_lat) && !isNaN(center_lon) ) {
+    if ( !isNaN(center_lat) && !isNaN(center_lon)) {
       vizjson.center = [center_lat, center_lon];
       vizjson.bounds = null;
     }
@@ -40139,7 +38488,7 @@ var Vis = View.extend({
     var ne_lat = parseFloat(opt.ne_lat);
     var ne_lon = parseFloat(opt.ne_lon);
 
-    if ( !isNaN(sw_lat) && !isNaN(sw_lon) && !isNaN(ne_lat) && !isNaN(ne_lon) ) {
+    if ( !isNaN(sw_lat) && !isNaN(sw_lon) && !isNaN(ne_lat) && !isNaN(ne_lon)) {
       vizjson.bounds = [
         [ sw_lat, sw_lon ],
         [ ne_lat, ne_lon ]
@@ -40148,12 +38497,12 @@ var Vis = View.extend({
 
     if (vizjson.layers.length > 1) {
       var token = opt.auth_token;
-      function _applyLayerOptions(layers) {
-        for(var i = 1; i < layers.length; ++i) {
+      function _applyLayerOptions (layers) {
+        for (var i = 1; i < layers.length; ++i) {
           var o = layers[i].options;
           o.no_cdn = opt.no_cdn;
           o.force_cors = opt.force_cors;
-          if(token) {
+          if (token) {
             o.auth_token = token;
           }
         }
@@ -40162,20 +38511,20 @@ var Vis = View.extend({
     }
   },
 
-  createLayer: function(layerData, opts) {
+  createLayer: function (layerData, opts) {
     var layerModel = Layers.create(layerData.type || layerData.kind, this, layerData);
     return this.mapView.createLayer(layerModel);
   },
 
-  _getSqlApi: function(attrs) {
+  _getSqlApi: function (attrs) {
     attrs = attrs || {};
-    var port = attrs.sql_api_port
-    var domain = attrs.sql_api_domain + (port ? ':' + port: '')
+    var port = attrs.sql_api_port;
+    var domain = attrs.sql_api_domain + (port ? ':' + port : '');
     var protocol = attrs.sql_api_protocol;
     var version = 'v1';
     if (domain.indexOf('cartodb.com') !== -1) {
       protocol = 'http';
-      domain = "cartodb.com";
+      domain = 'cartodb.com';
       version = 'v2';
     }
 
@@ -40189,11 +38538,10 @@ var Vis = View.extend({
     return sql;
   },
 
-  addTooltip: function(layerView) {
-
+  addTooltip: function (layerView) {
     var layers = layerView.model && layerView.model.layers || [];
 
-    for(var i = 0; i < layers.length; ++i) {
+    for (var i = 0; i < layers.length; ++i) {
       var layerModel = layers.at(i);
       var t = layerModel.getTooltipData();
       if (t) {
@@ -40210,7 +38558,7 @@ var Vis = View.extend({
           });
           layerView.tooltip = tooltip;
           this.mapView.addOverlay(tooltip);
-          layerView.bind('remove', function() {
+          layerView.bind('remove', function () {
             this.tooltip.clean();
           });
         }
@@ -40218,7 +38566,7 @@ var Vis = View.extend({
     }
 
     if (layerView.tooltip) {
-      layerView.bind("featureOver", function(e, latlng, pos, data, layer) {
+      layerView.bind('featureOver', function (e, latlng, pos, data, layer) {
         var t = layers.at(layer).getTooltipData();
         if (t) {
           layerView.tooltip.setTemplate(t.template);
@@ -40232,7 +38580,7 @@ var Vis = View.extend({
     }
   },
 
-  addInfowindow: function(layerView) {
+  addInfowindow: function (layerView) {
     var mapView = this.mapView;
     var infowindow = null;
     var layers = [];
@@ -40248,24 +38596,24 @@ var Vis = View.extend({
       }
     }
 
-    for(var i = 0; i < layers.length; ++i) {
+    for (var i = 0; i < layers.length; ++i) {
       var layerModel = layers.at(i);
       if (layerModel.getInfowindowData()) {
-        if(!infowindow) {
+        if (!infowindow) {
           infowindow = Overlay.create('infowindow', this, layerModel.getInfowindowData(), true);
           mapView.addInfowindow(infowindow);
         }
       }
     }
 
-    if(!infowindow) {
+    if (!infowindow) {
       return;
     }
 
-    infowindow.bind('close', function() {
+    infowindow.bind('close', function () {
       // when infowindow is closed remove all the filters
       // for tooltips
-      for(var i = 0; i < layers; ++i) {
+      for (var i = 0; i < layers; ++i) {
         var t = layerView.tooltip;
         if (t) {
           t.setFilter(null);
@@ -40273,70 +38621,68 @@ var Vis = View.extend({
       }
     });
 
-    infowindow.model.bind('domready', function() {
+    infowindow.model.bind('domready', function () {
       layerView.trigger('infowindow_ready', infowindow, this);
     }, this);
 
     // if the layer has no infowindow just pass the interaction
     // data to the infowindow
-    layerView.bind('featureClick', function(e, latlng, pos, data, layer) {
+    layerView.bind('featureClick', function (e, latlng, pos, data, layer) {
+      var infowindowFields = layers.at(layer).getInfowindowData();
+      if (!infowindowFields) return;
+      var cartodb_id = data.cartodb_id;
 
-        var infowindowFields = layers.at(layer).getInfowindowData();
-        if (!infowindowFields) return;
-        var cartodb_id = data.cartodb_id;
+      layerView.model.fetchAttributes(layer, cartodb_id, function (attributes) {
+        // Old viz.json doesn't contain width and maxHeight properties
+        // and we have to get the default values if there are not defined.
+        var extra = _.defaults(
+          {
+            offset: infowindowFields.offset,
+            width: infowindowFields.width,
+            maxHeight: infowindowFields.maxHeight
+          },
+          InfowindowModel.prototype.defaults
+        );
 
-        layerView.model.fetchAttributes(layer, cartodb_id, function(attributes) {
-
-          // Old viz.json doesn't contain width and maxHeight properties
-          // and we have to get the default values if there are not defined.
-          var extra = _.defaults(
-            {
-              offset: infowindowFields.offset,
-              width: infowindowFields.width,
-              maxHeight: infowindowFields.maxHeight
-            },
-            InfowindowModel.prototype.defaults
-          );
-
-          infowindow.model.set({
-            'fields': infowindowFields.fields,
-            'template': infowindowFields.template,
-            'template_type': infowindowFields.template_type,
-            'alternative_names': infowindowFields.alternative_names,
-            'sanitizeTemplate': infowindowFields.sanitizeTemplate,
-            'offset': extra.offset,
-            'width': extra.width,
-            'maxHeight': extra.maxHeight
-          });
-
-          if (attributes) {
-            infowindow.model.updateContent(attributes);
-            infowindow.adjustPan();
-          } else {
-            infowindow.setError();
-          }
+        infowindow.model.set({
+          'fields': infowindowFields.fields,
+          'template': infowindowFields.template,
+          'template_type': infowindowFields.template_type,
+          'alternative_names': infowindowFields.alternative_names,
+          'sanitizeTemplate': infowindowFields.sanitizeTemplate,
+          'offset': extra.offset,
+          'width': extra.width,
+          'maxHeight': extra.maxHeight
         });
 
-        // Show infowindow with loading state
-        infowindow
-          .setLatLng(latlng)
-          .setLoading()
-          .showInfowindow();
-
-        if (layerView.tooltip) {
-          layerView.tooltip.setFilter(function(feature) {
-            return feature.cartodb_id !== cartodb_id;
-          }).hide();
+        if (attributes) {
+          infowindow.model.updateContent(attributes);
+          infowindow.adjustPan();
+        } else {
+          infowindow.setError();
         }
+      });
+
+      // Show infowindow with loading state
+      infowindow
+        .setLatLng(latlng)
+        .setLoading()
+        .showInfowindow();
+
+      if (layerView.tooltip) {
+        layerView.tooltip.setFilter(function (feature) {
+          return feature.cartodb_id !== cartodb_id;
+        }).hide();
+      }
     });
 
     var hovers = [];
 
-    layerView.bind('mouseover', function() {
+    layerView.bind('mouseover', function () {
       mapView.setCursor('pointer');
     });
 
-    layerView.bind('mouseout', function(m, layer) {
+    layerView.bind('mouseout', function (m, layer) {
       mapView.setCursor('auto');
     });
 
@@ -40347,36 +38693,34 @@ var Vis = View.extend({
     if (layerView) {
       var self = this;
 
-      var loadingTiles = function() {
+      var loadingTiles = function () {
         self.loadingTiles();
       };
 
-      var loadTiles = function() {
+      var loadTiles = function () {
         self.loadTiles();
       };
 
       layerView.bind('loading', loadingTiles);
-      layerView.bind('load',    loadTiles);
+      layerView.bind('load', loadTiles);
     }
   },
 
-  loadingTiles: function() {
-
+  loadingTiles: function () {
     if (this.mobileOverlay) {
       this.mobileOverlay.loadingTiles();
     }
 
     if (this.loader) {
-      this.loader.show()
+      this.loader.show();
     }
-    if(this.layersLoading === 0) {
-        this.trigger('loading');
+    if (this.layersLoading === 0) {
+      this.trigger('loading');
     }
     this.layersLoading++;
   },
 
-  loadTiles: function() {
-
+  loadTiles: function () {
     if (this.mobileOverlay) {
       this.mobileOverlay.loadTiles();
     }
@@ -40387,25 +38731,25 @@ var Vis = View.extend({
     this.layersLoading--;
     // check less than 0 because loading event sometimes is
     // thrown before visualization creation
-    if(this.layersLoading <= 0) {
+    if (this.layersLoading <= 0) {
       this.layersLoading = 0;
       this.trigger('load');
     }
   },
 
-  throwError: function(msg, lyr) {
+  throwError: function (msg, lyr) {
     log.error(msg);
     var self = this;
-    _.defer(function() {
+    _.defer(function () {
       self.trigger('error', msg, lyr);
     });
   },
 
-  error: function(fn) {
+  error: function (fn) {
     return this.bind('error', fn);
   },
 
-  done: function(fn) {
+  done: function (fn) {
     return this.bind('done', fn);
   },
 
@@ -40413,36 +38757,35 @@ var Vis = View.extend({
   //
 
   // get the native map used behind the scenes
-  getNativeMap: function() {
+  getNativeMap: function () {
     return this.mapView.getNativeMap();
   },
 
   // returns an array of layers
-  getLayers: function() {
+  getLayers: function () {
     var self = this;
-    return _.compact(this.map.layers.map(function(layer) {
+    return _.compact(this.map.layers.map(function (layer) {
       return self.mapView.getLayerByCid(layer.cid);
     }));
   },
 
-  getOverlays: function() {
+  getOverlays: function () {
     return this.overlays;
   },
 
-  getOverlay: function(type) {
-    return _(this.overlays).find(function(v) {
+  getOverlay: function (type) {
+    return _(this.overlays).find(function (v) {
       return v.type == type;
     });
   },
 
-  getOverlaysByType: function(type) {
-    return _(this.overlays).filter(function(v) {
+  getOverlaysByType: function (type) {
+    return _(this.overlays).filter(function (v) {
       return v.type == type;
     });
   },
 
-  _onResize: function() {
-
+  _onResize: function () {
     $(window).unbind('resize', this._onResize);
 
     var self = this;
@@ -40451,19 +38794,16 @@ var Vis = View.extend({
 
     // This timeout is necessary due to GMaps needs time
     // to load tiles and recalculate its bounds :S
-    setTimeout(function() {
-
+    setTimeout(function () {
       var c = self.mapConfig;
 
       if (c.view_bounds_sw) {
-
         self.mapView.map.setBounds([
           c.view_bounds_sw,
           c.view_bounds_ne
         ]);
 
       } else {
-
         self.mapView.map.set({
           center: c.center,
           zoom: c.zoom
@@ -40473,11 +38813,10 @@ var Vis = View.extend({
     }, 150);
   },
 
-  isMobileDevice: function() {
+  isMobileDevice: function () {
     return /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   }
 }, {
-
   /**
    * adds an infowindow to the map controlled by layer events.
    * it enables interaction and overrides the layer interacivity
@@ -40485,7 +38824,7 @@ var Vis = View.extend({
    * ``map`` native map object, leaflet of gmaps
    * ``layer`` cartodb layer (or sublayer)
    */
-  addInfowindow: function(map, layer, fields, opts) {
+  addInfowindow: function (map, layer, fields, opts) {
     var options = _.defaults(opts || {}, {
       infowindowTemplate: INFOWINDOW_TEMPLATE.light,
       templateType: 'mustache',
@@ -40495,13 +38834,13 @@ var Vis = View.extend({
       cursorInteraction: true
     });
 
-    if(!map) throw new Error('map is not valid');
-    if(!layer) throw new Error('layer is not valid');
-    if(!fields && fields.length === undefined ) throw new Error('fields should be a list of strings');
+    if (!map) throw new Error('map is not valid');
+    if (!layer) throw new Error('layer is not valid');
+    if (!fields && fields.length === undefined) throw new Error('fields should be a list of strings');
 
     var f = [];
     fields = fields.concat(options.extraFields);
-    for(var i = 0; i < fields.length; ++i) {
+    for (var i = 0; i < fields.length; ++i) {
       f.push({ name: fields, order: i});
     }
 
@@ -40511,12 +38850,12 @@ var Vis = View.extend({
     });
 
     var infowindow = new Infowindow({
-       model: infowindowModel,
-       mapView: map.viz.mapView,
-       template: new Template({
-         template: options.infowindowTemplate,
-         type: options.templateType
-       }).asFunction()
+      model: infowindowModel,
+      mapView: map.viz.mapView,
+      template: new Template({
+        template: options.infowindowTemplate,
+        type: options.templateType
+      }).asFunction()
     });
 
     map.viz.mapView.addInfowindow(infowindow);
@@ -40525,11 +38864,10 @@ var Vis = View.extend({
     // the fields it needs
     try {
       layer.setInteractivity(fields);
-    } catch(e) {
-    }
+    } catch(e) {}
     layer.setInteraction(true);
 
-    layer.bind(options.triggerEvent, function(e, latlng, pos, data, layer) {
+    layer.bind(options.triggerEvent, function (e, latlng, pos, data, layer) {
       var render_fields = [];
       var d;
       for (var f = 0; f < fields.length; ++f) {
@@ -40544,7 +38882,7 @@ var Vis = View.extend({
       }
 
       infowindow.model.set({
-        content:  {
+        content: {
           fields: render_fields,
           data: data
         }
@@ -40557,29 +38895,29 @@ var Vis = View.extend({
     }, infowindow);
 
     // remove the callback on clean
-    infowindow.bind('clean', function() {
+    infowindow.bind('clean', function () {
       layer.unbind(options.triggerEvent, null, infowindow);
     });
 
-    if(options.cursorInteraction) {
+    if (options.cursorInteraction) {
       Vis.addCursorInteraction(map, layer);
     }
 
     return infowindow;
   },
 
-  addCursorInteraction: function(map, layer) {
+  addCursorInteraction: function (map, layer) {
     var mapView = map.viz.mapView;
-    layer.bind('mouseover', function() {
+    layer.bind('mouseover', function () {
       mapView.setCursor('pointer');
     });
 
-    layer.bind('mouseout', function(m, layer) {
+    layer.bind('mouseout', function (m, layer) {
       mapView.setCursor('auto');
     });
   },
 
-  removeCursorInteraction: function(map, layer) {
+  removeCursorInteraction: function (map, layer) {
     var mapView = map.viz.mapView;
     layer.unbind(null, null, mapView);
   }
@@ -40587,7 +38925,7 @@ var Vis = View.extend({
 
 module.exports = Vis;
 
-},{"../api/sql":84,"../core/loader":94,"../core/template":102,"../core/view":104,"../geo/map":136,"../geo/map-view":135,"../geo/map/cartodb-layer-group-anonymous":137,"../geo/map/cartodb-layer-group-named":139,"../geo/ui/infowindow":153,"../geo/ui/infowindow-model":152,"../geo/ui/legend":161,"../geo/ui/legend-model":160,"../geo/ui/legend/stacked-legend":182,"../geo/ui/tooltip":190,"./vis/infowindow-template":206,"./vis/layers":207,"./vis/overlay":208,"backbone":1,"cdb":89,"cdb.config":87,"cdb.core.util":103,"cdb.log":90,"jquery":218,"underscore":241}],206:[function(require,module,exports){
+},{"../api/sql":83,"../core/loader":92,"../core/template":100,"../core/view":102,"../geo/map":133,"../geo/map-view":132,"../geo/map/cartodb-layer-group-anonymous":134,"../geo/map/cartodb-layer-group-named":136,"../geo/ui/infowindow":152,"../geo/ui/infowindow-model":151,"../geo/ui/legend":160,"../geo/ui/legend-model":159,"../geo/ui/legend/stacked-legend":181,"../geo/ui/tooltip":191,"../windshaft/client":211,"../windshaft/config":212,"../windshaft/layergroup-config":214,"../windshaft/namedmap-config":215,"./vis/infowindow-template":207,"./vis/layers":208,"./vis/overlay":209,"backbone":1,"cdb":88,"cdb.config":86,"cdb.core.util":101,"cdb.log":89,"jquery":225,"underscore":248}],207:[function(require,module,exports){
 var INFOWINDOW_TEMPLATE = {
   light: [
     '<div class="cartodb-popup v2">',
@@ -40612,7 +38950,7 @@ var INFOWINDOW_TEMPLATE = {
 
 module.exports = INFOWINDOW_TEMPLATE;
 
-},{}],207:[function(require,module,exports){
+},{}],208:[function(require,module,exports){
 var _ = require('underscore');
 var log = require('cdb.log');
 
@@ -40656,7 +38994,7 @@ var Layers = {
 
 module.exports = Layers;
 
-},{"cdb.log":90,"underscore":241}],208:[function(require,module,exports){
+},{"cdb.log":89,"underscore":248}],209:[function(require,module,exports){
 var log = require('cdb.log');
 
 /**
@@ -40697,7 +39035,7 @@ var Overlay = {
 
 module.exports = Overlay;
 
-},{"cdb.log":90}],209:[function(require,module,exports){
+},{"cdb.log":89}],210:[function(require,module,exports){
 var Backbone = require('backbone');
 
 var Overlays = Backbone.Collection.extend({
@@ -40707,7 +39045,405 @@ var Overlays = Backbone.Collection.extend({
 
 module.exports = Overlays;
 
-},{"backbone":1}],210:[function(require,module,exports){
+},{"backbone":1}],211:[function(require,module,exports){
+var $ = require('jquery');
+var _ = require('underscore');
+var LZMA = require('lzma');
+var util = require('../core/util');
+var WindshaftDashboardInstance = require('./dashboard-instance');
+
+var validatePresenceOfOptions = function (options, requiredOptions) {
+  var missingOptions = _.filter(requiredOptions, function (option) {
+    return !options[option];
+  });
+  if (missingOptions.length) {
+    throw new Error('WindshaftClient could not be initialized. The following options are missing: ' + missingOptions.join(', '));
+  }
+};
+
+/**
+ * Windshaft client. It provides a method to create instances of dashboards.
+ * @param {object} options Options to set up the client
+ */
+var WindshaftClient = function (options) {
+  validatePresenceOfOptions(options, ['urlTemplate', 'userName', 'endpoint', 'statTag']);
+
+  this.urlTemplate = options.urlTemplate;
+  this.userName = options.userName;
+  this.endpoint = options.endpoint;
+  this.statTag = options.statTag;
+  this.forceCors = options.forceCors || false;
+
+  this.url = this.urlTemplate.replace('{user}', this.userName);
+};
+
+WindshaftClient.DEFAULT_COMPRESSION_LEVEL = 3;
+WindshaftClient.MAX_GET_SIZE = 2033;
+
+/**
+ * Creates an instance of a map in Windshaft
+ * @param {object} mapDefinition An object that responds to .toJSON with the definition of the map
+ * @param  {function} callback A callback that will get the public or private map
+ * @return {cdb.windshaft.DashboardInstance} The instance of the dashboard
+ */
+WindshaftClient.prototype.instantiateMap = function (options) {
+  var mapDefinition = options.mapDefinition;
+  var filters = options.filters || {};
+  var successCallback = options.success;
+  var errorCallback = options.error;
+  var payload = JSON.stringify(mapDefinition);
+
+  var ajaxOptions = {
+    success: function (data) {
+      if (data.errors) {
+        errorCallback(data.errors[0]);
+      } else {
+        data.urlTemplate = this.urlTemplate;
+        data.userName = this.userName;
+        successCallback(new WindshaftDashboardInstance(data));
+      }
+    }.bind(this),
+    error: function (xhr) {
+      var err = { errors: ['Unknown error'] };
+      try {
+        err = JSON.parse(xhr.responseText);
+      } catch (e) {}
+      errorCallback(err.errors[0]);
+    }
+  };
+
+  // TODO: Move this
+  var params = [
+    ['stat_tag', this.statTag].join('=')
+  ];
+
+  if (Object.keys(filters).length) {
+    params.push(['filters', encodeURIComponent(JSON.stringify(filters))].join('='));
+  }
+
+  if (this._usePOST(payload, params)) {
+    this._post(payload, params, ajaxOptions);
+  } else {
+    this._get(payload, params, ajaxOptions);
+  }
+};
+
+WindshaftClient.prototype._usePOST = function (payload, params) {
+  if (util.isCORSSupported() && this.forceCors) {
+    return true;
+  }
+  return payload.length >= this.constructor.MAX_GET_SIZE;
+};
+
+WindshaftClient.prototype._post = function (payload, params, options) {
+  $.ajax({
+    crossOrigin: true,
+    method: 'POST',
+    dataType: 'json',
+    contentType: 'application/json',
+    url: this._getURL(params),
+    data: payload,
+    success: options.success,
+    error: options.error
+  });
+};
+
+WindshaftClient.prototype._get = function (payload, params, options) {
+  var compressFunction = this._getCompressor(payload);
+  compressFunction(payload, this.constructor.DEFAULT_COMPRESSION_LEVEL, function (dataParameter) {
+    params.push(dataParameter);
+    $.ajax({
+      url: this._getURL(params),
+      method: 'GET',
+      dataType: 'jsonp',
+      jsonpCallback: this._jsonpCallbackName(payload),
+      cache: true,
+      success: options.success,
+      error: options.error
+    });
+  }.bind(this));
+};
+
+WindshaftClient.prototype._getCompressor = function (payload) {
+  if (payload.length < this.constructor.MAX_GET_SIZE) {
+    return function (data, level, callback) {
+      callback('config=' + encodeURIComponent(data));
+    };
+  }
+
+  return function (data, level, callback) {
+    data = JSON.stringify({ config: data });
+    LZMA.compress(data, level, function (encoded) {
+      callback('lzma=' + encodeURIComponent(util.array2hex(encoded)));
+    });
+  };
+};
+
+WindshaftClient.prototype._getURL = function (params) {
+  return [this.url, this.endpoint].join('/') + '?' + params.join('&');
+};
+
+WindshaftClient.prototype._jsonpCallbackName = function (payload) {
+  return '_cdbc_' + util.uniqueCallbackName(payload);
+};
+
+module.exports = WindshaftClient;
+
+},{"../core/util":101,"./dashboard-instance":213,"jquery":225,"lzma":220,"underscore":248}],212:[function(require,module,exports){
+module.exports = {
+  MAPS_API_BASE_URL: 'api/v1/map'
+};
+
+},{}],213:[function(require,module,exports){
+var _ = require('underscore');
+var Model = require('../core/model');
+var WindshaftConfig = require('./config');
+var EMPTY_GIF = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
+module.exports = Model.extend({
+  TILE_EXTENSIONS_BY_LAYER_TYPE: {
+    'mapnik': '.png',
+    'torque': '.json.torque'
+  },
+
+  initialize: function () {
+    // TODO: What params are really used?
+    this.pngParams = ['map_key', 'api_key', 'cache_policy', 'updated_at'];
+    this.gridParams = ['map_key', 'api_key', 'cache_policy', 'updated_at'];
+  },
+
+  isLoaded: function () {
+    return !!this.get('layergroupid');
+  },
+
+  getBaseURL: function (subhost) {
+    return [
+      this._getHost(subhost),
+      WindshaftConfig.MAPS_API_BASE_URL,
+      this._getMapId()
+    ].join('/');
+  },
+
+  _getMapId: function () {
+    return this.get('layergroupid');
+  },
+
+  _getHost: function (subhost) {
+    var userName = this.get('userName');
+    var protocol = this._useHTTPS() ? 'https' : 'http';
+    subhost = subhost ? subhost + '.' : '';
+    var host = this.get('urlTemplate').replace('{user}', userName);
+    var cdnHost = this.get('cdn_url') && this.get('cdn_url')[protocol];
+    if (cdnHost) {
+      host = [protocol, '://', subhost, cdnHost, '/', userName].join('');
+    }
+
+    return host;
+  },
+
+  _useHTTPS: function () {
+    return this.get('urlTemplate').indexOf('https') === 0;
+  },
+
+  getTiles: function (layerType, params) {
+    var grids = [];
+    var tiles = [];
+
+    var pngParams = this._encodeParams(params, this.pngParams);
+    var gridParams = this._encodeParams(params, this.gridParams);
+    var subdomains = ['0', '1', '2', '3'];
+
+    if (this._useHTTPS()) {
+      subdomains = [''];
+    }
+
+    layerType = layerType || 'mapnik';
+
+    var layerIndexes = this._getLayerIndexesByType(layerType);
+    if (layerIndexes.length) {
+      var gridTemplate = '/{z}/{x}/{y}';
+
+      for (var i = 0; i < subdomains.length; ++i) {
+        var subdomain = subdomains[i];
+        var tileURLTemplate = [
+          this.getBaseURL(subdomain),
+          '/',
+          layerIndexes.join(','),
+          '/{z}/{x}/{y}',
+          this.TILE_EXTENSIONS_BY_LAYER_TYPE[layerType],
+          (pngParams ? '?' + pngParams : '')
+        ].join('');
+
+        tiles.push(tileURLTemplate);
+
+        // for mapnik layers add grid json too
+        if (layerType === 'mapnik') {
+          for (var layer = 0; layer < this.get('metadata').layers.length; ++layer) {
+            var index = this._getLayerIndexByType(layer, 'mapnik');
+            if (index >= 0) {
+              var gridURLTemplate = [
+                this.getBaseURL(subdomain),
+                '/',
+                index,
+                gridTemplate,
+                '.grid.json',
+                (gridParams ? '?' + gridParams : '')
+              ].join('');
+              grids[layer] = grids[layer] || [];
+              grids[layer].push(gridURLTemplate);
+            }
+          }
+        }
+      }
+    } else {
+      // TODO: Clients of this method should decide what to render if no layers are present
+      tiles = [EMPTY_GIF];
+    }
+
+    this.urls = {
+      tiles: tiles,
+      grids: grids
+    };
+    return this.urls;
+  },
+
+  getLayerMeta: function (layerIndex) {
+    var layerMeta = {};
+    var layers = this.get('metadata') && this.get('metadata').layers;
+    if (layers && layers[layerIndex]) {
+      layerMeta = layers[layerIndex].meta || {};
+    }
+    return layerMeta;
+  },
+
+  _encodeParams: function (params, included) {
+    if (!params) return '';
+    var url_params = [];
+    included = included || _.keys(params);
+    for (var i in included) {
+      var k = included[i];
+      var p = params[k];
+      if (p) {
+        if (_.isArray(p)) {
+          for (var j = 0, len = p.length; j < len; j++) {
+            url_params.push(k + '[]=' + encodeURIComponent(p[j]));
+          }
+        } else {
+          var q = encodeURIComponent(p);
+          q = q.replace(/%7Bx%7D/g, '{x}').replace(/%7By%7D/g, '{y}').replace(/%7Bz%7D/g, '{z}');
+          url_params.push(k + '=' + q);
+        }
+      }
+    }
+    return url_params.join('&');
+  },
+
+  /**
+   * Returns the index of a layer of a given type, as the tiler kwows it.
+   *
+   * @param {string|array} types - Type or types of layers
+   */
+  _getLayerIndexesByType: function (types) {
+    var layers = this.get('metadata') && this.get('metadata').layers;
+
+    if (!layers) {
+      return;
+    }
+    var layerIndexes = [];
+    for (var i = 0; i < layers.length; i++) {
+      var layer = layers[i];
+      var isValidType = false;
+      if (types && types.length > 0) {
+        isValidType = types.indexOf(layer.type) !== -1;
+      }
+      if (isValidType) {
+        layerIndexes.push(i);
+      }
+    }
+    return layerIndexes;
+  },
+
+  /**
+   * Returns the index of a layer of a given type, as the tiler kwows it.
+   *
+   * @param {integer} index - number of layer of the specified type
+   * @param {string} layerType - type of the layers
+   */
+  _getLayerIndexByType: function (index, layerType) {
+    var layers = this.get('metadata') && this.get('metadata').layers;
+
+    if (!layers) {
+      return index;
+    }
+
+    var tilerLayerIndex = {};
+    var j = 0;
+    for (var i = 0; i < layers.length; i++) {
+      if (layers[i].type === layerType) {
+        tilerLayerIndex[j] = i;
+        j++;
+      }
+    }
+    if (tilerLayerIndex[index] === undefined) {
+      return -1;
+    }
+    return tilerLayerIndex[index];
+  }
+});
+
+},{"../core/model":96,"./config":212,"underscore":248}],214:[function(require,module,exports){
+var _ = require('underscore');
+var LayerGroupConfig = {};
+
+LayerGroupConfig.generate = function (options) {
+  var layers = options.layers;
+  var config = { layers: [] };
+  _.each(layers, function (layer) {
+    if (layer.isVisible()) {
+      var layerConfig = {
+        type: layer.get('type').toLowerCase(),
+        options: {
+          sql: layer.get('sql'),
+          cartocss: layer.get('cartocss'),
+          cartocss_version: layer.get('cartocss_version'),
+          interactivity: layer.getInteractiveColumnNames()
+        }
+      };
+      if (layer.getInfowindowFieldNames().length) {
+        layerConfig.options.attributes = {
+          id: 'cartodb_id',
+          columns: layer.getInfowindowFieldNames()
+        };
+      }
+      config.layers.push(layerConfig);
+    }
+  });
+
+  return config;
+};
+
+module.exports = LayerGroupConfig;
+
+},{"underscore":248}],215:[function(require,module,exports){
+var _ = require('underscore');
+var NamedMapConfig = {};
+
+NamedMapConfig.generate = function (options) {
+  var layers = options.layers;
+  var config = {};
+
+  _.each(layers, function (layer, index) {
+    config['layer' + index] = layer.isVisible() ? 1 : 0;
+  });
+
+  // TODO: We should add the params
+  // TODO: We should add the auth_token
+  return config;
+};
+
+module.exports = NamedMapConfig;
+
+},{"underscore":248}],216:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 var GeoJSON = function( geojson, options ){
@@ -40945,7 +39681,37 @@ type: "Error",
 }).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],211:[function(require,module,exports){
+},{}],217:[function(require,module,exports){
+(function (global){
+
+; _ = global._ = require("underscore");
+jQuery = global.jQuery = require("jquery");
+; var __browserify_shim_require__=require;(function browserifyShim(module, define, require) {
+(function($) {
+  $.fn.clipPath = function(w, h, x, y) {
+    this.filter('[data-clipPath]').each(function(id) {
+
+      var path = $(this).attr('data-clipPath');
+      var src = $(this).attr('src');
+
+      var tpl = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="CDB-infowindow-mask" width="<%- w %>" height="<%- h %>" viewBox="0 0 <%- w %> <%- h %>">';
+      tpl += '<defs><clipPath id="maskID<%-id %>"><path d="<%-path %>"/></clipPath></defs>';
+      tpl += '<image clip-path="url(#maskID<%-id %>)" x="<%- x %>" y="<%- y %>" width="<%-w %>" height="<%-h %>" xlink:href="<%-src %>" />';
+      tpl += '</svg>';
+
+      var svg = $(_.template(tpl)({ id: id, x: x, y: -y, w: w, h: h, src: src, path: path }));
+
+      $(this).replaceWith(svg);
+    });
+
+    return this;
+  };
+}(jQuery));
+
+}).call(global, module, undefined, undefined);
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"jquery":225,"underscore":248}],218:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 // -------------------------------------------------------------------------------------------------------------------
@@ -45804,7 +44570,7 @@ if (typeof window !== 'undefined') {
 }).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],212:[function(require,module,exports){
+},{}],219:[function(require,module,exports){
 (function (global){
 
 ; jQuery = global.jQuery = require("jquery");
@@ -47248,7 +46014,7 @@ if (typeof window !== 'undefined') {
 }).call(global, module, undefined, undefined);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":218}],213:[function(require,module,exports){
+},{"jquery":225}],220:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 var LZMA = (function () {
@@ -51139,7 +49905,7 @@ this.LZMA = LZMA;
 }).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],214:[function(require,module,exports){
+},{}],221:[function(require,module,exports){
 (function (global){
 
 ; jQuery = global.jQuery = require("jquery");
@@ -51231,7 +49997,7 @@ function handler(event) {
 }).call(global, module, undefined, undefined);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":218}],215:[function(require,module,exports){
+},{"jquery":225}],222:[function(require,module,exports){
 (function (global){
 
 ; jQuery = global.jQuery = require("jquery");
@@ -51317,7 +50083,7 @@ function handler(event) {
 }).call(global, module, undefined, undefined);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":218}],216:[function(require,module,exports){
+},{"jquery":225}],223:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /* wax - 7.0.1 - v6.0.4-181-ga34788e */
@@ -54696,7 +53462,7 @@ wax.g.connector.prototype.getTileUrl = function(coord, z) {
 }).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],217:[function(require,module,exports){
+},{}],224:[function(require,module,exports){
 !function() {
   var d3 = {
     version: "3.5.8"
@@ -64247,7 +63013,7 @@ wax.g.connector.prototype.getTileUrl = function(coord, z) {
   });
   if (typeof define === "function" && define.amd) define(this.d3 = d3); else if (typeof module === "object" && module.exports) module.exports = d3; else this.d3 = d3;
 }();
-},{}],218:[function(require,module,exports){
+},{}],225:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
@@ -73459,7 +72225,7 @@ return jQuery;
 
 }));
 
-},{}],219:[function(require,module,exports){
+},{}],226:[function(require,module,exports){
 //! moment.js
 //! version : 2.10.6
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
@@ -76655,7 +75421,7 @@ return jQuery;
     return _moment;
 
 }));
-},{}],220:[function(require,module,exports){
+},{}],227:[function(require,module,exports){
 /* Copyright (c) 2015 Hyunje Alex Jun and other contributors
  * Licensed under the MIT License
  */
@@ -76663,7 +75429,7 @@ return jQuery;
 
 module.exports = require('./src/js/main');
 
-},{"./src/js/main":226}],221:[function(require,module,exports){
+},{"./src/js/main":233}],228:[function(require,module,exports){
 /* Copyright (c) 2015 Hyunje Alex Jun and other contributors
  * Licensed under the MIT License
  */
@@ -76710,7 +75476,7 @@ exports.list = function (element) {
   }
 };
 
-},{}],222:[function(require,module,exports){
+},{}],229:[function(require,module,exports){
 /* Copyright (c) 2015 Hyunje Alex Jun and other contributors
  * Licensed under the MIT License
  */
@@ -76799,7 +75565,7 @@ DOM.queryChildren = function (element, selector) {
 
 module.exports = DOM;
 
-},{}],223:[function(require,module,exports){
+},{}],230:[function(require,module,exports){
 /* Copyright (c) 2015 Hyunje Alex Jun and other contributors
  * Licensed under the MIT License
  */
@@ -76875,7 +75641,7 @@ EventManager.prototype.once = function (element, eventName, handler) {
 
 module.exports = EventManager;
 
-},{}],224:[function(require,module,exports){
+},{}],231:[function(require,module,exports){
 /* Copyright (c) 2015 Hyunje Alex Jun and other contributors
  * Licensed under the MIT License
  */
@@ -76893,7 +75659,7 @@ module.exports = (function () {
   };
 })();
 
-},{}],225:[function(require,module,exports){
+},{}],232:[function(require,module,exports){
 /* Copyright (c) 2015 Hyunje Alex Jun and other contributors
  * Licensed under the MIT License
  */
@@ -76979,7 +75745,7 @@ exports.env = {
   supportsIePointer: window.navigator.msMaxTouchPoints !== null
 };
 
-},{"./class":221,"./dom":222}],226:[function(require,module,exports){
+},{"./class":228,"./dom":229}],233:[function(require,module,exports){
 /* Copyright (c) 2015 Hyunje Alex Jun and other contributors
  * Licensed under the MIT License
  */
@@ -76995,7 +75761,7 @@ module.exports = {
   destroy: destroy
 };
 
-},{"./plugin/destroy":228,"./plugin/initialize":236,"./plugin/update":240}],227:[function(require,module,exports){
+},{"./plugin/destroy":235,"./plugin/initialize":243,"./plugin/update":247}],234:[function(require,module,exports){
 /* Copyright (c) 2015 Hyunje Alex Jun and other contributors
  * Licensed under the MIT License
  */
@@ -77017,7 +75783,7 @@ module.exports = {
   wheelSpeed: 1
 };
 
-},{}],228:[function(require,module,exports){
+},{}],235:[function(require,module,exports){
 /* Copyright (c) 2015 Hyunje Alex Jun and other contributors
  * Licensed under the MIT License
  */
@@ -77044,7 +75810,7 @@ module.exports = function (element) {
   instances.remove(element);
 };
 
-},{"../lib/dom":222,"../lib/helper":225,"./instances":237}],229:[function(require,module,exports){
+},{"../lib/dom":229,"../lib/helper":232,"./instances":244}],236:[function(require,module,exports){
 /* Copyright (c) 2015 Hyunje Alex Jun and other contributors
  * Licensed under the MIT License
  */
@@ -77109,7 +75875,7 @@ module.exports = function (element) {
   bindClickRailHandler(element, i);
 };
 
-},{"../../lib/helper":225,"../instances":237,"../update-geometry":238,"../update-scroll":239}],230:[function(require,module,exports){
+},{"../../lib/helper":232,"../instances":244,"../update-geometry":245,"../update-scroll":246}],237:[function(require,module,exports){
 /* Copyright (c) 2015 Hyunje Alex Jun and other contributors
  * Licensed under the MIT License
  */
@@ -77217,7 +75983,7 @@ module.exports = function (element) {
   bindMouseScrollYHandler(element, i);
 };
 
-},{"../../lib/dom":222,"../../lib/helper":225,"../instances":237,"../update-geometry":238,"../update-scroll":239}],231:[function(require,module,exports){
+},{"../../lib/dom":229,"../../lib/helper":232,"../instances":244,"../update-geometry":245,"../update-scroll":246}],238:[function(require,module,exports){
 /* Copyright (c) 2015 Hyunje Alex Jun and other contributors
  * Licensed under the MIT License
  */
@@ -77344,7 +76110,7 @@ module.exports = function (element) {
   bindKeyboardHandler(element, i);
 };
 
-},{"../../lib/helper":225,"../instances":237,"../update-geometry":238,"../update-scroll":239}],232:[function(require,module,exports){
+},{"../../lib/helper":232,"../instances":244,"../update-geometry":245,"../update-scroll":246}],239:[function(require,module,exports){
 /* Copyright (c) 2015 Hyunje Alex Jun and other contributors
  * Licensed under the MIT License
  */
@@ -77491,7 +76257,7 @@ module.exports = function (element) {
   bindMouseWheelHandler(element, i);
 };
 
-},{"../../lib/helper":225,"../instances":237,"../update-geometry":238,"../update-scroll":239}],233:[function(require,module,exports){
+},{"../../lib/helper":232,"../instances":244,"../update-geometry":245,"../update-scroll":246}],240:[function(require,module,exports){
 /* Copyright (c) 2015 Hyunje Alex Jun and other contributors
  * Licensed under the MIT License
  */
@@ -77511,7 +76277,7 @@ module.exports = function (element) {
   bindNativeScrollHandler(element, i);
 };
 
-},{"../instances":237,"../update-geometry":238}],234:[function(require,module,exports){
+},{"../instances":244,"../update-geometry":245}],241:[function(require,module,exports){
 /* Copyright (c) 2015 Hyunje Alex Jun and other contributors
  * Licensed under the MIT License
  */
@@ -77625,7 +76391,7 @@ module.exports = function (element) {
   bindSelectionHandler(element, i);
 };
 
-},{"../../lib/helper":225,"../instances":237,"../update-geometry":238,"../update-scroll":239}],235:[function(require,module,exports){
+},{"../../lib/helper":232,"../instances":244,"../update-geometry":245,"../update-scroll":246}],242:[function(require,module,exports){
 /* Copyright (c) 2015 Hyunje Alex Jun and other contributors
  * Licensed under the MIT License
  */
@@ -77798,7 +76564,7 @@ module.exports = function (element, supportsTouch, supportsIePointer) {
   bindTouchHandler(element, i, supportsTouch, supportsIePointer);
 };
 
-},{"../instances":237,"../update-geometry":238,"../update-scroll":239}],236:[function(require,module,exports){
+},{"../instances":244,"../update-geometry":245,"../update-scroll":246}],243:[function(require,module,exports){
 /* Copyright (c) 2015 Hyunje Alex Jun and other contributors
  * Licensed under the MIT License
  */
@@ -77847,7 +76613,7 @@ module.exports = function (element, userSettings) {
   updateGeometry(element);
 };
 
-},{"../lib/class":221,"../lib/helper":225,"./handler/click-rail":229,"./handler/drag-scrollbar":230,"./handler/keyboard":231,"./handler/mouse-wheel":232,"./handler/native-scroll":233,"./handler/selection":234,"./handler/touch":235,"./instances":237,"./update-geometry":238}],237:[function(require,module,exports){
+},{"../lib/class":228,"../lib/helper":232,"./handler/click-rail":236,"./handler/drag-scrollbar":237,"./handler/keyboard":238,"./handler/mouse-wheel":239,"./handler/native-scroll":240,"./handler/selection":241,"./handler/touch":242,"./instances":244,"./update-geometry":245}],244:[function(require,module,exports){
 /* Copyright (c) 2015 Hyunje Alex Jun and other contributors
  * Licensed under the MIT License
  */
@@ -77956,7 +76722,7 @@ exports.get = function (element) {
   return instances[getId(element)];
 };
 
-},{"../lib/dom":222,"../lib/event-manager":223,"../lib/guid":224,"../lib/helper":225,"./default-setting":227}],238:[function(require,module,exports){
+},{"../lib/dom":229,"../lib/event-manager":230,"../lib/guid":231,"../lib/helper":232,"./default-setting":234}],245:[function(require,module,exports){
 /* Copyright (c) 2015 Hyunje Alex Jun and other contributors
  * Licensed under the MIT License
  */
@@ -78079,7 +76845,7 @@ module.exports = function (element) {
   cls[i.scrollbarYActive ? 'add' : 'remove'](element, 'ps-active-y');
 };
 
-},{"../lib/class":221,"../lib/dom":222,"../lib/helper":225,"./instances":237,"./update-scroll":239}],239:[function(require,module,exports){
+},{"../lib/class":228,"../lib/dom":229,"../lib/helper":232,"./instances":244,"./update-scroll":246}],246:[function(require,module,exports){
 /* Copyright (c) 2015 Hyunje Alex Jun and other contributors
  * Licensed under the MIT License
  */
@@ -78186,7 +76952,7 @@ module.exports = function (element, axis, value) {
 
 };
 
-},{"./instances":237}],240:[function(require,module,exports){
+},{"./instances":244}],247:[function(require,module,exports){
 /* Copyright (c) 2015 Hyunje Alex Jun and other contributors
  * Licensed under the MIT License
  */
@@ -78223,7 +76989,7 @@ module.exports = function (element) {
   d.css(i.scrollbarYRail, 'display', '');
 };
 
-},{"../lib/dom":222,"../lib/helper":225,"./instances":237,"./update-geometry":238}],241:[function(require,module,exports){
+},{"../lib/dom":229,"../lib/helper":232,"./instances":244,"./update-geometry":245}],248:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -79773,7 +78539,7 @@ module.exports = function (element) {
   }
 }.call(this));
 
-},{}],242:[function(require,module,exports){
+},{}],249:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 var DashboardView = require('./dashboard-view');
@@ -79944,7 +78710,7 @@ module.exports = function (selector, diJSON, visOpts) {
   };
 };
 
-},{"./dashboard-view":248,"./widgets/category/model":264,"./widgets/formula/model":284,"./widgets/histogram/model":292,"./widgets/list/model":300,"./widgets/widget-model-factory":325,"./widgets/widgets-collection":330,"./windshaft/client":331,"./windshaft/config":332,"./windshaft/dashboard":334,"./windshaft/filters/category":337,"./windshaft/filters/range":339,"./windshaft/private-dashboard-config":340,"./windshaft/public-dashboard-config":341,"cartodb.js":192,"underscore":241}],243:[function(require,module,exports){
+},{"./dashboard-view":255,"./widgets/category/model":271,"./widgets/formula/model":291,"./widgets/histogram/model":299,"./widgets/list/model":307,"./widgets/widget-model-factory":332,"./widgets/widgets-collection":337,"./windshaft/client":338,"./windshaft/config":339,"./windshaft/dashboard":341,"./windshaft/filters/category":344,"./windshaft/filters/range":346,"./windshaft/private-dashboard-config":347,"./windshaft/public-dashboard-config":348,"cartodb.js":193,"underscore":248}],250:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 var WidgetViewFactory = require('./widgets/widget-view-factory');
@@ -80015,7 +78781,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"./widgets/time-series/content-view":308,"./widgets/time-series/torque-content-view":311,"./widgets/widget-view-factory":328,"cartodb.js":192,"underscore":241}],244:[function(require,module,exports){
+},{"./widgets/time-series/content-view":315,"./widgets/time-series/torque-content-view":318,"./widgets/widget-view-factory":335,"cartodb.js":193,"underscore":248}],251:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var template = require('./dashboard-info-view.tpl');
 var moment = require('moment');
@@ -80048,7 +78814,7 @@ var DashboardInfoView = cdb.core.View.extend({
 
 module.exports = DashboardInfoView;
 
-},{"./dashboard-info-view.tpl":245,"cartodb.js":192,"moment":219}],245:[function(require,module,exports){
+},{"./dashboard-info-view.tpl":252,"cartodb.js":193,"moment":226}],252:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -80070,7 +78836,7 @@ __p+='<div class="CDB-Dashboard-infoInner"> <div class="CDB-Dashboard-infoHeader
 return __p;
 };
 
-},{"underscore":241}],246:[function(require,module,exports){
+},{"underscore":248}],253:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var Ps = require('perfect-scrollbar');
@@ -80219,7 +78985,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"./dashboard-sidebar.tpl":247,"./widgets/category/content-view":254,"./widgets/formula/content-view":283,"./widgets/histogram/content-view":288,"./widgets/list/content-view":295,"./widgets/widget-view-factory":328,"cartodb.js":192,"jquery":218,"perfect-scrollbar":220,"underscore":241}],247:[function(require,module,exports){
+},{"./dashboard-sidebar.tpl":254,"./widgets/category/content-view":261,"./widgets/formula/content-view":290,"./widgets/histogram/content-view":295,"./widgets/list/content-view":302,"./widgets/widget-view-factory":335,"cartodb.js":193,"jquery":225,"perfect-scrollbar":227,"underscore":248}],254:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -80229,7 +78995,7 @@ __p+='<div class="CDB-Widget-canvasInner js-container"></div>';
 return __p;
 };
 
-},{"underscore":241}],248:[function(require,module,exports){
+},{"underscore":248}],255:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var template = require('./dashboard.tpl');
 var DashboardBelowMapView = require('./dashboard-below-map-view');
@@ -80278,7 +79044,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"./dashboard-below-map-view":243,"./dashboard-info-view":244,"./dashboard-sidebar-view":246,"./dashboard.tpl":249,"cartodb.js":192}],249:[function(require,module,exports){
+},{"./dashboard-below-map-view":250,"./dashboard-info-view":251,"./dashboard-sidebar-view":253,"./dashboard.tpl":256,"cartodb.js":193}],256:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -80288,7 +79054,7 @@ __p+='<div class="CDB-Dashboard-mapWrapper CDB-Dashboard-mapWrapper--margin js-m
 return __p;
 };
 
-},{"underscore":241}],250:[function(require,module,exports){
+},{"underscore":248}],257:[function(require,module,exports){
 var _ = require('underscore');
 var d3 = require('d3');
 
@@ -80332,7 +79098,7 @@ format.formatValue = function (value) {
 
 module.exports = format;
 
-},{"d3":217,"underscore":241}],251:[function(require,module,exports){
+},{"d3":224,"underscore":248}],258:[function(require,module,exports){
 var cdb = require('cartodb.js');
 
 cdb.deepInsights = {
@@ -80341,7 +79107,7 @@ cdb.deepInsights = {
 
 module.exports = cdb;
 
-},{"./create-dashboard":242,"cartodb.js":192}],252:[function(require,module,exports){
+},{"./create-dashboard":249,"cartodb.js":193}],259:[function(require,module,exports){
 var _ = require('underscore');
 var d3 = require('d3');
 var cdb = require('cartodb.js');
@@ -80454,7 +79220,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"cartodb.js":192,"d3":217,"underscore":241}],253:[function(require,module,exports){
+},{"cartodb.js":193,"d3":224,"underscore":248}],260:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -80464,7 +79230,7 @@ __p+='<div class="CDB-Widget-header js-header"></div> <div class="CDB-Widget-con
 return __p;
 };
 
-},{"underscore":241}],254:[function(require,module,exports){
+},{"underscore":248}],261:[function(require,module,exports){
 var WidgetContent = require('../standard/widget-content-view');
 var SearchTitleView = require('./title/search-title-view');
 var CategoryOptionsView = require('./options/options-view');
@@ -80563,7 +79329,7 @@ module.exports = WidgetContent.extend({
 
 });
 
-},{"../standard/widget-content-view":303,"../widget-content-model":324,"./content-template.tpl":253,"./list/items-view":261,"./list/search-items-view":263,"./options/options-view":272,"./paginator/paginator-view":274,"./paginator/search-paginator-view":276,"./stats/stats-view":279,"./title/search-title-view":281}],255:[function(require,module,exports){
+},{"../standard/widget-content-view":310,"../widget-content-model":331,"./content-template.tpl":260,"./list/items-view":268,"./list/search-items-view":270,"./options/options-view":279,"./paginator/paginator-view":281,"./paginator/search-paginator-view":283,"./stats/stats-view":286,"./title/search-title-view":288}],262:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -80593,7 +79359,7 @@ __p+='<button type="button" class="CDB-Widget-listItemInner CDB-Widget-listButto
 return __p;
 };
 
-},{"underscore":241}],256:[function(require,module,exports){
+},{"underscore":248}],263:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -80623,7 +79389,7 @@ __p+='<div class="CDB-Widget-listItemInner '+
 return __p;
 };
 
-},{"underscore":241}],257:[function(require,module,exports){
+},{"underscore":248}],264:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var formatter = require('../../../../formatter');
 var clickableTemplate = require('./item-clickable-template.tpl');
@@ -80681,7 +79447,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"../../../../formatter":250,"./item-clickable-template.tpl":255,"./item-unclickable-template.tpl":256,"cartodb.js":192}],258:[function(require,module,exports){
+},{"../../../../formatter":257,"./item-clickable-template.tpl":262,"./item-unclickable-template.tpl":263,"cartodb.js":193}],265:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -80709,7 +79475,7 @@ __p+='<button type="button" class="CDB-Widget-listItemInner CDB-Widget-listItemI
 return __p;
 };
 
-},{"underscore":241}],259:[function(require,module,exports){
+},{"underscore":248}],266:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var formatter = require('../../../../formatter');
 var template = require('./search-item-clickable-template.tpl');
@@ -80761,7 +79527,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"../../../../formatter":250,"./search-item-clickable-template.tpl":258,"cartodb.js":192}],260:[function(require,module,exports){
+},{"../../../../formatter":257,"./search-item-clickable-template.tpl":265,"cartodb.js":193}],267:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -80771,7 +79537,7 @@ __p+='<li class="CDB-Widget-listItem CDB-Widget-listItem--fake"></li> <li class=
 return __p;
 };
 
-},{"underscore":241}],261:[function(require,module,exports){
+},{"underscore":248}],268:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var cdb = require('cartodb.js');
@@ -80889,7 +79655,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"./item/item-view":257,"./items-placeholder-template.tpl":260,"cartodb.js":192,"jquery":218,"underscore":241}],262:[function(require,module,exports){
+},{"./item/item-view":264,"./items-placeholder-template.tpl":267,"cartodb.js":193,"jquery":225,"underscore":248}],269:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -80901,7 +79667,7 @@ __p+='<li class="CDB-Widget-listItem"> <h4 class="CDB-Widget-textBig CDB-Widget-
 return __p;
 };
 
-},{"underscore":241}],263:[function(require,module,exports){
+},{"underscore":248}],270:[function(require,module,exports){
 var $ = require('jquery');
 var CategoryItemsView = require('./items-view');
 var WidgetSearchCategoryItemView = require('./item/search-item-view');
@@ -80971,7 +79737,7 @@ module.exports = CategoryItemsView.extend({
 
 });
 
-},{"./item/search-item-view":259,"./items-view":261,"./search-items-no-results-template.tpl":262,"jquery":218}],264:[function(require,module,exports){
+},{"./item/search-item-view":266,"./items-view":268,"./search-items-no-results-template.tpl":269,"jquery":225}],271:[function(require,module,exports){
 var _ = require('underscore');
 var CategoryColors = require('./models/category-colors');
 var WidgetModel = require('../widget-model');
@@ -81356,7 +80122,7 @@ module.exports = WidgetModel.extend({
 
 });
 
-},{"../widget-model":326,"./models/categories-collection":265,"./models/category-colors":266,"./models/category-model-range":268,"./models/locked-categories-collection":269,"./models/search-model":270,"underscore":241}],265:[function(require,module,exports){
+},{"../widget-model":333,"./models/categories-collection":272,"./models/category-colors":273,"./models/category-model-range":275,"./models/locked-categories-collection":276,"./models/search-model":277,"underscore":248}],272:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var CategoryItemModel = require('./category-item-model');
 
@@ -81390,7 +80156,7 @@ module.exports = cdb.Backbone.Collection.extend({
 
 });
 
-},{"./category-item-model":267,"cartodb.js":192}],266:[function(require,module,exports){
+},{"./category-item-model":274,"cartodb.js":193}],273:[function(require,module,exports){
 var _ = require('underscore');
 var categoryColors = ['#2CA095', '#E5811B', '#4A4DBA', '#AD2BAD', '#559030', '#E1C221']; // Demo colors
 var defaultColor = '#CCC';
@@ -81453,7 +80219,7 @@ CategoryColors.prototype.getCategoryByColor = function (color) {
 
 module.exports = CategoryColors;
 
-},{"underscore":241}],267:[function(require,module,exports){
+},{"underscore":248}],274:[function(require,module,exports){
 var cdb = require('cartodb.js');
 
 /**
@@ -81469,7 +80235,7 @@ module.exports = cdb.core.Model.extend({
 
 });
 
-},{"cartodb.js":192}],268:[function(require,module,exports){
+},{"cartodb.js":193}],275:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 
@@ -81515,7 +80281,7 @@ module.exports = cdb.core.Model.extend({
   }
 });
 
-},{"cartodb.js":192,"underscore":241}],269:[function(require,module,exports){
+},{"cartodb.js":193,"underscore":248}],276:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 var CategoryItemModel = require('./category-item-model');
@@ -81569,7 +80335,7 @@ module.exports = cdb.Backbone.Collection.extend({
 
 });
 
-},{"./category-item-model":267,"cartodb.js":192,"underscore":241}],270:[function(require,module,exports){
+},{"./category-item-model":274,"cartodb.js":193,"underscore":248}],277:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 var CategoriesCollection = require('./categories-collection');
@@ -81692,7 +80458,7 @@ module.exports = cdb.core.Model.extend({
 
 });
 
-},{"./categories-collection":265,"cartodb.js":192,"underscore":241}],271:[function(require,module,exports){
+},{"./categories-collection":272,"cartodb.js":193,"underscore":248}],278:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -81736,7 +80502,7 @@ __p+='';
 return __p;
 };
 
-},{"underscore":241}],272:[function(require,module,exports){
+},{"underscore":248}],279:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var template = require('./options-template.tpl');
 
@@ -81806,7 +80572,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"./options-template.tpl":271,"cartodb.js":192}],273:[function(require,module,exports){
+},{"./options-template.tpl":278,"cartodb.js":193}],280:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -81830,7 +80596,7 @@ __p+='';
 return __p;
 };
 
-},{"underscore":241}],274:[function(require,module,exports){
+},{"underscore":248}],281:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var cdb = require('cartodb.js');
@@ -81933,7 +80699,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"./paginator-template.tpl":273,"cartodb.js":192,"jquery":218,"underscore":241}],275:[function(require,module,exports){
+},{"./paginator-template.tpl":280,"cartodb.js":193,"jquery":225,"underscore":248}],282:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -81957,7 +80723,7 @@ __p+='';
 return __p;
 };
 
-},{"underscore":241}],276:[function(require,module,exports){
+},{"underscore":248}],283:[function(require,module,exports){
 var PaginatorView = require('./paginator-view');
 var searchTemplate = require('./search-paginator-template.tpl');
 
@@ -81999,7 +80765,7 @@ module.exports = PaginatorView.extend({
 
 });
 
-},{"./paginator-view":274,"./search-paginator-template.tpl":275}],277:[function(require,module,exports){
+},{"./paginator-view":281,"./search-paginator-template.tpl":282}],284:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -82011,7 +80777,7 @@ __p+=''+
 return __p;
 };
 
-},{"underscore":241}],278:[function(require,module,exports){
+},{"underscore":248}],285:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -82045,7 +80811,7 @@ __p+='';
 return __p;
 };
 
-},{"underscore":241}],279:[function(require,module,exports){
+},{"underscore":248}],286:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 var formatter = require('../../../formatter');
@@ -82142,7 +80908,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"../../../formatter":250,"../../animate-values":252,"./cats-template.tpl":277,"./stats-template.tpl":278,"cartodb.js":192,"underscore":241}],280:[function(require,module,exports){
+},{"../../../formatter":257,"../../animate-values":259,"./cats-template.tpl":284,"./stats-template.tpl":285,"cartodb.js":193,"underscore":248}],287:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -82178,7 +80944,7 @@ __p+='';
 return __p;
 };
 
-},{"underscore":241}],281:[function(require,module,exports){
+},{"underscore":248}],288:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var cdb = require('cartodb.js');
@@ -82330,7 +81096,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"../../widget-tooltip-view":327,"./search-title-template.tpl":280,"cartodb.js":192,"jquery":218,"underscore":241}],282:[function(require,module,exports){
+},{"../../widget-tooltip-view":334,"./search-title-template.tpl":287,"cartodb.js":193,"jquery":225,"underscore":248}],289:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -82346,11 +81112,11 @@ __p+=''+
 return __p;
 };
 
-},{"underscore":241}],283:[function(require,module,exports){
+},{"underscore":248}],290:[function(require,module,exports){
 var _ = require('underscore');
 var d3 = require('d3');
 var $ = require('jquery');
-var formatter = require('app/formatter');
+var formatter = require('../../formatter');
 var WidgetContent = require('../standard/widget-content-view');
 var WidgetViewModel = require('../widget-content-model');
 var template = require('./template.tpl');
@@ -82435,7 +81201,7 @@ module.exports = WidgetContent.extend({
 
 });
 
-},{"../animate-values.js":252,"../standard/widget-content-view":303,"../widget-content-model":324,"../widget-tooltip-view":327,"./animation-template.tpl":282,"./template.tpl":285,"app/formatter":250,"d3":217,"jquery":218,"underscore":241}],284:[function(require,module,exports){
+},{"../../formatter":257,"../animate-values.js":259,"../standard/widget-content-view":310,"../widget-content-model":331,"../widget-tooltip-view":334,"./animation-template.tpl":289,"./template.tpl":292,"d3":224,"jquery":225,"underscore":248}],291:[function(require,module,exports){
 var _ = require('underscore');
 var WidgetModel = require('../widget-model');
 
@@ -82470,7 +81236,7 @@ module.exports = WidgetModel.extend({
 
 });
 
-},{"../widget-model":326,"underscore":241}],285:[function(require,module,exports){
+},{"../widget-model":333,"underscore":248}],292:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -82504,7 +81270,7 @@ __p+=' </div>';
 return __p;
 };
 
-},{"underscore":241}],286:[function(require,module,exports){
+},{"underscore":248}],293:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -82518,7 +81284,7 @@ __p+=''+
 return __p;
 };
 
-},{"underscore":241}],287:[function(require,module,exports){
+},{"underscore":248}],294:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var d3 = require('d3');
@@ -83571,7 +82337,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"../../formatter":250,"cartodb.js":192,"d3":217,"jquery":218,"underscore":241}],288:[function(require,module,exports){
+},{"../../formatter":257,"cartodb.js":193,"d3":224,"jquery":225,"underscore":248}],295:[function(require,module,exports){
 var _ = require('underscore');
 var formatter = require('../../formatter');
 var HistogramTitleView = require('./histogram-title-view');
@@ -84017,7 +82783,7 @@ module.exports = WidgetContent.extend({
   }
 });
 
-},{"../../formatter":250,"../animate-values.js":252,"../standard/widget-content-view":303,"../widget-content-model":324,"./animation-template.tpl":286,"./chart":287,"./content.tpl":289,"./histogram-title-view":291,"./placeholder.tpl":293,"underscore":241}],289:[function(require,module,exports){
+},{"../../formatter":257,"../animate-values.js":259,"../standard/widget-content-view":310,"../widget-content-model":331,"./animation-template.tpl":293,"./chart":294,"./content.tpl":296,"./histogram-title-view":298,"./placeholder.tpl":300,"underscore":248}],296:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -84029,7 +82795,7 @@ __p+='<div class="CDB-Widget-header"> <div class="js-title"> <div class="CDB-Wid
 return __p;
 };
 
-},{"underscore":241}],290:[function(require,module,exports){
+},{"underscore":248}],297:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -84051,7 +82817,7 @@ __p+='<h3 class="CDB-Widget-textBig" title="'+
 return __p;
 };
 
-},{"underscore":241}],291:[function(require,module,exports){
+},{"underscore":248}],298:[function(require,module,exports){
 var $ = require('jquery');
 var cdb = require('cartodb.js');
 var TooltipView = require('../widget-tooltip-view');
@@ -84123,9 +82889,9 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"../widget-tooltip-view":327,"./histogram-title-template.tpl":290,"cartodb.js":192,"jquery":218}],292:[function(require,module,exports){
+},{"../widget-tooltip-view":334,"./histogram-title-template.tpl":297,"cartodb.js":193,"jquery":225}],299:[function(require,module,exports){
 var _ = require('underscore');
-var cdb = require('cartodb.js');
+var Backbone = require('backbone');
 var WidgetModel = require('../widget-model');
 
 module.exports = WidgetModel.extend({
@@ -84160,7 +82926,7 @@ module.exports = WidgetModel.extend({
 
   initialize: function (attrs, opts) {
     WidgetModel.prototype.initialize.apply(this, arguments);
-    this._data = new cdb.Backbone.Collection(this.get('data'));
+    this._data = new Backbone.Collection(this.get('data'));
 
     // BBox should only be included until after the first fetch, since we want to get the range of the full dataset
     this.once('change:data', function () {
@@ -84241,7 +83007,7 @@ module.exports = WidgetModel.extend({
   }
 });
 
-},{"../widget-model":326,"cartodb.js":192,"underscore":241}],293:[function(require,module,exports){
+},{"../widget-model":333,"backbone":1,"underscore":248}],300:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -84257,7 +83023,7 @@ __p+=' </ul>';
 return __p;
 };
 
-},{"underscore":241}],294:[function(require,module,exports){
+},{"underscore":248}],301:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -84273,7 +83039,7 @@ __p+='<div class="CDB-Widget-header"> <div class="CDB-Widget-title CDB-Widget-co
 return __p;
 };
 
-},{"underscore":241}],295:[function(require,module,exports){
+},{"underscore":248}],302:[function(require,module,exports){
 var _ = require('underscore');
 var format = require('../../formatter');
 var WidgetContentView = require('../standard/widget-content-view');
@@ -84339,7 +83105,7 @@ module.exports = WidgetContentView.extend({
 
 });
 
-},{"../../formatter":250,"../standard/widget-content-view":303,"./content-template.tpl":294,"./edges-view":296,"./items-view":299,"./paginator-view":301,"underscore":241}],296:[function(require,module,exports){
+},{"../../formatter":257,"../standard/widget-content-view":310,"./content-template.tpl":301,"./edges-view":303,"./items-view":306,"./paginator-view":308,"underscore":248}],303:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 
@@ -84397,7 +83163,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"cartodb.js":192,"underscore":241}],297:[function(require,module,exports){
+},{"cartodb.js":193,"underscore":248}],304:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -84453,7 +83219,7 @@ __p+='';
 return __p;
 };
 
-},{"underscore":241}],298:[function(require,module,exports){
+},{"underscore":248}],305:[function(require,module,exports){
 var _ = require('underscore');
 var format = require('../../formatter');
 var cdb = require('cartodb.js');
@@ -84531,7 +83297,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"../../formatter":250,"./item-template.tpl":297,"cartodb.js":192,"underscore":241}],299:[function(require,module,exports){
+},{"../../formatter":257,"./item-template.tpl":304,"cartodb.js":193,"underscore":248}],306:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var WidgetListItemView = require('./item-view');
 
@@ -84567,8 +83333,8 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"./item-view":298,"cartodb.js":192}],300:[function(require,module,exports){
-var cdb = require('cartodb.js');
+},{"./item-view":305,"cartodb.js":193}],307:[function(require,module,exports){
+var Backbone = require('backbone');
 var WidgetModel = require('../widget-model');
 
 module.exports = WidgetModel.extend({
@@ -84578,7 +83344,7 @@ module.exports = WidgetModel.extend({
   },
 
   initialize: function (attrs, opts) {
-    this._data = new cdb.Backbone.Collection(this.get('data'));
+    this._data = new Backbone.Collection(this.get('data'));
     WidgetModel.prototype.initialize.call(this, attrs, opts);
   },
 
@@ -84608,7 +83374,7 @@ module.exports = WidgetModel.extend({
   }
 });
 
-},{"../widget-model":326,"cartodb.js":192}],301:[function(require,module,exports){
+},{"../widget-model":333,"backbone":1}],308:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var cdb = require('cartodb.js');
@@ -84713,7 +83479,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"cartodb.js":192,"jquery":218,"underscore":241}],302:[function(require,module,exports){
+},{"cartodb.js":193,"jquery":225,"underscore":248}],309:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -84729,7 +83495,7 @@ __p+='<div class="CDB-Widget-header"> <div class="CDB-Widget-title Widget-conten
 return __p;
 };
 
-},{"underscore":241}],303:[function(require,module,exports){
+},{"underscore":248}],310:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 var contentTemplate = require('./widget-content-template.tpl');
@@ -84777,7 +83543,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"./widget-content-template.tpl":302,"./widget-placeholder-template.tpl":307,"cartodb.js":192,"underscore":241}],304:[function(require,module,exports){
+},{"./widget-content-template.tpl":309,"./widget-placeholder-template.tpl":314,"cartodb.js":193,"underscore":248}],311:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -84787,7 +83553,7 @@ __p+='<button class="CDB-Widget-button CDB-Widget-errorButton js-refresh"> <span
 return __p;
 };
 
-},{"underscore":241}],305:[function(require,module,exports){
+},{"underscore":248}],312:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var template = require('./widget-error-template.tpl');
 
@@ -84832,7 +83598,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"./widget-error-template.tpl":304,"cartodb.js":192}],306:[function(require,module,exports){
+},{"./widget-error-template.tpl":311,"cartodb.js":193}],313:[function(require,module,exports){
 var cdb = require('cartodb.js');
 
 /**
@@ -84842,7 +83608,7 @@ var cdb = require('cartodb.js');
  *  first load is done.
  */
 module.exports = cdb.core.View.extend({
-  className: 'CDB-Widget-loader',
+  className: 'CDB-Loader',
 
   initialize: function () {
     this._initBinds();
@@ -84866,7 +83632,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"cartodb.js":192}],307:[function(require,module,exports){
+},{"cartodb.js":193}],314:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -84876,7 +83642,7 @@ __p+='<ul class="CDB-Widget-list CDB-Widget-list--withBorders"> <li class="CDB-W
 return __p;
 };
 
-},{"underscore":241}],308:[function(require,module,exports){
+},{"underscore":248}],315:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 var placeholderTemplate = require('./placeholder.tpl');
@@ -84936,7 +83702,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"./histogram-view":309,"./placeholder.tpl":310,"cartodb.js":192,"underscore":241}],309:[function(require,module,exports){
+},{"./histogram-view":316,"./placeholder.tpl":317,"cartodb.js":193,"underscore":248}],316:[function(require,module,exports){
 var $ = require('jquery');
 var cdb = require('cartodb.js');
 var HistogramChartView = require('../histogram/chart');
@@ -85022,7 +83788,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"../histogram/chart":287,"cartodb.js":192,"jquery":218}],310:[function(require,module,exports){
+},{"../histogram/chart":294,"cartodb.js":193,"jquery":225}],317:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -85046,7 +83812,7 @@ __p+=' </div> </div>';
 return __p;
 };
 
-},{"underscore":241}],311:[function(require,module,exports){
+},{"underscore":248}],318:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 var torqueTemplate = require('./torque-template.tpl');
@@ -85102,7 +83868,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"./placeholder.tpl":310,"./torque-header-view":315,"./torque-histogram-view":316,"./torque-template.tpl":320,"cartodb.js":192,"underscore":241}],312:[function(require,module,exports){
+},{"./placeholder.tpl":317,"./torque-header-view":322,"./torque-histogram-view":323,"./torque-template.tpl":327,"cartodb.js":193,"underscore":248}],319:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var template = require('./torque-controls.tpl');
 
@@ -85143,7 +83909,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"./torque-controls.tpl":313,"cartodb.js":192}],313:[function(require,module,exports){
+},{"./torque-controls.tpl":320,"cartodb.js":193}],320:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -85155,7 +83921,7 @@ __p+='<div class="CDB-Widget-controlButton-content"> <i class="'+
 return __p;
 };
 
-},{"underscore":241}],314:[function(require,module,exports){
+},{"underscore":248}],321:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -85173,7 +83939,7 @@ __p+='<p class="CDB-Widget-textBig CDB-Widget-text--secondary"> Selected from </
 return __p;
 };
 
-},{"underscore":241}],315:[function(require,module,exports){
+},{"underscore":248}],322:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var TorqueControlsView = require('./torque-controls-view');
 var TorqueTimeInfoView = require('./torque-time-info-view');
@@ -85231,7 +83997,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"./torque-controls-view":312,"./torque-render-range-info-view":317,"./torque-reset-render-range-view":319,"./torque-time-info-view":321,"cartodb.js":192}],316:[function(require,module,exports){
+},{"./torque-controls-view":319,"./torque-render-range-info-view":324,"./torque-reset-render-range-view":326,"./torque-time-info-view":328,"cartodb.js":193}],323:[function(require,module,exports){
 var $ = require('jquery');
 var cdb = require('cartodb.js');
 var HistogramChartView = require('../histogram/chart');
@@ -85344,7 +84110,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"../histogram/chart":287,"./torque-time-slider-view":323,"cartodb.js":192,"jquery":218}],317:[function(require,module,exports){
+},{"../histogram/chart":294,"./torque-time-slider-view":330,"cartodb.js":193,"jquery":225}],324:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var d3 = require('d3');
 var template = require('./torque-cumulative-render-info.tpl');
@@ -85382,7 +84148,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"./torque-cumulative-render-info.tpl":314,"cartodb.js":192,"d3":217}],318:[function(require,module,exports){
+},{"./torque-cumulative-render-info.tpl":321,"cartodb.js":193,"d3":224}],325:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -85392,7 +84158,7 @@ __p+='<button class="CDB-Widget-link CDB-Widget-filterButton js-clear">Clear sel
 return __p;
 };
 
-},{"underscore":241}],319:[function(require,module,exports){
+},{"underscore":248}],326:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var template = require('./torque-reset-cumulative-render.tpl');
 
@@ -85416,7 +84182,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"./torque-reset-cumulative-render.tpl":318,"cartodb.js":192}],320:[function(require,module,exports){
+},{"./torque-reset-cumulative-render.tpl":325,"cartodb.js":193}],327:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -85426,7 +84192,7 @@ __p+='<div class="CDB-Widget-header CDB-Widget-header--timeSeries js-header"></d
 return __p;
 };
 
-},{"underscore":241}],321:[function(require,module,exports){
+},{"underscore":248}],328:[function(require,module,exports){
 var d3 = require('d3');
 var cdb = require('cartodb.js');
 var template = require('./torque-time-info.tpl');
@@ -85463,7 +84229,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"./torque-time-info.tpl":322,"cartodb.js":192,"d3":217}],322:[function(require,module,exports){
+},{"./torque-time-info.tpl":329,"cartodb.js":193,"d3":224}],329:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -85477,7 +84243,7 @@ __p+='<p class="CDB-Widget-textBig"> '+
 return __p;
 };
 
-},{"underscore":241}],323:[function(require,module,exports){
+},{"underscore":248}],330:[function(require,module,exports){
 var d3 = require('d3');
 var cdb = require('cartodb.js');
 
@@ -85637,7 +84403,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"cartodb.js":192,"d3":217}],324:[function(require,module,exports){
+},{"cartodb.js":193,"d3":224}],331:[function(require,module,exports){
 var cdb = require('cartodb.js');
 
 /**
@@ -85669,7 +84435,7 @@ module.exports = cdb.core.Model.extend({
 
 });
 
-},{"cartodb.js":192}],325:[function(require,module,exports){
+},{"cartodb.js":193}],332:[function(require,module,exports){
 var _ = require('underscore');
 
 var WidgetModelFactory = function (types) {
@@ -85703,7 +84469,7 @@ WidgetModelFactory.prototype.createModel = function (layer, layerIndex, attrs) {
 
 module.exports = WidgetModelFactory;
 
-},{"underscore":241}],326:[function(require,module,exports){
+},{"underscore":248}],333:[function(require,module,exports){
 var cdb = require('cartodb.js');
 
 /**
@@ -85816,7 +84582,7 @@ module.exports = cdb.core.Model.extend({
   }
 });
 
-},{"cartodb.js":192}],327:[function(require,module,exports){
+},{"cartodb.js":193}],334:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var _ = require('underscore');
 
@@ -85877,7 +84643,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"cartodb.js":192,"underscore":241}],328:[function(require,module,exports){
+},{"cartodb.js":193,"underscore":248}],335:[function(require,module,exports){
 var _ = require('underscore');
 var WidgetView = require('./widget-view');
 
@@ -85929,7 +84695,7 @@ WidgetViewFactory.prototype.createWidgetView = function (widget) {
 
 module.exports = WidgetViewFactory;
 
-},{"./widget-view":329,"underscore":241}],329:[function(require,module,exports){
+},{"./widget-view":336,"underscore":248}],336:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var WidgetLoaderView = require('./standard/widget-loader-view');
 var WidgetErrorView = require('./standard/widget-error-view');
@@ -85976,7 +84742,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"./standard/widget-error-view":305,"./standard/widget-loader-view":306,"cartodb.js":192}],330:[function(require,module,exports){
+},{"./standard/widget-error-view":312,"./standard/widget-loader-view":313,"cartodb.js":193}],337:[function(require,module,exports){
 var cdb = require('cartodb.js');
 
 /**
@@ -86016,7 +84782,7 @@ module.exports = cdb.Backbone.Collection.extend({
 
 });
 
-},{"cartodb.js":192}],331:[function(require,module,exports){
+},{"cartodb.js":193}],338:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var cdb = require('cartodb.js');
@@ -86160,13 +84926,13 @@ WindshaftClient.prototype._jsonpCallbackName = function (payload) {
 
 module.exports = WindshaftClient;
 
-},{"./dashboard-instance":333,"cartodb.js":192,"jquery":218,"underscore":241}],332:[function(require,module,exports){
+},{"./dashboard-instance":340,"cartodb.js":193,"jquery":225,"underscore":248}],339:[function(require,module,exports){
 var config = {};
 config.MAPS_API_BASE_URL = 'api/v1/map';
 
 module.exports = config;
 
-},{}],333:[function(require,module,exports){
+},{}],340:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 var WindshaftConfig = require('./config');
@@ -86382,9 +85148,9 @@ module.exports = cdb.core.Model.extend({
   }
 });
 
-},{"./config":332,"cartodb.js":192,"underscore":241}],334:[function(require,module,exports){
+},{"./config":339,"cartodb.js":193,"underscore":248}],341:[function(require,module,exports){
 var _ = require('underscore');
-var cdb = require('cartodb.js');
+var Backbone = require('backbone');
 var WindshaftFiltersCollection = require('./filters/collection');
 var WindshaftFiltersBoundingBoxFilter = require('./filters/bounding-box');
 var WindshaftDashboardInstance = require('./dashboard-instance');
@@ -86393,7 +85159,7 @@ var WindshaftDashboard = function (options) {
   var BOUNDING_BOX_FILTER_WAIT = 500;
 
   this.layerGroup = options.layerGroup;
-  this.layers = new cdb.Backbone.Collection(options.layers);
+  this.layers = new Backbone.Collection(options.layers);
   this.widgets = options.widgets;
   this.map = options.map;
   this.client = options.client;
@@ -86512,7 +85278,7 @@ WindshaftDashboard.prototype._layerChanged = function (layer) {
 
 module.exports = WindshaftDashboard;
 
-},{"./dashboard-instance":333,"./filters/bounding-box":336,"./filters/collection":338,"cartodb.js":192,"underscore":241}],335:[function(require,module,exports){
+},{"./dashboard-instance":340,"./filters/bounding-box":343,"./filters/collection":345,"backbone":1,"underscore":248}],342:[function(require,module,exports){
 var cdb = require('cartodb.js');
 
 module.exports = cdb.core.Model.extend({
@@ -86525,7 +85291,7 @@ module.exports = cdb.core.Model.extend({
   }
 });
 
-},{"cartodb.js":192}],336:[function(require,module,exports){
+},{"cartodb.js":193}],343:[function(require,module,exports){
 var cdb = require('cartodb.js');
 
 module.exports = cdb.core.Model.extend({
@@ -86552,9 +85318,9 @@ module.exports = cdb.core.Model.extend({
   }
 });
 
-},{"cartodb.js":192}],337:[function(require,module,exports){
+},{"cartodb.js":193}],344:[function(require,module,exports){
 var _ = require('underscore');
-var cdb = require('cartodb.js');
+var Backbone = require('backbone');
 var WindshaftFilterBase = require('./base');
 
 /**
@@ -86567,8 +85333,8 @@ module.exports = WindshaftFilterBase.extend({
   },
 
   initialize: function () {
-    this.rejectedCategories = new cdb.Backbone.Collection();
-    this.acceptedCategories = new cdb.Backbone.Collection();
+    this.rejectedCategories = new Backbone.Collection();
+    this.acceptedCategories = new Backbone.Collection();
     this._initBinds();
   },
 
@@ -86695,7 +85461,7 @@ module.exports = WindshaftFilterBase.extend({
   }
 });
 
-},{"./base":335,"cartodb.js":192,"underscore":241}],338:[function(require,module,exports){
+},{"./base":342,"backbone":1,"underscore":248}],345:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 
@@ -86731,7 +85497,7 @@ module.exports = cdb.Backbone.Collection.extend({
   }
 });
 
-},{"cartodb.js":192,"underscore":241}],339:[function(require,module,exports){
+},{"cartodb.js":193,"underscore":248}],346:[function(require,module,exports){
 var _ = require('underscore');
 var WindshaftFilterBase = require('./base');
 
@@ -86763,7 +85529,7 @@ module.exports = WindshaftFilterBase.extend({
   }
 });
 
-},{"./base":335,"underscore":241}],340:[function(require,module,exports){
+},{"./base":342,"underscore":248}],347:[function(require,module,exports){
 var _ = require('underscore');
 var WindshaftPrivateDashboardConfig = {};
 
@@ -86782,7 +85548,7 @@ WindshaftPrivateDashboardConfig.generate = function (options) {
 
 module.exports = WindshaftPrivateDashboardConfig;
 
-},{"underscore":241}],341:[function(require,module,exports){
+},{"underscore":248}],348:[function(require,module,exports){
 var _ = require('underscore');
 var WindshaftPublicDashboardConfig = {};
 
@@ -86824,5 +85590,5 @@ WindshaftPublicDashboardConfig.generate = function (options) {
 
 module.exports = WindshaftPublicDashboardConfig;
 
-},{"underscore":241}]},{},[251])(251)
+},{"underscore":248}]},{},[258])(258)
 });
