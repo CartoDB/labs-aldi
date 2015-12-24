@@ -175,7 +175,7 @@
                       "infowindow": {
                         "fields": [],
                         "template_name": "table/views/infowindow_light",
-                        "template": "<div class=\"cartodb-popup v2\">\n  <a href=\"#close\" class=\"cartodb-popup-close-button close\">x</a>\n  <div class=\"cartodb-popup-content-wrapper\">\n    <div class=\"cartodb-popup-content\">\n      {{#content.fields}}\n        {{#title}}<h4>{{title}}</h4>{{/title}}\n        {{#value}}\n          <p {{#type}}class=\"{{ type }}\"{{/type}}>{{{ value }}}</p>\n        {{/value}}\n        {{^value}}\n          <p class=\"empty\">null</p>\n        {{/value}}\n      {{/content.fields}}\n    </div>\n  </div>\n  <div class=\"cartodb-popup-tip-container\"></div>\n</div>\n",
+                        "template": "",
                         "alternative_names": {},
                         "width": 226,
                         "maxHeight": 180
@@ -198,8 +198,7 @@
                             "position": 3
                           }
                         ],
-                        "template_name": "CDB-Tooltip--isLight",
-                        "template": "<ul class=\"CDB-Tooltip-List\">\n {{#fields}}\n <li class=\"CDB-Tooltip-ListItem\">\n {{#title}}\n <h4 class=\"CDB-Tooltip-ListTitle\">\n{{title}}</h4>\n {{/title}}\n <p class=\"CDB-Tooltip-ListText\">\n{{{ value }}}</p>\n </li>\n {{/fields}}\n  </ul>",
+                        "template": "<div class='CDB-Tooltip CDB-Tooltip--isLight'><ul class=\"CDB-Tooltip-list\">\n {{#fields}}\n <li class=\"CDB-Tooltip-listItem\">\n {{#title}}\n <h4 class=\"CDB-Tooltip-listTitle\">\n{{title}}</h4>\n {{/title}}\n <p class=\"CDB-Tooltip-listText\">\n{{{ value }}}</p>\n </li>\n {{/fields}}\n </ul></div>",
                         "alternative_names": {},
                         "maxHeight": 180
                       },
