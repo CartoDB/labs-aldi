@@ -49636,12 +49636,12 @@ var Vis = View.extend({
     infowindow.bind('close', function () {
       // when infowindow is closed remove all the filters
       // for tooltips
-      layers.each(function(layerView) {
-        var layerTooltip = layerView.tooltip;
-        if (layerTooltip) {
-          layerTooltip.setFilter(null);
+      for (var i = 0; i < layers; ++i) {
+        var t = layerView.tooltip;
+        if (t) {
+          t.setFilter(null);
         }
-      });
+      }
     });
 
     infowindow.model.bind('domready', function () {
