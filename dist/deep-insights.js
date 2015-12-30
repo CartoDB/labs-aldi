@@ -28643,7 +28643,7 @@ function stylize(str, style) {
 }
 
 }).call(this,require('_process'),"/../cartodb.js/node_modules/torque.js/node_modules/carto/lib/carto")
-},{"../../package.json":92,"./functions":55,"./parser":57,"./renderer":58,"./renderer_js":59,"./torque-reference":60,"./tree":61,"./tree/call":62,"./tree/color":63,"./tree/comment":64,"./tree/definition":65,"./tree/dimension":66,"./tree/element":67,"./tree/expression":68,"./tree/field":69,"./tree/filter":70,"./tree/filterset":71,"./tree/fontset":72,"./tree/frame_offset":73,"./tree/imagefilter":74,"./tree/invalid":75,"./tree/keyword":76,"./tree/layer":77,"./tree/literal":78,"./tree/operation":79,"./tree/quoted":80,"./tree/reference":81,"./tree/rule":82,"./tree/ruleset":83,"./tree/selector":84,"./tree/style":85,"./tree/url":86,"./tree/value":87,"./tree/variable":88,"./tree/zoom":89,"_process":247,"fs":243,"path":246,"util":249}],57:[function(require,module,exports){
+},{"../../package.json":92,"./functions":55,"./parser":57,"./renderer":58,"./renderer_js":59,"./torque-reference":60,"./tree":61,"./tree/call":62,"./tree/color":63,"./tree/comment":64,"./tree/definition":65,"./tree/dimension":66,"./tree/element":67,"./tree/expression":68,"./tree/field":69,"./tree/filter":70,"./tree/filterset":71,"./tree/fontset":72,"./tree/frame_offset":73,"./tree/imagefilter":74,"./tree/invalid":75,"./tree/keyword":76,"./tree/layer":77,"./tree/literal":78,"./tree/operation":79,"./tree/quoted":80,"./tree/reference":81,"./tree/rule":82,"./tree/ruleset":83,"./tree/selector":84,"./tree/style":85,"./tree/url":86,"./tree/value":87,"./tree/variable":88,"./tree/zoom":89,"_process":244,"fs":240,"path":243,"util":246}],57:[function(require,module,exports){
 (function (global){
 var carto = exports,
     tree = require('./tree'),
@@ -32546,7 +32546,7 @@ tree.Definition.prototype.toJS = function(env) {
 })(require('../tree'));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../tree":61,"assert":244,"underscore":91}],66:[function(require,module,exports){
+},{"../tree":61,"assert":241,"underscore":91}],66:[function(require,module,exports){
 (function (global){
 (function(tree) {
 var _ = global._ || require('underscore');
@@ -34280,7 +34280,7 @@ refs.map(function(version) {
 });
 
 }).call(this,"/../cartodb.js/node_modules/torque.js/node_modules/carto/node_modules/mapnik-reference")
-},{"fs":243,"path":246}],91:[function(require,module,exports){
+},{"fs":240,"path":243}],91:[function(require,module,exports){
 module.exports = require(93);
 },{"dup":93}],92:[function(require,module,exports){
 module.exports={
@@ -36009,7 +36009,6 @@ module.exports={
     "cdb.log": "./src/cdb.log.js",
     "cdb.errors": "./src/cdb.errors.js",
     "cdb.templates": "./src/cdb.templates.js",
-    "jquery.jscrollpane": "./vendor/jscrollpane.js",
     "geojson": "./vendor/GeoJSON.js",
     "html-css-sanitizer": "./vendor/html-css-sanitizer-bundle.js",
     "clip-path": "./vendor/clip-path.js",
@@ -36023,11 +36022,6 @@ module.exports={
     "geojson": "GeoJSON",
     "html-css-sanitizer": "html",
     "lzma": "LZMA",
-    "jquery.jscrollpane": {
-      "depends": [
-        "jquery:jQuery"
-      ]
-    },
     "clip-path": {
       "depends": [
         "underscore:_",
@@ -36260,17 +36254,6 @@ module.exports = function(map, layer, options, callback) {
         viz._addLegends(viz._createLayerLegendView(layerModel.attributes,  layerView))
       }
 
-      if (addMobileLayout) {
-        options.mapView = map.viz.mapView;
-
-        viz.addOverlay({
-          type: 'mobile',
-          layerView: layerView,
-          overlays: [],
-          options: options
-        });
-      }
-
       callback && callback(layerView);
       promise.trigger('done', layerView);
     }
@@ -36288,7 +36271,7 @@ module.exports = function(map, layer, options, callback) {
   return promise;
 };
 
-},{"../core/loader":108,"../geo/map":149,"../vis/vis":224,"../vis/vis/layers":226,"./promise":98,"cdb":104,"leaflet":3,"underscore":93}],96:[function(require,module,exports){
+},{"../core/loader":108,"../geo/map":149,"../vis/vis":222,"../vis/vis/layers":224,"./promise":98,"cdb":104,"leaflet":3,"underscore":93}],96:[function(require,module,exports){
 var _ = require('underscore');
 var Vis = require('../vis/vis');
 
@@ -36324,7 +36307,7 @@ var createVis = function(el, vizjson, options, callback) {
 
 module.exports = createVis;
 
-},{"../vis/vis":224,"underscore":93}],97:[function(require,module,exports){
+},{"../vis/vis":222,"underscore":93}],97:[function(require,module,exports){
 var cdb = require('cdb');
 var config = require('cdb.config');
 
@@ -37132,8 +37115,6 @@ cdb.geo.ui.Search = require('./geo/ui/search/search');
 cdb.geo.ui.LayerSelector = require('./geo/ui/layer-selector');
 cdb.geo.ui.LayerView = require('./geo/ui/layer-view');
 
-cdb.geo.ui.MobileLayer = require('./geo/ui/mobile-layer');
-cdb.geo.ui.Mobile = require('./geo/ui/mobile');
 cdb.geo.ui.TilesLoader = require('./geo/ui/tiles-loader');
 cdb.geo.ui.InfoBox = require('./geo/ui/infobox');
 cdb.geo.ui.Tooltip = require('./geo/ui/tooltip');
@@ -37148,7 +37129,7 @@ require('./vis/layers'); // Layers.register calls
 
 module.exports = cdb;
 
-},{"./api/create-layer":95,"./api/create-vis":96,"./api/module-load":97,"./api/promise":98,"./api/sql":99,"./core/loader":108,"./core/model":112,"./core/sanitize":114,"./core/template":116,"./core/template-list":115,"./core/view":118,"./geo/geocoder/nokia-geocoder":120,"./geo/geocoder/yahoo-geocoder":121,"./geo/geometry":123,"./geo/gmaps":124,"./geo/leaflet":137,"./geo/map":149,"./geo/map-view":148,"./geo/map/cartodb-layer":153,"./geo/map/cartodb-layer-group-anonymous":150,"./geo/map/cartodb-layer-group-named":152,"./geo/map/gmaps-base-layer":154,"./geo/map/layers":155,"./geo/map/map-layer":156,"./geo/map/plain-layer":157,"./geo/map/tile-layer":158,"./geo/map/torque-layer":159,"./geo/map/wms-layer":160,"./geo/ui/annotation":161,"./geo/ui/header":164,"./geo/ui/image":165,"./geo/ui/infobox":166,"./geo/ui/infowindow":168,"./geo/ui/infowindow-model":167,"./geo/ui/layer-selector":169,"./geo/ui/layer-view":170,"./geo/ui/legend":176,"./geo/ui/legend-exports":171,"./geo/ui/legend/legend-view-exports":195,"./geo/ui/mobile":200,"./geo/ui/mobile-layer":199,"./geo/ui/search/search":201,"./geo/ui/share":204,"./geo/ui/text":205,"./geo/ui/tiles-loader":206,"./geo/ui/tooltip":207,"./geo/ui/zoom/zoom-view":209,"./ui/common/dialog":211,"./ui/common/dropdown":212,"./ui/common/fullscreen/fullscreen-view":214,"./ui/common/notification":215,"./ui/common/share":216,"./ui/common/table":217,"./ui/common/table/row":219,"./ui/common/table/row-view":218,"./ui/common/table/table-data":220,"./ui/common/table/table-properties":221,"./vis/layers":222,"./vis/overlays":223,"./vis/vis":224,"./vis/vis/infowindow-template":225,"./vis/vis/layers":226,"./vis/vis/overlay":227,"./vis/vis/overlays":228,"backbone":1,"cdb":104,"cdb.config":102,"cdb.core.Profiler":113,"cdb.core.util":117,"cdb.errors":103,"cdb.log":105,"cdb.templates":106,"jquery":2,"leaflet":3,"lzma":238,"mousewheel":239,"mustache":4,"mwheelIntent":240,"underscore":93}],101:[function(require,module,exports){
+},{"./api/create-layer":95,"./api/create-vis":96,"./api/module-load":97,"./api/promise":98,"./api/sql":99,"./core/loader":108,"./core/model":112,"./core/sanitize":114,"./core/template":116,"./core/template-list":115,"./core/view":118,"./geo/geocoder/nokia-geocoder":120,"./geo/geocoder/yahoo-geocoder":121,"./geo/geometry":123,"./geo/gmaps":124,"./geo/leaflet":137,"./geo/map":149,"./geo/map-view":148,"./geo/map/cartodb-layer":153,"./geo/map/cartodb-layer-group-anonymous":150,"./geo/map/cartodb-layer-group-named":152,"./geo/map/gmaps-base-layer":154,"./geo/map/layers":155,"./geo/map/map-layer":156,"./geo/map/plain-layer":157,"./geo/map/tile-layer":158,"./geo/map/torque-layer":159,"./geo/map/wms-layer":160,"./geo/ui/annotation":161,"./geo/ui/header":164,"./geo/ui/image":165,"./geo/ui/infobox":166,"./geo/ui/infowindow":168,"./geo/ui/infowindow-model":167,"./geo/ui/layer-selector":169,"./geo/ui/layer-view":170,"./geo/ui/legend":176,"./geo/ui/legend-exports":171,"./geo/ui/legend/legend-view-exports":195,"./geo/ui/search/search":199,"./geo/ui/share":202,"./geo/ui/text":203,"./geo/ui/tiles-loader":204,"./geo/ui/tooltip":205,"./geo/ui/zoom/zoom-view":207,"./ui/common/dialog":209,"./ui/common/dropdown":210,"./ui/common/fullscreen/fullscreen-view":212,"./ui/common/notification":213,"./ui/common/share":214,"./ui/common/table":215,"./ui/common/table/row":217,"./ui/common/table/row-view":216,"./ui/common/table/table-data":218,"./ui/common/table/table-properties":219,"./vis/layers":220,"./vis/overlays":221,"./vis/vis":222,"./vis/vis/infowindow-template":223,"./vis/vis/layers":224,"./vis/vis/overlay":225,"./vis/vis/overlays":226,"backbone":1,"cdb":104,"cdb.config":102,"cdb.core.Profiler":113,"cdb.core.util":117,"cdb.errors":103,"cdb.log":105,"cdb.templates":106,"jquery":2,"leaflet":3,"lzma":235,"mousewheel":236,"mustache":4,"mwheelIntent":237,"underscore":93}],101:[function(require,module,exports){
 /* global google */
 var cdb = require('cdb');
 var moduleLoad = require('./api/module-load');
@@ -37724,7 +37705,7 @@ htmlCssSanitizer.html = function(inputHtml, optionalSanitizer) {
 
 module.exports = htmlCssSanitizer;
 
-},{"html-css-sanitizer":236}],115:[function(require,module,exports){
+},{"html-css-sanitizer":234}],115:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 var log = require('cdb.log');
@@ -38909,7 +38890,7 @@ _.extend(
 
 module.exports = GMapsCartoDBLayerGroupView;
 
-},{"../cartodb-layer-common":119,"./cartodb-default-options":125,"./gmaps-layer-view":129,"./projector":136,"cdb.core.Profiler":113,"underscore":93,"wax.cartodb.js":241}],128:[function(require,module,exports){
+},{"../cartodb-layer-common":119,"./cartodb-default-options":125,"./gmaps-layer-view":129,"./projector":136,"cdb.core.Profiler":113,"underscore":93,"wax.cartodb.js":238}],128:[function(require,module,exports){
 var DEFAULT_MAP_STYLE = [{
     stylers: [{
         saturation: -65
@@ -39533,7 +39514,7 @@ PathView.prototype.edit = function(enable) {
 
 module.exports = PathView;
 
-},{"../geometry-view":122,"geojson":234,"underscore":93}],132:[function(require,module,exports){
+},{"../geometry-view":122,"geojson":232,"underscore":93}],132:[function(require,module,exports){
 var _ = require('underscore');
 var GMapsLayerView = require('./gmaps-layer-view');
 
@@ -39656,7 +39637,7 @@ PointView.prototype.edit = function(enable) {
 
 module.exports = PointView;
 
-},{"../geometry-view":122,"cdb.config":102,"geojson":234,"underscore":93}],134:[function(require,module,exports){
+},{"../geometry-view":122,"cdb.config":102,"geojson":232,"underscore":93}],134:[function(require,module,exports){
 var _ = require('underscore');
 var GMapsLayerView = require('./gmaps-layer-view');
 
@@ -40178,7 +40159,7 @@ var LeafletCartoDBLayerGroupView = L.TileLayer.extend({
 
 module.exports = LeafletCartoDBLayerGroupView;
 
-},{"../cartodb-layer-common":119,"./leaflet-layer-view":140,"backbone":1,"cdb.config":102,"cdb.core.Profiler":113,"leaflet":3,"underscore":93,"wax.cartodb.js":241}],139:[function(require,module,exports){
+},{"../cartodb-layer-common":119,"./leaflet-layer-view":140,"backbone":1,"cdb.config":102,"cdb.core.Profiler":113,"leaflet":3,"underscore":93,"wax.cartodb.js":238}],139:[function(require,module,exports){
 var _ = require('underscore');
 var L = require('leaflet');
 var LeafletLayerView = require('./leaflet-layer-view');
@@ -42835,7 +42816,7 @@ module.exports = Text.extend({
 
 });
 
-},{"../../core/sanitize":114,"./text":205,"jquery":2,"underscore":93}],166:[function(require,module,exports){
+},{"../../core/sanitize":114,"./text":203,"jquery":2,"underscore":93}],166:[function(require,module,exports){
 var _ = require('underscore');
 var View = require('../../core/view');
 var Template = require('../../core/template');
@@ -43777,7 +43758,7 @@ var Infowindow = View.extend({
 
 module.exports = Infowindow;
 
-},{"../../core/sanitize":114,"../../core/template":116,"../../core/util":117,"../../core/view":118,"cdb.log":105,"cdb.templates":106,"clip-path":235,"jquery":2,"perfect-scrollbar":5,"underscore":93}],169:[function(require,module,exports){
+},{"../../core/sanitize":114,"../../core/template":116,"../../core/util":117,"../../core/view":118,"cdb.log":105,"cdb.templates":106,"clip-path":233,"jquery":2,"perfect-scrollbar":5,"underscore":93}],169:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cdb'); // cdb.god, cdb.geo.ui.*
 var Dropdown = require('../../ui/common/dropdown');
@@ -43922,7 +43903,7 @@ var LayerSelector = View.extend({
 
 module.exports = LayerSelector;
 
-},{"../../core/model":112,"../../core/view":118,"../../ui/common/dropdown":212,"./layer-view":170,"cdb":104,"underscore":93}],170:[function(require,module,exports){
+},{"../../core/model":112,"../../core/view":118,"../../ui/common/dropdown":210,"./layer-view":170,"cdb":104,"underscore":93}],170:[function(require,module,exports){
 var _ = require('underscore');
 var templates = require('cdb.templates');
 var View = require('../../core/view');
@@ -45471,600 +45452,6 @@ module.exports = Backbone.Collection.extend({
 
 },{"./legend-model":175,"backbone":1}],199:[function(require,module,exports){
 var _ = require('underscore');
-var Template = require('../../core/template');
-var View = require('../../core/view');
-var Legend = require('./legend');
-
-var MobileLayer = View.extend({
-
-  events: {
-    'click h3':    "_toggle",
-    "dblclick":  "_stopPropagation"
-  },
-
-  tagName: "li",
-
-  className: "cartodb-mobile-layer has-toggle",
-
-  template: Template.compile("<% if (show_title) { %><h3><%- layer_name %><% } %><a href='#' class='toggle<%- toggle_class %>'></a></h3>"),
-
-  /**
-   *  Stop event propagation
-   */
-  _stopPropagation: function(ev) {
-    ev.stopPropagation();
-  },
-
-  initialize: function() {
-
-    _.defaults(this.options, this.default_options);
-
-    this.model.bind("change:visible", this._onChangeVisible, this);
-
-  },
-
-  _onChangeVisible: function() {
-
-    this.$el.find(".legend")[ this.model.get("visible") ? "fadeIn":"fadeOut"](150);
-    this.$el[ this.model.get("visible") ? "removeClass":"addClass"]("hidden");
-
-    this.trigger("change_visibility", this);
-
-  },
-
-  _toggle: function(e) {
-
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (this.options.hide_toggle) return;
-
-    this.model.set("visible", !this.model.get("visible"))
-
-  },
-
-  _renderLegend: function() {
-
-    if (!this.options.show_legends) return;
-
-    if (this.model.get("legend") && (this.model.get("legend").type == "none" || !this.model.get("legend").type)) return;
-    if (this.model.get("legend") && this.model.get("legend").items && this.model.get("legend").items.length == 0) return;
-
-    this.$el.addClass("has-legend");
-
-    var legend = new Legend(this.model.get("legend"));
-
-    legend.undelegateEvents();
-
-    this.$el.append(legend.render().$el);
-
-  },
-
-  _truncate: function(input, length) {
-    return input.substr(0, length-1) + (input.length > length ? '&hellip;' : '');
-  },
-
-  render: function() {
-
-    var layer_name = this.model.get("layer_name");
-
-    layer_name = layer_name ? this._truncate(layer_name, 23) : "untitled";
-
-    var attributes = _.extend(
-      this.model.attributes,
-      {
-        layer_name:   this.options.show_title ? layer_name : "",
-        toggle_class: this.options.hide_toggle ? " hide" : ""
-      }
-    );
-
-    this.$el.html(this.template(_.extend(attributes, { show_title: this.options.show_title } )));
-
-
-    if (this.options.hide_toggle)   this.$el.removeClass("has-toggle");
-    if (!this.model.get("visible")) this.$el.addClass("hidden");
-    if (this.model.get("legend"))   this._renderLegend();
-
-    this._onChangeVisible();
-
-    return this;
-  }
-
-});
-
-module.exports = MobileLayer;
-
-},{"../../core/template":116,"../../core/view":118,"./legend":176,"underscore":93}],200:[function(require,module,exports){
-var _ = require('underscore');
-var Backbone = require('backbone');
-var cdb = require('cdb'); // cdb.geo.ui.*
-var $ = require('jquery');
-require('jquery.jscrollpane'); // registers itself to $.jScrollPane
-var templates = require('cdb.templates');
-var sanitize = require('../../core/sanitize.js');
-var View = require('../../core/view');
-var Template = require('../../core/template');
-var Zoom = require('./zoom/zoom-view');
-var TilesLoader = require('./tiles-loader');
-var Search = require('./search/search');
-var MobileLayer = require('./mobile-layer');
-
-var Mobile = View.extend({
-  className: 'cartodb-mobile',
-
-  events: {
-    'click .toggle': '_toggle',
-    'click .fullscreen': '_toggleFullScreen',
-    'click .backdrop': '_onBackdropClick',
-    'dblclick .aside': '_stopPropagation',
-    'dragstart .aside': '_checkOrigin',
-    'mousedown .aside': '_checkOrigin',
-    'touchstart .aside': '_checkOrigin',
-    'MSPointerDown .aside': '_checkOrigin',
-  },
-
-  initialize: function () {
-    _.bindAll(this, '_toggle', '_reInitScrollpane');
-
-    _.defaults(this.options, this.default_options);
-
-    this.hasLayerSelector = false;
-    this.layersLoading = 0;
-
-    this.visualization = this.options.visualization;
-
-    this.mobileEnabled = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-    this.visibility_options = this.options.visibility_options || {};
-
-    this.mapView = this.options.mapView;
-    this.map = this.mapView.map;
-
-    this.template = this.options.template ? this.options.template : templates.getTemplate('geo/zoom');
-
-    this.overlays = this.options.overlays;
-
-    this._setupModel();
-
-    window.addEventListener('orientationchange', _.bind(this.doOnOrientationChange, this));
-
-    this._addWheelEvent();
-  },
-
-  loadingTiles: function () {
-    if (this.loader) {
-      this.loader.show();
-    }
-
-    if (this.layersLoading === 0) {
-      this.trigger('loading');
-    }
-    this.layersLoading++;
-  },
-
-  loadTiles: function () {
-    if (this.loader) {
-      this.loader.hide();
-    }
-    this.layersLoading--;
-    // check less than 0 because loading event sometimes is
-    // thrown before visualization creation
-    if (this.layersLoading <= 0) {
-      this.layersLoading = 0;
-      this.trigger('load');
-    }
-  },
-
-  _addWheelEvent: function () {
-    var self = this;
-    var mapView = this.options.mapView;
-
-    $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange', function () {
-      if ( !document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
-        mapView.options.map.set('scrollwheel', false);
-      }
-
-      mapView.invalidateSize();
-
-    });
-  },
-
-  _setupModel: function () {
-    this.model = new Backbone.Model({
-      open: false,
-      layer_count: 0
-    });
-
-    this.model.on('change:open', this._onChangeOpen, this);
-    this.model.on('change:layer_count', this._onChangeLayerCount, this);
-  },
-
-  /**
-   *  Check event origin
-   */
-  _checkOrigin: function (ev) {
-    // If the mouse down come from jspVerticalBar
-    // dont stop the propagation, but if the event
-    // is a touchstart, stop the propagation
-    var come_from_scroll = (($(ev.target).closest('.jspVerticalBar').length > 0) && (ev.type != 'touchstart'));
-
-    if (!come_from_scroll) {
-      ev.stopPropagation();
-    }
-  },
-
-  _stopPropagation: function (ev) {
-    ev.stopPropagation();
-  },
-
-  _onBackdropClick: function (e) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    this.$('.backdrop').fadeOut(250);
-  },
-
-  _toggle: function (e) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    this.model.set('open', !this.model.get('open'));
-  },
-
-  _toggleFullScreen: function (ev) {
-    ev.stopPropagation();
-    ev.preventDefault();
-
-    var doc = window.document;
-    var docEl = $('#map > div')[0];
-
-    var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen;
-    var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen;
-
-    var mapView = this.options.mapView;
-
-    if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement) {
-      requestFullScreen.call(docEl);
-      if (mapView) {
-        mapView.options.map.set('scrollwheel', true);
-      }
-    } else {
-      cancelFullScreen.call(doc);
-    }
-  },
-
-  _open: function () {
-    var right = this.$el.find('.aside').width();
-
-    this.$el.find('.cartodb-header').animate({ right: right }, 200);
-    this.$el.find('.aside').animate({ right: 0 }, 200);
-    this._initScrollPane();
-  },
-
-  _close: function () {
-    this.$el.find('.cartodb-header').animate({ right: 0 }, 200);
-    this.$el.find('.aside').animate({ right: - this.$el.find('.aside').width() }, 200);
-  },
-
-  default_options: {
-    timeout: 0,
-    msg: ''
-  },
-
-  _stopPropagation: function (ev) {
-    ev.stopPropagation();
-  },
-
-  doOnOrientationChange: function () {
-    switch (window.orientation) {
-      case -90:
-      case 90: this.recalc('landscape');
-        break;
-      default: this.recalc('portrait');
-        break;
-    }
-  },
-
-  recalc: function (orientation) {
-    var height = $('.legends > div.cartodb-legend-stack').height();
-
-    if (this.$el.hasClass('open') && height < 100 && !this.$el.hasClass('torque')) {
-      this.$el.css('height', height);
-      this.$el.find('.top-shadow').hide();
-      this.$el.find('.bottom-shadow').hide();
-    } else if (this.$el.hasClass('open') && height < 100 && this.$el.hasClass('legends') && this.$el.hasClass('torque')) {
-      this.$el.css('height', height + $('.legends > div.torque').height());
-      this.$el.find('.top-shadow').hide();
-      this.$el.find('.bottom-shadow').hide();
-    }
-  },
-
-  _onChangeLayerCount: function () {
-    var layer_count = this.model.get('layer_count');
-    var msg = layer_count + ' layer' + (layer_count != 1 ? 's' : '');
-    this.$el.find('.aside .layer-container > h3').html(msg);
-  },
-
-  _onChangeOpen: function () {
-    this.model.get('open') ? this._open() : this._close();
-  },
-
-  _createLayer: function (_class, opts) {
-    return new cdb.geo.ui[_class](opts);
-  },
-
-  _getLayers: function () {
-    this.layers = [];
-
-    _.each(this.map.layers.models, this._getLayer, this);
-  },
-
-  _getLayer: function (layer) {
-    if (layer.get('type') === 'layergroup' || layer.get('type') === 'namedmap') {
-      layer.layers.each(function (layer, i) {
-        // TODO: We could probably use layer.getName directly in the layer selector
-        // instead of having to set this up here for layers inside `layer_group` layers.
-        // We'd need to take `torque` layers into account to.
-        layer.set('layer_name', layer.getName());
-        this.layers.push(layer);
-      }, this);
-    } else if (layer.get('type') === 'CartoDB' || layer.get('type') === 'torque') {
-      this.layers.push(layer);
-    }
-  },
-
-  _reInitScrollpane: function () {
-    this.$('.scrollpane').data('jsp') && this.$('.scrollpane').data('jsp').reinitialise();
-  },
-
-  _bindOrientationChange: function () {
-    var self = this;
-
-    var onOrientationChange = function () {
-      $('.cartodb-mobile .scrollpane').css('max-height', self.$el.height() - 30);
-      $('.cartodb-mobile .scrollpane').data('jsp') && $('.cartodb-mobile .scrollpane').data('jsp').reinitialise();
-    };
-
-    if (!window.addEventListener) {
-      window.attachEvent('orientationchange', onOrientationChange, this);
-    } else {
-      window.addEventListener('orientationchange', _.bind(onOrientationChange));
-    }
-  },
-
-  _renderOverlays: function () {
-    var hasSearchOverlay = false;
-    var hasZoomOverlay = false;
-    var hasLoaderOverlay = false;
-    var hasLayerSelector = false;
-
-    _.each(this.overlays, function (overlay) {
-      if (!this.visibility_options.search && overlay.type == 'search') {
-        if (this.visibility_options.search !== false && this.visibility_options.search !== 'false') {
-          this._addSearch();
-          hasSearchOverlay = true;
-        }
-      }
-
-      if (!this.visibility_options.zoomControl && overlay.type === 'zoom') {
-        if (this.visibility_options.zoomControl !== 'false') {
-          this._addZoom();
-          hasZoomOverlay = true;
-        }
-      }
-
-      if (!this.visibility_options.loaderControl && overlay.type === 'loader') {
-        if (this.visibility_options.loaderControl !== 'false') {
-          this._addLoader();
-          hasLoaderOverlay = true;
-        }
-      }
-
-      if (overlay.type == 'fullscreen' && !this.mobileEnabled) {
-        this._addFullscreen();
-      }
-
-      if (overlay.type == 'header') {
-        this._addHeader(overlay);
-      }
-
-      if (overlay.type == 'layer_selector') {
-        hasLayerSelector = true;
-      }
-
-    }, this);
-
-    var search_visibility = this.visibility_options.search === true || this.visibility_options.search === 'true';
-    var zoom_visibility = this.visibility_options.zoomControl === true || this.visibility_options.zoomControl === 'true';
-    var loader_visibility = this.visibility_options.loaderControl === true || this.visibility_options.loaderControl === 'true';
-    var layer_selector_visibility = this.visibility_options.layer_selector;
-
-    if (!hasSearchOverlay && search_visibility) this._addSearch();
-    if (!hasZoomOverlay && zoom_visibility)   this._addZoom();
-    if (!hasLoaderOverlay && loader_visibility) this._addLoader();
-    if (layer_selector_visibility || hasLayerSelector && layer_selector_visibility == undefined) this.hasLayerSelector = true;
-  },
-
-  _initScrollPane: function () {
-    if (this.$scrollpane) return;
-
-    var self = this;
-
-    var height = this.$el.height();
-    this.$scrollpane = this.$el.find('.scrollpane');
-
-    setTimeout(function () {
-      self.$scrollpane.css('max-height', height - 60);
-      self.$scrollpane.jScrollPane({ showArrows: true });
-    }, 500);
-  },
-
-  _addZoom: function () {
-    var template = Template.compile('\
-    <a href="#zoom_in" class="zoom_in">+</a>\
-    <a href="#zoom_out" class="zoom_out">-</a>\
-    <div class="info"></div>', 'mustache'
-    );
-
-    var zoom = new Zoom({
-      model: this.options.map,
-      template: template
-    });
-
-    this.$el.append(zoom.render().$el);
-    this.$el.addClass('with-zoom');
-  },
-
-  _addLoader: function () {
-    var template = Template.compile('<div class="loader"></div>', 'mustache');
-
-    this.loader = new TilesLoader({
-      template: template
-    });
-
-    this.$el.append(this.loader.render().$el);
-    this.$el.addClass('with-loader');
-  },
-
-  _addFullscreen: function () {
-    if (this.visibility_options.fullscreen != false) {
-      this.hasFullscreen = true;
-      this.$el.addClass('with-fullscreen');
-    }
-  },
-
-  _addSearch: function () {
-    this.hasSearch = true;
-
-    var template = Template.compile('\
-      <form>\
-      <span class="loader"></span>\
-      <input type="text" class="text" placeholder="Search for places..." value="" />\
-      <input type="submit" class="submit" value="" />\
-      </form>\
-      ', 'mustache'
-    );
-
-    var search = new Search({
-      template: template,
-      mapView: this.mapView,
-      model: this.mapView.map
-    });
-
-    this.$el.find('.aside').prepend(search.render().$el);
-    this.$el.find('.cartodb-searchbox').show();
-    this.$el.addClass('with-search');
-  },
-
-  _addHeader: function (overlay) {
-    this.hasHeader = true;
-
-    this.$header = this.$el.find('.cartodb-header');
-
-    var title_template = _.template('<div class="hgroup"><% if (show_title) { %><div class="title"><%= title %></div><% } %><% if (show_description) { %><div class="description"><%= description %><% } %></div></div>');
-
-    var extra = overlay.options.extra;
-    var has_header = false;
-    var show_title = false, show_description = false;
-
-    if (extra) {
-      if (this.visibility_options.title || this.visibility_options.title != false && extra.show_title) {
-        has_header = true;
-        show_title = true;
-      }
-
-      if (this.visibility_options.description || this.visibility_options.description != false && extra.show_description) {
-        has_header = true;
-        show_description = true;
-      }
-
-      var $hgroup = title_template({
-        title: sanitize.html(extra.title),
-        show_title: show_title,
-        description: sanitize.html(extra.description),
-        show_description: show_description
-      });
-
-      if (has_header) {
-        this.$el.addClass('with-header');
-        this.$header.find('.content').append($hgroup);
-      }
-    }
-  },
-
-  _renderLayers: function () {
-    var hasLegendOverlay = this.visibility_options.legends;
-
-    var legends = this.layers.filter(function (layer) {
-      return layer.get('legend') && layer.get('legend').type !== 'none';
-    });
-
-    var hasLegends = legends.length ? true : false;
-
-    if (!this.hasLayerSelector && !hasLegendOverlay) return;
-    if (!this.hasLayerSelector && !hasLegends) return;
-    if (this.layers.length == 0) return;
-    if (this.layers.length == 1 && !hasLegends) return;
-
-    this.$el.addClass('with-layers');
-
-    this.model.set('layer_count', 0);
-
-    if (!this.hasSearch) this.$el.find('.aside .layer-container').prepend('<h3></h3>');
-
-    _.each(this.layers, this._renderLayer, this);
-  },
-
-  _renderLayer: function (data) {
-    var hasLegend = data.get('legend') && data.get('legend').type !== '' && data.get('legend').type !== 'none';
-
-    // When the layer selector is disabled, don't show the layer if it doesn't have legends
-    if (!this.hasLayerSelector && !hasLegend) return;
-    if (!this.hasLayerSelector && !data.get('visible')) return;
-
-    var hide_toggle = (this.layers.length == 1 || !this.hasLayerSelector);
-
-    var show_legends = true;
-
-    if (this.visibility_options && this.visibility_options.legends !== undefined) {
-      show_legends = this.visibility_options.legends;
-    }
-
-    var layer = new MobileLayer({
-      model: data,
-      show_legends: show_legends,
-      show_title: !this.hasLayerSelector ? false : true,
-      hide_toggle: hide_toggle
-    });
-
-    this.$el.find('.aside .layers').append(layer.render().$el);
-
-    layer.bind('change_visibility', this._reInitScrollpane, this);
-
-    this.model.set('layer_count', this.model.get('layer_count') + 1);
-  },
-
-  render: function () {
-    this._bindOrientationChange();
-
-    this.$el.html(this.template(this.options));
-
-    this.$header = this.$el.find('.cartodb-header');
-    this.$header.show();
-
-    this._renderOverlays();
-
-    this._getLayers();
-    this._renderLayers();
-
-    return this;
-  }
-});
-
-module.exports = Mobile;
-
-},{"../../core/sanitize.js":114,"../../core/template":116,"../../core/view":118,"./mobile-layer":199,"./search/search":201,"./tiles-loader":206,"./zoom/zoom-view":209,"backbone":1,"cdb":104,"cdb.templates":106,"jquery":2,"jquery.jscrollpane":237,"underscore":93}],201:[function(require,module,exports){
-var _ = require('underscore');
 var View = require('../../../core/view');
 var NOKIA = require('../../../geo/geocoder/nokia-geocoder');
 var InfowindowModel = require('../../../geo/ui/infowindow-model');
@@ -46288,7 +45675,7 @@ var Search = View.extend({
 
 module.exports = Search;
 
-},{"../../../core/view":118,"../../../geo/geocoder/nokia-geocoder":120,"../../../geo/geometry":123,"../../../geo/ui/infowindow":168,"../../../geo/ui/infowindow-model":167,"./search_infowindow_template.tpl":202,"./search_template.tpl":203,"underscore":93}],202:[function(require,module,exports){
+},{"../../../core/view":118,"../../../geo/geocoder/nokia-geocoder":120,"../../../geo/geometry":123,"../../../geo/ui/infowindow":168,"../../../geo/ui/infowindow-model":167,"./search_infowindow_template.tpl":200,"./search_template.tpl":201,"underscore":93}],200:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -46300,7 +45687,7 @@ __p+='<div class="CDB-infowindow CDB-infowindow--light js-infowindow"> <div clas
 return __p;
 };
 
-},{"underscore":93}],203:[function(require,module,exports){
+},{"underscore":93}],201:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -46310,7 +45697,7 @@ __p+='<div class="CDB-Overlay"> <div class="CDB-Search-inner"> <form class="js-f
 return __p;
 };
 
-},{"underscore":93}],204:[function(require,module,exports){
+},{"underscore":93}],202:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var sanitize = require('../../core/sanitize');
@@ -46425,7 +45812,7 @@ module.exports = View.extend({
 
 });
 
-},{"../../core/sanitize":114,"../../core/template":116,"../../core/view":118,"../../ui/common/share":216,"jquery":2,"underscore":93}],205:[function(require,module,exports){
+},{"../../core/sanitize":114,"../../core/template":116,"../../core/view":118,"../../ui/common/share":214,"jquery":2,"underscore":93}],203:[function(require,module,exports){
 var _ = require('underscore');
 var View = require('../../core/view');
 var sanitize = require('../../core/sanitize');
@@ -46618,7 +46005,7 @@ var Text = View.extend({
 
 module.exports = Text;
 
-},{"../../core/sanitize":114,"../../core/view":118,"jquery":2,"underscore":93}],206:[function(require,module,exports){
+},{"../../core/sanitize":114,"../../core/view":118,"jquery":2,"underscore":93}],204:[function(require,module,exports){
 var _ = require('underscore');
 var View = require('../../core/view');
 
@@ -46670,7 +46057,7 @@ var TilesLoader = View.extend({
 
 module.exports = TilesLoader;
 
-},{"../../core/view":118,"underscore":93}],207:[function(require,module,exports){
+},{"../../core/view":118,"underscore":93}],205:[function(require,module,exports){
 var _ = require('underscore');
 var InfoBox = require('./infobox');
 var sanitize = require('../../core/sanitize');
@@ -46891,7 +46278,7 @@ var Tooltip = InfoBox.extend({
 
 module.exports = Tooltip;
 
-},{"../../core/sanitize":114,"./infobox":166,"./infowindow-model":167,"underscore":93}],208:[function(require,module,exports){
+},{"../../core/sanitize":114,"./infobox":166,"./infowindow-model":167,"underscore":93}],206:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -46901,7 +46288,7 @@ __p+='<div class="CDB-Overlay"> <button class="CDB-Zoom-action CDB-Zoom-action--
 return __p;
 };
 
-},{"underscore":93}],209:[function(require,module,exports){
+},{"underscore":93}],207:[function(require,module,exports){
 var View = require('../../../core/view');
 var template = require('./zoom-template.tpl');
 
@@ -46966,7 +46353,7 @@ module.exports = View.extend({
 
 });
 
-},{"../../../core/view":118,"./zoom-template.tpl":208}],210:[function(require,module,exports){
+},{"../../../core/view":118,"./zoom-template.tpl":206}],208:[function(require,module,exports){
 var cdb = require('./cartodb.js');
 
 // Eager-load cartodb.mod.torque stuff for the default case
@@ -46974,7 +46361,7 @@ require('./cartodb.mod.torque.js');
 
 module.exports = cdb;
 
-},{"./cartodb.js":100,"./cartodb.mod.torque.js":101}],211:[function(require,module,exports){
+},{"./cartodb.js":100,"./cartodb.mod.torque.js":101}],209:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var templates = require('cdb.templates');
@@ -47146,7 +46533,7 @@ module.exports = View.extend({
 
 });
 
-},{"../../core/view":118,"cdb.templates":106,"jquery":2,"underscore":93}],212:[function(require,module,exports){
+},{"../../core/view":118,"cdb.templates":106,"jquery":2,"underscore":93}],210:[function(require,module,exports){
 var $ = require('jquery');
 var cdb = require('cdb');
 var _ = require('underscore');
@@ -47305,7 +46692,7 @@ var Dropdown = View.extend({
 
 module.exports = Dropdown;
 
-},{"../../core/view":118,"cdb":104,"cdb.templates":106,"jquery":2,"underscore":93}],213:[function(require,module,exports){
+},{"../../core/view":118,"cdb":104,"cdb.templates":106,"jquery":2,"underscore":93}],211:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -47317,7 +46704,7 @@ __p+='<a href="'+
 return __p;
 };
 
-},{"underscore":93}],214:[function(require,module,exports){
+},{"underscore":93}],212:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var log = require('cdb.log');
@@ -47437,7 +46824,7 @@ var FullScreen = View.extend({
 
 module.exports = FullScreen;
 
-},{"../../../core/view":118,"./fullscreen-template.tpl":213,"cdb.log":105,"jquery":2,"underscore":93}],215:[function(require,module,exports){
+},{"../../../core/view":118,"./fullscreen-template.tpl":211,"cdb.log":105,"jquery":2,"underscore":93}],213:[function(require,module,exports){
 var _ = require('underscore');
 var templates = require('cdb.templates');
 var View = require('../../core/view');
@@ -47524,7 +46911,7 @@ var Notification = View.extend({
 
 module.exports = Notification;
 
-},{"../../core/view":118,"cdb.templates":106,"underscore":93}],216:[function(require,module,exports){
+},{"../../core/view":118,"cdb.templates":106,"underscore":93}],214:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var Dialog = require('./dialog');
@@ -47713,7 +47100,7 @@ module.exports = Dialog.extend({
 
 });
 
-},{"../../core/sanitize":114,"./dialog":211,"jquery":2,"underscore":93}],217:[function(require,module,exports){
+},{"../../core/sanitize":114,"./dialog":209,"jquery":2,"underscore":93}],215:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var View = require('../../core/view');
@@ -48022,7 +47409,7 @@ var Table = View.extend({
 
 module.exports = Table;
 
-},{"../../core/view":118,"./table/row-view":218,"jquery":2,"underscore":93}],218:[function(require,module,exports){
+},{"../../core/view":118,"./table/row-view":216,"jquery":2,"underscore":93}],216:[function(require,module,exports){
 var _ = require('underscore');
 var View = require('../../../core/view');
 
@@ -48122,7 +47509,7 @@ var RowView = View.extend({
 
 module.exports = RowView;
 
-},{"../../../core/view":118,"underscore":93}],219:[function(require,module,exports){
+},{"../../../core/view":118,"underscore":93}],217:[function(require,module,exports){
 var Model = require('../../../core/model');
 
 /**
@@ -48133,7 +47520,7 @@ var Row = Model.extend({
 
 module.exports = Row;
 
-},{"../../../core/model":112}],220:[function(require,module,exports){
+},{"../../../core/model":112}],218:[function(require,module,exports){
 var Backbone = require('backbone');
 var Row = require('./row');
 
@@ -48167,7 +47554,7 @@ var TableData = Backbone.Collection.extend({
 
 module.exports = TableData;
 
-},{"./row":219,"backbone":1}],221:[function(require,module,exports){
+},{"./row":217,"backbone":1}],219:[function(require,module,exports){
 var _ = require('underscore');
 var Model = require('../../../core/model');
 
@@ -48189,7 +47576,7 @@ var TableProperties = Model.extend({
 
 module.exports = TableProperties;
 
-},{"../../../core/model":112,"underscore":93}],222:[function(require,module,exports){
+},{"../../../core/model":112,"underscore":93}],220:[function(require,module,exports){
 var Layers = require('./vis/layers');
 var TileLayer = require('../geo/map/tile-layer');
 var WMSLayer = require('../geo/map/wms-layer');
@@ -48334,12 +47721,11 @@ Layers.register('torque', function (vis, data) {
   return new TorqueLayer(data);
 });
 
-},{"../geo/map/cartodb-layer":153,"../geo/map/cartodb-layer-group-anonymous":150,"../geo/map/cartodb-layer-group-named":152,"../geo/map/gmaps-base-layer":154,"../geo/map/plain-layer":157,"../geo/map/tile-layer":158,"../geo/map/torque-layer":159,"../geo/map/wms-layer":160,"./vis/layers":226}],223:[function(require,module,exports){
+},{"../geo/map/cartodb-layer":153,"../geo/map/cartodb-layer-group-anonymous":150,"../geo/map/cartodb-layer-group-named":152,"../geo/map/gmaps-base-layer":154,"../geo/map/plain-layer":157,"../geo/map/tile-layer":158,"../geo/map/torque-layer":159,"../geo/map/wms-layer":160,"./vis/layers":224}],221:[function(require,module,exports){
 var _ = require('underscore');
 var Overlay = require('./vis/overlay');
 var Model = require('../core/model');
 var Template = require('../core/template');
-var Mobile = require('../geo/ui/mobile');
 var Annotation = require('../geo/ui/annotation');
 var Header = require('../geo/ui/header');
 var InfoBox = require('../geo/ui/infobox');
@@ -48363,41 +47749,6 @@ Overlay.register('attribution', function (data, vis) {
   });
 
   return overlay.render();
-});
-
-Overlay.register('mobile', function (data, vis) {
-  var template = Template.compile(
-    data.template || '\
-    <div class="backdrop"></div>\
-    <div class="cartodb-header">\
-      <div class="content">\
-        <a href="#" class="fullscreen"></a>\
-        <a href="#" class="toggle"></a>\
-        </div>\
-      </div>\
-    </div>\
-    <div class="aside">\
-    <div class="layer-container">\
-    <div class="scrollpane"><ul class="layers"></ul></div>\
-    </div>\
-    </div>\
-    <div class="torque"></div>\
-    ',
-    data.templateType || 'mustache'
-  );
-
-  var mobile = new Mobile({
-    template: template,
-    mapView: vis.mapView,
-    overlays: data.overlays,
-    visualization: vis,
-    layerView: data.layerView,
-    visibility_options: data.options,
-    torqueLayer: data.torqueLayer,
-    map: data.map
-  });
-
-  return mobile.render();
 });
 
 Overlay.register('text', function (data, vis) {
@@ -48719,7 +48070,7 @@ Overlay.register('infobox', function (data, vis) {
 
 });
 
-},{"../core/model":112,"../core/template":116,"../geo/ui/annotation":161,"../geo/ui/attribution/attribution-view":163,"../geo/ui/header":164,"../geo/ui/infobox":166,"../geo/ui/infowindow":168,"../geo/ui/infowindow-model":167,"../geo/ui/layer-selector":169,"../geo/ui/mobile":200,"../geo/ui/search/search":201,"../geo/ui/share":204,"../geo/ui/text":205,"../geo/ui/tiles-loader":206,"../geo/ui/tooltip":207,"../geo/ui/zoom/zoom-view":209,"../ui/common/fullscreen/fullscreen-view":214,"./vis/overlay":227,"underscore":93}],224:[function(require,module,exports){
+},{"../core/model":112,"../core/template":116,"../geo/ui/annotation":161,"../geo/ui/attribution/attribution-view":163,"../geo/ui/header":164,"../geo/ui/infobox":166,"../geo/ui/infowindow":168,"../geo/ui/infowindow-model":167,"../geo/ui/layer-selector":169,"../geo/ui/search/search":199,"../geo/ui/share":202,"../geo/ui/text":203,"../geo/ui/tiles-loader":204,"../geo/ui/tooltip":205,"../geo/ui/zoom/zoom-view":207,"../ui/common/fullscreen/fullscreen-view":212,"./vis/overlay":225,"underscore":93}],222:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 var $ = require('jquery');
@@ -48804,9 +48155,7 @@ var Vis = View.extend({
       legends: legends
     });
 
-    if (!this.isMobileEnabled) {
-      this.mapView.addOverlay(this.legends);
-    }
+    this.mapView.addOverlay(this.legends);
   },
 
   addLegends: function (layers) {
@@ -49047,7 +48396,6 @@ var Vis = View.extend({
 
     this.overlayModels.bind('reset', function (overlays) {
       this._addOverlays(overlays, data, options);
-      this._addMobile(data, options);
     }, this);
 
     this.mapView.bind('newLayerView', this._addLoading, this);
@@ -49177,9 +48525,6 @@ var Vis = View.extend({
     _(overlays).each(function (data) {
       var type = data.type;
 
-      // We don't render certain overlays if we are in mobile
-      if (this.isMobileEnabled && (type === 'zoom' || type === 'header' || type === 'loader')) return;
-
       // IE<10 doesn't support the Fullscreen API
       if (type === 'fullscreen' && util.browser.ie && util.browser.ie.version <= 10) return;
 
@@ -49204,29 +48549,38 @@ var Vis = View.extend({
 
       var opt = data.options;
 
-      if (!this.isMobileEnabled) {
-        if (type == 'share' && options['shareable'] || type == 'share' && overlay.model.get('display') && options['shareable'] == undefined) overlay.show();
-        if (type == 'layer_selector' && options[type] || type == 'layer_selector' && overlay.model.get('display') && options[type] == undefined) overlay.show();
-        if (type == 'fullscreen' && options[type] || type == 'fullscreen' && opt.display && options[type] == undefined) overlay.show();
-        if (type == 'search' && options[type] || type == 'search' && opt.display && options[type] == undefined) overlay.show();
+      if (type == 'share' && options['shareable'] || type == 'share' && overlay.model.get('display') && options['shareable'] == undefined) {
+        overlay.show();
+      }
 
-        if (type === 'header') {
-          var m = overlay.model;
+      if (type == 'layer_selector' && options[type] || type == 'layer_selector' && overlay.model.get('display') && options[type] == undefined) {
+        overlay.show();
+      }
 
-          if (options.title !== undefined) {
-            m.set('show_title', options.title);
-          }
+      if (type == 'fullscreen' && options[type] || type == 'fullscreen' && opt.display && options[type] == undefined) {
+        overlay.show();
+      }
 
-          if (options.description !== undefined) {
-            m.set('show_description', options.description);
-          }
+      if (type == 'search' && options[type] || type == 'search' && opt.display && options[type] == undefined) {
+        overlay.show();
+      }
 
-          if (m.get('show_title') || m.get('show_description')) {
-            $('.cartodb-map-wrapper').addClass('with_header');
-          }
+      if (type === 'header') {
+        var m = overlay.model;
 
-          overlay.render();
+        if (options.title !== undefined) {
+          m.set('show_title', options.title);
         }
+
+        if (options.description !== undefined) {
+          m.set('show_description', options.description);
+        }
+
+        if (m.get('show_title') || m.get('show_description')) {
+          $('.cartodb-map-wrapper').addClass('with_header');
+        }
+
+        overlay.render();
       }
     }, this);
   },
@@ -49236,31 +48590,6 @@ var Vis = View.extend({
       type: 'header',
       options: data.options
     });
-  },
-
-  _addMobile: function (data, options) {
-    var layers;
-    var layer = data.layers[1];
-
-    if (this.isMobileEnabled) {
-      if (options && options.legends === undefined) {
-        options.legends = this.legends ? true : false;
-      }
-
-      if (layer.options && layer.options.layer_definition) {
-        layers = layer.options.layer_definition.layers;
-      } else if (layer.options && layer.options.named_map && layer.options.named_map.layers) {
-        layers = layer.options.named_map.layers;
-      }
-
-      this.mobileOverlay = this.addOverlay({
-        type: 'mobile',
-        layers: layers,
-        overlays: data.overlays,
-        options: options,
-        torqueLayer: this.torqueLayer
-      });
-    }
   },
 
   _createLegendView: function (layer, layerView) {
@@ -49396,17 +48725,6 @@ var Vis = View.extend({
     }
 
     this.mobile = this.isMobileDevice();
-    this.isMobileEnabled = (opt.mobile_layout && this.mobile) || opt.force_mobile;
-
-    if (opt.force_mobile === false || opt.force_mobile === 'false') this.isMobileEnabled = false;
-
-    // if (!opt.title) {
-    //   vizjson.title = null;
-    // }
-
-    // if (!opt.description) {
-    //   vizjson.description = null;
-    // }
 
     if (!opt.tiles_loader) {
       remove_overlay('loader');
@@ -49420,13 +48738,11 @@ var Vis = View.extend({
       opt.search = opt.searchControl;
     }
 
-    if (!this.isMobileEnabled && opt.search) {
-      if (!search_overlay('search')) {
-        vizjson.overlays.push({
-          type: 'search',
-          order: 3
-        });
-      }
+    if (!search_overlay('search') && opt.search) {
+      vizjson.overlays.push({
+        type: 'search',
+        order: 3
+      });
     }
 
     if ( (opt.title && vizjson.title) || (opt.description && vizjson.description)) {
@@ -49456,7 +48772,7 @@ var Vis = View.extend({
       }
     }
 
-    if (opt.shareable && !this.isMobileEnabled) {
+    if (opt.shareable) {
       if (!search_overlay('share')) {
         vizjson.overlays.push({
           type: 'share',
@@ -49470,17 +48786,11 @@ var Vis = View.extend({
       type: 'attribution'
     });
 
-    // We remove certain overlays in mobile devices
-    if (this.isMobileEnabled) {
-      remove_overlay('logo');
-      remove_overlay('share');
-    }
-
-    if (this.mobile || ((opt.zoomControl !== undefined) && (!opt.zoomControl))) {
+    if (opt.zoomControl !== undefined && !opt.zoomControl) {
       remove_overlay('zoom');
     }
 
-    if (this.mobile || ((opt.search !== undefined) && (!opt.search))) {
+    if (opt.search !== undefined && !opt.search) {
       remove_overlay('search');
     }
 
@@ -49634,14 +48944,15 @@ var Vis = View.extend({
     }
 
     infowindow.bind('close', function () {
+      // TODO: create a test checking this behaviour.
       // when infowindow is closed remove all the filters
       // for tooltips
-      for (var i = 0; i < layers; ++i) {
-        var t = layerView.tooltip;
-        if (t) {
-          t.setFilter(null);
+      layers.each(function(layerView) {
+        var layerTooltip = layerView.tooltip;
+        if (layerTooltip) {
+          layerTooltip.setFilter(null);
         }
-      }
+      });
     });
 
     infowindow.model.bind('domready', function () {
@@ -49730,10 +49041,6 @@ var Vis = View.extend({
   },
 
   loadingTiles: function () {
-    if (this.mobileOverlay) {
-      this.mobileOverlay.loadingTiles();
-    }
-
     if (this.loader) {
       this.loader.show();
     }
@@ -49744,10 +49051,6 @@ var Vis = View.extend({
   },
 
   loadTiles: function () {
-    if (this.mobileOverlay) {
-      this.mobileOverlay.loadTiles();
-    }
-
     if (this.loader) {
       this.loader.hide();
     }
@@ -49948,7 +49251,7 @@ var Vis = View.extend({
 
 module.exports = Vis;
 
-},{"../api/sql":99,"../core/loader":108,"../core/template":116,"../core/view":118,"../geo/map":149,"../geo/map-view":148,"../geo/map/cartodb-layer-group-anonymous":150,"../geo/map/cartodb-layer-group-named":152,"../geo/ui/infowindow":168,"../geo/ui/infowindow-model":167,"../geo/ui/legend":176,"../geo/ui/legend-model":175,"../geo/ui/legend/stacked-legend":197,"../geo/ui/tooltip":207,"../windshaft/client":229,"../windshaft/config":230,"../windshaft/layergroup-config":232,"../windshaft/namedmap-config":233,"./vis/infowindow-template":225,"./vis/layers":226,"./vis/overlay":227,"backbone":1,"cdb":104,"cdb.config":102,"cdb.core.util":117,"cdb.log":105,"jquery":2,"underscore":93}],225:[function(require,module,exports){
+},{"../api/sql":99,"../core/loader":108,"../core/template":116,"../core/view":118,"../geo/map":149,"../geo/map-view":148,"../geo/map/cartodb-layer-group-anonymous":150,"../geo/map/cartodb-layer-group-named":152,"../geo/ui/infowindow":168,"../geo/ui/infowindow-model":167,"../geo/ui/legend":176,"../geo/ui/legend-model":175,"../geo/ui/legend/stacked-legend":197,"../geo/ui/tooltip":205,"../windshaft/client":227,"../windshaft/config":228,"../windshaft/layergroup-config":230,"../windshaft/namedmap-config":231,"./vis/infowindow-template":223,"./vis/layers":224,"./vis/overlay":225,"backbone":1,"cdb":104,"cdb.config":102,"cdb.core.util":117,"cdb.log":105,"jquery":2,"underscore":93}],223:[function(require,module,exports){
 var INFOWINDOW_TEMPLATE = {
   light: [
     '<div class="cartodb-popup v2">',
@@ -49973,7 +49276,7 @@ var INFOWINDOW_TEMPLATE = {
 
 module.exports = INFOWINDOW_TEMPLATE;
 
-},{}],226:[function(require,module,exports){
+},{}],224:[function(require,module,exports){
 var _ = require('underscore');
 var log = require('cdb.log');
 
@@ -50017,7 +49320,7 @@ var Layers = {
 
 module.exports = Layers;
 
-},{"cdb.log":105,"underscore":93}],227:[function(require,module,exports){
+},{"cdb.log":105,"underscore":93}],225:[function(require,module,exports){
 var log = require('cdb.log');
 
 /**
@@ -50058,7 +49361,7 @@ var Overlay = {
 
 module.exports = Overlay;
 
-},{"cdb.log":105}],228:[function(require,module,exports){
+},{"cdb.log":105}],226:[function(require,module,exports){
 var Backbone = require('backbone');
 
 var Overlays = Backbone.Collection.extend({
@@ -50068,7 +49371,7 @@ var Overlays = Backbone.Collection.extend({
 
 module.exports = Overlays;
 
-},{"backbone":1}],229:[function(require,module,exports){
+},{"backbone":1}],227:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var LZMA = require('lzma');
@@ -50212,12 +49515,12 @@ WindshaftClient.prototype._jsonpCallbackName = function (payload) {
 
 module.exports = WindshaftClient;
 
-},{"../core/util":117,"./dashboard-instance":231,"jquery":2,"lzma":238,"underscore":93}],230:[function(require,module,exports){
+},{"../core/util":117,"./dashboard-instance":229,"jquery":2,"lzma":235,"underscore":93}],228:[function(require,module,exports){
 module.exports = {
   MAPS_API_BASE_URL: 'api/v1/map'
 };
 
-},{}],231:[function(require,module,exports){
+},{}],229:[function(require,module,exports){
 var _ = require('underscore');
 var Model = require('../core/model');
 var WindshaftConfig = require('./config');
@@ -50414,7 +49717,7 @@ module.exports = Model.extend({
   }
 });
 
-},{"../core/model":112,"./config":230,"underscore":93}],232:[function(require,module,exports){
+},{"../core/model":112,"./config":228,"underscore":93}],230:[function(require,module,exports){
 var _ = require('underscore');
 var LayerGroupConfig = {};
 
@@ -50447,7 +49750,7 @@ LayerGroupConfig.generate = function (options) {
 
 module.exports = LayerGroupConfig;
 
-},{"underscore":93}],233:[function(require,module,exports){
+},{"underscore":93}],231:[function(require,module,exports){
 var _ = require('underscore');
 var NamedMapConfig = {};
 
@@ -50466,7 +49769,7 @@ NamedMapConfig.generate = function (options) {
 
 module.exports = NamedMapConfig;
 
-},{"underscore":93}],234:[function(require,module,exports){
+},{"underscore":93}],232:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 var GeoJSON = function( geojson, options ){
@@ -50704,7 +50007,7 @@ type: "Error",
 }).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],235:[function(require,module,exports){
+},{}],233:[function(require,module,exports){
 (function (global){
 
 ; _ = global._ = require("underscore");
@@ -50734,7 +50037,7 @@ jQuery = global.jQuery = require("jquery");
 }).call(global, module, undefined, undefined);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":2,"underscore":93}],236:[function(require,module,exports){
+},{"jquery":2,"underscore":93}],234:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 // -------------------------------------------------------------------------------------------------------------------
@@ -55593,1451 +54896,7 @@ if (typeof window !== 'undefined') {
 }).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],237:[function(require,module,exports){
-(function (global){
-
-; jQuery = global.jQuery = require("jquery");
-; var __browserify_shim_require__=require;(function browserifyShim(module, define, require) {
-/*!
- * jScrollPane - v2.0.0beta12 - 2012-09-27
- * http://jscrollpane.kelvinluck.com/
- *
- * Copyright (c) 2010 Kelvin Luck
- * Dual licensed under the MIT or GPL licenses.
- */
-
-// Script: jScrollPane - cross browser customisable scrollbars
-//
-// *Version: 2.0.0beta12, Last updated: 2012-09-27*
-//
-// Project Home - http://jscrollpane.kelvinluck.com/
-// GitHub       - http://github.com/vitch/jScrollPane
-// Source       - http://github.com/vitch/jScrollPane/raw/master/script/jquery.jscrollpane.js
-// (Minified)   - http://github.com/vitch/jScrollPane/raw/master/script/jquery.jscrollpane.min.js
-//
-// About: License
-//
-// Copyright (c) 2012 Kelvin Luck
-// Dual licensed under the MIT or GPL Version 2 licenses.
-// http://jscrollpane.kelvinluck.com/MIT-LICENSE.txt
-// http://jscrollpane.kelvinluck.com/GPL-LICENSE.txt
-//
-// About: Examples
-//
-// All examples and demos are available through the jScrollPane example site at:
-// http://jscrollpane.kelvinluck.com/
-//
-// About: Support and Testing
-//
-// This plugin is tested on the browsers below and has been found to work reliably on them. If you run
-// into a problem on one of the supported browsers then please visit the support section on the jScrollPane
-// website (http://jscrollpane.kelvinluck.com/) for more information on getting support. You are also
-// welcome to fork the project on GitHub if you can contribute a fix for a given issue. 
-//
-// jQuery Versions - tested in 1.4.2+ - reported to work in 1.3.x
-// Browsers Tested - Firefox 3.6.8, Safari 5, Opera 10.6, Chrome 5.0, IE 6, 7, 8
-//
-// About: Release History
-//
-// 2.0.0beta12 - (2012-09-27) fix for jQuery 1.8+
-// 2.0.0beta11 - (2012-05-14)
-// 2.0.0beta10 - (2011-04-17) cleaner required size calculation, improved keyboard support, stickToBottom/Left, other small fixes
-// 2.0.0beta9 - (2011-01-31) new API methods, bug fixes and correct keyboard support for FF/OSX
-// 2.0.0beta8 - (2011-01-29) touchscreen support, improved keyboard support
-// 2.0.0beta7 - (2011-01-23) scroll speed consistent (thanks Aivo Paas)
-// 2.0.0beta6 - (2010-12-07) scrollToElement horizontal support
-// 2.0.0beta5 - (2010-10-18) jQuery 1.4.3 support, various bug fixes
-// 2.0.0beta4 - (2010-09-17) clickOnTrack support, bug fixes
-// 2.0.0beta3 - (2010-08-27) Horizontal mousewheel, mwheelIntent, keyboard support, bug fixes
-// 2.0.0beta2 - (2010-08-21) Bug fixes
-// 2.0.0beta1 - (2010-08-17) Rewrite to follow modern best practices and enable horizontal scrolling, initially hidden
-//               elements and dynamically sized elements.
-// 1.x - (2006-12-31 - 2010-07-31) Initial version, hosted at googlecode, deprecated
-
-(function($,window,undefined){
-
-  $.fn.jScrollPane = function(settings)
-  {
-    // JScrollPane "class" - public methods are available through $('selector').data('jsp')
-    function JScrollPane(elem, s)
-    {
-      var settings, jsp = this, pane, paneWidth, paneHeight, container, contentWidth, contentHeight,
-        percentInViewH, percentInViewV, isScrollableV, isScrollableH, verticalDrag, dragMaxY,
-        verticalDragPosition, horizontalDrag, dragMaxX, horizontalDragPosition,
-        verticalBar, verticalTrack, scrollbarWidth, verticalTrackHeight, verticalDragHeight, arrowUp, arrowDown,
-        horizontalBar, horizontalTrack, horizontalTrackWidth, horizontalDragWidth, arrowLeft, arrowRight,
-        reinitialiseInterval, originalPadding, originalPaddingTotalWidth, previousContentWidth,
-        wasAtTop = true, wasAtLeft = true, wasAtBottom = false, wasAtRight = false,
-        originalElement = elem.clone(false, false).empty(),
-        mwEvent = $.fn.mwheelIntent ? 'mwheelIntent.jsp' : 'mousewheel.jsp';
-
-      originalPadding = elem.css('paddingTop') + ' ' +
-                elem.css('paddingRight') + ' ' +
-                elem.css('paddingBottom') + ' ' +
-                elem.css('paddingLeft');
-      originalPaddingTotalWidth = (parseInt(elem.css('paddingLeft'), 10) || 0) +
-                    (parseInt(elem.css('paddingRight'), 10) || 0);
-
-      function initialise(s)
-      {
-
-        var /*firstChild, lastChild, */isMaintainingPositon, lastContentX, lastContentY,
-            hasContainingSpaceChanged, originalScrollTop, originalScrollLeft,
-            maintainAtBottom = false, maintainAtRight = false;
-
-        settings = s;
-
-        if (pane === undefined) {
-          originalScrollTop = elem.scrollTop();
-          originalScrollLeft = elem.scrollLeft();
-
-          elem.css(
-            {
-              overflow: 'hidden',
-              padding: 0
-            }
-          );
-          // TODO: Deal with where width/ height is 0 as it probably means the element is hidden and we should
-          // come back to it later and check once it is unhidden...
-          paneWidth = elem.innerWidth() + originalPaddingTotalWidth;
-          paneHeight = elem.innerHeight();
-
-          elem.width(paneWidth);
-          
-          pane = $('<div class="jspPane" />').css('padding', originalPadding).append(elem.children());
-          container = $('<div class="jspContainer" />')
-            .css({
-              'width': paneWidth + 'px',
-              'height': paneHeight + 'px'
-            }
-          ).append(pane).appendTo(elem);
-
-          /*
-          // Move any margins from the first and last children up to the container so they can still
-          // collapse with neighbouring elements as they would before jScrollPane 
-          firstChild = pane.find(':first-child');
-          lastChild = pane.find(':last-child');
-          elem.css(
-            {
-              'margin-top': firstChild.css('margin-top'),
-              'margin-bottom': lastChild.css('margin-bottom')
-            }
-          );
-          firstChild.css('margin-top', 0);
-          lastChild.css('margin-bottom', 0);
-          */
-        } else {
-          elem.css('width', '');
-
-          maintainAtBottom = settings.stickToBottom && isCloseToBottom();
-          maintainAtRight  = settings.stickToRight  && isCloseToRight();
-
-          hasContainingSpaceChanged = elem.innerWidth() + originalPaddingTotalWidth != paneWidth || elem.outerHeight() != paneHeight;
-
-          if (hasContainingSpaceChanged) {
-            paneWidth = elem.innerWidth() + originalPaddingTotalWidth;
-            paneHeight = elem.innerHeight();
-            container.css({
-              width: paneWidth + 'px',
-              height: paneHeight + 'px'
-            });
-          }
-
-          // If nothing changed since last check...
-          if (!hasContainingSpaceChanged && previousContentWidth == contentWidth && pane.outerHeight() == contentHeight) {
-            elem.width(paneWidth);
-            return;
-          }
-          previousContentWidth = contentWidth;
-          
-          pane.css('width', '');
-          elem.width(paneWidth);
-
-          container.find('>.jspVerticalBar,>.jspHorizontalBar').remove().end();
-        }
-
-        pane.css('overflow', 'auto');
-        if (s.contentWidth) {
-          contentWidth = s.contentWidth;
-        } else {
-          contentWidth = pane[0].scrollWidth;
-        }
-        contentHeight = pane[0].scrollHeight;
-        pane.css('overflow', '');
-
-        percentInViewH = contentWidth / paneWidth;
-        percentInViewV = contentHeight / paneHeight;
-        isScrollableV = percentInViewV > 1;
-
-        isScrollableH = percentInViewH > 1;
-
-        //console.log(paneWidth, paneHeight, contentWidth, contentHeight, percentInViewH, percentInViewV, isScrollableH, isScrollableV);
-
-        if (!(isScrollableH || isScrollableV)) {
-          elem.removeClass('jspScrollable');
-          pane.css({
-            top: 0,
-            width: container.width() - originalPaddingTotalWidth
-          });
-          removeMousewheel();
-          removeFocusHandler();
-          removeKeyboardNav();
-          removeClickOnTrack();
-        } else {
-          elem.addClass('jspScrollable');
-
-          isMaintainingPositon = settings.maintainPosition && (verticalDragPosition || horizontalDragPosition);
-          if (isMaintainingPositon) {
-            lastContentX = contentPositionX();
-            lastContentY = contentPositionY();
-          }
-
-          initialiseVerticalScroll();
-          initialiseHorizontalScroll();
-          resizeScrollbars();
-
-          if (isMaintainingPositon) {
-            scrollToX(maintainAtRight  ? (contentWidth  - paneWidth ) : lastContentX, false);
-            scrollToY(maintainAtBottom ? (contentHeight - paneHeight) : lastContentY, false);
-          }
-
-          initFocusHandler();
-          initMousewheel();
-          initTouch();
-          
-          if (settings.enableKeyboardNavigation) {
-            initKeyboardNav();
-          }
-          if (settings.clickOnTrack) {
-            initClickOnTrack();
-          }
-          
-          observeHash();
-          if (settings.hijackInternalLinks) {
-            hijackInternalLinks();
-          }
-        }
-
-        if (settings.autoReinitialise && !reinitialiseInterval) {
-          reinitialiseInterval = setInterval(
-            function()
-            {
-              initialise(settings);
-            },
-            settings.autoReinitialiseDelay
-          );
-        } else if (!settings.autoReinitialise && reinitialiseInterval) {
-          clearInterval(reinitialiseInterval);
-        }
-
-        originalScrollTop && elem.scrollTop(0) && scrollToY(originalScrollTop, false);
-        originalScrollLeft && elem.scrollLeft(0) && scrollToX(originalScrollLeft, false);
-
-        elem.trigger('jsp-initialised', [isScrollableH || isScrollableV]);
-      }
-
-      function initialiseVerticalScroll()
-      {
-        if (isScrollableV) {
-
-          container.append(
-            $('<div class="jspVerticalBar" />').append(
-              $('<div class="jspCap jspCapTop" />'),
-              $('<div class="jspTrack" />').append(
-                $('<div class="jspDrag" />').append(
-                  $('<div class="jspDragTop" />'),
-                  $('<div class="jspDragBottom" />')
-                )
-              ),
-              $('<div class="jspCap jspCapBottom" />')
-            )
-          );
-
-          verticalBar = container.find('>.jspVerticalBar');
-          verticalTrack = verticalBar.find('>.jspTrack');
-          verticalDrag = verticalTrack.find('>.jspDrag');
-
-          if (settings.showArrows) {
-            arrowUp = $('<a class="jspArrow jspArrowUp" />').bind(
-              'mousedown.jsp', getArrowScroll(0, -1)
-            ).bind('click.jsp', nil);
-            arrowDown = $('<a class="jspArrow jspArrowDown" />').bind(
-              'mousedown.jsp', getArrowScroll(0, 1)
-            ).bind('click.jsp', nil);
-            if (settings.arrowScrollOnHover) {
-              arrowUp.bind('mouseover.jsp', getArrowScroll(0, -1, arrowUp));
-              arrowDown.bind('mouseover.jsp', getArrowScroll(0, 1, arrowDown));
-            }
-
-            appendArrows(verticalTrack, settings.verticalArrowPositions, arrowUp, arrowDown);
-          }
-
-          verticalTrackHeight = paneHeight;
-          container.find('>.jspVerticalBar>.jspCap:visible,>.jspVerticalBar>.jspArrow').each(
-            function()
-            {
-              verticalTrackHeight -= $(this).outerHeight();
-            }
-          );
-
-
-          verticalDrag.hover(
-            function()
-            {
-              verticalDrag.addClass('jspHover');
-            },
-            function()
-            {
-              verticalDrag.removeClass('jspHover');
-            }
-          ).bind(
-            'mousedown.jsp',
-            function(e)
-            {
-              // Stop IE from allowing text selection
-              $('html').bind('dragstart.jsp selectstart.jsp', nil);
-
-              verticalDrag.addClass('jspActive');
-
-              var startY = e.pageY - verticalDrag.position().top;
-
-              $('html').bind(
-                'mousemove.jsp',
-                function(e)
-                {
-                  positionDragY(e.pageY - startY, false);
-                }
-              ).bind('mouseup.jsp mouseleave.jsp', cancelDrag);
-              return false;
-            }
-          );
-          sizeVerticalScrollbar();
-        }
-      }
-
-      function sizeVerticalScrollbar()
-      {
-        verticalTrack.height(verticalTrackHeight + 'px');
-        verticalDragPosition = 0;
-        scrollbarWidth = settings.verticalGutter + verticalTrack.outerWidth();
-
-        // Make the pane thinner to allow for the vertical scrollbar
-        pane.width(paneWidth - scrollbarWidth - originalPaddingTotalWidth);
-
-        // Add margin to the left of the pane if scrollbars are on that side (to position
-        // the scrollbar on the left or right set it's left or right property in CSS)
-        try {
-          if (verticalBar.position().left === 0) {
-            pane.css('margin-left', scrollbarWidth + 'px');
-          }
-        } catch (err) {
-        }
-      }
-
-      function initialiseHorizontalScroll()
-      {
-        if (isScrollableH) {
-
-          container.append(
-            $('<div class="jspHorizontalBar" />').append(
-              $('<div class="jspCap jspCapLeft" />'),
-              $('<div class="jspTrack" />').append(
-                $('<div class="jspDrag" />').append(
-                  $('<div class="jspDragLeft" />'),
-                  $('<div class="jspDragRight" />')
-                )
-              ),
-              $('<div class="jspCap jspCapRight" />')
-            )
-          );
-
-          horizontalBar = container.find('>.jspHorizontalBar');
-          horizontalTrack = horizontalBar.find('>.jspTrack');
-          horizontalDrag = horizontalTrack.find('>.jspDrag');
-
-          if (settings.showArrows) {
-            arrowLeft = $('<a class="jspArrow jspArrowLeft" />').bind(
-              'mousedown.jsp', getArrowScroll(-1, 0)
-            ).bind('click.jsp', nil);
-            arrowRight = $('<a class="jspArrow jspArrowRight" />').bind(
-              'mousedown.jsp', getArrowScroll(1, 0)
-            ).bind('click.jsp', nil);
-            if (settings.arrowScrollOnHover) {
-              arrowLeft.bind('mouseover.jsp', getArrowScroll(-1, 0, arrowLeft));
-              arrowRight.bind('mouseover.jsp', getArrowScroll(1, 0, arrowRight));
-            }
-            appendArrows(horizontalTrack, settings.horizontalArrowPositions, arrowLeft, arrowRight);
-          }
-
-          horizontalDrag.hover(
-            function()
-            {
-              horizontalDrag.addClass('jspHover');
-            },
-            function()
-            {
-              horizontalDrag.removeClass('jspHover');
-            }
-          ).bind(
-            'mousedown.jsp',
-            function(e)
-            {
-              // Stop IE from allowing text selection
-              $('html').bind('dragstart.jsp selectstart.jsp', nil);
-
-              horizontalDrag.addClass('jspActive');
-
-              var startX = e.pageX - horizontalDrag.position().left;
-
-              $('html').bind(
-                'mousemove.jsp',
-                function(e)
-                {
-                  positionDragX(e.pageX - startX, false);
-                }
-              ).bind('mouseup.jsp mouseleave.jsp', cancelDrag);
-              return false;
-            }
-          );
-          horizontalTrackWidth = container.innerWidth();
-          sizeHorizontalScrollbar();
-        }
-      }
-
-      function sizeHorizontalScrollbar()
-      {
-        container.find('>.jspHorizontalBar>.jspCap:visible,>.jspHorizontalBar>.jspArrow').each(
-          function()
-          {
-            horizontalTrackWidth -= $(this).outerWidth();
-          }
-        );
-
-        horizontalTrack.width(horizontalTrackWidth + 'px');
-        horizontalDragPosition = 0;
-      }
-
-      function resizeScrollbars()
-      {
-        if (isScrollableH && isScrollableV) {
-          var horizontalTrackHeight = horizontalTrack.outerHeight(),
-            verticalTrackWidth = verticalTrack.outerWidth();
-          verticalTrackHeight -= horizontalTrackHeight;
-          $(horizontalBar).find('>.jspCap:visible,>.jspArrow').each(
-            function()
-            {
-              horizontalTrackWidth += $(this).outerWidth();
-            }
-          );
-          horizontalTrackWidth -= verticalTrackWidth;
-          paneHeight -= verticalTrackWidth;
-          paneWidth -= horizontalTrackHeight;
-          horizontalTrack.parent().append(
-            $('<div class="jspCorner" />').css('width', horizontalTrackHeight + 'px')
-          );
-          sizeVerticalScrollbar();
-          sizeHorizontalScrollbar();
-        }
-        // reflow content
-        if (isScrollableH) {
-          pane.width((container.outerWidth() - originalPaddingTotalWidth) + 'px');
-        }
-        contentHeight = pane.outerHeight();
-        percentInViewV = contentHeight / paneHeight;
-
-        if (isScrollableH) {
-          horizontalDragWidth = Math.ceil(1 / percentInViewH * horizontalTrackWidth);
-          if (horizontalDragWidth > settings.horizontalDragMaxWidth) {
-            horizontalDragWidth = settings.horizontalDragMaxWidth;
-          } else if (horizontalDragWidth < settings.horizontalDragMinWidth) {
-            horizontalDragWidth = settings.horizontalDragMinWidth;
-          }
-          horizontalDrag.width(horizontalDragWidth + 'px');
-          dragMaxX = horizontalTrackWidth - horizontalDragWidth;
-          _positionDragX(horizontalDragPosition); // To update the state for the arrow buttons
-        }
-        if (isScrollableV) {
-          verticalDragHeight = Math.ceil(1 / percentInViewV * verticalTrackHeight);
-          if (verticalDragHeight > settings.verticalDragMaxHeight) {
-            verticalDragHeight = settings.verticalDragMaxHeight;
-          } else if (verticalDragHeight < settings.verticalDragMinHeight) {
-            verticalDragHeight = settings.verticalDragMinHeight;
-          }
-          verticalDrag.height(verticalDragHeight + 'px');
-          dragMaxY = verticalTrackHeight - verticalDragHeight;
-          _positionDragY(verticalDragPosition); // To update the state for the arrow buttons
-        }
-      }
-
-      function appendArrows(ele, p, a1, a2)
-      {
-        var p1 = "before", p2 = "after", aTemp;
-        
-        // Sniff for mac... Is there a better way to determine whether the arrows would naturally appear
-        // at the top or the bottom of the bar?
-        if (p == "os") {
-          p = /Mac/.test(navigator.platform) ? "after" : "split";
-        }
-        if (p == p1) {
-          p2 = p;
-        } else if (p == p2) {
-          p1 = p;
-          aTemp = a1;
-          a1 = a2;
-          a2 = aTemp;
-        }
-
-        ele[p1](a1)[p2](a2);
-      }
-
-      function getArrowScroll(dirX, dirY, ele)
-      {
-        return function()
-        {
-          arrowScroll(dirX, dirY, this, ele);
-          this.blur();
-          return false;
-        };
-      }
-
-      function arrowScroll(dirX, dirY, arrow, ele)
-      {
-        arrow = $(arrow).addClass('jspActive');
-
-        var eve,
-          scrollTimeout,
-          isFirst = true,
-          doScroll = function()
-          {
-            if (dirX !== 0) {
-              jsp.scrollByX(dirX * settings.arrowButtonSpeed);
-            }
-            if (dirY !== 0) {
-              jsp.scrollByY(dirY * settings.arrowButtonSpeed);
-            }
-            scrollTimeout = setTimeout(doScroll, isFirst ? settings.initialDelay : settings.arrowRepeatFreq);
-            isFirst = false;
-          };
-
-        doScroll();
-
-        eve = ele ? 'mouseout.jsp' : 'mouseup.jsp';
-        ele = ele || $('html');
-        ele.bind(
-          eve,
-          function()
-          {
-            arrow.removeClass('jspActive');
-            scrollTimeout && clearTimeout(scrollTimeout);
-            scrollTimeout = null;
-            ele.unbind(eve);
-          }
-        );
-      }
-
-      function initClickOnTrack()
-      {
-        removeClickOnTrack();
-        if (isScrollableV) {
-          verticalTrack.bind(
-            'mousedown.jsp',
-            function(e)
-            {
-              if (e.originalTarget === undefined || e.originalTarget == e.currentTarget) {
-                var clickedTrack = $(this),
-                  offset = clickedTrack.offset(),
-                  direction = e.pageY - offset.top - verticalDragPosition,
-                  scrollTimeout,
-                  isFirst = true,
-                  doScroll = function()
-                  {
-                    var offset = clickedTrack.offset(),
-                      pos = e.pageY - offset.top - verticalDragHeight / 2,
-                      contentDragY = paneHeight * settings.scrollPagePercent,
-                      dragY = dragMaxY * contentDragY / (contentHeight - paneHeight);
-                    if (direction < 0) {
-                      if (verticalDragPosition - dragY > pos) {
-                        jsp.scrollByY(-contentDragY);
-                      } else {
-                        positionDragY(pos);
-                      }
-                    } else if (direction > 0) {
-                      if (verticalDragPosition + dragY < pos) {
-                        jsp.scrollByY(contentDragY);
-                      } else {
-                        positionDragY(pos);
-                      }
-                    } else {
-                      cancelClick();
-                      return;
-                    }
-                    scrollTimeout = setTimeout(doScroll, isFirst ? settings.initialDelay : settings.trackClickRepeatFreq);
-                    isFirst = false;
-                  },
-                  cancelClick = function()
-                  {
-                    scrollTimeout && clearTimeout(scrollTimeout);
-                    scrollTimeout = null;
-                    $(document).unbind('mouseup.jsp', cancelClick);
-                  };
-                doScroll();
-                $(document).bind('mouseup.jsp', cancelClick);
-                return false;
-              }
-            }
-          );
-        }
-        
-        if (isScrollableH) {
-          horizontalTrack.bind(
-            'mousedown.jsp',
-            function(e)
-            {
-              if (e.originalTarget === undefined || e.originalTarget == e.currentTarget) {
-                var clickedTrack = $(this),
-                  offset = clickedTrack.offset(),
-                  direction = e.pageX - offset.left - horizontalDragPosition,
-                  scrollTimeout,
-                  isFirst = true,
-                  doScroll = function()
-                  {
-                    var offset = clickedTrack.offset(),
-                      pos = e.pageX - offset.left - horizontalDragWidth / 2,
-                      contentDragX = paneWidth * settings.scrollPagePercent,
-                      dragX = dragMaxX * contentDragX / (contentWidth - paneWidth);
-                    if (direction < 0) {
-                      if (horizontalDragPosition - dragX > pos) {
-                        jsp.scrollByX(-contentDragX);
-                      } else {
-                        positionDragX(pos);
-                      }
-                    } else if (direction > 0) {
-                      if (horizontalDragPosition + dragX < pos) {
-                        jsp.scrollByX(contentDragX);
-                      } else {
-                        positionDragX(pos);
-                      }
-                    } else {
-                      cancelClick();
-                      return;
-                    }
-                    scrollTimeout = setTimeout(doScroll, isFirst ? settings.initialDelay : settings.trackClickRepeatFreq);
-                    isFirst = false;
-                  },
-                  cancelClick = function()
-                  {
-                    scrollTimeout && clearTimeout(scrollTimeout);
-                    scrollTimeout = null;
-                    $(document).unbind('mouseup.jsp', cancelClick);
-                  };
-                doScroll();
-                $(document).bind('mouseup.jsp', cancelClick);
-                return false;
-              }
-            }
-          );
-        }
-      }
-
-      function removeClickOnTrack()
-      {
-        if (horizontalTrack) {
-          horizontalTrack.unbind('mousedown.jsp');
-        }
-        if (verticalTrack) {
-          verticalTrack.unbind('mousedown.jsp');
-        }
-      }
-
-      function cancelDrag()
-      {
-        $('html').unbind('dragstart.jsp selectstart.jsp mousemove.jsp mouseup.jsp mouseleave.jsp');
-
-        if (verticalDrag) {
-          verticalDrag.removeClass('jspActive');
-        }
-        if (horizontalDrag) {
-          horizontalDrag.removeClass('jspActive');
-        }
-      }
-
-      function positionDragY(destY, animate)
-      {
-        if (!isScrollableV) {
-          return;
-        }
-        if (destY < 0) {
-          destY = 0;
-        } else if (destY > dragMaxY) {
-          destY = dragMaxY;
-        }
-
-        // can't just check if(animate) because false is a valid value that could be passed in...
-        if (animate === undefined) {
-          animate = settings.animateScroll;
-        }
-        if (animate) {
-          jsp.animate(verticalDrag, 'top', destY, _positionDragY);
-        } else {
-          verticalDrag.css('top', destY);
-          _positionDragY(destY);
-        }
-
-      }
-
-      function _positionDragY(destY)
-      {
-        if (destY === undefined) {
-          destY = verticalDrag.position().top;
-        }
-
-        container.scrollTop(0);
-        verticalDragPosition = destY;
-
-        var isAtTop = verticalDragPosition === 0,
-          isAtBottom = verticalDragPosition == dragMaxY,
-          percentScrolled = destY/ dragMaxY,
-          destTop = -percentScrolled * (contentHeight - paneHeight);
-
-        if (wasAtTop != isAtTop || wasAtBottom != isAtBottom) {
-          wasAtTop = isAtTop;
-          wasAtBottom = isAtBottom;
-          elem.trigger('jsp-arrow-change', [wasAtTop, wasAtBottom, wasAtLeft, wasAtRight]);
-        }
-        
-        updateVerticalArrows(isAtTop, isAtBottom);
-        pane.css('top', destTop);
-        elem.trigger('jsp-scroll-y', [-destTop, isAtTop, isAtBottom]).trigger('scroll');
-      }
-
-      function positionDragX(destX, animate)
-      {
-        if (!isScrollableH) {
-          return;
-        }
-        if (destX < 0) {
-          destX = 0;
-        } else if (destX > dragMaxX) {
-          destX = dragMaxX;
-        }
-
-        if (animate === undefined) {
-          animate = settings.animateScroll;
-        }
-        if (animate) {
-          jsp.animate(horizontalDrag, 'left', destX,  _positionDragX);
-        } else {
-          horizontalDrag.css('left', destX);
-          _positionDragX(destX);
-        }
-      }
-
-      function _positionDragX(destX)
-      {
-        if (destX === undefined) {
-          destX = horizontalDrag.position().left;
-        }
-
-        container.scrollTop(0);
-        horizontalDragPosition = destX;
-
-        var isAtLeft = horizontalDragPosition === 0,
-          isAtRight = horizontalDragPosition == dragMaxX,
-          percentScrolled = destX / dragMaxX,
-          destLeft = -percentScrolled * (contentWidth - paneWidth);
-
-        if (wasAtLeft != isAtLeft || wasAtRight != isAtRight) {
-          wasAtLeft = isAtLeft;
-          wasAtRight = isAtRight;
-          elem.trigger('jsp-arrow-change', [wasAtTop, wasAtBottom, wasAtLeft, wasAtRight]);
-        }
-        
-        updateHorizontalArrows(isAtLeft, isAtRight);
-        pane.css('left', destLeft);
-        elem.trigger('jsp-scroll-x', [-destLeft, isAtLeft, isAtRight]).trigger('scroll');
-      }
-
-      function updateVerticalArrows(isAtTop, isAtBottom)
-      {
-        if (settings.showArrows) {
-          arrowUp[isAtTop ? 'addClass' : 'removeClass']('jspDisabled');
-          arrowDown[isAtBottom ? 'addClass' : 'removeClass']('jspDisabled');
-        }
-      }
-
-      function updateHorizontalArrows(isAtLeft, isAtRight)
-      {
-        if (settings.showArrows) {
-          arrowLeft[isAtLeft ? 'addClass' : 'removeClass']('jspDisabled');
-          arrowRight[isAtRight ? 'addClass' : 'removeClass']('jspDisabled');
-        }
-      }
-
-      function scrollToY(destY, animate)
-      {
-        var percentScrolled = destY / (contentHeight - paneHeight);
-        positionDragY(percentScrolled * dragMaxY, animate);
-      }
-
-      function scrollToX(destX, animate)
-      {
-        var percentScrolled = destX / (contentWidth - paneWidth);
-        positionDragX(percentScrolled * dragMaxX, animate);
-      }
-
-      function scrollToElement(ele, stickToTop, animate)
-      {
-        var e, eleHeight, eleWidth, eleTop = 0, eleLeft = 0, viewportTop, viewportLeft, maxVisibleEleTop, maxVisibleEleLeft, destY, destX;
-
-        // Legal hash values aren't necessarily legal jQuery selectors so we need to catch any
-        // errors from the lookup...
-        try {
-          e = $(ele);
-        } catch (err) {
-          return;
-        }
-        eleHeight = e.outerHeight();
-        eleWidth= e.outerWidth();
-
-        container.scrollTop(0);
-        container.scrollLeft(0);
-        
-        // loop through parents adding the offset top of any elements that are relatively positioned between
-        // the focused element and the jspPane so we can get the true distance from the top
-        // of the focused element to the top of the scrollpane...
-        while (!e.is('.jspPane')) {
-          eleTop += e.position().top;
-          eleLeft += e.position().left;
-          e = e.offsetParent();
-          if (/^body|html$/i.test(e[0].nodeName)) {
-            // we ended up too high in the document structure. Quit!
-            return;
-          }
-        }
-
-        viewportTop = contentPositionY();
-        maxVisibleEleTop = viewportTop + paneHeight;
-        if (eleTop < viewportTop || stickToTop) { // element is above viewport
-          destY = eleTop - settings.verticalGutter;
-        } else if (eleTop + eleHeight > maxVisibleEleTop) { // element is below viewport
-          destY = eleTop - paneHeight + eleHeight + settings.verticalGutter;
-        }
-        if (destY) {
-          scrollToY(destY, animate);
-        }
-        
-        viewportLeft = contentPositionX();
-              maxVisibleEleLeft = viewportLeft + paneWidth;
-              if (eleLeft < viewportLeft || stickToTop) { // element is to the left of viewport
-                  destX = eleLeft - settings.horizontalGutter;
-              } else if (eleLeft + eleWidth > maxVisibleEleLeft) { // element is to the right viewport
-                  destX = eleLeft - paneWidth + eleWidth + settings.horizontalGutter;
-              }
-              if (destX) {
-                  scrollToX(destX, animate);
-              }
-
-      }
-
-      function contentPositionX()
-      {
-        return -pane.position().left;
-      }
-
-      function contentPositionY()
-      {
-        return -pane.position().top;
-      }
-
-      function isCloseToBottom()
-      {
-        var scrollableHeight = contentHeight - paneHeight;
-        return (scrollableHeight > 20) && (scrollableHeight - contentPositionY() < 10);
-      }
-
-      function isCloseToRight()
-      {
-        var scrollableWidth = contentWidth - paneWidth;
-        return (scrollableWidth > 20) && (scrollableWidth - contentPositionX() < 10);
-      }
-
-      function initMousewheel()
-      {
-        container.unbind(mwEvent).bind(
-          mwEvent,
-          function (event, delta, deltaX, deltaY) {
-            var dX = horizontalDragPosition, dY = verticalDragPosition;
-            jsp.scrollBy(deltaX * settings.mouseWheelSpeed, -deltaY * settings.mouseWheelSpeed, false);
-            // return true if there was no movement so rest of screen can scroll
-            return dX == horizontalDragPosition && dY == verticalDragPosition;
-          }
-        );
-      }
-
-      function removeMousewheel()
-      {
-        container.unbind(mwEvent);
-      }
-
-      function nil()
-      {
-        return false;
-      }
-
-      function initFocusHandler()
-      {
-        pane.find(':input,a').unbind('focus.jsp').bind(
-          'focus.jsp',
-          function(e)
-          {
-            scrollToElement(e.target, false);
-          }
-        );
-      }
-
-      function removeFocusHandler()
-      {
-        pane.find(':input,a').unbind('focus.jsp');
-      }
-      
-      function initKeyboardNav()
-      {
-        var keyDown, elementHasScrolled, validParents = [];
-        isScrollableH && validParents.push(horizontalBar[0]);
-        isScrollableV && validParents.push(verticalBar[0]);
-        
-        // IE also focuses elements that don't have tabindex set.
-        pane.focus(
-          function()
-          {
-            elem.focus();
-          }
-        );
-        
-        elem.attr('tabindex', 0)
-          .unbind('keydown.jsp keypress.jsp')
-          .bind(
-            'keydown.jsp',
-            function(e)
-            {
-              if (e.target !== this && !(validParents.length && $(e.target).closest(validParents).length)){
-                return;
-              }
-              var dX = horizontalDragPosition, dY = verticalDragPosition;
-              switch(e.keyCode) {
-                case 40: // down
-                case 38: // up
-                case 34: // page down
-                case 32: // space
-                case 33: // page up
-                case 39: // right
-                case 37: // left
-                  keyDown = e.keyCode;
-                  keyDownHandler();
-                  break;
-                case 35: // end
-                  scrollToY(contentHeight - paneHeight);
-                  keyDown = null;
-                  break;
-                case 36: // home
-                  scrollToY(0);
-                  keyDown = null;
-                  break;
-              }
-
-              elementHasScrolled = e.keyCode == keyDown && dX != horizontalDragPosition || dY != verticalDragPosition;
-              return !elementHasScrolled;
-            }
-          ).bind(
-            'keypress.jsp', // For FF/ OSX so that we can cancel the repeat key presses if the JSP scrolls...
-            function(e)
-            {
-              if (e.keyCode == keyDown) {
-                keyDownHandler();
-              }
-              return !elementHasScrolled;
-            }
-          );
-        
-        if (settings.hideFocus) {
-          elem.css('outline', 'none');
-          if ('hideFocus' in container[0]){
-            elem.attr('hideFocus', true);
-          }
-        } else {
-          elem.css('outline', '');
-          if ('hideFocus' in container[0]){
-            elem.attr('hideFocus', false);
-          }
-        }
-        
-        function keyDownHandler()
-        {
-          var dX = horizontalDragPosition, dY = verticalDragPosition;
-          switch(keyDown) {
-            case 40: // down
-              jsp.scrollByY(settings.keyboardSpeed, false);
-              break;
-            case 38: // up
-              jsp.scrollByY(-settings.keyboardSpeed, false);
-              break;
-            case 34: // page down
-            case 32: // space
-              jsp.scrollByY(paneHeight * settings.scrollPagePercent, false);
-              break;
-            case 33: // page up
-              jsp.scrollByY(-paneHeight * settings.scrollPagePercent, false);
-              break;
-            case 39: // right
-              jsp.scrollByX(settings.keyboardSpeed, false);
-              break;
-            case 37: // left
-              jsp.scrollByX(-settings.keyboardSpeed, false);
-              break;
-          }
-
-          elementHasScrolled = dX != horizontalDragPosition || dY != verticalDragPosition;
-          return elementHasScrolled;
-        }
-      }
-      
-      function removeKeyboardNav()
-      {
-        elem.attr('tabindex', '-1')
-          .removeAttr('tabindex')
-          .unbind('keydown.jsp keypress.jsp');
-      }
-
-      function observeHash()
-      {
-        if (location.hash && location.hash.length > 1) {
-          var e,
-            retryInt,
-            hash = escape(location.hash.substr(1)) // hash must be escaped to prevent XSS
-            ;
-          try {
-            e = $('#' + hash + ', a[name="' + hash + '"]');
-          } catch (err) {
-            return;
-          }
-
-          if (e.length && pane.find(hash)) {
-            // nasty workaround but it appears to take a little while before the hash has done its thing
-            // to the rendered page so we just wait until the container's scrollTop has been messed up.
-            if (container.scrollTop() === 0) {
-              retryInt = setInterval(
-                function()
-                {
-                  if (container.scrollTop() > 0) {
-                    scrollToElement(e, true);
-                    $(document).scrollTop(container.position().top);
-                    clearInterval(retryInt);
-                  }
-                },
-                50
-              );
-            } else {
-              scrollToElement(e, true);
-              $(document).scrollTop(container.position().top);
-            }
-          }
-        }
-      }
-
-      function hijackInternalLinks()
-      {
-        // only register the link handler once
-        if ($(document.body).data('jspHijack')) {
-          return;
-        }
-
-        // remember that the handler was bound
-        $(document.body).data('jspHijack', true);
-
-        // use live handler to also capture newly created links
-        $(document.body).delegate('a[href*=#]', 'click', function(event) {
-          // does the link point to the same page?
-          // this also takes care of cases with a <base>-Tag or Links not starting with the hash #
-          // e.g. <a href="index.html#test"> when the current url already is index.html
-          var href = this.href.substr(0, this.href.indexOf('#')),
-            locationHref = location.href,
-            hash,
-            element,
-            container,
-            jsp,
-            scrollTop,
-            elementTop;
-          if (location.href.indexOf('#') !== -1) {
-            locationHref = location.href.substr(0, location.href.indexOf('#'));
-          }
-          if (href !== locationHref) {
-            // the link points to another page
-            return;
-          }
-
-          // check if jScrollPane should handle this click event
-          hash = escape(this.href.substr(this.href.indexOf('#') + 1));
-
-          // find the element on the page
-          element;
-          try {
-            element = $('#' + hash + ', a[name="' + hash + '"]');
-          } catch (e) {
-            // hash is not a valid jQuery identifier
-            return;
-          }
-
-          if (!element.length) {
-            // this link does not point to an element on this page
-            return;
-          }
-
-          container = element.closest('.jspScrollable');
-          jsp = container.data('jsp');
-
-          // jsp might be another jsp instance than the one, that bound this event
-          // remember: this event is only bound once for all instances.
-          jsp.scrollToElement(element, true);
-
-          if (container[0].scrollIntoView) {
-            // also scroll to the top of the container (if it is not visible)
-            scrollTop = $(window).scrollTop();
-            elementTop = element.offset().top;
-            if (elementTop < scrollTop || elementTop > scrollTop + $(window).height()) {
-              container[0].scrollIntoView();
-            }
-          }
-
-          // jsp handled this event, prevent the browser default (scrolling :P)
-          event.preventDefault();
-        });
-      }
-      
-      // Init touch on iPad, iPhone, iPod, Android
-      function initTouch()
-      {
-        var startX,
-          startY,
-          touchStartX,
-          touchStartY,
-          moved,
-          moving = false;
-  
-        container.unbind('touchstart.jsp touchmove.jsp touchend.jsp click.jsp-touchclick').bind(
-          'touchstart.jsp',
-          function(e)
-          {
-            var touch = e.originalEvent.touches[0];
-            startX = contentPositionX();
-            startY = contentPositionY();
-            touchStartX = touch.pageX;
-            touchStartY = touch.pageY;
-            moved = false;
-            moving = true;
-          }
-        ).bind(
-          'touchmove.jsp',
-          function(ev)
-          {
-            if(!moving) {
-              return;
-            }
-            
-            var touchPos = ev.originalEvent.touches[0],
-              dX = horizontalDragPosition, dY = verticalDragPosition;
-            
-            jsp.scrollTo(startX + touchStartX - touchPos.pageX, startY + touchStartY - touchPos.pageY);
-            
-            moved = moved || Math.abs(touchStartX - touchPos.pageX) > 5 || Math.abs(touchStartY - touchPos.pageY) > 5;
-            
-            // return true if there was no movement so rest of screen can scroll
-            return dX == horizontalDragPosition && dY == verticalDragPosition;
-          }
-        ).bind(
-          'touchend.jsp',
-          function(e)
-          {
-            moving = false;
-            /*if(moved) {
-              return false;
-            }*/
-          }
-        ).bind(
-          'click.jsp-touchclick',
-          function(e)
-          {
-            if(moved) {
-              moved = false;
-              return false;
-            }
-          }
-        );
-      }
-      
-      function destroy(){
-        var currentY = contentPositionY(),
-          currentX = contentPositionX();
-        elem.removeClass('jspScrollable').unbind('.jsp');
-        elem.replaceWith(originalElement.append(pane.children()));
-        originalElement.scrollTop(currentY);
-        originalElement.scrollLeft(currentX);
-
-        // clear reinitialize timer if active
-        if (reinitialiseInterval) {
-          clearInterval(reinitialiseInterval);
-        }
-      }
-
-      // Public API
-      $.extend(
-        jsp,
-        {
-          // Reinitialises the scroll pane (if it's internal dimensions have changed since the last time it
-          // was initialised). The settings object which is passed in will override any settings from the
-          // previous time it was initialised - if you don't pass any settings then the ones from the previous
-          // initialisation will be used.
-          reinitialise: function(s)
-          {
-            s = $.extend({}, settings, s);
-            initialise(s);
-          },
-          // Scrolls the specified element (a jQuery object, DOM node or jQuery selector string) into view so
-          // that it can be seen within the viewport. If stickToTop is true then the element will appear at
-          // the top of the viewport, if it is false then the viewport will scroll as little as possible to
-          // show the element. You can also specify if you want animation to occur. If you don't provide this
-          // argument then the animateScroll value from the settings object is used instead.
-          scrollToElement: function(ele, stickToTop, animate)
-          {
-            scrollToElement(ele, stickToTop, animate);
-          },
-          // Scrolls the pane so that the specified co-ordinates within the content are at the top left
-          // of the viewport. animate is optional and if not passed then the value of animateScroll from
-          // the settings object this jScrollPane was initialised with is used.
-          scrollTo: function(destX, destY, animate)
-          {
-            scrollToX(destX, animate);
-            scrollToY(destY, animate);
-          },
-          // Scrolls the pane so that the specified co-ordinate within the content is at the left of the
-          // viewport. animate is optional and if not passed then the value of animateScroll from the settings
-          // object this jScrollPane was initialised with is used.
-          scrollToX: function(destX, animate)
-          {
-            scrollToX(destX, animate);
-          },
-          // Scrolls the pane so that the specified co-ordinate within the content is at the top of the
-          // viewport. animate is optional and if not passed then the value of animateScroll from the settings
-          // object this jScrollPane was initialised with is used.
-          scrollToY: function(destY, animate)
-          {
-            scrollToY(destY, animate);
-          },
-          // Scrolls the pane to the specified percentage of its maximum horizontal scroll position. animate
-          // is optional and if not passed then the value of animateScroll from the settings object this
-          // jScrollPane was initialised with is used.
-          scrollToPercentX: function(destPercentX, animate)
-          {
-            scrollToX(destPercentX * (contentWidth - paneWidth), animate);
-          },
-          // Scrolls the pane to the specified percentage of its maximum vertical scroll position. animate
-          // is optional and if not passed then the value of animateScroll from the settings object this
-          // jScrollPane was initialised with is used.
-          scrollToPercentY: function(destPercentY, animate)
-          {
-            scrollToY(destPercentY * (contentHeight - paneHeight), animate);
-          },
-          // Scrolls the pane by the specified amount of pixels. animate is optional and if not passed then
-          // the value of animateScroll from the settings object this jScrollPane was initialised with is used.
-          scrollBy: function(deltaX, deltaY, animate)
-          {
-            jsp.scrollByX(deltaX, animate);
-            jsp.scrollByY(deltaY, animate);
-          },
-          // Scrolls the pane by the specified amount of pixels. animate is optional and if not passed then
-          // the value of animateScroll from the settings object this jScrollPane was initialised with is used.
-          scrollByX: function(deltaX, animate)
-          {
-            var destX = contentPositionX() + Math[deltaX<0 ? 'floor' : 'ceil'](deltaX),
-              percentScrolled = destX / (contentWidth - paneWidth);
-            positionDragX(percentScrolled * dragMaxX, animate);
-          },
-          // Scrolls the pane by the specified amount of pixels. animate is optional and if not passed then
-          // the value of animateScroll from the settings object this jScrollPane was initialised with is used.
-          scrollByY: function(deltaY, animate)
-          {
-            var destY = contentPositionY() + Math[deltaY<0 ? 'floor' : 'ceil'](deltaY),
-              percentScrolled = destY / (contentHeight - paneHeight);
-            positionDragY(percentScrolled * dragMaxY, animate);
-          },
-          // Positions the horizontal drag at the specified x position (and updates the viewport to reflect
-          // this). animate is optional and if not passed then the value of animateScroll from the settings
-          // object this jScrollPane was initialised with is used.
-          positionDragX: function(x, animate)
-          {
-            positionDragX(x, animate);
-          },
-          // Positions the vertical drag at the specified y position (and updates the viewport to reflect
-          // this). animate is optional and if not passed then the value of animateScroll from the settings
-          // object this jScrollPane was initialised with is used.
-          positionDragY: function(y, animate)
-          {
-            positionDragY(y, animate);
-          },
-          // This method is called when jScrollPane is trying to animate to a new position. You can override
-          // it if you want to provide advanced animation functionality. It is passed the following arguments:
-          //  * ele          - the element whose position is being animated
-          //  * prop         - the property that is being animated
-          //  * value        - the value it's being animated to
-          //  * stepCallback - a function that you must execute each time you update the value of the property
-          // You can use the default implementation (below) as a starting point for your own implementation.
-          animate: function(ele, prop, value, stepCallback)
-          {
-            var params = {};
-            params[prop] = value;
-            ele.animate(
-              params,
-              {
-                'duration'  : settings.animateDuration,
-                'easing'  : settings.animateEase,
-                'queue'   : false,
-                'step'    : stepCallback
-              }
-            );
-          },
-          // Returns the current x position of the viewport with regards to the content pane.
-          getContentPositionX: function()
-          {
-            return contentPositionX();
-          },
-          // Returns the current y position of the viewport with regards to the content pane.
-          getContentPositionY: function()
-          {
-            return contentPositionY();
-          },
-          // Returns the width of the content within the scroll pane.
-          getContentWidth: function()
-          {
-            return contentWidth;
-          },
-          // Returns the height of the content within the scroll pane.
-          getContentHeight: function()
-          {
-            return contentHeight;
-          },
-          // Returns the horizontal position of the viewport within the pane content.
-          getPercentScrolledX: function()
-          {
-            return contentPositionX() / (contentWidth - paneWidth);
-          },
-          // Returns the vertical position of the viewport within the pane content.
-          getPercentScrolledY: function()
-          {
-            return contentPositionY() / (contentHeight - paneHeight);
-          },
-          // Returns whether or not this scrollpane has a horizontal scrollbar.
-          getIsScrollableH: function()
-          {
-            return isScrollableH;
-          },
-          // Returns whether or not this scrollpane has a vertical scrollbar.
-          getIsScrollableV: function()
-          {
-            return isScrollableV;
-          },
-          // Gets a reference to the content pane. It is important that you use this method if you want to
-          // edit the content of your jScrollPane as if you access the element directly then you may have some
-          // problems (as your original element has had additional elements for the scrollbars etc added into
-          // it).
-          getContentPane: function()
-          {
-            return pane;
-          },
-          // Scrolls this jScrollPane down as far as it can currently scroll. If animate isn't passed then the
-          // animateScroll value from settings is used instead.
-          scrollToBottom: function(animate)
-          {
-            positionDragY(dragMaxY, animate);
-          },
-          // Hijacks the links on the page which link to content inside the scrollpane. If you have changed
-          // the content of your page (e.g. via AJAX) and want to make sure any new anchor links to the
-          // contents of your scroll pane will work then call this function.
-          hijackInternalLinks: $.noop,
-          // Removes the jScrollPane and returns the page to the state it was in before jScrollPane was
-          // initialised.
-          destroy: function()
-          {
-              destroy();
-          }
-        }
-      );
-      
-      initialise(s);
-    }
-
-    // Pluginifying code...
-    settings = $.extend({}, $.fn.jScrollPane.defaults, settings);
-    
-    // Apply default speed
-    $.each(['mouseWheelSpeed', 'arrowButtonSpeed', 'trackClickSpeed', 'keyboardSpeed'], function() {
-      settings[this] = settings[this] || settings.speed;
-    });
-
-    return this.each(
-      function()
-      {
-        var elem = $(this), jspApi = elem.data('jsp');
-        if (jspApi) {
-          jspApi.reinitialise(settings);
-        } else {
-          $("script",elem).filter('[type="text/javascript"],:not([type])').remove();
-          jspApi = new JScrollPane(elem, settings);
-          elem.data('jsp', jspApi);
-        }
-      }
-    );
-  };
-
-  $.fn.jScrollPane.defaults = {
-    showArrows          : false,
-    maintainPosition      : true,
-    stickToBottom       : false,
-    stickToRight        : false,
-    clickOnTrack        : true,
-    autoReinitialise      : false,
-    autoReinitialiseDelay   : 500,
-    verticalDragMinHeight   : 0,
-    verticalDragMaxHeight   : 99999,
-    horizontalDragMinWidth    : 0,
-    horizontalDragMaxWidth    : 99999,
-    contentWidth        : undefined,
-    animateScroll       : false,
-    animateDuration       : 300,
-    animateEase         : 'linear',
-    hijackInternalLinks     : false,
-    verticalGutter        : 4,
-    horizontalGutter      : 4,
-    mouseWheelSpeed       : 0,
-    arrowButtonSpeed      : 0,
-    arrowRepeatFreq       : 50,
-    arrowScrollOnHover      : false,
-    trackClickSpeed       : 0,
-    trackClickRepeatFreq    : 70,
-    verticalArrowPositions    : 'split',
-    horizontalArrowPositions  : 'split',
-    enableKeyboardNavigation  : true,
-    hideFocus         : false,
-    keyboardSpeed       : 0,
-    initialDelay                : 300,        // Delay before starting repeating
-    speed           : 30,   // Default speed when others falsey
-    scrollPagePercent     : .8    // Percent of visible area scrolled when pageUp/Down or track area pressed
-  };
-
-})(jQuery,this);
-
-}).call(global, module, undefined, undefined);
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":2}],238:[function(require,module,exports){
+},{}],235:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 var LZMA = (function () {
@@ -60928,7 +58787,7 @@ this.LZMA = LZMA;
 }).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],239:[function(require,module,exports){
+},{}],236:[function(require,module,exports){
 (function (global){
 
 ; jQuery = global.jQuery = require("jquery");
@@ -61020,7 +58879,7 @@ function handler(event) {
 }).call(global, module, undefined, undefined);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":2}],240:[function(require,module,exports){
+},{"jquery":2}],237:[function(require,module,exports){
 (function (global){
 
 ; jQuery = global.jQuery = require("jquery");
@@ -61106,7 +58965,7 @@ function handler(event) {
 }).call(global, module, undefined, undefined);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":2}],241:[function(require,module,exports){
+},{"jquery":2}],238:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /* wax - 7.0.1 - v6.0.4-181-ga34788e */
@@ -64485,11 +62344,11 @@ wax.g.connector.prototype.getTileUrl = function(coord, z) {
 }).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],242:[function(require,module,exports){
+},{}],239:[function(require,module,exports){
 module.exports = require(1);
-},{"dup":1,"jquery":251,"underscore":274}],243:[function(require,module,exports){
+},{"dup":1,"jquery":248,"underscore":271}],240:[function(require,module,exports){
 
-},{}],244:[function(require,module,exports){
+},{}],241:[function(require,module,exports){
 // http://wiki.commonjs.org/wiki/Unit_Testing/1.0
 //
 // THIS IS NOT TESTED NOR LIKELY TO WORK OUTSIDE V8!
@@ -64850,7 +62709,7 @@ var objectKeys = Object.keys || function (obj) {
   return keys;
 };
 
-},{"util/":249}],245:[function(require,module,exports){
+},{"util/":246}],242:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -64875,7 +62734,7 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],246:[function(require,module,exports){
+},{}],243:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -65103,7 +62962,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":247}],247:[function(require,module,exports){
+},{"_process":244}],244:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -65196,14 +63055,14 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],248:[function(require,module,exports){
+},{}],245:[function(require,module,exports){
 module.exports = function isBuffer(arg) {
   return arg && typeof arg === 'object'
     && typeof arg.copy === 'function'
     && typeof arg.fill === 'function'
     && typeof arg.readUInt8 === 'function';
 }
-},{}],249:[function(require,module,exports){
+},{}],246:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -65793,7 +63652,7 @@ function hasOwnProperty(obj, prop) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":248,"_process":247,"inherits":245}],250:[function(require,module,exports){
+},{"./support/isBuffer":245,"_process":244,"inherits":242}],247:[function(require,module,exports){
 !function() {
   var d3 = {
     version: "3.5.8"
@@ -75344,9 +73203,9 @@ function hasOwnProperty(obj, prop) {
   });
   if (typeof define === "function" && define.amd) define(this.d3 = d3); else if (typeof module === "object" && module.exports) module.exports = d3; else this.d3 = d3;
 }();
-},{}],251:[function(require,module,exports){
+},{}],248:[function(require,module,exports){
 module.exports = require(2);
-},{"dup":2}],252:[function(require,module,exports){
+},{"dup":2}],249:[function(require,module,exports){
 //! moment.js
 //! version : 2.10.6
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
@@ -78542,51 +76401,51 @@ module.exports = require(2);
     return _moment;
 
 }));
-},{}],253:[function(require,module,exports){
+},{}],250:[function(require,module,exports){
 module.exports = require(5);
-},{"./src/js/main":259,"dup":5}],254:[function(require,module,exports){
+},{"./src/js/main":256,"dup":5}],251:[function(require,module,exports){
 arguments[4][6][0].apply(exports,arguments)
-},{"dup":6}],255:[function(require,module,exports){
+},{"dup":6}],252:[function(require,module,exports){
 arguments[4][7][0].apply(exports,arguments)
-},{"dup":7}],256:[function(require,module,exports){
+},{"dup":7}],253:[function(require,module,exports){
 arguments[4][8][0].apply(exports,arguments)
-},{"dup":8}],257:[function(require,module,exports){
+},{"dup":8}],254:[function(require,module,exports){
 arguments[4][9][0].apply(exports,arguments)
-},{"dup":9}],258:[function(require,module,exports){
+},{"dup":9}],255:[function(require,module,exports){
 arguments[4][10][0].apply(exports,arguments)
-},{"./class":254,"./dom":255,"dup":10}],259:[function(require,module,exports){
+},{"./class":251,"./dom":252,"dup":10}],256:[function(require,module,exports){
 arguments[4][11][0].apply(exports,arguments)
-},{"./plugin/destroy":261,"./plugin/initialize":269,"./plugin/update":273,"dup":11}],260:[function(require,module,exports){
+},{"./plugin/destroy":258,"./plugin/initialize":266,"./plugin/update":270,"dup":11}],257:[function(require,module,exports){
 arguments[4][12][0].apply(exports,arguments)
-},{"dup":12}],261:[function(require,module,exports){
+},{"dup":12}],258:[function(require,module,exports){
 arguments[4][13][0].apply(exports,arguments)
-},{"../lib/dom":255,"../lib/helper":258,"./instances":270,"dup":13}],262:[function(require,module,exports){
+},{"../lib/dom":252,"../lib/helper":255,"./instances":267,"dup":13}],259:[function(require,module,exports){
 arguments[4][14][0].apply(exports,arguments)
-},{"../../lib/helper":258,"../instances":270,"../update-geometry":271,"../update-scroll":272,"dup":14}],263:[function(require,module,exports){
+},{"../../lib/helper":255,"../instances":267,"../update-geometry":268,"../update-scroll":269,"dup":14}],260:[function(require,module,exports){
 arguments[4][15][0].apply(exports,arguments)
-},{"../../lib/dom":255,"../../lib/helper":258,"../instances":270,"../update-geometry":271,"../update-scroll":272,"dup":15}],264:[function(require,module,exports){
+},{"../../lib/dom":252,"../../lib/helper":255,"../instances":267,"../update-geometry":268,"../update-scroll":269,"dup":15}],261:[function(require,module,exports){
 arguments[4][16][0].apply(exports,arguments)
-},{"../../lib/helper":258,"../instances":270,"../update-geometry":271,"../update-scroll":272,"dup":16}],265:[function(require,module,exports){
+},{"../../lib/helper":255,"../instances":267,"../update-geometry":268,"../update-scroll":269,"dup":16}],262:[function(require,module,exports){
 arguments[4][17][0].apply(exports,arguments)
-},{"../../lib/helper":258,"../instances":270,"../update-geometry":271,"../update-scroll":272,"dup":17}],266:[function(require,module,exports){
+},{"../../lib/helper":255,"../instances":267,"../update-geometry":268,"../update-scroll":269,"dup":17}],263:[function(require,module,exports){
 arguments[4][18][0].apply(exports,arguments)
-},{"../instances":270,"../update-geometry":271,"dup":18}],267:[function(require,module,exports){
+},{"../instances":267,"../update-geometry":268,"dup":18}],264:[function(require,module,exports){
 arguments[4][19][0].apply(exports,arguments)
-},{"../../lib/helper":258,"../instances":270,"../update-geometry":271,"../update-scroll":272,"dup":19}],268:[function(require,module,exports){
+},{"../../lib/helper":255,"../instances":267,"../update-geometry":268,"../update-scroll":269,"dup":19}],265:[function(require,module,exports){
 arguments[4][20][0].apply(exports,arguments)
-},{"../instances":270,"../update-geometry":271,"../update-scroll":272,"dup":20}],269:[function(require,module,exports){
+},{"../instances":267,"../update-geometry":268,"../update-scroll":269,"dup":20}],266:[function(require,module,exports){
 arguments[4][21][0].apply(exports,arguments)
-},{"../lib/class":254,"../lib/helper":258,"./handler/click-rail":262,"./handler/drag-scrollbar":263,"./handler/keyboard":264,"./handler/mouse-wheel":265,"./handler/native-scroll":266,"./handler/selection":267,"./handler/touch":268,"./instances":270,"./update-geometry":271,"dup":21}],270:[function(require,module,exports){
+},{"../lib/class":251,"../lib/helper":255,"./handler/click-rail":259,"./handler/drag-scrollbar":260,"./handler/keyboard":261,"./handler/mouse-wheel":262,"./handler/native-scroll":263,"./handler/selection":264,"./handler/touch":265,"./instances":267,"./update-geometry":268,"dup":21}],267:[function(require,module,exports){
 arguments[4][22][0].apply(exports,arguments)
-},{"../lib/dom":255,"../lib/event-manager":256,"../lib/guid":257,"../lib/helper":258,"./default-setting":260,"dup":22}],271:[function(require,module,exports){
+},{"../lib/dom":252,"../lib/event-manager":253,"../lib/guid":254,"../lib/helper":255,"./default-setting":257,"dup":22}],268:[function(require,module,exports){
 arguments[4][23][0].apply(exports,arguments)
-},{"../lib/class":254,"../lib/dom":255,"../lib/helper":258,"./instances":270,"./update-scroll":272,"dup":23}],272:[function(require,module,exports){
+},{"../lib/class":251,"../lib/dom":252,"../lib/helper":255,"./instances":267,"./update-scroll":269,"dup":23}],269:[function(require,module,exports){
 arguments[4][24][0].apply(exports,arguments)
-},{"./instances":270,"dup":24}],273:[function(require,module,exports){
+},{"./instances":267,"dup":24}],270:[function(require,module,exports){
 arguments[4][25][0].apply(exports,arguments)
-},{"../lib/dom":255,"../lib/helper":258,"./instances":270,"./update-geometry":271,"dup":25}],274:[function(require,module,exports){
+},{"../lib/dom":252,"../lib/helper":255,"./instances":267,"./update-geometry":268,"dup":25}],271:[function(require,module,exports){
 module.exports = require(93);
-},{"dup":93}],275:[function(require,module,exports){
+},{"dup":93}],272:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 var DashboardView = require('./dashboard-view');
@@ -78757,7 +76616,7 @@ module.exports = function (selector, diJSON, visOpts) {
   };
 };
 
-},{"./dashboard-view":281,"./widgets/category/model":297,"./widgets/formula/model":317,"./widgets/histogram/model":325,"./widgets/list/model":333,"./widgets/widget-model-factory":358,"./widgets/widgets-collection":363,"./windshaft/client":364,"./windshaft/config":365,"./windshaft/dashboard":367,"./windshaft/filters/category":370,"./windshaft/filters/range":372,"./windshaft/private-dashboard-config":373,"./windshaft/public-dashboard-config":374,"cartodb.js":210,"underscore":274}],276:[function(require,module,exports){
+},{"./dashboard-view":278,"./widgets/category/model":294,"./widgets/formula/model":316,"./widgets/histogram/model":324,"./widgets/list/model":332,"./widgets/widget-model-factory":357,"./widgets/widgets-collection":362,"./windshaft/client":363,"./windshaft/config":364,"./windshaft/dashboard":366,"./windshaft/filters/category":369,"./windshaft/filters/range":371,"./windshaft/private-dashboard-config":372,"./windshaft/public-dashboard-config":373,"cartodb.js":208,"underscore":271}],273:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 var WidgetViewFactory = require('./widgets/widget-view-factory');
@@ -78828,7 +76687,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"./widgets/time-series/content-view":341,"./widgets/time-series/torque-content-view":344,"./widgets/widget-view-factory":361,"cartodb.js":210,"underscore":274}],277:[function(require,module,exports){
+},{"./widgets/time-series/content-view":340,"./widgets/time-series/torque-content-view":343,"./widgets/widget-view-factory":360,"cartodb.js":208,"underscore":271}],274:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var template = require('./dashboard-info-view.tpl');
 var moment = require('moment');
@@ -78861,7 +76720,7 @@ var DashboardInfoView = cdb.core.View.extend({
 
 module.exports = DashboardInfoView;
 
-},{"./dashboard-info-view.tpl":278,"cartodb.js":210,"moment":252}],278:[function(require,module,exports){
+},{"./dashboard-info-view.tpl":275,"cartodb.js":208,"moment":249}],275:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -78883,7 +76742,7 @@ __p+='<div class="CDB-Dashboard-infoInner"> <div class="CDB-Dashboard-infoHeader
 return __p;
 };
 
-},{"underscore":274}],279:[function(require,module,exports){
+},{"underscore":271}],276:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var Ps = require('perfect-scrollbar');
@@ -79032,7 +76891,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"./dashboard-sidebar.tpl":280,"./widgets/category/content-view":287,"./widgets/formula/content-view":316,"./widgets/histogram/content-view":321,"./widgets/list/content-view":328,"./widgets/widget-view-factory":361,"cartodb.js":210,"jquery":251,"perfect-scrollbar":253,"underscore":274}],280:[function(require,module,exports){
+},{"./dashboard-sidebar.tpl":277,"./widgets/category/content-view":284,"./widgets/formula/content-view":315,"./widgets/histogram/content-view":320,"./widgets/list/content-view":327,"./widgets/widget-view-factory":360,"cartodb.js":208,"jquery":248,"perfect-scrollbar":250,"underscore":271}],277:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -79042,7 +76901,7 @@ __p+='<div class="CDB-Widget-canvasInner js-container"></div>';
 return __p;
 };
 
-},{"underscore":274}],281:[function(require,module,exports){
+},{"underscore":271}],278:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var template = require('./dashboard.tpl');
 var DashboardBelowMapView = require('./dashboard-below-map-view');
@@ -79091,7 +76950,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"./dashboard-below-map-view":276,"./dashboard-info-view":277,"./dashboard-sidebar-view":279,"./dashboard.tpl":282,"cartodb.js":210}],282:[function(require,module,exports){
+},{"./dashboard-below-map-view":273,"./dashboard-info-view":274,"./dashboard-sidebar-view":276,"./dashboard.tpl":279,"cartodb.js":208}],279:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -79101,7 +76960,7 @@ __p+='<div class="CDB-Dashboard-mapWrapper CDB-Dashboard-mapWrapper--margin js-m
 return __p;
 };
 
-},{"underscore":274}],283:[function(require,module,exports){
+},{"underscore":271}],280:[function(require,module,exports){
 var _ = require('underscore');
 var d3 = require('d3');
 
@@ -79145,7 +77004,7 @@ format.formatValue = function (value) {
 
 module.exports = format;
 
-},{"d3":250,"underscore":274}],284:[function(require,module,exports){
+},{"d3":247,"underscore":271}],281:[function(require,module,exports){
 var cdb = require('cartodb.js');
 
 cdb.deepInsights = {
@@ -79154,7 +77013,7 @@ cdb.deepInsights = {
 
 module.exports = cdb;
 
-},{"./create-dashboard":275,"cartodb.js":210}],285:[function(require,module,exports){
+},{"./create-dashboard":272,"cartodb.js":208}],282:[function(require,module,exports){
 var _ = require('underscore');
 var d3 = require('d3');
 var cdb = require('cartodb.js');
@@ -79170,7 +77029,10 @@ module.exports = cdb.core.View.extend({
     var templateData = options.templateData || {};
     var debounceWait = options.debounceWait || 500;
 
+    var hasDecimals = (to % 1 === 0);
+
     var stepValue = function (i) {
+      i = hasDecimals ? Math.round(i) : i;
       var value = (_.isNaN(i) || i === undefined) ? (options.defaultValue || 0) : formatter(i);
       var data = _.extend({ value: value }, templateData);
       $el.text(template(data));
@@ -79206,7 +77068,10 @@ module.exports = cdb.core.View.extend({
     var formatter = options.formatter || d3.format('0,000');
     var templateData = options.templateData || {};
 
+    var hasDecimals = (to % 1 === 0);
+
     var stepValue = function (i) {
+      i = hasDecimals ? Math.round(i) : i;
       value = (_.isNaN(i) || i === undefined) ? (options.defaultValue || 0) : formatter(i);
       var data = _.extend({ value: value }, templateData);
       $el.text(template(data));
@@ -79242,7 +77107,10 @@ module.exports = cdb.core.View.extend({
     var formatter = options.formatter || d3.format('0,000');
     var templateData = options.templateData || {};
 
+    var hasDecimals = (to % 1 === 0);
+
     var stepValue = function (i) {
+      i = hasDecimals ? Math.round(i) : i;
       var value = (_.isNaN(i) || i === undefined) ? (options.defaultValue || 0) : formatter(i);
       var data = _.extend({ value: value }, templateData);
       $el.text(template(data));
@@ -79267,7 +77135,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"cartodb.js":210,"d3":250,"underscore":274}],286:[function(require,module,exports){
+},{"cartodb.js":208,"d3":247,"underscore":271}],283:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -79277,7 +77145,7 @@ __p+='<div class="CDB-Widget-header js-header"></div> <div class="CDB-Widget-con
 return __p;
 };
 
-},{"underscore":274}],287:[function(require,module,exports){
+},{"underscore":271}],284:[function(require,module,exports){
 var WidgetContent = require('../standard/widget-content-view');
 var SearchTitleView = require('./title/search-title-view');
 var CategoryOptionsView = require('./options/options-view');
@@ -79376,7 +77244,7 @@ module.exports = WidgetContent.extend({
 
 });
 
-},{"../standard/widget-content-view":336,"../widget-content-model":357,"./content-template.tpl":286,"./list/items-view":294,"./list/search-items-view":296,"./options/options-view":305,"./paginator/paginator-view":307,"./paginator/search-paginator-view":309,"./stats/stats-view":312,"./title/search-title-view":314}],288:[function(require,module,exports){
+},{"../standard/widget-content-view":335,"../widget-content-model":356,"./content-template.tpl":283,"./list/items-view":291,"./list/search-items-view":293,"./options/options-view":302,"./paginator/paginator-view":304,"./paginator/search-paginator-view":306,"./stats/stats-view":309,"./title/search-title-view":311}],285:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -79406,7 +77274,7 @@ __p+='<button type="button" class="CDB-Widget-listItemInner CDB-Widget-listButto
 return __p;
 };
 
-},{"underscore":274}],289:[function(require,module,exports){
+},{"underscore":271}],286:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -79436,7 +77304,7 @@ __p+='<div class="CDB-Widget-listItemInner '+
 return __p;
 };
 
-},{"underscore":274}],290:[function(require,module,exports){
+},{"underscore":271}],287:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var formatter = require('../../../../formatter');
 var clickableTemplate = require('./item-clickable-template.tpl');
@@ -79494,7 +77362,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"../../../../formatter":283,"./item-clickable-template.tpl":288,"./item-unclickable-template.tpl":289,"cartodb.js":210}],291:[function(require,module,exports){
+},{"../../../../formatter":280,"./item-clickable-template.tpl":285,"./item-unclickable-template.tpl":286,"cartodb.js":208}],288:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -79522,7 +77390,7 @@ __p+='<button type="button" class="CDB-Widget-listItemInner CDB-Widget-listItemI
 return __p;
 };
 
-},{"underscore":274}],292:[function(require,module,exports){
+},{"underscore":271}],289:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var formatter = require('../../../../formatter');
 var template = require('./search-item-clickable-template.tpl');
@@ -79574,7 +77442,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"../../../../formatter":283,"./search-item-clickable-template.tpl":291,"cartodb.js":210}],293:[function(require,module,exports){
+},{"../../../../formatter":280,"./search-item-clickable-template.tpl":288,"cartodb.js":208}],290:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -79584,7 +77452,7 @@ __p+='<li class="CDB-Widget-listItem CDB-Widget-listItem--fake"></li> <li class=
 return __p;
 };
 
-},{"underscore":274}],294:[function(require,module,exports){
+},{"underscore":271}],291:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var cdb = require('cartodb.js');
@@ -79702,7 +77570,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"./item/item-view":290,"./items-placeholder-template.tpl":293,"cartodb.js":210,"jquery":251,"underscore":274}],295:[function(require,module,exports){
+},{"./item/item-view":287,"./items-placeholder-template.tpl":290,"cartodb.js":208,"jquery":248,"underscore":271}],292:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -79714,7 +77582,7 @@ __p+='<li class="CDB-Widget-listItem"> <h4 class="CDB-Widget-textBig CDB-Widget-
 return __p;
 };
 
-},{"underscore":274}],296:[function(require,module,exports){
+},{"underscore":271}],293:[function(require,module,exports){
 var $ = require('jquery');
 var CategoryItemsView = require('./items-view');
 var WidgetSearchCategoryItemView = require('./item/search-item-view');
@@ -79784,7 +77652,7 @@ module.exports = CategoryItemsView.extend({
 
 });
 
-},{"./item/search-item-view":292,"./items-view":294,"./search-items-no-results-template.tpl":295,"jquery":251}],297:[function(require,module,exports){
+},{"./item/search-item-view":289,"./items-view":291,"./search-items-no-results-template.tpl":292,"jquery":248}],294:[function(require,module,exports){
 var _ = require('underscore');
 var CategoryColors = require('./models/category-colors');
 var WidgetModel = require('../widget-model');
@@ -79844,8 +77712,11 @@ module.exports = WidgetModel.extend({
   _onChangeBinds: function () {
     this._setInternalModels();
 
-    this.rangeModel.bind('change:totalCount', function (mdl, value) {
-      this.set('totalCount', value);
+    this.rangeModel.bind('change:totalCount change:categoriesCount', function () {
+      this.set({
+        totalCount: this.rangeModel.get('totalCount'),
+        categoriesCount: this.rangeModel.get('categoriesCount')
+      });
     }, this);
 
     this.bind('change:url', function () {
@@ -80143,8 +78014,7 @@ module.exports = WidgetModel.extend({
       nulls: d.nulls,
       min: d.min,
       max: d.max,
-      count: d.count,
-      categoriesCount: d.categoriesCount
+      count: d.count
     }
     );
     this._data.reset(attrs.data);
@@ -80169,7 +78039,7 @@ module.exports = WidgetModel.extend({
 
 });
 
-},{"../widget-model":359,"./models/categories-collection":298,"./models/category-colors":299,"./models/category-model-range":301,"./models/locked-categories-collection":302,"./models/search-model":303,"underscore":274}],298:[function(require,module,exports){
+},{"../widget-model":358,"./models/categories-collection":295,"./models/category-colors":296,"./models/category-model-range":298,"./models/locked-categories-collection":299,"./models/search-model":300,"underscore":271}],295:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var CategoryItemModel = require('./category-item-model');
 
@@ -80203,7 +78073,7 @@ module.exports = cdb.Backbone.Collection.extend({
 
 });
 
-},{"./category-item-model":300,"cartodb.js":210}],299:[function(require,module,exports){
+},{"./category-item-model":297,"cartodb.js":208}],296:[function(require,module,exports){
 var _ = require('underscore');
 var categoryColors = ['#2CA095', '#E5811B', '#4A4DBA', '#AD2BAD', '#559030', '#E1C221']; // Demo colors
 var defaultColor = '#CCC';
@@ -80266,7 +78136,7 @@ CategoryColors.prototype.getCategoryByColor = function (color) {
 
 module.exports = CategoryColors;
 
-},{"underscore":274}],300:[function(require,module,exports){
+},{"underscore":271}],297:[function(require,module,exports){
 var cdb = require('cartodb.js');
 
 /**
@@ -80282,7 +78152,7 @@ module.exports = cdb.core.Model.extend({
 
 });
 
-},{"cartodb.js":210}],301:[function(require,module,exports){
+},{"cartodb.js":208}],298:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 
@@ -80295,7 +78165,8 @@ var cdb = require('cartodb.js');
 module.exports = cdb.core.Model.extend({
   defaults: {
     url: '',
-    totalCount: 0
+    totalCount: 0,
+    categoriesCount: 0
   },
 
   url: function () {
@@ -80315,8 +78186,8 @@ module.exports = cdb.core.Model.extend({
   parse: function (d) {
     // Calculating the total amount of all categories with the sum of all
     // values from this model included the aggregated (Other)
-
     return {
+      categoriesCount: d.categoriesCount,
       totalCount: _.reduce(
         _.pluck(d.categories, 'value'),
         function (memo, value) {
@@ -80328,7 +78199,7 @@ module.exports = cdb.core.Model.extend({
   }
 });
 
-},{"cartodb.js":210,"underscore":274}],302:[function(require,module,exports){
+},{"cartodb.js":208,"underscore":271}],299:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 var CategoryItemModel = require('./category-item-model');
@@ -80382,7 +78253,7 @@ module.exports = cdb.Backbone.Collection.extend({
 
 });
 
-},{"./category-item-model":300,"cartodb.js":210,"underscore":274}],303:[function(require,module,exports){
+},{"./category-item-model":297,"cartodb.js":208,"underscore":271}],300:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 var CategoriesCollection = require('./categories-collection');
@@ -80505,7 +78376,7 @@ module.exports = cdb.core.Model.extend({
 
 });
 
-},{"./categories-collection":298,"cartodb.js":210,"underscore":274}],304:[function(require,module,exports){
+},{"./categories-collection":295,"cartodb.js":208,"underscore":271}],301:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -80521,6 +78392,8 @@ __p+=' <p class="CDB-Widget-textSmaller CDB-Widget-textSmaller--bold CDB-Widget-
 __p+=' '+
 ((__t=( totalCats ))==null?'':_.escape(__t))+
 ' blocked <button class="CDB-Widget-link u-lSpace js-unlock">unlock</button> ';
+ } else if (isAllRejected) { 
+__p+=' None selected ';
  } else { 
 __p+=' '+
 ((__t=( rejectedCats === 0 && acceptedCats === 0 || acceptedCats >= totalCats ? "All selected" : acceptedCats + " selected" ))==null?'':_.escape(__t))+
@@ -80549,7 +78422,7 @@ __p+='';
 return __p;
 };
 
-},{"underscore":274}],305:[function(require,module,exports){
+},{"underscore":271}],302:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var template = require('./options-template.tpl');
 
@@ -80619,12 +78492,16 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"./options-template.tpl":304,"cartodb.js":210}],306:[function(require,module,exports){
+},{"./options-template.tpl":301,"cartodb.js":208}],303:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
 with(obj||{}){
-__p+='<div class="CDB-Widget-contentFlex"> <button class="u-rSpace--m CDB-Widget-buttonIcon CDB-Widget-textSmaller CDB-Widget-textSmaller--upper js-searchToggle"> <i class="CDB-Icon CDB-Icon--center CDB-Icon-lens u-rSpace"></i> <span class="u-iBlock"> search </span> </button> </div> ';
+__p+='<div class="CDB-Widget-contentFlex"> <button class="u-rSpace--m CDB-Widget-buttonIcon CDB-Widget-textSmaller CDB-Widget-textSmaller--upper js-searchToggle"> <i class="CDB-Icon CDB-Icon--center CDB-Icon-lens u-rSpace"></i> <span class="u-iBlock"> search in '+
+((__t=( categoriesCount ))==null?'':_.escape(__t))+
+' categor'+
+((__t=( categoriesCount === 1 ? 'y' : 'ies' ))==null?'':_.escape(__t))+
+' </span> </button> </div> ';
  if (showPaginator) { 
 __p+=' <div class="CDB-Widget-navDots js-dots"> ';
  for (var i = 0, l = pages; i < l; i++) { 
@@ -80643,11 +78520,17 @@ __p+='';
 return __p;
 };
 
-},{"underscore":274}],307:[function(require,module,exports){
+},{"underscore":271}],304:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 var defaultTemplate = require('./paginator-template.tpl');
+var MINCATEGORIES = 5;
+
+/**
+ *  Display paginator for category widget
+ *
+ */
 
 module.exports = cdb.core.View.extend({
   options: {
@@ -80676,15 +78559,22 @@ module.exports = cdb.core.View.extend({
   render: function () {
     this.clearSubViews();
     this.$el.empty();
-    var pages = Math.ceil(this.dataModel.getSize() / this.options.itemsPerPage);
-    var template = this.options.template;
-    this.$el.html(
-      template({
-        showPaginator: this.options.paginator,
-        currentPage: this.model.get('page'),
-        pages: pages
-      })
-    );
+    var categoriesCount = this.dataModel.getCount();
+
+    if (categoriesCount > MINCATEGORIES) {
+      var pages = Math.ceil(this.dataModel.getSize() / this.options.itemsPerPage);
+      var template = this.options.template;
+      this.$el.html(
+        template({
+          showPaginator: this.options.paginator,
+          currentPage: this.model.get('page'),
+          categoriesCount: categoriesCount,
+          pages: pages
+        })
+      );
+    } else {
+      this.model.set('page', 0);
+    }
     this._scrollToPage();
 
     return this;
@@ -80693,6 +78583,7 @@ module.exports = cdb.core.View.extend({
   _initBinds: function () {
     $(window).bind('resize.' + this.cid, _.bind(this._scrollToPage, this));
     this.model.bind('change:page', this.render, this);
+    this.dataModel.bind('change:categoriesCount', this.render, this);
     this.dataModel.bind('change:data change:searchData', function () {
       this._setPage();
       this.render();
@@ -80746,7 +78637,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"./paginator-template.tpl":306,"cartodb.js":210,"jquery":251,"underscore":274}],308:[function(require,module,exports){
+},{"./paginator-template.tpl":303,"cartodb.js":208,"jquery":248,"underscore":271}],305:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -80770,7 +78661,7 @@ __p+='';
 return __p;
 };
 
-},{"underscore":274}],309:[function(require,module,exports){
+},{"underscore":271}],306:[function(require,module,exports){
 var PaginatorView = require('./paginator-view');
 var searchTemplate = require('./search-paginator-template.tpl');
 
@@ -80812,7 +78703,7 @@ module.exports = PaginatorView.extend({
 
 });
 
-},{"./paginator-view":307,"./search-paginator-template.tpl":308}],310:[function(require,module,exports){
+},{"./paginator-view":304,"./search-paginator-template.tpl":305}],307:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -80824,7 +78715,7 @@ __p+=''+
 return __p;
 };
 
-},{"underscore":274}],311:[function(require,module,exports){
+},{"underscore":271}],308:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -80845,20 +78736,14 @@ __p+=' <dt class="CDB-Widget-infoItem">'+
 ((__t=( nullsPer ))==null?'':_.escape(__t))+
 '% null rows</dt> <dt class="CDB-Widget-infoItem"> <span class="js-cats">'+
 ((__t=( catsPer ))==null?'':_.escape(__t))+
-'</span>% in '+
-((__t=( !isLocked && isOtherAvailable ? "top" : "" ))==null?'':_.escape(__t))+
-' '+
-((__t=( totalCats ))==null?'':_.escape(__t))+
-' categor'+
-((__t=( totalCats !== 1 ? 'ies' : 'y' ))==null?'':_.escape(__t))+
-' </dt> ';
+'</span>% of total </dt> ';
  } 
 __p+='';
 }
 return __p;
 };
 
-},{"underscore":274}],312:[function(require,module,exports){
+},{"underscore":271}],309:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 var formatter = require('../../../formatter');
@@ -80955,7 +78840,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"../../../formatter":283,"../../animate-values":285,"./cats-template.tpl":310,"./stats-template.tpl":311,"cartodb.js":210,"underscore":274}],313:[function(require,module,exports){
+},{"../../../formatter":280,"../../animate-values":282,"./cats-template.tpl":307,"./stats-template.tpl":308,"cartodb.js":208,"underscore":271}],310:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -80982,19 +78867,18 @@ __p+=' <div class="CDB-Widget-title CDB-Widget-contentSpaced"> <h3 class="CDB-Wi
 ((__t=( isColorApplied ? 'js-cancelColors' : 'js-applyColors' ))==null?'':_.escape(__t))+
 '" data-tooltip="\n          '+
 ((__t=( isColorApplied ? 'Remove colors' : 'Apply colors' ))==null?'':_.escape(__t))+
-'\n        "> <i class="CDB-Icon CDB-Icon-syringe CDB-Icon--top"></i> </button> <button class="CDB-Shape-threePoints js-collapse" data-tooltip="'+
-((__t=( isCollapsed ? 'Show' : 'Hide' ))==null?'':_.escape(__t))+
-'"> <span class="CDB-Shape-threePointsItem"></span> </button> </div> </div> ';
+'\n        "> <i class="CDB-Icon CDB-Icon-syringe CDB-Icon--top"></i> </button> <button class="CDB-Shape-threePoints js-actions"> <span class="CDB-Shape-threePointsItem"></span> </button> </div> </div> ';
  } 
 __p+='';
 }
 return __p;
 };
 
-},{"underscore":274}],314:[function(require,module,exports){
+},{"underscore":271}],311:[function(require,module,exports){
 var _ = require('underscore');
 var $ = require('jquery');
 var cdb = require('cartodb.js');
+var DropdownView = require('../../dropdown/widget-dropdown-view');
 var TooltipView = require('../../widget-tooltip-view');
 var template = require('./search-title-template.tpl');
 
@@ -81011,8 +78895,7 @@ module.exports = cdb.core.View.extend({
     'submit .js-form': '_onSubmitForm',
     'click .js-applyLocked': '_applyLocked',
     'click .js-applyColors': '_applyColors',
-    'click .js-cancelColors': '_cancelColors',
-    'click .js-collapse': '_toggleCollapse'
+    'click .js-cancelColors': '_cancelColors'
   },
 
   initialize: function () {
@@ -81048,11 +78931,18 @@ module.exports = cdb.core.View.extend({
   },
 
   _initViews: function () {
-    var collapseTooltip = new TooltipView({
-      target: this.$('.js-collapse')
+    var dropdown = new DropdownView({
+      target: this.$('.js-actions'),
+      container: this.$el
     });
-    $('body').append(collapseTooltip.render().el);
-    this.addView(collapseTooltip);
+
+    dropdown.bind('click', function (action) {
+      if (action === 'toggle') {
+        this.dataModel.toggleCollapsed();
+      }
+    }, this);
+
+    this.addView(dropdown);
 
     var colorsTooltip = new TooltipView({
       target: this.$('.js-colors')
@@ -81143,7 +79033,139 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"../../widget-tooltip-view":360,"./search-title-template.tpl":313,"cartodb.js":210,"jquery":251,"underscore":274}],315:[function(require,module,exports){
+},{"../../dropdown/widget-dropdown-view":313,"../../widget-tooltip-view":359,"./search-title-template.tpl":310,"cartodb.js":208,"jquery":248,"underscore":271}],312:[function(require,module,exports){
+var _ = require('underscore');
+module.exports = function(obj){
+var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
+with(obj||{}){
+__p+='<ul> <li class="CDB-Dropdown-item"><button class="CDB-Dropdown-link js-toggle">Toggle widget</button></li> <li class="CDB-Dropdown-item"><button class="CDB-Dropdown-link js-pin">Pin widget</button></li> </ul>';
+}
+return __p;
+};
+
+},{"underscore":271}],313:[function(require,module,exports){
+var $ = require('jquery');
+var _ = require('underscore');
+var cdb = require('cartodb.js');
+var template = require('./template.tpl');
+
+/**
+ * Standard widget dropdown view
+ *
+ */
+module.exports = cdb.core.View.extend({
+  className: 'CDB-Dropdown',
+
+  events: {
+    'click .js-pin': '_pin',
+    'click .js-toggle': '_toggle'
+  },
+
+  initialize: function (opts) {
+    if (!opts.target) {
+      throw new Error('target is not defined');
+    }
+
+    this.viewModel = new cdb.core.Model({ open: false });
+
+    this._$target = this.options.target;
+    this._$container = this.options.container;
+    this._initBinds();
+  },
+
+  render: function () {
+    this.$el.html(
+      template()
+    );
+
+    return this;
+  },
+
+  _initBinds: function () {
+    this.add_related_model(this.viewModel);
+
+    this.viewModel.bind('change:open', this._onChangeOpen, this);
+
+    this._$target.click(
+      _.bind(this._toggleClick, this)
+    );
+  },
+
+  _bindGlobalClick: function () {
+    $(document).bind('click.' + this.cid, _.bind(this._onGlobalClick, this));
+  },
+
+  _unbindGlobalClick: function () {
+    $(document).unbind('click.' + this.cid);
+  },
+
+  _bindESC: function () {
+    $(document).bind('keyup.' + this.cid, _.bind(this._onKeyUp, this));
+  },
+
+  _unbindESC: function () {
+    $(document).unbind('keyup.' + this.cid);
+  },
+
+  _onGlobalClick: function (ev) {
+    if (this._$target.get(0) !== $(ev.target).closest(this._$target).get(0)) {
+      this.viewModel.set('open', false);
+    }
+  },
+
+  _onKeyUp: function (ev) {
+    if (ev.keyCode === 27) {
+      this.viewModel.set('open', false);
+      return false;
+    }
+  },
+
+  _onChangeOpen: function () {
+    if (this.viewModel.get('open')) {
+      this._open();
+    } else {
+      this._close();
+    }
+  },
+
+  _pin: function () {
+    this.viewModel.set('open', false);
+    this.trigger('click', 'pin');
+  },
+
+  _toggle: function () {
+    this.viewModel.set('open', false);
+    this.trigger('click', 'toggle');
+  },
+
+  _open: function () {
+    this._bindESC();
+    this._bindGlobalClick();
+
+    this.render();
+    this._$container.append(this.$el);
+    this.$el.show();
+  },
+
+  _close: function () {
+    this._unbindESC();
+    this._unbindGlobalClick();
+    this.$el.hide();
+  },
+
+  _toggleClick: function () {
+    this.viewModel.set('open', !this.viewModel.get('open'));
+  },
+
+  clean: function () {
+    this._unbindESC();
+    this._unbindGlobalClick();
+    this._$target.off('click');
+    cdb.core.View.prototype.clean.call(this);
+  }
+});
+
+},{"./template.tpl":312,"cartodb.js":208,"jquery":248,"underscore":271}],314:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -81159,15 +79181,14 @@ __p+=''+
 return __p;
 };
 
-},{"underscore":274}],316:[function(require,module,exports){
+},{"underscore":271}],315:[function(require,module,exports){
 var _ = require('underscore');
 var d3 = require('d3');
-var $ = require('jquery');
 var formatter = require('../../formatter');
 var WidgetContent = require('../standard/widget-content-view');
 var WidgetViewModel = require('../widget-content-model');
 var template = require('./template.tpl');
-var TooltipView = require('../widget-tooltip-view');
+var DropdownView = require('../dropdown/widget-dropdown-view');
 var animationTemplate = require('./animation-template.tpl');
 var AnimateValues = require('../animate-values.js');
 
@@ -81175,10 +79196,6 @@ var AnimateValues = require('../animate-values.js');
  * Default widget content view:
  */
 module.exports = WidgetContent.extend({
-  events: {
-    'click .js-collapse': '_toggleCollapse'
-  },
-
   initialize: function () {
     this.dataModel = this.model;
     this.viewModel = new WidgetViewModel();
@@ -81209,6 +79226,7 @@ module.exports = WidgetContent.extend({
         title: this.dataModel.get('title'),
         operation: this.dataModel.get('operation'),
         value: value,
+        formatedValue: format(value),
         nulls: nulls,
         prefix: prefix,
         suffix: suffix,
@@ -81235,11 +79253,18 @@ module.exports = WidgetContent.extend({
   },
 
   _initViews: function () {
-    var tooltip = new TooltipView({
-      target: this.$('.js-collapse')
+    var dropdown = new DropdownView({
+      target: this.$('.js-actions'),
+      container: this.$('.js-header')
     });
-    $('body').append(tooltip.render().el);
-    this.addView(tooltip);
+
+    dropdown.bind('click', function (action) {
+      if (action === 'toggle') {
+        this.dataModel.toggleCollapsed();
+      }
+    }, this);
+
+    this.addView(dropdown);
   },
 
   _toggleCollapse: function () {
@@ -81248,7 +79273,7 @@ module.exports = WidgetContent.extend({
 
 });
 
-},{"../../formatter":283,"../animate-values.js":285,"../standard/widget-content-view":336,"../widget-content-model":357,"../widget-tooltip-view":360,"./animation-template.tpl":315,"./template.tpl":318,"d3":250,"jquery":251,"underscore":274}],317:[function(require,module,exports){
+},{"../../formatter":280,"../animate-values.js":282,"../dropdown/widget-dropdown-view":313,"../standard/widget-content-view":335,"../widget-content-model":356,"./animation-template.tpl":314,"./template.tpl":317,"d3":247,"underscore":271}],316:[function(require,module,exports){
 var _ = require('underscore');
 var WidgetModel = require('../widget-model');
 
@@ -81283,20 +79308,28 @@ module.exports = WidgetModel.extend({
 
 });
 
-},{"../widget-model":359,"underscore":274}],318:[function(require,module,exports){
+},{"../widget-model":358,"underscore":271}],317:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
 with(obj||{}){
-__p+='<div class="CDB-Widget-header"> <div class="CDB-Widget-title CDB-Widget-contentSpaced"> <div class="CDB-Widget-contentSpaced"> <h3 class="CDB-Widget-textBig">'+
+__p+='<div class="CDB-Widget-header js-header"> <div class="CDB-Widget-title CDB-Widget-contentSpaced"> <div class="CDB-Widget-contentSpaced"> <h3 class="CDB-Widget-textBig js-title'+
+((__t=( isCollapsed ? ' is-collapsed' : '' ))==null?'':_.escape(__t))+
+'">';
+ if (isCollapsed) { 
+__p+=''+
+((__t=( formatedValue ))==null?'':_.escape(__t))+
+'';
+ } else { 
+__p+=' '+
 ((__t=( title ))==null?'':_.escape(__t))+
-'</h3> <div class="CDB-Widget-tag CDB-Widget-tag--'+
+'';
+ } 
+__p+='</h3> <div class="CDB-Widget-tag CDB-Widget-tag--'+
 ((__t=( operation ))==null?'':_.escape(__t))+
 '"> <span class="CDB-Widget-textSmaller CDB-Widget-textSmaller--upper">'+
 ((__t=( operation ))==null?'':_.escape(__t))+
-'</span> </div> </div> <button class="CDB-Shape-threePoints js-collapse" data-tooltip="'+
-((__t=( isCollapsed ? 'Show' : 'Hide' ))==null?'':_.escape(__t))+
-'"> <span class="CDB-Shape-threePointsItem"></span> </button> </div> <dl class="CDB-Widget-info"> <dt class="CDB-Widget-infoItem CDB-Widget-textSmaller CDB-Widget-textSmaller--upper">'+
+'</span> </div> </div> <button class="CDB-Shape-threePoints js-actions"> <span class="CDB-Shape-threePointsItem"></span> </button> </div> <dl class="CDB-Widget-info"> <dt class="CDB-Widget-infoItem CDB-Widget-textSmaller CDB-Widget-textSmaller--upper">'+
 ((__t=( nulls ))==null?'':_.escape(__t))+
 ' null rows</dt> </dl> </div> <div class="CDB-Widget-content"> ';
  if (value) { 
@@ -81317,7 +79350,7 @@ __p+=' </div>';
 return __p;
 };
 
-},{"underscore":274}],319:[function(require,module,exports){
+},{"underscore":271}],318:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -81331,7 +79364,7 @@ __p+=''+
 return __p;
 };
 
-},{"underscore":274}],320:[function(require,module,exports){
+},{"underscore":271}],319:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var d3 = require('d3');
@@ -82384,7 +80417,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"../../formatter":283,"cartodb.js":210,"d3":250,"jquery":251,"underscore":274}],321:[function(require,module,exports){
+},{"../../formatter":280,"cartodb.js":208,"d3":247,"jquery":248,"underscore":271}],320:[function(require,module,exports){
 var _ = require('underscore');
 var formatter = require('../../formatter');
 var HistogramTitleView = require('./histogram-title-view');
@@ -82393,6 +80426,7 @@ var WidgetViewModel = require('../widget-content-model');
 var HistogramChartView = require('./chart');
 var placeholder = require('./placeholder.tpl');
 var template = require('./content.tpl');
+var DropdownView = require('../dropdown/widget-dropdown-view');
 var AnimateValues = require('../animate-values.js');
 var animationTemplate = require('./animation-template.tpl');
 
@@ -82421,8 +80455,22 @@ module.exports = WidgetContent.extend({
       viewModel: this.viewModel,
       dataModel: this.model
     });
+
     this.$('.js-title').html(titleView.render().el);
     this.addView(titleView);
+
+    var dropdown = new DropdownView({
+      target: this.$('.js-actions'),
+      container: this.$('.js-header')
+    });
+
+    dropdown.bind('click', function (action) {
+      if (action === 'toggle') {
+        this.model.toggleCollapsed();
+      }
+    }, this);
+
+    this.addView(dropdown);
 
     this._renderMiniChart();
     this._renderMainChart();
@@ -82430,9 +80478,7 @@ module.exports = WidgetContent.extend({
 
   _initBinds: function () {
     this.model.once('change:data', this._onFirstLoad, this);
-    this.model.bind('change:collapsed', function (mdl, isCollapsed) {
-      this.$el.toggleClass('is-collapsed', !!isCollapsed);
-    }, this);
+    this.model.bind('change:collapsed', this.render, this);
   },
 
   _onFirstLoad: function () {
@@ -82508,6 +80554,8 @@ module.exports = WidgetContent.extend({
     } else {
       this.originalData = this.model.getData();
       this._setupBindings();
+      var isCollapsed = this.model.isCollapsed();
+      this.$el.toggleClass('is-collapsed', !!isCollapsed);
       this._initViews();
     }
 
@@ -82830,19 +80878,19 @@ module.exports = WidgetContent.extend({
   }
 });
 
-},{"../../formatter":283,"../animate-values.js":285,"../standard/widget-content-view":336,"../widget-content-model":357,"./animation-template.tpl":319,"./chart":320,"./content.tpl":322,"./histogram-title-view":324,"./placeholder.tpl":326,"underscore":274}],322:[function(require,module,exports){
+},{"../../formatter":280,"../animate-values.js":282,"../dropdown/widget-dropdown-view":313,"../standard/widget-content-view":335,"../widget-content-model":356,"./animation-template.tpl":318,"./chart":319,"./content.tpl":321,"./histogram-title-view":323,"./placeholder.tpl":325,"underscore":271}],321:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
 with(obj||{}){
-__p+='<div class="CDB-Widget-header"> <div class="js-title"> <div class="CDB-Widget-title CDB-Widget-contentSpaced"> <h3 class="CDB-Widget-textBig">'+
+__p+='<div class="CDB-Widget-header js-header"> <div class="js-title"> <div class="CDB-Widget-title CDB-Widget-contentSpaced"> <h3 class="CDB-Widget-textBig">'+
 ((__t=( title ))==null?'':_.escape(__t))+
 '</h3> </div> </div> <dl class="CDB-Widget-info CDB-Widget-textSmaller CDB-Widget-textSmaller--upper"> <dt class="CDB-Widget-infoItem js-nulls">0 NULL ROWS</dt> <dt class="CDB-Widget-infoItem js-min">0 MIN</dt> <dt class="CDB-Widget-infoItem js-avg">0 AVG</dt> <dt class="CDB-Widget-infoItem js-max">0 MAX</dt> </dl> </div> <div class="CDB-Widget-content js-content"> <div class="CDB-Widget-tooltip js-tooltip"></div> <div class="CDB-Widget-filter CDB-Widget-contentSpaced js-filter is-hidden"> <p class="CDB-Widget-textSmaller CDB-Widget-textSmaller--bold CDB-Widget-textSmaller--upper js-val"></p> <div class="CDB-Widget-filterButtons"> <button class="CDB-Widget-link CDB-Widget-filterButton js-zoom">zoom</button> <button class="CDB-Widget-link CDB-Widget-filterButton js-clear">clear</button> </div> </div> </div>';
 }
 return __p;
 };
 
-},{"underscore":274}],323:[function(require,module,exports){
+},{"underscore":271}],322:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -82857,14 +80905,12 @@ __p+='<h3 class="CDB-Widget-textBig" title="'+
 ((__t=( isSizesApplied ? 'js-cancelSizes' : 'js-applySizes' ))==null?'':_.escape(__t))+
 '" data-tooltip="'+
 ((__t=( isSizesApplied ? 'Remove sizes' : 'Apply sizes' ))==null?'':_.escape(__t))+
-'"> <i class="CDB-Icon CDB-Icon-syringe CDB-Icon--top"></i> </button> <button class="CDB-Shape-threePoints js-collapse" data-tooltip="'+
-((__t=( isCollapsed ? 'Show' : 'Hide' ))==null?'':_.escape(__t))+
-'"> <span class="CDB-Shape-threePointsItem"></span> </button> </div>';
+'"> <i class="CDB-Icon CDB-Icon-syringe CDB-Icon--top"></i> </button> <button class="CDB-Shape-threePoints js-actions"> <span class="CDB-Shape-threePointsItem"></span> </button> </div>';
 }
 return __p;
 };
 
-},{"underscore":274}],324:[function(require,module,exports){
+},{"underscore":271}],323:[function(require,module,exports){
 var $ = require('jquery');
 var cdb = require('cartodb.js');
 var TooltipView = require('../widget-tooltip-view');
@@ -82880,8 +80926,7 @@ module.exports = cdb.core.View.extend({
 
   events: {
     'click .js-applySizes': '_applySizes',
-    'click .js-cancelSizes': '_cancelSizes',
-    'click .js-collapse': '_toggleCollapse'
+    'click .js-cancelSizes': '_cancelSizes'
   },
 
   initialize: function () {
@@ -82914,12 +80959,6 @@ module.exports = cdb.core.View.extend({
     });
     $('body').append(sizesTooltip.render().el);
     this.addView(sizesTooltip);
-
-    var collapseTooltip = new TooltipView({
-      target: this.$('.js-collapse')
-    });
-    $('body').append(collapseTooltip.render().el);
-    this.addView(collapseTooltip);
   },
 
   _applySizes: function () {
@@ -82936,7 +80975,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"../widget-tooltip-view":360,"./histogram-title-template.tpl":323,"cartodb.js":210,"jquery":251}],325:[function(require,module,exports){
+},{"../widget-tooltip-view":359,"./histogram-title-template.tpl":322,"cartodb.js":208,"jquery":248}],324:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 var WidgetModel = require('../widget-model');
@@ -83054,7 +81093,7 @@ module.exports = WidgetModel.extend({
   }
 });
 
-},{"../widget-model":359,"backbone":242,"underscore":274}],326:[function(require,module,exports){
+},{"../widget-model":358,"backbone":239,"underscore":271}],325:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -83070,7 +81109,7 @@ __p+=' </ul>';
 return __p;
 };
 
-},{"underscore":274}],327:[function(require,module,exports){
+},{"underscore":271}],326:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -83086,7 +81125,7 @@ __p+='<div class="CDB-Widget-header"> <div class="CDB-Widget-title CDB-Widget-co
 return __p;
 };
 
-},{"underscore":274}],328:[function(require,module,exports){
+},{"underscore":271}],327:[function(require,module,exports){
 var _ = require('underscore');
 var format = require('../../formatter');
 var WidgetContentView = require('../standard/widget-content-view');
@@ -83152,7 +81191,7 @@ module.exports = WidgetContentView.extend({
 
 });
 
-},{"../../formatter":283,"../standard/widget-content-view":336,"./content-template.tpl":327,"./edges-view":329,"./items-view":332,"./paginator-view":334,"underscore":274}],329:[function(require,module,exports){
+},{"../../formatter":280,"../standard/widget-content-view":335,"./content-template.tpl":326,"./edges-view":328,"./items-view":331,"./paginator-view":333,"underscore":271}],328:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 
@@ -83210,7 +81249,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"cartodb.js":210,"underscore":274}],330:[function(require,module,exports){
+},{"cartodb.js":208,"underscore":271}],329:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -83266,7 +81305,7 @@ __p+='';
 return __p;
 };
 
-},{"underscore":274}],331:[function(require,module,exports){
+},{"underscore":271}],330:[function(require,module,exports){
 var _ = require('underscore');
 var format = require('../../formatter');
 var cdb = require('cartodb.js');
@@ -83344,7 +81383,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"../../formatter":283,"./item-template.tpl":330,"cartodb.js":210,"underscore":274}],332:[function(require,module,exports){
+},{"../../formatter":280,"./item-template.tpl":329,"cartodb.js":208,"underscore":271}],331:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var WidgetListItemView = require('./item-view');
 
@@ -83380,7 +81419,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"./item-view":331,"cartodb.js":210}],333:[function(require,module,exports){
+},{"./item-view":330,"cartodb.js":208}],332:[function(require,module,exports){
 var Backbone = require('backbone');
 var WidgetModel = require('../widget-model');
 
@@ -83421,7 +81460,7 @@ module.exports = WidgetModel.extend({
   }
 });
 
-},{"../widget-model":359,"backbone":242}],334:[function(require,module,exports){
+},{"../widget-model":358,"backbone":239}],333:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var cdb = require('cartodb.js');
@@ -83526,7 +81565,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"cartodb.js":210,"jquery":251,"underscore":274}],335:[function(require,module,exports){
+},{"cartodb.js":208,"jquery":248,"underscore":271}],334:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -83542,7 +81581,7 @@ __p+='<div class="CDB-Widget-header"> <div class="CDB-Widget-title Widget-conten
 return __p;
 };
 
-},{"underscore":274}],336:[function(require,module,exports){
+},{"underscore":271}],335:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 var contentTemplate = require('./widget-content-template.tpl');
@@ -83590,7 +81629,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"./widget-content-template.tpl":335,"./widget-placeholder-template.tpl":340,"cartodb.js":210,"underscore":274}],337:[function(require,module,exports){
+},{"./widget-content-template.tpl":334,"./widget-placeholder-template.tpl":339,"cartodb.js":208,"underscore":271}],336:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -83600,7 +81639,7 @@ __p+='<button class="CDB-Widget-button CDB-Widget-errorButton js-refresh"> <span
 return __p;
 };
 
-},{"underscore":274}],338:[function(require,module,exports){
+},{"underscore":271}],337:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var template = require('./widget-error-template.tpl');
 
@@ -83645,7 +81684,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"./widget-error-template.tpl":337,"cartodb.js":210}],339:[function(require,module,exports){
+},{"./widget-error-template.tpl":336,"cartodb.js":208}],338:[function(require,module,exports){
 var cdb = require('cartodb.js');
 
 /**
@@ -83679,7 +81718,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"cartodb.js":210}],340:[function(require,module,exports){
+},{"cartodb.js":208}],339:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -83689,7 +81728,7 @@ __p+='<ul class="CDB-Widget-list CDB-Widget-list--withBorders"> <li class="CDB-W
 return __p;
 };
 
-},{"underscore":274}],341:[function(require,module,exports){
+},{"underscore":271}],340:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 var placeholderTemplate = require('./placeholder.tpl');
@@ -83749,7 +81788,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"./histogram-view":342,"./placeholder.tpl":343,"cartodb.js":210,"underscore":274}],342:[function(require,module,exports){
+},{"./histogram-view":341,"./placeholder.tpl":342,"cartodb.js":208,"underscore":271}],341:[function(require,module,exports){
 var $ = require('jquery');
 var cdb = require('cartodb.js');
 var HistogramChartView = require('../histogram/chart');
@@ -83835,7 +81874,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"../histogram/chart":320,"cartodb.js":210,"jquery":251}],343:[function(require,module,exports){
+},{"../histogram/chart":319,"cartodb.js":208,"jquery":248}],342:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -83859,7 +81898,7 @@ __p+=' </div> </div>';
 return __p;
 };
 
-},{"underscore":274}],344:[function(require,module,exports){
+},{"underscore":271}],343:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 var torqueTemplate = require('./torque-template.tpl');
@@ -83915,7 +81954,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"./placeholder.tpl":343,"./torque-header-view":347,"./torque-histogram-view":348,"./torque-template.tpl":353,"cartodb.js":210,"underscore":274}],345:[function(require,module,exports){
+},{"./placeholder.tpl":342,"./torque-header-view":346,"./torque-histogram-view":347,"./torque-template.tpl":352,"cartodb.js":208,"underscore":271}],344:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var template = require('./torque-controls.tpl');
 
@@ -83956,7 +81995,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"./torque-controls.tpl":346,"cartodb.js":210}],346:[function(require,module,exports){
+},{"./torque-controls.tpl":345,"cartodb.js":208}],345:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -83968,7 +82007,7 @@ __p+='<div class="CDB-Widget-controlButton-content"> <i class="'+
 return __p;
 };
 
-},{"underscore":274}],347:[function(require,module,exports){
+},{"underscore":271}],346:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var TorqueControlsView = require('./torque-controls-view');
 var TorqueTimeInfoView = require('./torque-time-info-view');
@@ -84040,7 +82079,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"./torque-controls-view":345,"./torque-render-range-info-view":349,"./torque-reset-render-range-view":351,"./torque-time-info-view":354,"cartodb.js":210}],348:[function(require,module,exports){
+},{"./torque-controls-view":344,"./torque-render-range-info-view":348,"./torque-reset-render-range-view":350,"./torque-time-info-view":353,"cartodb.js":208}],347:[function(require,module,exports){
 var $ = require('jquery');
 var cdb = require('cartodb.js');
 var HistogramChartView = require('../histogram/chart');
@@ -84155,7 +82194,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"../histogram/chart":320,"./torque-time-slider-view":356,"cartodb.js":210,"jquery":251}],349:[function(require,module,exports){
+},{"../histogram/chart":319,"./torque-time-slider-view":355,"cartodb.js":208,"jquery":248}],348:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var d3 = require('d3');
 var template = require('./torque-render-range-info.tpl');
@@ -84195,7 +82234,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"./torque-render-range-info.tpl":350,"cartodb.js":210,"d3":250}],350:[function(require,module,exports){
+},{"./torque-render-range-info.tpl":349,"cartodb.js":208,"d3":247}],349:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -84213,7 +82252,7 @@ __p+='<p class="CDB-Widget-textBig CDB-Widget-text--secondary"> Selected from </
 return __p;
 };
 
-},{"underscore":274}],351:[function(require,module,exports){
+},{"underscore":271}],350:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var template = require('./torque-reset-render-range.tpl');
 
@@ -84237,7 +82276,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"./torque-reset-render-range.tpl":352,"cartodb.js":210}],352:[function(require,module,exports){
+},{"./torque-reset-render-range.tpl":351,"cartodb.js":208}],351:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -84247,7 +82286,7 @@ __p+='<button class="CDB-Widget-link CDB-Widget-filterButton js-clear">Clear sel
 return __p;
 };
 
-},{"underscore":274}],353:[function(require,module,exports){
+},{"underscore":271}],352:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -84257,7 +82296,7 @@ __p+='<div class="CDB-Widget-header CDB-Widget-header--timeSeries js-header"></d
 return __p;
 };
 
-},{"underscore":274}],354:[function(require,module,exports){
+},{"underscore":271}],353:[function(require,module,exports){
 var d3 = require('d3');
 var cdb = require('cartodb.js');
 var template = require('./torque-time-info.tpl');
@@ -84294,7 +82333,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"./torque-time-info.tpl":355,"cartodb.js":210,"d3":250}],355:[function(require,module,exports){
+},{"./torque-time-info.tpl":354,"cartodb.js":208,"d3":247}],354:[function(require,module,exports){
 var _ = require('underscore');
 module.exports = function(obj){
 var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments,'');};
@@ -84308,7 +82347,7 @@ __p+='<p class="CDB-Widget-textBig"> '+
 return __p;
 };
 
-},{"underscore":274}],356:[function(require,module,exports){
+},{"underscore":271}],355:[function(require,module,exports){
 var d3 = require('d3');
 var cdb = require('cartodb.js');
 
@@ -84468,7 +82507,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"cartodb.js":210,"d3":250}],357:[function(require,module,exports){
+},{"cartodb.js":208,"d3":247}],356:[function(require,module,exports){
 var cdb = require('cartodb.js');
 
 /**
@@ -84500,7 +82539,7 @@ module.exports = cdb.core.Model.extend({
 
 });
 
-},{"cartodb.js":210}],358:[function(require,module,exports){
+},{"cartodb.js":208}],357:[function(require,module,exports){
 var _ = require('underscore');
 
 var WidgetModelFactory = function (types) {
@@ -84534,7 +82573,7 @@ WidgetModelFactory.prototype.createModel = function (layer, layerIndex, attrs) {
 
 module.exports = WidgetModelFactory;
 
-},{"underscore":274}],359:[function(require,module,exports){
+},{"underscore":271}],358:[function(require,module,exports){
 var cdb = require('cartodb.js');
 
 /**
@@ -84647,7 +82686,7 @@ module.exports = cdb.core.Model.extend({
   }
 });
 
-},{"cartodb.js":210}],360:[function(require,module,exports){
+},{"cartodb.js":208}],359:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var _ = require('underscore');
 
@@ -84708,7 +82747,7 @@ module.exports = cdb.core.View.extend({
 
 });
 
-},{"cartodb.js":210,"underscore":274}],361:[function(require,module,exports){
+},{"cartodb.js":208,"underscore":271}],360:[function(require,module,exports){
 var _ = require('underscore');
 var WidgetView = require('./widget-view');
 
@@ -84760,7 +82799,7 @@ WidgetViewFactory.prototype.createWidgetView = function (widget) {
 
 module.exports = WidgetViewFactory;
 
-},{"./widget-view":362,"underscore":274}],362:[function(require,module,exports){
+},{"./widget-view":361,"underscore":271}],361:[function(require,module,exports){
 var cdb = require('cartodb.js');
 var WidgetLoaderView = require('./standard/widget-loader-view');
 var WidgetErrorView = require('./standard/widget-error-view');
@@ -84807,7 +82846,7 @@ module.exports = cdb.core.View.extend({
   }
 });
 
-},{"./standard/widget-error-view":338,"./standard/widget-loader-view":339,"cartodb.js":210}],363:[function(require,module,exports){
+},{"./standard/widget-error-view":337,"./standard/widget-loader-view":338,"cartodb.js":208}],362:[function(require,module,exports){
 var cdb = require('cartodb.js');
 
 /**
@@ -84847,7 +82886,7 @@ module.exports = cdb.Backbone.Collection.extend({
 
 });
 
-},{"cartodb.js":210}],364:[function(require,module,exports){
+},{"cartodb.js":208}],363:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var cdb = require('cartodb.js');
@@ -84991,13 +83030,13 @@ WindshaftClient.prototype._jsonpCallbackName = function (payload) {
 
 module.exports = WindshaftClient;
 
-},{"./dashboard-instance":366,"cartodb.js":210,"jquery":251,"underscore":274}],365:[function(require,module,exports){
+},{"./dashboard-instance":365,"cartodb.js":208,"jquery":248,"underscore":271}],364:[function(require,module,exports){
 var config = {};
 config.MAPS_API_BASE_URL = 'api/v1/map';
 
 module.exports = config;
 
-},{}],366:[function(require,module,exports){
+},{}],365:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 var WindshaftConfig = require('./config');
@@ -85213,7 +83252,7 @@ module.exports = cdb.core.Model.extend({
   }
 });
 
-},{"./config":365,"cartodb.js":210,"underscore":274}],367:[function(require,module,exports){
+},{"./config":364,"cartodb.js":208,"underscore":271}],366:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 var WindshaftFiltersCollection = require('./filters/collection');
@@ -85343,7 +83382,7 @@ WindshaftDashboard.prototype._layerChanged = function (layer) {
 
 module.exports = WindshaftDashboard;
 
-},{"./dashboard-instance":366,"./filters/bounding-box":369,"./filters/collection":371,"backbone":242,"underscore":274}],368:[function(require,module,exports){
+},{"./dashboard-instance":365,"./filters/bounding-box":368,"./filters/collection":370,"backbone":239,"underscore":271}],367:[function(require,module,exports){
 var cdb = require('cartodb.js');
 
 module.exports = cdb.core.Model.extend({
@@ -85356,7 +83395,7 @@ module.exports = cdb.core.Model.extend({
   }
 });
 
-},{"cartodb.js":210}],369:[function(require,module,exports){
+},{"cartodb.js":208}],368:[function(require,module,exports){
 var cdb = require('cartodb.js');
 
 module.exports = cdb.core.Model.extend({
@@ -85383,7 +83422,7 @@ module.exports = cdb.core.Model.extend({
   }
 });
 
-},{"cartodb.js":210}],370:[function(require,module,exports){
+},{"cartodb.js":208}],369:[function(require,module,exports){
 var _ = require('underscore');
 var Backbone = require('backbone');
 var WindshaftFilterBase = require('./base');
@@ -85526,7 +83565,7 @@ module.exports = WindshaftFilterBase.extend({
   }
 });
 
-},{"./base":368,"backbone":242,"underscore":274}],371:[function(require,module,exports){
+},{"./base":367,"backbone":239,"underscore":271}],370:[function(require,module,exports){
 var _ = require('underscore');
 var cdb = require('cartodb.js');
 
@@ -85562,7 +83601,7 @@ module.exports = cdb.Backbone.Collection.extend({
   }
 });
 
-},{"cartodb.js":210,"underscore":274}],372:[function(require,module,exports){
+},{"cartodb.js":208,"underscore":271}],371:[function(require,module,exports){
 var _ = require('underscore');
 var WindshaftFilterBase = require('./base');
 
@@ -85594,7 +83633,7 @@ module.exports = WindshaftFilterBase.extend({
   }
 });
 
-},{"./base":368,"underscore":274}],373:[function(require,module,exports){
+},{"./base":367,"underscore":271}],372:[function(require,module,exports){
 var _ = require('underscore');
 var WindshaftPrivateDashboardConfig = {};
 
@@ -85613,7 +83652,7 @@ WindshaftPrivateDashboardConfig.generate = function (options) {
 
 module.exports = WindshaftPrivateDashboardConfig;
 
-},{"underscore":274}],374:[function(require,module,exports){
+},{"underscore":271}],373:[function(require,module,exports){
 var _ = require('underscore');
 var WindshaftPublicDashboardConfig = {};
 
@@ -85655,5 +83694,5 @@ WindshaftPublicDashboardConfig.generate = function (options) {
 
 module.exports = WindshaftPublicDashboardConfig;
 
-},{"underscore":274}]},{},[284])(284)
+},{"underscore":271}]},{},[281])(281)
 });
