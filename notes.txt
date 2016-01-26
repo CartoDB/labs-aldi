@@ -1,0 +1,3 @@
+--first join for census age and income
+
+SELECT a.*, b.median_age, c.median_income FROM nyct2010 a LEFT JOIN nycacs_age b ON a.ct2010 = right(b.geo_id2,6) LEFT JOIN nycacs_income c on a.ct2010 = right(c.geo_id2,6)

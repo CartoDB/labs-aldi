@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Deep-Insights.js – Madrid: Airbnb, nightlife, and public transport</title>
+  <meta name=viewport content="width=device-width initial-scale=1">
+  <link href="http://cartodb.com/favicon.ico" rel="shortcut icon" />
+  <link href="./dist/themes/css/deep-insights.css" rel="stylesheet" />
+  <script src="./dist/deep-insights.js"></script>
+  <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+  <style type="text/css">
+    html,
+    body {
+      position: relative;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="Dashboard-canvas" id="dashboard"></div>
+
+  <script>
+    window.onload = function() {
+      var diJSON = {  
+   "title":"Airbnb Madrid and closest metro lines",
+   "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate consequat vehicula. Sed eget leo a ex tempus cursus. Etiam consectetur cursus tortor, id dapibus elit condimentum id. Nulla sed gravida lorem, at ornare lectus. Aliquam quis erat porttitor, varius lectus eget, rhoncus mi...",
+   "user":{  
+      "fullname":"Emilio García",
+      "avatar_url":"https://s3.amazonaws.com/com.cartodb.users-assets.production/production/piensaenpixel/assets/20150507074635Captura%20de%20pantalla%202015-05-07%20a%20la%28s%29%2009.46.28.png"
+   },
+   "updated_at":"2015-10-26T11:50:30+00:00",
+   "datasource":{  
+      "type":"public_map",
+      "user_name":"solutions-ded02",
+      "maps_api_template":"https://{user}.cartodb-staging.com:443",
+      "stat_tag":"be7a4d14-c3a1-11e5-afb7-04013fc66a01",
+      "force_cors":true      // This is sometimes set in the editor
+   },
+   "widgets":{  
+      "histogram_widget_median_age":{  
+         "layerId":"e8fd9207-89c1-4be0-89e2-c06315a3ea07",
+         "type":"histogram",
+         "title":"Median Age",
+         "column":"median_age",
+         "bins":10
+      }, 
+      "histogram_widget_median_income":{  
+         "layerId":"e8fd9207-89c1-4be0-89e2-c06315a3ea07",
+         "type":"histogram",
+         "title":"Median Income",
+         "column":"median_income",
+         "bins":10
+      },
+      "histogram_widget_commercial_areas":{  
+         "layerId":"e8fd9207-89c1-4be0-89e2-c06315a3ea07",
+         "type":"histogram",
+         "title":"Commercial Area (% Inside Block)",
+         "column":"commercial_prop",
+         "bins":10
+      },
+      'formula_widget_price_avg': {
+        "layerId": "e8fd9207-89c1-4be0-89e2-c06315a3ea07",
+        "type": "formula",
+        "title": "Average of Median Incomes ",
+        "column": "median_income",
+        "prefix": "$",
+        "operation": "avg"
+      }
+   }
+}; 
+      var vizJSONUrl = 'telco.viz.json';
+      //var vizJSONUrl = 'http://solutions-ded02.cartodb-staging.com/api/v2/viz/be7a4d14-c3a1-11e5-afb7-04013fc66a01/viz.json';
+
+        $.getJSON(vizJSONUrl, function(vizJSON) {
+          diJSON.vizJSON = vizJSON;
+
+          cartodb.deepInsights.createDashboard('#dashboard', diJSON, {  
+            no_cdn:false
+          });
+        });
+}
+  </script>
+</body>
+
+</html>
