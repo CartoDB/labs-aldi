@@ -1,3 +1,134 @@
 --first join for census age and income
 
 SELECT a.*, b.median_age, c.median_income FROM nyct2010 a LEFT JOIN nycacs_age b ON a.ct2010 = right(b.geo_id2,6) LEFT JOIN nycacs_income c on a.ct2010 = right(c.geo_id2,6)
+
+
+Mammata Styles:
+
+/** choropleth visualization */
+
+#nyct_income_age{
+  polygon-fill: transparent;
+  polygon-opacity: 0.8;
+  line-color: transparent;
+  line-width: 1;
+  line-opacity: 1;
+}
+#nyct_income_age [ median_income <= 232266] {
+   polygon-fill: #67E1A7;
+   line-color: #67E1A7;
+}
+#nyct_income_age [ median_income <= 86618.5] {
+   polygon-fill: #4CC9A4;
+   line-color: #4CC9A4;
+}
+#nyct_income_age [ median_income <= 69956.5] {
+   polygon-fill: #39B19D;
+   line-color: #39B19D;
+}
+#nyct_income_age [ median_income <= 58371] {
+   polygon-fill: #2E9993;
+   line-color: #2e9993;
+}
+#nyct_income_age [ median_income <= 49055.5] {
+   polygon-fill: #2A8286;
+   line-color: #2a8286;
+}
+#nyct_income_age [ median_income <= 40193.5] {
+   polygon-fill: #2A6B76;
+   line-color: #2A6B76;
+}
+#nyct_income_age [ median_income <= 30011.5] {
+   polygon-fill: #2A5563;
+  line-color: #2a5563;
+}
+
+
+
+/** category visualization */
+
+/** category visualization */
+
+#new_york_new_york_osm_line {
+   line-width: 0.25;
+   line-opacity: 0.5;
+   line-color: #fff;
+}
+
+
+
+#new_york_new_york_osm_line[highway="motorway"] {
+   line-width: 1.5;
+   line-opacity: 0.65;
+}
+#new_york_new_york_osm_line[highway="motorway_link"] {
+   line-width: 0.5;
+}
+#new_york_new_york_osm_line[highway="primary"] {
+   line-width: 1;
+}
+#new_york_new_york_osm_line[highway="secondary"] {
+   line-width: 0.75;
+}
+
+#new_york_new_york_osm_line[highway="tertiary"] {
+   line-width: 0.5;
+}
+#new_york_new_york_osm_line[highway="residential"] {
+   line-width: 0.25;
+}
+
+#new_york_new_york_osm_line[highway="service"] {
+   line-width: 0;
+}
+
+#new_york_new_york_osm_line[highway="trunk"] {
+   line-width: 0;
+}
+#new_york_new_york_osm_line[highway="trunk_link"] {
+   line-width: 0;
+}
+#new_york_new_york_osm_line {
+   line-width: 0;
+}
+#new_york_new_york_osm_line[highway="footway"] {
+   line-width: 0;
+}
+
+
+/** simple visualization */
+
+#store_locations{
+  marker-fill-opacity: 0.9;
+  marker-line-color: #FFCC00;
+  marker-line-width: 2;
+  marker-line-opacity: 1;
+  marker-placement: point;
+  marker-type: ellipse;
+  marker-width: 6;
+  marker-fill: #FF9900;
+  marker-allow-overlap: true;
+}
+
+(
+  CASE WHEN (substring(b.geoid::text,4,2) = '61')
+  THEN '1'
+  WHEN (substring(b.geoid::text,4,2) = '05')
+  THEN '2'
+  WHEN (substring(b.geoid::text,4,2) = '47')
+  THEN '3'
+  WHEN (substring(b.geoid::text,4,2) = '81')
+  THEN '4' 
+  WHEN (substring(b.geoid::text,4,2) = '85')
+  THEN '5'
+  END
+
+) || right(b.geoid::text,6
+
+SELECT a.*, b.median_age, b.median_household_income FROM nyct2010 a LEFT JOIN megaacs b ON a.geoid = b.geoid
+
+
+STUART LYNN IS MY HERO:
+  
+  select a.*, EXP(-1*(POWER((b.median_age - 50.0)/(50.0*0.5), 2) + POWER((b.median_household_income - 100000)/(100000*0.5) ,2))) as sq
+  from nyct2010 a LEFT JOIN megaacs b ON a.geoid = b.geoid 
