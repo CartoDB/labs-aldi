@@ -45,6 +45,8 @@ Mammata Styles:
 
 
 
+
+
 /** category visualization */
 
 /** category visualization */
@@ -132,3 +134,43 @@ STUART LYNN IS MY HERO:
   
   select a.*, EXP(-1*(POWER((b.median_age - 50.0)/(50.0*0.5), 2) + POWER((b.median_household_income - 100000)/(100000*0.5) ,2))) as sq
   from nyct2010 a LEFT JOIN megaacs b ON a.geoid = b.geoid 
+
+
+  
+/** choropleth visualization */
+
+#nyct2010{
+  polygon-fill: transparent;
+  polygon-opacity: 0.8;
+  line-color: transparent;
+  line-width: 1;
+  line-opacity: 1;
+}
+#nyct2010 [ sq <= 0.995263597896769] {
+   polygon-fill: #67E1A7;
+   line-color: #67E1A7;
+}
+#nyct2010 [ sq <= 0.687286767165621] {
+   polygon-fill: #4CC9A4;
+   line-color: #4CC9A4;
+}
+#nyct2010 [ sq <= 0.497815382978813] {
+   polygon-fill: #39B19D;
+   line-color: #39B19D;
+}
+#nyct2010 [ sq <= 0.355636422325544] {
+   polygon-fill: #2E9993;
+   line-color: #2e9993;
+}
+#nyct2010 [ sq <= 0.239278058265142] {
+   polygon-fill: #2A8286;
+   line-color: #2a8286;
+}
+#nyct2010 [ sq <= 0.152469810632122] {
+   polygon-fill: #2A6B76;
+   line-color: #2A6B76;
+}
+#nyct2010 [ sq <= 0.0834756755786319] {
+   polygon-fill: #2A5563;
+  line-color: #2a5563;
+}

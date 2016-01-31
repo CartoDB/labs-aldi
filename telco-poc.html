@@ -17,6 +17,9 @@
       padding: 0;
       margin: 0;
     }
+    .cartodb-tooltip-content {
+      color: #FFF;
+    }
   </style>
 </head>
 
@@ -24,791 +27,100 @@
   <div class="Dashboard-canvas" id="dashboard"></div>
 
   <script>
-  var widgetInfo = {};
-  var globalLayers;
-  var updateMap = function (widgetInfo) {
-      console.log('updating map', widgetInfo, globalLayers);
+var widgetInfo = {};
 
+window.onload = function() {
 
+   var vizJSONUrl = 'telco.viz.json';
 
-  }
-    window.onload = function() {
-//       var diJSON = {  
-//    "title":"Airbnb Madrid and closest metro lines",
-//    "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate consequat vehicula. Sed eget leo a ex tempus cursus. Etiam consectetur cursus tortor, id dapibus elit condimentum id. Nulla sed gravida lorem, at ornare lectus. Aliquam quis erat porttitor, varius lectus eget, rhoncus mi...",
-//    "user":{  
-//       "fullname":"Emilio García",
-//       "avatar_url":"https://s3.amazonaws.com/com.cartodb.users-assets.production/production/piensaenpixel/assets/20150507074635Captura%20de%20pantalla%202015-05-07%20a%20la%28s%29%2009.46.28.png"
-//    },
-//    "updated_at":"2015-10-26T11:50:30+00:00",
-//    "datasource":{  
-//       "type":"public_map",
-//       "user_name":"solutions-ded02",
-//       "maps_api_template":"https://{user}.cartodb-staging.com:443",
-//       "stat_tag":"be7a4d14-c3a1-11e5-afb7-04013fc66a01",
-//       "force_cors":true      // This is sometimes set in the editor
-//    },
-//    "widgets":[
-//       {
-//          "type":"histogram",
-//          "layerIndex": 3,
-//          "title":"Median Age",
-//          "options": {
-//            "column":"median_age",
-//            "bins":10          
-//          }
-
-//       } 
-//       // {
-//       //   "histogram_widget_median_income":{  
-//       //    "layerId":"e8fd9207-89c1-4be0-89e2-c06315a3ea07",
-//       //    "type":"histogram",
-//       //    "title":"Median Income",
-//       //    "column":"median_income",
-//       //    "bins":10
-//       //   }
-//       // },
-//       // {
-//       //   "histogram_widget_commercial_areas":{  
-//       //      "layerId":"e8fd9207-89c1-4be0-89e2-c06315a3ea07",
-//       //      "type":"histogram",
-//       //      "title":"Commercial Area (% Inside Block)",
-//       //      "column":"commercial_prop",
-//       //      "bins":10
-//       //   }
-//       // },
-//       // {
-//       //   'formula_widget_price_avg': {
-//       //     "layerId": "e8fd9207-89c1-4be0-89e2-c06315a3ea07",
-//       //     "type": "formula",
-//       //     "title": "Average of Median Incomes ",
-//       //     "column": "median_income",
-//       //     "prefix": "$",
-//       //     "operation": "avg"
-//       //   }
-//       // } 
-//    ]
-// }; 
-
-
-
-
-//       var vizJSONUrl = 'telco.viz.json';
-//       //var vizJSONUrl = 'http://solutions-ded02.cartodb-staging.com/api/v2/viz/be7a4d14-c3a1-11e5-afb7-04013fc66a01/viz.json';
-
-
-
-
-
-
-//         $.getJSON(vizJSONUrl, function(vizJSON) {
-//           diJSON.vizJSON = vizJSON;
-
-
-
-var vizJSON = { 
-  "title":"Airbnb Madrid and closest metro lines",
-   "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vulputate consequat vehicula. Sed eget leo a ex tempus cursus. Etiam consectetur cursus tortor, id dapibus elit condimentum id. Nulla sed gravida lorem, at ornare lectus. Aliquam quis erat porttitor, varius lectus eget, rhoncus mi...",
-   "user":{  
-      "fullname":"Emilio García",
-      "avatar_url":"https://s3.amazonaws.com/com.cartodb.users-assets.production/production/piensaenpixel/assets/20150507074635Captura%20de%20pantalla%202015-05-07%20a%20la%28s%29%2009.46.28.png"
-   },
-   "updated_at":"2015-10-26T11:50:30+00:00",
-
-  "datasource":{  
-      "type":"public_map",
-      "user_name":"solutions-ded02",
-      "maps_api_template":"https://{user}.cartodb-staging.com:443",
-      "stat_tag":"be7a4d14-c3a1-11e5-afb7-04013fc66a01",
-      "force_cors":true      // This is sometimes set in the editor
-   },
-   "widgets":[
-      {
-         "type":"histogram",
-         "layerIndex": 1,
-         "title":"Median Age",
-         "options": {
-           "column":"median_age",
-           "bins":10          
-         }
+   $.getJSON(vizJSONUrl, function(vizJSON) {
+      var diJSON =  { 
+     "title":"Telco Demographic Targeting",
+      "description":"The map shows current retail locations and cell tower locations overlaid on census tracts.  When the user selects a priority demographics using the histogram widgets, the map colors will update to show which areas best match the current selections",
+      "user":{  
+         "fullname":"Chris Whong",
+         "avatar_url":"https://pbs.twimg.com/profile_images/3057855429/49cff02ea1ea88993d7edadd8b027982.jpeg"
       },
-      {
-         "type":"histogram",
-         "layerIndex": 1,
-         "title":"Median Income",
-         "options": {
-           "column":"median_household_income",
-           "bins":10          
-         }
-      }  
-    ],
- 
-    
-   "id":"a027c6dc-c53d-11e5-af88-04013fc66a01",
-   "version":"0.1.0",
-   "title":"telco copy (mamata)",
-   "likes":0,
-   "description":null,
-   "scrollwheel":false,
-   "legends":true,
-   "url":null,
-   "map_provider":"leaflet",
-   "bounds":[  
-      [  
-         40.62515819144965,
-         -74.10793304443358
-      ],
-      [  
-         40.8161477453172,
-         -73.5750961303711
-      ]
-   ],
-   "center":"[40.72072146844198, -73.84151458740234]",
-   "zoom":12,
-   "updated_at":"2016-01-29T22:50:42+00:00",
-   "layers":[  
-      {  
-         "options":{  
-            "type":"Plain",
-            "base_type":"plain",
-            "className":"plain",
-            "color":"#000000",
-            "image":"",
-            "maxZoom":32,
-            "id":"01d0ad7a-cd51-49f7-a06f-47f7f6a20a79",
-            "order":0
+      "updated_at":"2016-01-31T11:50:30+00:00",
+
+     "datasource":{  
+         "type":"public_map",
+         "user_name":"solutions-ded02",
+         "maps_api_template":"https://{user}.cartodb-staging.com:443",
+         "stat_tag":"be7a4d14-c3a1-11e5-afb7-04013fc66a01",
+         "force_cors":true      // This is sometimes set in the editor
+      },
+      "widgets":[
+         {
+            "type":"histogram",
+            "layerIndex": 1,
+            "title":"Median Age",
+            "options": {
+              "column":"median_age",
+              "bins":10          
+            }
          },
-         "infowindow":null,
-         "tooltip":null,
-         "id":"01d0ad7a-cd51-49f7-a06f-47f7f6a20a79",
-         "order":0,
-         "type":"background"
-      },
-      {  
-         "type":"layergroup",
-         "options":{  
-            "user_name":"solutions-ded02",
-            "maps_api_template":"https://{user}.cartodb-staging.com:443",
-            "sql_api_template":"https://{user}.cartodb-staging.com:443",
-            "tiler_protocol":"http",
-            "tiler_domain":"cartodb-staging.com",
-            "tiler_port":"80",
-            "sql_api_protocol":"http",
-            "sql_api_domain":"cartodb-staging.com",
-            "sql_api_endpoint":"/api/v2/sql",
-            "sql_api_port":80,
-            "filter":"mapnik",
-            "layer_definition":{  
-               "stat_tag":"a027c6dc-c53d-11e5-af88-04013fc66a01",
-               "version":"1.0.1",
-               "layers":[  
-                  {  
-                     "id":"a24c83a9-943a-45e1-a943-38777a584e51",
-                     "type":"CartoDB",
-                     "infowindow":{  
-                        "fields":[  
-
-                        ],
-                        "template_name":"table/views/infowindow_light",
-                        "template":"<div class=\"cartodb-popup v2\">\n  <a href=\"#close\" class=\"cartodb-popup-close-button close\">x</a>\n  <div class=\"cartodb-popup-content-wrapper\">\n    <div class=\"cartodb-popup-content\">\n      {{#content.fields}}\n        {{#title}}<h4>{{title}}</h4>{{/title}}\n        {{#value}}\n          <p {{#type}}class=\"{{ type }}\"{{/type}}>{{{ value }}}</p>\n        {{/value}}\n        {{^value}}\n          <p class=\"empty\">null</p>\n        {{/value}}\n      {{/content.fields}}\n    </div>\n  </div>\n  <div class=\"cartodb-popup-tip-container\"></div>\n</div>\n",
-                        "alternative_names":{  
-
-                        },
-                        "width":226,
-                        "maxHeight":180
-                     },
-                     "tooltip":{  
-                        "fields":[  
-
-                        ],
-                        "template_name":"tooltip_light",
-                        "template":"<div class=\"cartodb-tooltip-content-wrapper\">\n  <div class=\"cartodb-tooltip-content\">\n  {{#fields}}\n    {{#title}}\n    <h4>{{title}}</h4>\n    {{/title}}\n    <p>{{{ value }}}</p>\n  {{/fields}}\n  </div>\n</div>",
-                        "alternative_names":{  
-
-                        },
-                        "maxHeight":180
-                     },
-                     "legend":{  
-                        "type":"choropleth",
-                        "show_title":false,
-                        "title":"",
-                        "template":"",
-                        "visible":true,
-                        "items":[  
-                           {  
-                              "name":"Left label",
-                              "visible":true,
-                              "value":"36005042000.01",
-                              "type":"text"
-                           },
-                           {  
-                              "name":"Right label",
-                              "visible":true,
-                              "value":"36085990100.01",
-                              "type":"text"
-                           },
-                           {  
-                              "name":"Color",
-                              "visible":true,
-                              "value":"#FFFFB2",
-                              "type":"color"
-                           },
-                           {  
-                              "name":"Color",
-                              "visible":true,
-                              "value":"#FED976",
-                              "type":"color"
-                           },
-                           {  
-                              "name":"Color",
-                              "visible":true,
-                              "value":"#FEB24C",
-                              "type":"color"
-                           },
-                           {  
-                              "name":"Color",
-                              "visible":true,
-                              "value":"#FD8D3C",
-                              "type":"color"
-                           },
-                           {  
-                              "name":"Color",
-                              "visible":true,
-                              "value":"#FC4E2A",
-                              "type":"color"
-                           },
-                           {  
-                              "name":"Color",
-                              "visible":true,
-                              "value":"#E31A1C",
-                              "type":"color"
-                           },
-                           {  
-                              "name":"Color",
-                              "visible":true,
-                              "value":"#B10026",
-                              "type":"color"
-                           }
-                        ]
-                     },
-                     "order":1,
-                     "visible":true,
-                     "options":{  
-                        "sql":"\n  \n  select a.*, b.median_household_income, b.median_age, EXP(-1*(POWER((b.median_age - 50.0)/(50.0*0.5), 2) + POWER((b.median_household_income - 100000)/(100000*0.5) ,2))) as sq\n  from nyct2010 a LEFT JOIN megaacs b ON a.geoid = b.geoid \n",
-                        "layer_name":"nyct2010",
-                        "cartocss":"/** choropleth visualization */\n\n#nyct2010{\n  polygon-fill: transparent;\n  polygon-opacity: 0.8;\n  line-color: transparent;\n  line-width: 1;\n  line-opacity: 1;\n}\n#nyct2010 [ sq <= 0.995263597896769] {\n   polygon-fill: #67E1A7;\n   line-color: #67E1A7;\n}\n#nyct2010 [ sq <= 0.687286767165621] {\n   polygon-fill: #4CC9A4;\n   line-color: #4CC9A4;\n}\n#nyct2010 [ sq <= 0.497815382978813] {\n   polygon-fill: #39B19D;\n   line-color: #39B19D;\n}\n#nyct2010 [ sq <= 0.355636422325544] {\n   polygon-fill: #2E9993;\n   line-color: #2e9993;\n}\n#nyct2010 [ sq <= 0.239278058265142] {\n   polygon-fill: #2A8286;\n   line-color: #2a8286;\n}\n#nyct2010 [ sq <= 0.152469810632122] {\n   polygon-fill: #2A6B76;\n   line-color: #2A6B76;\n}\n#nyct2010 [ sq <= 0.0834756755786319] {\n   polygon-fill: #2A5563;\n  line-color: #2a5563;\n}",
-                        "cartocss_version":"2.1.1",
-                        "interactivity":"cartodb_id",
-                        "table_name":"\"\"."
-                     }
-                  },
-                  {  
-                     "id":"b80eb785-e025-4c56-a2cd-9055a4cb0494",
-                     "type":"CartoDB",
-                     "infowindow":{  
-                        "fields":[  
-                           {  
-                              "name":"_natural",
-                              "title":true,
-                              "position":0
-                           },
-                           {  
-                              "name":"access",
-                              "title":true,
-                              "position":1
-                           },
-                           {  
-                              "name":"aerialway",
-                              "title":true,
-                              "position":2
-                           },
-                           {  
-                              "name":"aeroway",
-                              "title":true,
-                              "position":3
-                           },
-                           {  
-                              "name":"amenity",
-                              "title":true,
-                              "position":4
-                           },
-                           {  
-                              "name":"area",
-                              "title":true,
-                              "position":5
-                           },
-                           {  
-                              "name":"barrier",
-                              "title":true,
-                              "position":6
-                           },
-                           {  
-                              "name":"bicycle",
-                              "title":true,
-                              "position":7
-                           },
-                           {  
-                              "name":"boundary",
-                              "title":true,
-                              "position":8
-                           },
-                           {  
-                              "name":"brand",
-                              "title":true,
-                              "position":9
-                           },
-                           {  
-                              "name":"bridge",
-                              "title":true,
-                              "position":10
-                           },
-                           {  
-                              "name":"building",
-                              "title":true,
-                              "position":11
-                           },
-                           {  
-                              "name":"covered",
-                              "title":true,
-                              "position":12
-                           },
-                           {  
-                              "name":"culvert",
-                              "title":true,
-                              "position":13
-                           },
-                           {  
-                              "name":"cutting",
-                              "title":true,
-                              "position":14
-                           },
-                           {  
-                              "name":"disused",
-                              "title":true,
-                              "position":15
-                           },
-                           {  
-                              "name":"embankment",
-                              "title":true,
-                              "position":16
-                           },
-                           {  
-                              "name":"foot",
-                              "title":true,
-                              "position":17
-                           },
-                           {  
-                              "name":"harbour",
-                              "title":true,
-                              "position":18
-                           },
-                           {  
-                              "name":"highway",
-                              "title":true,
-                              "position":19
-                           },
-                           {  
-                              "name":"historic",
-                              "title":true,
-                              "position":20
-                           },
-                           {  
-                              "name":"horse",
-                              "title":true,
-                              "position":21
-                           },
-                           {  
-                              "name":"junction",
-                              "title":true,
-                              "position":22
-                           },
-                           {  
-                              "name":"landuse",
-                              "title":true,
-                              "position":23
-                           },
-                           {  
-                              "name":"layer",
-                              "title":true,
-                              "position":24
-                           },
-                           {  
-                              "name":"leisure",
-                              "title":true,
-                              "position":25
-                           },
-                           {  
-                              "name":"lock",
-                              "title":true,
-                              "position":26
-                           },
-                           {  
-                              "name":"man_made",
-                              "title":true,
-                              "position":27
-                           },
-                           {  
-                              "name":"military",
-                              "title":true,
-                              "position":28
-                           },
-                           {  
-                              "name":"motorcar",
-                              "title":true,
-                              "position":29
-                           },
-                           {  
-                              "name":"name",
-                              "title":true,
-                              "position":30
-                           },
-                           {  
-                              "name":"oneway",
-                              "title":true,
-                              "position":31
-                           },
-                           {  
-                              "name":"operator",
-                              "title":true,
-                              "position":32
-                           },
-                           {  
-                              "name":"osm_id",
-                              "title":true,
-                              "position":33
-                           },
-                           {  
-                              "name":"place",
-                              "title":true,
-                              "position":34
-                           },
-                           {  
-                              "name":"population",
-                              "title":true,
-                              "position":35
-                           },
-                           {  
-                              "name":"power",
-                              "title":true,
-                              "position":36
-                           },
-                           {  
-                              "name":"railway",
-                              "title":true,
-                              "position":37
-                           },
-                           {  
-                              "name":"ref",
-                              "title":true,
-                              "position":38
-                           },
-                           {  
-                              "name":"religion",
-                              "title":true,
-                              "position":39
-                           },
-                           {  
-                              "name":"route",
-                              "title":true,
-                              "position":40
-                           },
-                           {  
-                              "name":"service",
-                              "title":true,
-                              "position":41
-                           },
-                           {  
-                              "name":"shop",
-                              "title":true,
-                              "position":42
-                           },
-                           {  
-                              "name":"sport",
-                              "title":true,
-                              "position":43
-                           },
-                           {  
-                              "name":"surface",
-                              "title":true,
-                              "position":44
-                           },
-                           {  
-                              "name":"tags",
-                              "title":true,
-                              "position":45
-                           },
-                           {  
-                              "name":"toll",
-                              "title":true,
-                              "position":46
-                           },
-                           {  
-                              "name":"tourism",
-                              "title":true,
-                              "position":47
-                           },
-                           {  
-                              "name":"tower_type",
-                              "title":true,
-                              "position":48
-                           },
-                           {  
-                              "name":"tracktype",
-                              "title":true,
-                              "position":49
-                           },
-                           {  
-                              "name":"tunnel",
-                              "title":true,
-                              "position":50
-                           },
-                           {  
-                              "name":"water",
-                              "title":true,
-                              "position":51
-                           },
-                           {  
-                              "name":"waterway",
-                              "title":true,
-                              "position":52
-                           },
-                           {  
-                              "name":"way_area",
-                              "title":true,
-                              "position":53
-                           },
-                           {  
-                              "name":"wetland",
-                              "title":true,
-                              "position":54
-                           },
-                           {  
-                              "name":"width",
-                              "title":true,
-                              "position":55
-                           },
-                           {  
-                              "name":"wood",
-                              "title":true,
-                              "position":56
-                           },
-                           {  
-                              "name":"z_order",
-                              "title":true,
-                              "position":57
-                           }
-                        ],
-                        "template_name":"table/views/infowindow_light",
-                        "template":"<div class=\"cartodb-popup v2\">\n  <a href=\"#close\" class=\"cartodb-popup-close-button close\">x</a>\n  <div class=\"cartodb-popup-content-wrapper\">\n    <div class=\"cartodb-popup-content\">\n      {{#content.fields}}\n        {{#title}}<h4>{{title}}</h4>{{/title}}\n        {{#value}}\n          <p {{#type}}class=\"{{ type }}\"{{/type}}>{{{ value }}}</p>\n        {{/value}}\n        {{^value}}\n          <p class=\"empty\">null</p>\n        {{/value}}\n      {{/content.fields}}\n    </div>\n  </div>\n  <div class=\"cartodb-popup-tip-container\"></div>\n</div>\n",
-                        "alternative_names":{  
-
-                        },
-                        "width":226,
-                        "maxHeight":180
-                     },
-                     "tooltip":{  
-                        "fields":[  
-
-                        ],
-                        "template_name":"tooltip_light",
-                        "template":"<div class=\"cartodb-tooltip-content-wrapper\">\n  <div class=\"cartodb-tooltip-content\">\n  {{#fields}}\n    {{#title}}\n    <h4>{{title}}</h4>\n    {{/title}}\n    <p>{{{ value }}}</p>\n  {{/fields}}\n  </div>\n</div>",
-                        "alternative_names":{  
-
-                        },
-                        "maxHeight":180
-                     },
-                     "legend":{  
-                        "type":"none",
-                        "show_title":false,
-                        "title":"",
-                        "template":"",
-                        "visible":true,
-                        "items":[  
-                           {  
-                              "name":"footway",
-                              "visible":true,
-                              "value":"#A6CEE3"
-                           },
-                           {  
-                              "name":"motorway",
-                              "visible":true,
-                              "value":"#1F78B4"
-                           },
-                           {  
-                              "name":"motorway_link",
-                              "visible":true,
-                              "value":"#B2DF8A"
-                           },
-                           {  
-                              "name":"primary",
-                              "visible":true,
-                              "value":"#33A02C"
-                           },
-                           {  
-                              "name":"residential",
-                              "visible":true,
-                              "value":"#FB9A99"
-                           },
-                           {  
-                              "name":"secondary",
-                              "visible":true,
-                              "value":"#E31A1C"
-                           },
-                           {  
-                              "name":"service",
-                              "visible":true,
-                              "value":"#FDBF6F"
-                           },
-                           {  
-                              "name":"tertiary",
-                              "visible":true,
-                              "value":"#FF7F00"
-                           },
-                           {  
-                              "name":"trunk",
-                              "visible":true,
-                              "value":"#CAB2D6"
-                           },
-                           {  
-                              "name":"trunk_link",
-                              "visible":true,
-                              "value":"#6A3D9A"
-                           },
-                           {  
-                              "name":"Others",
-                              "visible":true,
-                              "value":"#DDDDDD"
-                           }
-                        ]
-                     },
-                     "order":2,
-                     "visible":true,
-                     "options":{  
-                        "sql":"select * from new_york_new_york_osm_line",
-                        "layer_name":"new_york_new_york_osm_line",
-                        "cartocss":"/** category visualization */\n\n/** category visualization */\n\n#new_york_new_york_osm_line {\n   line-width: 0.25;\n   line-opacity: 0.5;\n   line-color: #fff;\n}\n\n\n\n#new_york_new_york_osm_line[highway=\"motorway\"] {\n   line-width: 1.5;\n   line-opacity: 0.65;\n}\n#new_york_new_york_osm_line[highway=\"motorway_link\"] {\n   line-width: 0.5;\n}\n#new_york_new_york_osm_line[highway=\"primary\"] {\n   line-width: 1;\n}\n#new_york_new_york_osm_line[highway=\"secondary\"] {\n   line-width: 0.75;\n}\n\n#new_york_new_york_osm_line[highway=\"tertiary\"] {\n   line-width: 0.5;\n}\n#new_york_new_york_osm_line[highway=\"residential\"] {\n   line-width: 0.25;\n}\n\n#new_york_new_york_osm_line[highway=\"service\"] {\n   line-width: 0;\n}\n\n#new_york_new_york_osm_line[highway=\"trunk\"] {\n   line-width: 0;\n}\n#new_york_new_york_osm_line[highway=\"trunk_link\"] {\n   line-width: 0;\n}\n#new_york_new_york_osm_line {\n   line-width: 0;\n}\n#new_york_new_york_osm_line[highway=\"footway\"] {\n   line-width: 0;\n}",
-                        "cartocss_version":"2.1.1",
-                        "interactivity":"cartodb_id",
-                        "table_name":"\"\"."
-                     }
-                  },
-                  {  
-                     "id":"fa4d55d8-1bdb-4c10-b30d-fd9601ef9303",
-                     "type":"CartoDB",
-                     "infowindow":{  
-                        "fields":[  
-
-                        ],
-                        "template_name":"table/views/infowindow_light",
-                        "template":"<div class=\"cartodb-popup v2\">\n  <a href=\"#close\" class=\"cartodb-popup-close-button close\">x</a>\n  <div class=\"cartodb-popup-content-wrapper\">\n    <div class=\"cartodb-popup-content\">\n      {{#content.fields}}\n        {{#title}}<h4>{{title}}</h4>{{/title}}\n        {{#value}}\n          <p {{#type}}class=\"{{ type }}\"{{/type}}>{{{ value }}}</p>\n        {{/value}}\n        {{^value}}\n          <p class=\"empty\">null</p>\n        {{/value}}\n      {{/content.fields}}\n    </div>\n  </div>\n  <div class=\"cartodb-popup-tip-container\"></div>\n</div>\n",
-                        "alternative_names":{  
-
-                        },
-                        "width":226,
-                        "maxHeight":180
-                     },
-                     "tooltip":{  
-                        "fields":[  
-
-                        ],
-                        "template_name":"tooltip_light",
-                        "template":"<div class=\"cartodb-tooltip-content-wrapper\">\n  <div class=\"cartodb-tooltip-content\">\n  {{#fields}}\n    {{#title}}\n    <h4>{{title}}</h4>\n    {{/title}}\n    <p>{{{ value }}}</p>\n  {{/fields}}\n  </div>\n</div>",
-                        "alternative_names":{  
-
-                        },
-                        "maxHeight":180
-                     },
-                     "legend":{  
-                        "type":"none",
-                        "show_title":false,
-                        "title":"",
-                        "template":"",
-                        "visible":true
-                     },
-                     "order":3,
-                     "visible":true,
-                     "options":{  
-                        "sql":"select * from store_locations",
-                        "layer_name":"store_locations",
-                        "cartocss":"/** simple visualization */\n\n#store_locations{\n  marker-fill-opacity: 0.9;\n  marker-line-color: #FFCC00;\n  marker-line-width: 2;\n  marker-line-opacity: 1;\n  marker-placement: point;\n  marker-type: ellipse;\n  marker-width: 6;\n  marker-fill: #FF9900;\n  marker-allow-overlap: true;\n}",
-                        "cartocss_version":"2.1.1",
-                        "interactivity":"cartodb_id",
-                        "table_name":"\"\"."
-                     }
-                  }
-               ]
-            },
-            "attribution":""
+         {
+            "type":"histogram",
+            "layerIndex": 1,
+            "title":"Median Income",
+            "options": {
+              "column":"median_household_income",
+              "bins":10          
+            }
+         }, 
+         {
+            "type": "formula",
+            "title": "Retail Locations",
+            "layerIndex": 3,
+            "options": {
+               "column": "cartodb_id",
+               "operation": "count"
+            }
+         },
+         {
+            "type": "formula",
+            "title": "Tower Locations",
+            "layerIndex": 4,
+            "options": {
+               "column": "cartodb_id",
+               "operation": "count"
+            }
          }
+       ]  
       }
-   ],
-   "overlays":[  
-      {  
-         "type":"share",
-         "order":2,
-         "options":{  
-            "display":true,
-            "x":20,
-            "y":20
-         },
-         "template":""
-      },
-      {  
-         "type":"search",
-         "order":3,
-         "options":{  
-            "display":true,
-            "x":60,
-            "y":20
-         },
-         "template":""
-      },
-      {  
-         "type":"zoom",
-         "order":6,
-         "options":{  
-            "display":true,
-            "x":20,
-            "y":20
-         },
-         "template":"<a href=\"#zoom_in\" class=\"zoom_in\">+</a> <a href=\"#zoom_out\" class=\"zoom_out\">-</a>"
-      },
-      {  
-         "type":"loader",
-         "order":8,
-         "options":{  
-            "display":true,
-            "x":20,
-            "y":150
-         },
-         "template":"<div class=\"loader\" original-title=\"\"></div>"
-      },
-      {  
-         "type":"logo",
-         "order":9,
-         "options":{  
-            "display":true,
-            "x":10,
-            "y":40
-         },
-         "template":""
-      }
-   ],
-   "prev":null,
-   "next":null,
-   "transition_options":{  
-      "time":0
-   }
+
+      vizJSON.overlays.push(
+         {
+              "type": "zoom",
+              "order": 6,
+              "options": {
+                "display": true,
+                "x": 20,
+                "y": 20
+              },
+            "template": "<div class=\"CDB-Overlay\"><button class=\"CDB-Zoom-action CDB-Zoom-action--out js-zoomOut\"></button><button class=\"CDB-Zoom-action CDB-Zoom-action--in js-zoomIn\"></button></div><div class=\"CDB-Zoom-info js-zoomInfo\">1</div>"
+          }
+      )
+
+
+      console.log(vizJSON);
+
+      vizJSON.layers[1].options.layer_definition.layers[0].tooltip.template = "<div class='CDB-Tooltip CDB-Tooltip--isLight'><ul class=\"CDB-Tooltip-list\">\n \n <li class=\"CDB-Tooltip-listItem\"><h4 class=\"CDB-Tooltip-listTitle\">Neighborhood</h4><p class=\"CDB-Tooltip-listText\">{{ntaname}}</p></li><li class=\"CDB-Tooltip-listItem\"><h4 class=\"CDB-Tooltip-listTitle\">Median Age</h4><p class=\"CDB-Tooltip-listText\">{{median_age}}</p></li><li class=\"CDB-Tooltip-listItem\"><h4 class=\"CDB-Tooltip-listTitle\">Median Household Income</h4><p class=\"CDB-Tooltip-listText\">${{median_household_income}}</p></li> \n </ul></div>"
+
+      $.extend(vizJSON, diJSON);   
+      cartodb.deepInsights.createDashboard('#dashboard', vizJSON, {  
+         no_cdn:false
+      });
+   });
 }
 
 
 
 
-    cartodb.deepInsights.createDashboard('#dashboard', vizJSON, {  
-      no_cdn:false
-    });
+
         
-}
+
   </script>
 </body>
 

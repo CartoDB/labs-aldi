@@ -1,0 +1,32 @@
+WITH x as (
+
+SELECT a.*, b.median_age, b.median_household_income FROM nyct2010 a LEFT JOIN megaacs b ON a.geoid = b.geoid )
+
+--median income=30000
+--median age=25
+
+, y as (SELECT sum(SQRT(POWER(median_household_income - 30000,2) 
++ POWER(median_age - 25,2))
+)/count(*) as index FROM x) 
+
+SELECT SQRT(POWER(median_household_income - 30000,2) 
++ POWER(median_age - 25,2))
+)/y.index as index FROM x
+
+
+WITH X as(
+  
+  select a.*, SQRT( POWER(b.median_age - 30000, 2) + POWER(b.median_household_income - 25 ,2)) as sq
+  from nyct2010 a LEFT JOIN megaacs b ON a.geoid = b.geoid )
+),
+XAVG as(
+  select sum(X.sq) from X
+  )
+
+select X.sq/XAVG.sum , a.*
+from 
+where a.carto_db 
+
+//almost there...
+SELECT a.*, range_score(median_age::integer, 20, 25,0.9) as score
+FROM nyct2010 a LEFT JOIN megaacs b ON a.geoid = b.geoid 
