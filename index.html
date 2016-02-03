@@ -27,7 +27,8 @@
   <div class="Dashboard-canvas" id="dashboard"></div>
 
   <script>
-var widgetInfo = {};
+var widgetInfo = {},
+categoryFilters = [];
 
 window.onload = function() {
 
@@ -45,16 +46,28 @@ window.onload = function() {
 
      "datasource":{  
          "type":"public_map",
-         "user_name":"solutions-ded02",
-         "maps_api_template":"https://{user}.cartodb-staging.com:443",
+         "user_name":"solutions",
+         "maps_api_template":"https://{user}.cartodb.com:443",
          "stat_tag":"be7a4d14-c3a1-11e5-afb7-04013fc66a01",
          "force_cors":true      // This is sometimes set in the editor
       },
       "widgets":[
+          {
+            "type":"category",
+            "layerIndex": 1,
+            "title": "Current customers",
+            "options": {
+              "type": "aggregation",
+              "column": "williamsburg",
+              "aggregation": "count",
+              "aggregationColumn": "williamsburg"
+            }
+          },
+
          {
             "type":"histogram",
             "layerIndex": 1,
-            "title":"Median Age",
+            "title":"Target Age Range",
             "options": {
               "column":"median_age",
               "bins":10          
@@ -63,28 +76,47 @@ window.onload = function() {
          {
             "type":"histogram",
             "layerIndex": 1,
-            "title":"Median Income",
+            "title":"Target Household Income",
             "options": {
               "column":"median_household_income",
               "bins":10          
             }
-         }, 
+         },
          {
-            "type": "formula",
-            "title": "Retail Locations",
-            "layerIndex": 3,
+            "type":"histogram",
+            "layerIndex": 1,
+            "title":"Home Ownership",
             "options": {
-               "column": "cartodb_id",
-               "operation": "count"
+              "column":"owner_occupied_housing_units_per_pop",
+              "bins":10          
+            }
+         }, 
+          {
+            "type":"histogram",
+            "layerIndex": 1,
+            "title":"Disposable Income Percentile",
+            "options": {
+              "column":"percent_household_income_spent_on_rent",
+              "bins":10          
             }
          },
          {
-            "type": "formula",
-            "title": "Tower Locations",
-            "layerIndex": 4,
+            "type":"category",
+            "layerIndex": 1,
+            "title": "Highway Proximity",
             "options": {
-               "column": "cartodb_id",
-               "operation": "count"
+              "type": "aggregation",
+              "column": "primary_roadway_distance_cats",
+              "aggregation": "count",
+              "aggregationColumn": "primary_roadway_distance_cats"
+            }
+          },{
+            "type":"histogram",
+            "layerIndex": 1,
+            "title":"Commercial Activity Rank",
+            "options": {
+              "column":"quad_cat_axh",
+              "bins":10          
             }
          }
        ]  
@@ -106,7 +138,7 @@ window.onload = function() {
 
       console.log(vizJSON);
 
-      vizJSON.layers[1].options.layer_definition.layers[0].tooltip.template = "<div class='CDB-Tooltip CDB-Tooltip--isLight'><ul class=\"CDB-Tooltip-list\">\n \n <li class=\"CDB-Tooltip-listItem\"><h4 class=\"CDB-Tooltip-listTitle\">Neighborhood</h4><p class=\"CDB-Tooltip-listText\">{{ntaname}}</p></li><li class=\"CDB-Tooltip-listItem\"><h4 class=\"CDB-Tooltip-listTitle\">Median Age</h4><p class=\"CDB-Tooltip-listText\">{{median_age}}</p></li><li class=\"CDB-Tooltip-listItem\"><h4 class=\"CDB-Tooltip-listTitle\">Median Household Income</h4><p class=\"CDB-Tooltip-listText\">${{median_household_income}}</p></li> \n </ul></div>"
+      vizJSON.layers[1].options.layer_definition.layers[0].tooltip.template = "<div class='CDB-Tooltip CDB-Tooltip--isLight'><ul class=\"CDB-Tooltip-list\">\n \n <li class=\"CDB-Tooltip-listItem\"><h4 class=\"CDB-Tooltip-listTitle\">Score</h4><p class=\"CDB-Tooltip-listText\">{{score}}</p></li><li class=\"CDB-Tooltip-listItem\"><h4 class=\"CDB-Tooltip-listTitle\">Median Age</h4><p class=\"CDB-Tooltip-listText\">{{median_age}}</p></li><li class=\"CDB-Tooltip-listItem\"><h4 class=\"CDB-Tooltip-listTitle\">Median Household Income</h4><p class=\"CDB-Tooltip-listText\">${{median_household_income}}</p></li> \n </ul></div>"
 
       $.extend(vizJSON, diJSON);   
       cartodb.deepInsights.createDashboard('#dashboard', vizJSON, {  
