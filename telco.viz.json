@@ -1,4 +1,4 @@
-{  
+{
    "id":"a027c6dc-c53d-11e5-af88-04013fc66a01",
    "version":"0.1.0",
    "title":"telco copy (mamata)",
@@ -8,12 +8,12 @@
    "legends":false,
    "url":null,
    "map_provider":"leaflet",
-   "bounds":[  
-      [  
+   "bounds":[
+      [
          40.69560706756009,
          -74.06209945678711
       ],
-      [  
+      [
          40.76793169992044,
          -73.83155822753906
       ]
@@ -21,11 +21,11 @@
    "center":"[40.73177921058233, -73.94682884216309]",
    "zoom":13,
    "updated_at":"2016-01-31T22:11:12+00:00",
-   "layers":[  
+   "layers":[
       {"options":{"visible":true,"type":"Tiled","name":"Dark matter (labels below)","className":"dark_matter_rainbow","base_type":"default","urlTemplate":"https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png","minZoom":"0","maxZoom":"18","attribution":"&copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors &copy; <a href=\"http://cartodb.com/attributions\">CartoDB</a>","subdomains":"abcd","style":null,"read_only":true,"category":"CartoDB","order":0,"id":"83882fde-c3a1-4930-a865-a178504639bf"},"infowindow":null,"tooltip":null,"id":"f37da10b-7dfe-429e-a74c-65caf575605c","order":0,"type":"tiled"},
-      {  
+      {
          "type":"layergroup",
-         "options":{  
+         "options":{
             "user_name":"solutions-ded02",
             "maps_api_template":"https://{user}.cartodb-staging.com:443",
             "sql_api_template":"https://{user}.cartodb-staging.com:443",
@@ -37,53 +37,53 @@
             "sql_api_endpoint":"/api/v2/sql",
             "sql_api_port":80,
             "filter":"mapnik",
-            "layer_definition":{  
+            "layer_definition":{
                "stat_tag":"a027c6dc-c53d-11e5-af88-04013fc66a01",
                "version":"1.0.1",
-               "layers":[  
-                  {  
+               "layers":[
+                  {
                      "id":"a24c83a9-943a-45e1-a943-38777a584e51",
                      "type":"CartoDB",
-                     "infowindow":{  
-                        "fields":[  
+                     "infowindow":{
+                        "fields":[
 
                         ],
                         "template_name":"table/views/infowindow_light",
                         "template":"<div class=\"cartodb-popup v2\">\n  <a href=\"#close\" class=\"cartodb-popup-close-button close\">x</a>\n  <div class=\"cartodb-popup-content-wrapper\">\n    <div class=\"cartodb-popup-content\">\n      {{#content.fields}}\n        {{#title}}<h4>{{title}}</h4>{{/title}}\n        {{#value}}\n          <p {{#type}}class=\"{{ type }}\"{{/type}}>{{{ value }}}</p>\n        {{/value}}\n        {{^value}}\n          <p class=\"empty\">null</p>\n        {{/value}}\n      {{/content.fields}}\n    </div>\n  </div>\n  <div class=\"cartodb-popup-tip-container\"></div>\n</div>\n",
-                        "alternative_names":{  
+                        "alternative_names":{
 
                         },
                         "width":226,
                         "maxHeight":180
                      },
-                     "tooltip":{  
-                        "fields":[  
-                           {  
+                     "tooltip":{
+                        "fields":[
+                           {
                               "name":"median_age",
                               "title":true,
                               "position":10
                            },
-                           {  
+                           {
                               "name":"median_household_income",
                               "title":true,
                               "position":11
                            },
-                           {  
+                           {
                               "name":"score",
                               "title":true,
                               "position":12
                            },
-                           {  
+                           {
                               "name":"owner_occupied_housing_units_per_pop",
                               "title":true,
                               "position":12
                            },
-                           {  
+                           {
                               "name":"percent_household_income_spent_on_rent",
                               "title":true,
                               "position":12
                            },
-                           {  
+                           {
                               "name":"ownership",
                               "title":true,
                               "position":12
@@ -91,69 +91,69 @@
                         ],
                         "template_name":"tooltip_light",
                         "template":"<div class=\"cartodb-tooltip-content-wrapper\">\n  <div class=\"cartodb-tooltip-content\">\n  {{#fields}}\n    {{#title}}\n    <h4>{{title}}</h4>\n    {{/title}}\n    <p>{{{ value }}}</p>\n  {{/fields}}\n  </div>\n</div>",
-                        "alternative_names":{  
+                        "alternative_names":{
 
                         },
                         "maxHeight":180
                      },
-                     "legend":{  
+                     "legend":{
                         "type":"choropleth",
                         "show_title":true,
                         "title":"Fit to Selection",
                         "template":"",
                         "visible":true,
-                        "items":[  
-                           {  
+                        "items":[
+                           {
                               "name":"Left label",
                               "visible":true,
                               "value":"Worse",
                               "type":"text",
                               "custom_value":true
                            },
-                           {  
+                           {
                               "name":"Right label",
                               "visible":true,
                               "value":"Better",
                               "type":"text",
                               "custom_value":true
                            },
-                           {  
+                           {
                               "name":"Color",
                               "visible":true,
                               "value":"#EDF8FB",
                               "type":"color"
                            },
-                           {  
+                           {
                               "name":"Color",
                               "visible":true,
                               "value":"#D7FAF4",
                               "type":"color"
                            },
-                           {  
+                           {
                               "name":"Color",
                               "visible":true,
                               "value":"#CCECE6",
                               "type":"color"
                            },
-                           {  
+                           {
                               "name":"Color",
                               "visible":true,
                               "value":"#66C2A4",
                               "type":"color"
                            },
-                           {  
+                           {
                               "name":"Color",
                               "visible":true,
                               "value":"#41AE76",
                               "type":"color"
                            },
-                           {  
+                           {
                               "name":"Color",
                               "visible":true,
                               "value":"#238B45",
                               "type":"color"
                            },
-                           {  
+                           {
                               "name":"Color",
                               "visible":true,
                               "value":"#005824",
@@ -163,7 +163,7 @@
                      },
                      "order":1,
                      "visible":true,
-                     "options":{  
+                     "options":{
                         "sql":"SELECT *, ROUND(owner_occupied_housing_units_per_pop::numeric,4) * 100 as ownership, 1 as score FROM stuartlynn.census_uber_clustering_2",
                         "layer_name":"nyct2010",
                         "cartocss":"#census_uber_clustering_1{ polygon-fill: transparent; polygon-opacity:1; line-color: transparent; line-width: 0.75; line-opacity: 1; [zoom>=13]{line-width: 1.2;} } #census_uber_clustering_1 [ score = 1] { polygon-fill: #8BF19B; line-color: lighten(#8BF19B,7); [zoom<=6]{line-color: #8BF19B;} } #census_uber_clustering_1 [ score < 1] { polygon-fill: #65D79C; line-color: lighten(#65D79C,7); [zoom<=6]{line-color: #65D79C;} } #census_uber_clustering_1 [ score <= 0.8] { polygon-fill: #46BC9A; line-color: lighten(#46BC9A,7); [zoom<=6]{line-color: #46BC9A;} } #census_uber_clustering_1 [ score <= .6] { polygon-fill:#31A193; line-color:lighten(#31A193,7); [zoom<=6]{line-color: #31A193;} } #census_uber_clustering_1 [ score <= .4] { polygon-fill: #298687; line-color: lighten(#298687,7); [zoom<=6]{line-color: #298687;} } #census_uber_clustering_1 [ score <= .2] { polygon-fill: #2A6C76; line-color: lighten(#2A6C76,7); [zoom<=6]{line-color: #2A6C76;} } #census_uber_clustering_1 [ score <= .1] { polygon-fill: #2A5362; line-color: lighten(#2a5362,7); [zoom<=6]{line-color: #2a5362;} } ",
@@ -172,12 +172,12 @@
                         "table_name":"\"\"."
                      }
                   },
-                  {  
+                  {
                      "id":"b80eb785-e025-4c56-a2cd-9055a4cb0494",
                      "type":"CartoDB",
                      "order":2,
                      "visible":true,
-                     "options":{  
+                     "options":{
                         "sql":"select * from telco_osm_streets",
                         "layer_name":"new_york_new_york_osm_line",
                         "cartocss":"/** category visualization */\n\n/** category visualization */\n\n#new_york_new_york_osm_line {\n   line-width: 0.25;\n   line-opacity: 0.5;\n   line-color: #fff;\n}\n\n\n\n#new_york_new_york_osm_line[highway=\"motorway\"] {\n   line-width: 1.5;\n   line-opacity: 0.65;\n}\n#new_york_new_york_osm_line[highway=\"motorway_link\"] {\n   line-width: 0.5;\n}\n#new_york_new_york_osm_line[highway=\"primary\"] {\n   line-width: 1;\n}\n#new_york_new_york_osm_line[highway=\"secondary\"] {\n   line-width: 0.75;\n}\n\n#new_york_new_york_osm_line[highway=\"tertiary\"] {\n   line-width: 0.5;\n}\n#new_york_new_york_osm_line[highway=\"residential\"] {\n   line-width: 0.25;\n}\n\n#new_york_new_york_osm_line[highway=\"service\"] {\n   line-width: 0;\n}\n\n#new_york_new_york_osm_line[highway=\"trunk\"] {\n   line-width: 0;\n}\n#new_york_new_york_osm_line[highway=\"trunk_link\"] {\n   line-width: 0;\n}\n#new_york_new_york_osm_line {\n   line-width: 0;\n}\n#new_york_new_york_osm_line[highway=\"footway\"] {\n   line-width: 0;\n}#new_york_new_york_osm_line [zoom<10] {line-opacity:10; line-width:0}",
@@ -185,36 +185,36 @@
                         "table_name":"\"\"."
                      }
                   },
-                  {  
+                  {
                      "id":"fa4d55d8-1bdb-4c10-b30d-fd9601ef9303",
                      "type":"CartoDB",
-                     "infowindow":{  
-                        "fields":[  
+                     "infowindow":{
+                        "fields":[
 
                         ],
                         "template_name":"table/views/infowindow_light",
                         "template":"<div class=\"cartodb-popup v2\">\n  <a href=\"#close\" class=\"cartodb-popup-close-button close\">x</a>\n  <div class=\"cartodb-popup-content-wrapper\">\n    <div class=\"cartodb-popup-content\">\n      {{#content.fields}}\n        {{#title}}<h4>{{title}}</h4>{{/title}}\n        {{#value}}\n          <p {{#type}}class=\"{{ type }}\"{{/type}}>{{{ value }}}</p>\n        {{/value}}\n        {{^value}}\n          <p class=\"empty\">null</p>\n        {{/value}}\n      {{/content.fields}}\n    </div>\n  </div>\n  <div class=\"cartodb-popup-tip-container\"></div>\n</div>\n",
-                        "alternative_names":{  
+                        "alternative_names":{
 
                         },
                         "width":226,
                         "maxHeight":180
                      },
-                     "tooltip":{  
-                        "fields":[  
+                     "tooltip":{
+                        "fields":[
 
                         ],
                         "template_name":"tooltip_light",
                         "template":"<div class=\"cartodb-tooltip-content-wrapper\">\n  <div class=\"cartodb-tooltip-content\">\n  {{#fields}}\n    {{#title}}\n    <h4>{{title}}</h4>\n    {{/title}}\n    <p>{{{ value }}}</p>\n  {{/fields}}\n  </div>\n</div>",
-                        "alternative_names":{  
+                        "alternative_names":{
 
                         },
                         "maxHeight":180
                      },
-                    
+
                      "order":3,
                      "visible":true,
-                     "options":{  
+                     "options":{
                         "sql":"select * from telco_store_locations",
                         "layer_name":"store_locations",
                         "cartocss":"/** simple visualization */\n\n#store_locations{\n  marker-fill-opacity: 0.9;\n  marker-line-color: #FFCC00;\n  marker-line-width: 2;\n  marker-line-opacity: 1;\n  marker-placement: point;\n  marker-type: ellipse;\n  marker-width: 6;\n  marker-fill: #FFF;\n  marker-allow-overlap: true;\n}#store_locations[zoom<10]{marker-width:0;marker-line-width:0}",
@@ -222,33 +222,33 @@
                         "table_name":"\"\"."
                      }
                   },
-                  {  
+                  {
                      "id":"10d17d37-419d-43d5-a629-8fc59f559ef0",
                      "type":"CartoDB",
-                     "infowindow":{  
-                        "fields":[  
+                     "infowindow":{
+                        "fields":[
 
                         ],
                         "template_name":"table/views/infowindow_light",
                         "template":"<div class=\"cartodb-popup v2\">\n  <a href=\"#close\" class=\"cartodb-popup-close-button close\">x</a>\n  <div class=\"cartodb-popup-content-wrapper\">\n    <div class=\"cartodb-popup-content\">\n      {{#content.fields}}\n        {{#title}}<h4>{{title}}</h4>{{/title}}\n        {{#value}}\n          <p {{#type}}class=\"{{ type }}\"{{/type}}>{{{ value }}}</p>\n        {{/value}}\n        {{^value}}\n          <p class=\"empty\">null</p>\n        {{/value}}\n      {{/content.fields}}\n    </div>\n  </div>\n  <div class=\"cartodb-popup-tip-container\"></div>\n</div>\n",
-                        "alternative_names":{  
+                        "alternative_names":{
 
                         },
                         "width":226,
                         "maxHeight":180
                      },
-                     "tooltip":{  
-                        "fields":[  
+                     "tooltip":{
+                        "fields":[
 
                         ],
                         "template_name":"tooltip_light",
                         "template":"<div class=\"cartodb-tooltip-content-wrapper\">\n  <div class=\"cartodb-tooltip-content\">\n  {{#fields}}\n    {{#title}}\n    <h4>{{title}}</h4>\n    {{/title}}\n    <p>{{{ value }}}</p>\n  {{/fields}}\n  </div>\n</div>",
-                        "alternative_names":{  
+                        "alternative_names":{
 
                         },
                         "maxHeight":180
                      },
-                     "legend":{  
+                     "legend":{
                         "type":"none",
                         "show_title":false,
                         "title":"",
@@ -257,65 +257,66 @@
                      },
                      "order":4,
                      "visible":true,
-                     "options":{  
+                     "options":{
                         "sql":"select * from telco_towers",
                         "layer_name":"Tower sites",
                         "cartocss":"/** simple visualization */\n\n#output2{\n  marker-fill-opacity: 0.9;\n  marker-line-color: #A53ED5;\n  marker-line-width: 2;\n  marker-line-opacity: 1;\n  marker-placement: point;\n  marker-type: ellipse;\n  marker-width: 6;\n  marker-fill: #FFFFFF;\n  marker-allow-overlap: true;\n}#output2[zoom<10]{marker-width:0;marker-line-width:0}",
                         "cartocss_version":"2.1.1",
                         "table_name":"\"\"."
                      }
-                  }
+                  },
+                  {"id":"c9462472-692a-4042-9e78-b87aa9556157","type":"CartoDB","infowindow":{"fields":[{"name":"id","title":true,"position":0},{"name":"name","title":true,"position":1},{"name":"osm_id","title":true,"position":2},{"name":"type","title":true,"position":3}],"template_name":"table/views/infowindow_light","template":"<div class=\"cartodb-popup v2\">\n  <a href=\"#close\" class=\"cartodb-popup-close-button close\">x</a>\n  <div class=\"cartodb-popup-content-wrapper\">\n    <div class=\"cartodb-popup-content\">\n      {{#content.fields}}\n        {{#title}}<h4>{{title}}</h4>{{/title}}\n        {{#value}}\n          <p {{#type}}class=\"{{ type }}\"{{/type}}>{{{ value }}}</p>\n        {{/value}}\n        {{^value}}\n          <p class=\"empty\">null</p>\n        {{/value}}\n      {{/content.fields}}\n    </div>\n  </div>\n  <div class=\"cartodb-popup-tip-container\"></div>\n</div>\n","alternative_names":{},"width":226,"maxHeight":180},"tooltip":{"fields":null,"template_name":"tooltip_light","template":"<div class=\"cartodb-tooltip-content-wrapper\">\n  <div class=\"cartodb-tooltip-content\">\n  {{#fields}}\n    {{#title}}\n    <h4>{{title}}</h4>\n    {{/title}}\n    <p>{{{ value }}}</p>\n  {{/fields}}\n  </div>\n</div>","alternative_names":{},"maxHeight":180},"legend":{"type":"none","show_title":false,"title":"","template":"","visible":true},"order":4,"visible":true,"options":{"sql":"select * from andrew.new_york_osm_waterareas","layer_name":"new_york_osm_waterareas","cartocss":"/** simple visualization */\n\n#new_york_osm_waterareas{\n  polygon-fill: #5CA2D1;\n  polygon-opacity: 1;\n  line-color: #FFF;\n  line-width: 1;\n  line-opacity: 0;\n  polygon-comp-op: clear;\n}","cartocss_version":"2.1.1","interactivity":"cartodb_id","table_name":"\"\"."}}
                ]
             },
             "attribution":""
          }
       }
    ],
-   "overlays":[  
-      {  
+   "overlays":[
+      {
          "type":"share",
          "order":2,
-         "options":{  
+         "options":{
             "display":true,
             "x":20,
             "y":20
          },
          "template":""
       },
-      {  
+      {
          "type":"search",
          "order":3,
-         "options":{  
+         "options":{
             "display":true,
             "x":60,
             "y":20
          },
          "template":""
       },
-      {  
+      {
          "type":"zoom",
          "order":6,
-         "options":{  
+         "options":{
             "display":true,
             "x":20,
             "y":20
          },
          "template":"<a href=\"#zoom_in\" class=\"zoom_in\">+</a> <a href=\"#zoom_out\" class=\"zoom_out\">-</a>"
       },
-      {  
+      {
          "type":"loader",
          "order":8,
-         "options":{  
+         "options":{
             "display":true,
             "x":20,
             "y":150
          },
          "template":"<div class=\"loader\" original-title=\"\"></div>"
       },
-      {  
+      {
          "type":"logo",
          "order":9,
-         "options":{  
+         "options":{
             "display":true,
             "x":10,
             "y":40
@@ -325,7 +326,7 @@
    ],
    "prev":null,
    "next":null,
-   "transition_options":{  
+   "transition_options":{
       "time":0
    }
 }
