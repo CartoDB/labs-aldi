@@ -225,6 +225,27 @@ window.onload = function() {
          "force_cors":true      // This is sometimes set in the editor
       },
       "widgets":[
+
+        {
+           "type":"formula",
+           "layerIndex": 1,
+           "title":"Total Population",
+           "options":{
+             "column" : 'total_pop',
+             "operation": "sum"
+           }
+
+        },
+          {
+             "type":"formula",
+             "layerIndex": 1,
+             "title":"Potential Customers",
+             "options":{
+               "column" : 'pop_score',
+               "operation": "sum"
+             }
+
+          },
          {
             "type":"histogram",
             "layerIndex": 1,
