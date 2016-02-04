@@ -313,7 +313,7 @@ window.onload = function() {
          legends[i].style.visibility="hidden";
          }
       }
-      if (queryDict['tooltips']=='false'){
+      if (queryDict['tooltips'].toLowerCase()=='false'){
         vizJSON.layers[1].options.layer_definition.layers[0].tooltip = null;
       }
 // END axh temporary fix
