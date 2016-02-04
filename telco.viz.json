@@ -22,7 +22,7 @@
    "zoom":13,
    "updated_at":"2016-01-31T22:11:12+00:00",
    "layers":[
-      {"options":{"visible":true,"type":"Tiled","name":"Dark matter (labels below)","className":"dark_matter_rainbow","base_type":"default","urlTemplate":"https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png","minZoom":"0","maxZoom":"18","attribution":"&copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors &copy; <a href=\"http://cartodb.com/attributions\">CartoDB</a>","subdomains":"abcd","style":null,"read_only":true,"category":"CartoDB","order":0,"id":"83882fde-c3a1-4930-a865-a178504639bf"},"infowindow":null,"tooltip":null,"id":"f37da10b-7dfe-429e-a74c-65caf575605c","order":0,"type":"tiled"},
+      {"options":{"visible":true,"type":"Tiled","name":"Dark matter (labels below)","className":"dark_matter_rainbow","base_type":"default","urlTemplate":"https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_nolabels/{z}/{x}/{y}.png","minZoom":"0","maxZoom":"18","attribution":"&copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors &copy; <a href=\"http://cartodb.com/attributions\">CartoDB</a>","subdomains":"abcd","style":null,"read_only":true,"category":"CartoDB","order":0,"id":"83882fde-c3a1-4930-a865-a178504639bf"},"infowindow":null,"tooltip":null,"id":"f37da10b-7dfe-429e-a74c-65caf575605c","order":0,"type":"tiled"},
       {
          "type":"layergroup",
          "options":{
