@@ -88,6 +88,16 @@
                               "name":"score",
                               "title":true,
                               "position":12
+                           },
+                           {  
+                              "name":"owner_occupied_housing_units_per_pop",
+                              "title":true,
+                              "position":12
+                           },
+                           {  
+                              "name":"percent_household_income_spent_on_rent",
+                              "title":true,
+                              "position":12
                            }
                         ],
                         "template_name":"tooltip_light",
@@ -169,395 +179,19 @@
                         "layer_name":"nyct2010",
                         "cartocss":"/** choropleth visualization */ #census_uber_clustering_1{ polygon-fill: transparent; polygon-opacity: 0.8; line-color: transparent; line-width: 1; line-opacity: 1; } #census_uber_clustering_1 [ score = 1] { polygon-fill: #67E1A7; line-color: #67E1A7; } #census_uber_clustering_1 [ score < 1] { polygon-fill: #4CC9A4; line-color: #4CC9A4; } #census_uber_clustering_1 [ score <= 0.8] { polygon-fill: #39B19D; line-color: #39B19D; } #census_uber_clustering_1 [ score <= .6] { polygon-fill: #2E9993; line-color: #2e9993; } #census_uber_clustering_1 [ score <= .4] { polygon-fill: #2A8286; line-color: #2a8286; } #census_uber_clustering_1 [ score <= .2] { polygon-fill: #2A6B76; line-color: #2A6B76; } #census_uber_clustering_1 [ score <= .1] { polygon-fill: #2A5563; line-color: #2a5563; }",
                         "cartocss_version":"2.1.1",
-                        "interactivity":"cartodb_id,median_age,median_household_income, score",
+                        "interactivity":"cartodb_id,median_age,median_household_income, owner_occupied_housing_units_per_pop, percent_household_income_spent_on_rent",
                         "table_name":"\"\"."
                      }
                   },
                   {  
                      "id":"b80eb785-e025-4c56-a2cd-9055a4cb0494",
                      "type":"CartoDB",
-                     "infowindow":{  
-                        "fields":[  
-                           {  
-                              "name":"_natural",
-                              "title":true,
-                              "position":0
-                           },
-                           {  
-                              "name":"access",
-                              "title":true,
-                              "position":1
-                           },
-                           {  
-                              "name":"aerialway",
-                              "title":true,
-                              "position":2
-                           },
-                           {  
-                              "name":"aeroway",
-                              "title":true,
-                              "position":3
-                           },
-                           {  
-                              "name":"amenity",
-                              "title":true,
-                              "position":4
-                           },
-                           {  
-                              "name":"area",
-                              "title":true,
-                              "position":5
-                           },
-                           {  
-                              "name":"barrier",
-                              "title":true,
-                              "position":6
-                           },
-                           {  
-                              "name":"bicycle",
-                              "title":true,
-                              "position":7
-                           },
-                           {  
-                              "name":"boundary",
-                              "title":true,
-                              "position":8
-                           },
-                           {  
-                              "name":"brand",
-                              "title":true,
-                              "position":9
-                           },
-                           {  
-                              "name":"bridge",
-                              "title":true,
-                              "position":10
-                           },
-                           {  
-                              "name":"building",
-                              "title":true,
-                              "position":11
-                           },
-                           {  
-                              "name":"covered",
-                              "title":true,
-                              "position":12
-                           },
-                           {  
-                              "name":"culvert",
-                              "title":true,
-                              "position":13
-                           },
-                           {  
-                              "name":"cutting",
-                              "title":true,
-                              "position":14
-                           },
-                           {  
-                              "name":"disused",
-                              "title":true,
-                              "position":15
-                           },
-                           {  
-                              "name":"embankment",
-                              "title":true,
-                              "position":16
-                           },
-                           {  
-                              "name":"foot",
-                              "title":true,
-                              "position":17
-                           },
-                           {  
-                              "name":"harbour",
-                              "title":true,
-                              "position":18
-                           },
-                           {  
-                              "name":"highway",
-                              "title":true,
-                              "position":19
-                           },
-                           {  
-                              "name":"historic",
-                              "title":true,
-                              "position":20
-                           },
-                           {  
-                              "name":"horse",
-                              "title":true,
-                              "position":21
-                           },
-                           {  
-                              "name":"junction",
-                              "title":true,
-                              "position":22
-                           },
-                           {  
-                              "name":"landuse",
-                              "title":true,
-                              "position":23
-                           },
-                           {  
-                              "name":"layer",
-                              "title":true,
-                              "position":24
-                           },
-                           {  
-                              "name":"leisure",
-                              "title":true,
-                              "position":25
-                           },
-                           {  
-                              "name":"lock",
-                              "title":true,
-                              "position":26
-                           },
-                           {  
-                              "name":"man_made",
-                              "title":true,
-                              "position":27
-                           },
-                           {  
-                              "name":"military",
-                              "title":true,
-                              "position":28
-                           },
-                           {  
-                              "name":"motorcar",
-                              "title":true,
-                              "position":29
-                           },
-                           {  
-                              "name":"name",
-                              "title":true,
-                              "position":30
-                           },
-                           {  
-                              "name":"oneway",
-                              "title":true,
-                              "position":31
-                           },
-                           {  
-                              "name":"operator",
-                              "title":true,
-                              "position":32
-                           },
-                           {  
-                              "name":"osm_id",
-                              "title":true,
-                              "position":33
-                           },
-                           {  
-                              "name":"place",
-                              "title":true,
-                              "position":34
-                           },
-                           {  
-                              "name":"population",
-                              "title":true,
-                              "position":35
-                           },
-                           {  
-                              "name":"power",
-                              "title":true,
-                              "position":36
-                           },
-                           {  
-                              "name":"railway",
-                              "title":true,
-                              "position":37
-                           },
-                           {  
-                              "name":"ref",
-                              "title":true,
-                              "position":38
-                           },
-                           {  
-                              "name":"religion",
-                              "title":true,
-                              "position":39
-                           },
-                           {  
-                              "name":"route",
-                              "title":true,
-                              "position":40
-                           },
-                           {  
-                              "name":"service",
-                              "title":true,
-                              "position":41
-                           },
-                           {  
-                              "name":"shop",
-                              "title":true,
-                              "position":42
-                           },
-                           {  
-                              "name":"sport",
-                              "title":true,
-                              "position":43
-                           },
-                           {  
-                              "name":"surface",
-                              "title":true,
-                              "position":44
-                           },
-                           {  
-                              "name":"tags",
-                              "title":true,
-                              "position":45
-                           },
-                           {  
-                              "name":"toll",
-                              "title":true,
-                              "position":46
-                           },
-                           {  
-                              "name":"tourism",
-                              "title":true,
-                              "position":47
-                           },
-                           {  
-                              "name":"tower_type",
-                              "title":true,
-                              "position":48
-                           },
-                           {  
-                              "name":"tracktype",
-                              "title":true,
-                              "position":49
-                           },
-                           {  
-                              "name":"tunnel",
-                              "title":true,
-                              "position":50
-                           },
-                           {  
-                              "name":"water",
-                              "title":true,
-                              "position":51
-                           },
-                           {  
-                              "name":"waterway",
-                              "title":true,
-                              "position":52
-                           },
-                           {  
-                              "name":"way_area",
-                              "title":true,
-                              "position":53
-                           },
-                           {  
-                              "name":"wetland",
-                              "title":true,
-                              "position":54
-                           },
-                           {  
-                              "name":"width",
-                              "title":true,
-                              "position":55
-                           },
-                           {  
-                              "name":"wood",
-                              "title":true,
-                              "position":56
-                           },
-                           {  
-                              "name":"z_order",
-                              "title":true,
-                              "position":57
-                           }
-                        ],
-                        "template_name":"table/views/infowindow_light",
-                        "template":"<div class=\"cartodb-popup v2\">\n  <a href=\"#close\" class=\"cartodb-popup-close-button close\">x</a>\n  <div class=\"cartodb-popup-content-wrapper\">\n    <div class=\"cartodb-popup-content\">\n      {{#content.fields}}\n        {{#title}}<h4>{{title}}</h4>{{/title}}\n        {{#value}}\n          <p {{#type}}class=\"{{ type }}\"{{/type}}>{{{ value }}}</p>\n        {{/value}}\n        {{^value}}\n          <p class=\"empty\">null</p>\n        {{/value}}\n      {{/content.fields}}\n    </div>\n  </div>\n  <div class=\"cartodb-popup-tip-container\"></div>\n</div>\n",
-                        "alternative_names":{  
-
-                        },
-                        "width":226,
-                        "maxHeight":180
-                     },
-                     "tooltip":{  
-                        "fields":[  
-
-                        ],
-                        "template_name":"tooltip_light",
-                        "template":"<div class=\"cartodb-tooltip-content-wrapper\">\n  <div class=\"cartodb-tooltip-content\">\n  {{#fields}}\n    {{#title}}\n    <h4>{{title}}</h4>\n    {{/title}}\n    <p>{{{ value }}}</p>\n  {{/fields}}\n  </div>\n</div>",
-                        "alternative_names":{  
-
-                        },
-                        "maxHeight":180
-                     },
-                     "legend":{  
-                        "type":"none",
-                        "show_title":false,
-                        "title":"",
-                        "template":"",
-                        "visible":true,
-                        "items":[  
-                           {  
-                              "name":"footway",
-                              "visible":true,
-                              "value":"#A6CEE3"
-                           },
-                           {  
-                              "name":"motorway",
-                              "visible":true,
-                              "value":"#1F78B4"
-                           },
-                           {  
-                              "name":"motorway_link",
-                              "visible":true,
-                              "value":"#B2DF8A"
-                           },
-                           {  
-                              "name":"primary",
-                              "visible":true,
-                              "value":"#33A02C"
-                           },
-                           {  
-                              "name":"residential",
-                              "visible":true,
-                              "value":"#FB9A99"
-                           },
-                           {  
-                              "name":"secondary",
-                              "visible":true,
-                              "value":"#E31A1C"
-                           },
-                           {  
-                              "name":"service",
-                              "visible":true,
-                              "value":"#FDBF6F"
-                           },
-                           {  
-                              "name":"tertiary",
-                              "visible":true,
-                              "value":"#FF7F00"
-                           },
-                           {  
-                              "name":"trunk",
-                              "visible":true,
-                              "value":"#CAB2D6"
-                           },
-                           {  
-                              "name":"trunk_link",
-                              "visible":true,
-                              "value":"#6A3D9A"
-                           },
-                           {  
-                              "name":"Others",
-                              "visible":true,
-                              "value":"#DDDDDD"
-                           }
-                        ]
-                     },
                      "order":2,
                      "visible":true,
                      "options":{  
                         "sql":"select * from telco_osm_streets",
                         "layer_name":"new_york_new_york_osm_line",
-                        "cartocss":"/** category visualization */\n\n/** category visualization */\n\n#new_york_new_york_osm_line {\n   line-width: 0.25;\n   line-opacity: 0.5;\n   line-color: #fff;\n}\n\n\n\n#new_york_new_york_osm_line[highway=\"motorway\"] {\n   line-width: 1.5;\n   line-opacity: 0.65;\n}\n#new_york_new_york_osm_line[highway=\"motorway_link\"] {\n   line-width: 0.5;\n}\n#new_york_new_york_osm_line[highway=\"primary\"] {\n   line-width: 1;\n}\n#new_york_new_york_osm_line[highway=\"secondary\"] {\n   line-width: 0.75;\n}\n\n#new_york_new_york_osm_line[highway=\"tertiary\"] {\n   line-width: 0.5;\n}\n#new_york_new_york_osm_line[highway=\"residential\"] {\n   line-width: 0.25;\n}\n\n#new_york_new_york_osm_line[highway=\"service\"] {\n   line-width: 0;\n}\n\n#new_york_new_york_osm_line[highway=\"trunk\"] {\n   line-width: 0;\n}\n#new_york_new_york_osm_line[highway=\"trunk_link\"] {\n   line-width: 0;\n}\n#new_york_new_york_osm_line {\n   line-width: 0;\n}\n#new_york_new_york_osm_line[highway=\"footway\"] {\n   line-width: 0;\n}",
+                        "cartocss":"/** category visualization */\n\n/** category visualization */\n\n#new_york_new_york_osm_line {\n   line-width: 0.25;\n   line-opacity: 0.5;\n   line-color: #fff;\n}\n\n\n\n#new_york_new_york_osm_line[highway=\"motorway\"] {\n   line-width: 1.5;\n   line-opacity: 0.65;\n}\n#new_york_new_york_osm_line[highway=\"motorway_link\"] {\n   line-width: 0.5;\n}\n#new_york_new_york_osm_line[highway=\"primary\"] {\n   line-width: 1;\n}\n#new_york_new_york_osm_line[highway=\"secondary\"] {\n   line-width: 0.75;\n}\n\n#new_york_new_york_osm_line[highway=\"tertiary\"] {\n   line-width: 0.5;\n}\n#new_york_new_york_osm_line[highway=\"residential\"] {\n   line-width: 0.25;\n}\n\n#new_york_new_york_osm_line[highway=\"service\"] {\n   line-width: 0;\n}\n\n#new_york_new_york_osm_line[highway=\"trunk\"] {\n   line-width: 0;\n}\n#new_york_new_york_osm_line[highway=\"trunk_link\"] {\n   line-width: 0;\n}\n#new_york_new_york_osm_line {\n   line-width: 0;\n}\n#new_york_new_york_osm_line[highway=\"footway\"] {\n   line-width: 0;\n}#new_york_new_york_osm_line [zoom<10] {line-opacity:10; line-width:0}",
                         "cartocss_version":"2.1.1",
                         "table_name":"\"\"."
                      }
@@ -594,7 +228,7 @@
                      "options":{  
                         "sql":"select * from telco_store_locations",
                         "layer_name":"store_locations",
-                        "cartocss":"/** simple visualization */\n\n#store_locations{\n  marker-fill-opacity: 0.9;\n  marker-line-color: #FFCC00;\n  marker-line-width: 2;\n  marker-line-opacity: 1;\n  marker-placement: point;\n  marker-type: ellipse;\n  marker-width: 6;\n  marker-fill: #FF9900;\n  marker-allow-overlap: true;\n}",
+                        "cartocss":"/** simple visualization */\n\n#store_locations{\n  marker-fill-opacity: 0.9;\n  marker-line-color: #FFCC00;\n  marker-line-width: 2;\n  marker-line-opacity: 1;\n  marker-placement: point;\n  marker-type: ellipse;\n  marker-width: 6;\n  marker-fill: #FFF;\n  marker-allow-overlap: true;\n}#store_locations[zoom<10]{marker-width:0;marker-line-width:0}",
                         "cartocss_version":"2.1.1",
                         "table_name":"\"\"."
                      }
@@ -637,7 +271,7 @@
                      "options":{  
                         "sql":"select * from telco_towers",
                         "layer_name":"Tower sites",
-                        "cartocss":"/** simple visualization */\n\n#output2{\n  marker-fill-opacity: 0.9;\n  marker-line-color: #A53ED5;\n  marker-line-width: 1;\n  marker-line-opacity: 1;\n  marker-placement: point;\n  marker-type: ellipse;\n  marker-width: 3.5;\n  marker-fill: #FFFFFF;\n  marker-allow-overlap: true;\n}",
+                        "cartocss":"/** simple visualization */\n\n#output2{\n  marker-fill-opacity: 0.9;\n  marker-line-color: #A53ED5;\n  marker-line-width: 2;\n  marker-line-opacity: 1;\n  marker-placement: point;\n  marker-type: ellipse;\n  marker-width: 6;\n  marker-fill: #FFFFFF;\n  marker-allow-overlap: true;\n}#output2[zoom<10]{marker-width:0;marker-line-width:0}",
                         "cartocss_version":"2.1.1",
                         "table_name":"\"\"."
                      }
