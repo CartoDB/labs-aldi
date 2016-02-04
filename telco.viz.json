@@ -22,23 +22,7 @@
    "zoom":13,
    "updated_at":"2016-01-31T22:11:12+00:00",
    "layers":[  
-      {  
-         "options":{  
-            "type":"Plain",
-            "base_type":"plain",
-            "className":"plain",
-            "color":"#000000",
-            "image":"",
-            "maxZoom":32,
-            "id":"01d0ad7a-cd51-49f7-a06f-47f7f6a20a79",
-            "order":0
-         },
-         "infowindow":null,
-         "tooltip":null,
-         "id":"01d0ad7a-cd51-49f7-a06f-47f7f6a20a79",
-         "order":0,
-         "type":"background"
-      },
+      {"options":{"visible":true,"type":"Tiled","name":"Dark matter (labels below)","className":"dark_matter_rainbow","base_type":"default","urlTemplate":"https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png","minZoom":"0","maxZoom":"18","attribution":"&copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors &copy; <a href=\"http://cartodb.com/attributions\">CartoDB</a>","subdomains":"abcd","style":null,"read_only":true,"category":"CartoDB","order":0,"id":"83882fde-c3a1-4930-a865-a178504639bf"},"infowindow":null,"tooltip":null,"id":"f37da10b-7dfe-429e-a74c-65caf575605c","order":0,"type":"tiled"},
       {  
          "type":"layergroup",
          "options":{  
@@ -96,6 +80,11 @@
                            },
                            {  
                               "name":"percent_household_income_spent_on_rent",
+                              "title":true,
+                              "position":12
+                           },
+                           {  
+                              "name":"ownership",
                               "title":true,
                               "position":12
                            }
@@ -175,11 +164,11 @@
                      "order":1,
                      "visible":true,
                      "options":{  
-                        "sql":"SELECT *, 1 as score FROM stuartlynn.census_uber_clustering_2",
+                        "sql":"SELECT *, ROUND(owner_occupied_housing_units_per_pop::numeric,4) * 100 as ownership, 1 as score FROM stuartlynn.census_uber_clustering_2",
                         "layer_name":"nyct2010",
-                        "cartocss":"/** choropleth visualization */ #census_uber_clustering_1{ polygon-fill: transparent; polygon-opacity: 0.8; line-color: transparent; line-width: 1; line-opacity: 1; } #census_uber_clustering_1 [ score = 1] { polygon-fill: #67E1A7; line-color: #67E1A7; } #census_uber_clustering_1 [ score < 1] { polygon-fill: #4CC9A4; line-color: #4CC9A4; } #census_uber_clustering_1 [ score <= 0.8] { polygon-fill: #39B19D; line-color: #39B19D; } #census_uber_clustering_1 [ score <= .6] { polygon-fill: #2E9993; line-color: #2e9993; } #census_uber_clustering_1 [ score <= .4] { polygon-fill: #2A8286; line-color: #2a8286; } #census_uber_clustering_1 [ score <= .2] { polygon-fill: #2A6B76; line-color: #2A6B76; } #census_uber_clustering_1 [ score <= .1] { polygon-fill: #2A5563; line-color: #2a5563; }",
+                        "cartocss":"#census_uber_clustering_1{ polygon-fill: transparent; polygon-opacity:1; line-color: transparent; line-width: 0.75; line-opacity: 1; [zoom>=13]{line-width: 1.2;} } #census_uber_clustering_1 [ score = 1] { polygon-fill: #8BF19B; line-color: lighten(#8BF19B,7); [zoom<=6]{line-color: #8BF19B;} } #census_uber_clustering_1 [ score < 1] { polygon-fill: #65D79C; line-color: lighten(#65D79C,7); [zoom<=6]{line-color: #65D79C;} } #census_uber_clustering_1 [ score <= 0.8] { polygon-fill: #46BC9A; line-color: lighten(#46BC9A,7); [zoom<=6]{line-color: #46BC9A;} } #census_uber_clustering_1 [ score <= .6] { polygon-fill:#31A193; line-color:lighten(#31A193,7); [zoom<=6]{line-color: #31A193;} } #census_uber_clustering_1 [ score <= .4] { polygon-fill: #298687; line-color: lighten(#298687,7); [zoom<=6]{line-color: #298687;} } #census_uber_clustering_1 [ score <= .2] { polygon-fill: #2A6C76; line-color: lighten(#2A6C76,7); [zoom<=6]{line-color: #2A6C76;} } #census_uber_clustering_1 [ score <= .1] { polygon-fill: #2A5362; line-color: lighten(#2a5362,7); [zoom<=6]{line-color: #2a5362;} } ",
                         "cartocss_version":"2.1.1",
-                        "interactivity":"cartodb_id,median_age,median_household_income, owner_occupied_housing_units_per_pop, percent_household_income_spent_on_rent",
+                        "interactivity":"cartodb_id,median_age,median_household_income, owner_occupied_housing_units_per_pop, percent_household_income_spent_on_rent, ownership",
                         "table_name":"\"\"."
                      }
                   },
