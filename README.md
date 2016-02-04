@@ -1,14 +1,34 @@
-telco-poc
+labs-telco-insights
 
-This is a cartodb deep-insights dashboard illustrating a scenario where a telco provider wants to see their current assets (retail locations and tower sites) overlaid on top of demographic information (census tracts with ACS data)
+This is a cartodb deep-insights dashboard proof of concept illustrating a scenario where a telco provider wants to see their current assets (retail locations and tower sites) overlaid on top of demographic information (census tracts with ACS data)
 
-The following "hacks" are in place that are not built-in deep insights functionality as of 1/31/2016:
+The PoC makes use of a hacked version of cartodb.js (deepinsights.js includes cartodb.js), which is available on the [telco branch of cartodb.js](https://github.com/CartoDB/cartodb.js/tree/telco)
 
-Instead of filtering a layer on the map when a user interacts with a histogram widget, the selected ranges are extracted for use in building a SQL query that makes use of a custom PostgreSQL function to calculate "fitness" of a polygon's value within the selected ranges.
+Most of the logic is in the [createInstance] method of [windshaft-map.js](https://github.com/CartoDB/cartodb.js/blob/telco/src/windshaft/windshaft-map.js#L38)
 
-The query template is as follows (located in cartodb.js/src/windshaft/windshaft-map.js:
+The idea is to evaluate which ranges have been selected from the histogram widgets, and then gauge the "fitness" of each polygon to the selected criteria.  A polygon's fitness for a given attribute is calculated using the following algorithm, resulting in a numerical value between 0 and 1.  (1 meaning it is within the selected range.  As the value gets farther from the selected range, the output will get smaller and closer to 0)
 
-"SELECT a.*, b.median_age, b.median_household_income,range_score(median_age::numeric,{{median_age.min}},{{median_age.max}},0.5) * range_score(median_household_income::numeric, {{median_household_income.min}}, {{median_household_income.max}}) as score FROM nyct2010 a LEFT JOIN megaacs b ON a.geoid = b.geoid"
+```
+create or replace function range_score(x Numeric, xmin Numeric, xmax Numeric, sigma Numeric DEFAULT  0.5) returns numeric as $$
+
+begin 
+
+	if x < xmin then 
+		return exp(-1.0*power((x-xmin)/(sigma*xmin),2));
+	ELSIF x>xmin and x < xmax then
+		return 1;
+	else
+		return exp(-1.0*power( (x-xmax)/(sigma*xmax),2));
+	end IF;
+end;
 
 
-2) The new SQL is applied to the map layer.  The CartoCSS is already set to visualize a range from 0 to 1, so it does not need to be modified.
+$$
+LANGUAGE plpgsql
+--by Stuart Lynn!!
+```
+
+Since we have many histogram widgets, we can multiply several `range_score` values together and get an aggregate score that is also somewhere between 0 and 1.
+
+Then the filters are updated, deepinsights.js passes a `filters` URL parameter, and windshaft makes a new instance of the map.  This hack does not send the `filters`object, rather it manually builds a new SQL query based on the `range_score` calculations above, and sends that to Windshaft.  Windshaft updates the layergroupid and the map refreshes.  The CartoCSS remains static, rendering a choropleth on the aggregte score with lighter values when the score is closer to 1, and darker when it is closer to zero
+
