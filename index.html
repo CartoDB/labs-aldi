@@ -303,6 +303,7 @@ window.onload = function() {
       vizJSON.layers[1].options.layer_definition.layers[0].tooltip.template = $('#tooltipTemplate').text();
 
 
+// START axh temporary fix to toggle legends and tooltips through URL parameters
       var queryDict = {'legend': 'true', 'tooltips': 'true'}
       location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0].toLowerCase()] = item.split("=")[1].toLowerCase()})
       if (queryDict['legend']=='false'){
@@ -315,6 +316,8 @@ window.onload = function() {
       if (queryDict['tooltips']=='false'){
         vizJSON.layers[1].options.layer_definition.layers[0].tooltip = null;
       }
+// END axh temporary fix
+
 
       $.extend(vizJSON, diJSON);
       cartodb.deepInsights.createDashboard('#dashboard', vizJSON, {
