@@ -225,28 +225,6 @@ window.onload = function() {
          "force_cors":true      // This is sometimes set in the editor
       },
       "widgets":[
-          {
-            "type":"category",
-            "layerIndex": 1,
-            "title": "Current Customers",
-            "options": {
-              "type": "aggregation",
-              "column": "williamsburg",
-              "aggregation": "count",
-              "aggregationColumn": "williamsburg"
-            }
-          },{
-            "type":"category",
-            "layerIndex": 1,
-            "title": "Highway Proximity",
-            "options": {
-              "type": "aggregation",
-              "column": "primary_roadway_distance_cats",
-              "aggregation": "count",
-              "aggregationColumn": "primary_roadway_distance_cats"
-            }
-          },
-
          {
             "type":"histogram",
             "layerIndex": 1,
@@ -284,6 +262,28 @@ window.onload = function() {
             }
          },
 
+         {
+           "type":"category",
+           "layerIndex": 1,
+           "title": "Current Customers",
+           "options": {
+             "type": "aggregation",
+             "column": "williamsburg",
+             "aggregation": "count",
+             "aggregationColumn": "williamsburg"
+           }
+         },{
+           "type":"category",
+           "layerIndex": 1,
+           "title": "Highway Proximity",
+           "options": {
+             "type": "aggregation",
+             "column": "primary_roadway_distance_cats",
+             "aggregation": "count",
+             "aggregationColumn": "primary_roadway_distance_cats"
+           }
+         }
+
        ]
       }
 
@@ -305,8 +305,8 @@ window.onload = function() {
 
 // START axh temporary fix to toggle legends and tooltips through URL parameters
       var queryDict = {'legend': 'true', 'tooltips': 'true'}
-      location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0].toLowerCase()] = item.split("=")[1].toLowerCase()})
-      if (queryDict['legend']=='false'){
+      location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]})
+      if (queryDict['legend'].toLowerCase()=='false'){
         var legends = document.getElementsByClassName("CDB-Legends");
         for(var i = 0; i < legends.length; i++)
          {
