@@ -176,7 +176,7 @@
   <div class='CDB-Tooltip CDB-Tooltip--isLight'>
     <ul class="CDB-Tooltip-list">
         <li style="list-style: none"></li>
-        
+
         <li class="CDB-Tooltip-listItem">
             <h4 class="CDB-Tooltip-listTitle">Median Age</h4>
             <p class="CDB-Tooltip-listText">{{median_age}}</p>
@@ -208,16 +208,16 @@ window.onload = function() {
    var vizJSONUrl = 'telco.viz.json';
 
    $.getJSON(vizJSONUrl, function(vizJSON) {
-      var diJSON =  { 
+      var diJSON =  {
      "title":"Telco Demographic Targeting",
       "description":"The map shows current retail locations and cell tower locations overlaid on census tracts.  When the user selects a priority demographics using the histogram widgets, the map colors will update to show which areas best match the current selections",
-      "user":{  
+      "user":{
          "fullname":"Chris Whong",
          "avatar_url":"https://pbs.twimg.com/profile_images/3057855429/49cff02ea1ea88993d7edadd8b027982.jpeg"
       },
       "updated_at":"2016-01-31T11:50:30+00:00",
 
-     "datasource":{  
+     "datasource":{
          "type":"public_map",
          "user_name":"solutions",
          "maps_api_template":"https://{user}.cartodb.com:443",
@@ -253,7 +253,7 @@ window.onload = function() {
             "title":"Target Age Range",
             "options": {
               "column":"median_age",
-              "bins":10          
+              "bins":10
             }
          },
          {
@@ -262,7 +262,7 @@ window.onload = function() {
             "title":"Target Household Income",
             "options": {
               "column":"median_household_income",
-              "bins":10          
+              "bins":10
             }
          },
          {
@@ -271,20 +271,20 @@ window.onload = function() {
             "title":"Home Ownership",
             "options": {
               "column":"owner_occupied_housing_units_per_pop",
-              "bins":10          
+              "bins":10
             }
-         }, 
+         },
           {
             "type":"histogram",
             "layerIndex": 1,
             "title":"Disposable Income Percentile",
             "options": {
               "column":"percent_household_income_spent_on_rent",
-              "bins":10          
+              "bins":10
             }
          },
-         
-       ]  
+
+       ]
       }
 
       vizJSON.overlays.push(
@@ -300,13 +300,24 @@ window.onload = function() {
           }
       )
 
-
-      console.log(vizJSON);
-
       vizJSON.layers[1].options.layer_definition.layers[0].tooltip.template = $('#tooltipTemplate').text();
 
-      $.extend(vizJSON, diJSON);   
-      cartodb.deepInsights.createDashboard('#dashboard', vizJSON, {  
+
+      var queryDict = {'legend': 'true', 'tooltips': 'true'}
+      location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0].toLowerCase()] = item.split("=")[1].toLowerCase()})
+      if (queryDict['legend']=='false'){
+        var legends = document.getElementsByClassName("CDB-Legends");
+        for(var i = 0; i < legends.length; i++)
+         {
+         legends[i].style.visibility="hidden";
+         }
+      }
+      if (queryDict['tooltips']=='false'){
+        vizJSON.layers[1].options.layer_definition.layers[0].tooltip = null;
+      }
+
+      $.extend(vizJSON, diJSON);
+      cartodb.deepInsights.createDashboard('#dashboard', vizJSON, {
          no_cdn:false
       });
    });
@@ -316,7 +327,7 @@ window.onload = function() {
 
 
 
-        
+
 
   </script>
 </body>
