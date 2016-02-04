@@ -1,4 +1,4 @@
-labs-telco-insights
+#labs-telco-insights
 
 This is a cartodb deep-insights dashboard proof of concept illustrating a scenario where a telco provider wants to see their current assets (retail locations and tower sites) overlaid on top of demographic information (census tracts with ACS data)
 
