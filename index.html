@@ -249,6 +249,28 @@ window.onload = function() {
              }
 
           },
+
+          {
+             "type":"formula",
+             "layerIndex": 1,
+             "title":"Total Population Served by Towers",
+             "options":{
+               "column" : 'population_served',
+               "operation": "sum"
+             }
+
+          },
+
+          {
+             "type":"formula",
+             "layerIndex": 1,
+             "title":"Potential Customers Served by Towers",
+             "options":{
+               "column" : 'segment_served',
+               "operation": "sum"
+             }
+
+          },
          {
             "type":"histogram",
             "layerIndex": 1,
