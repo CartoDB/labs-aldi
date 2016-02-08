@@ -68,6 +68,7 @@
     .CDB-Legends-Text {
       font: 10px/14px OpenSans-Semibold;
       color: #2E3C43;
+      text-transform: uppercase;
     }
     .CDB-Legends-Text span {
       display: inline-block;
@@ -88,6 +89,9 @@
     .CDB-Legends-Info {
       padding-left: 0px;
       position: relative;
+    }
+    .CDB-Legends-Info.is-choropleth {
+      margin-bottom: 8px;
     }
     /*.CDB-Legends-Info:before {
       content:"";
@@ -150,7 +154,7 @@
 <body>
   <div class="Dashboard-canvas" id="dashboard"></div>
 <div class="CDB-Legends">
-    <h1 class='CDB-Legends-Title' style='text-align:center;margin-bottom:0px'>MARKET POTENTIAL</h1>
+    <h1 class='CDB-Legends-Title'>MARKET POTENTIAL</h1>
     <ul class="CDB-Legends-Info is-choropleth">
       <li class="CDB-Legends-InfoItem">
         <div class="CDB-Legends-Choropleth">
