@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Telco Deep Insights</title>
+  <title>Aldi Deep Insights</title>
   <meta name=viewport content="width=device-width initial-scale=1">
   <link href="http://cartodb.com/favicon.ico" rel="shortcut icon" />
   <link href="deep-insights.js/dist/themes/css/deep-insights.css" rel="stylesheet" />
@@ -26,7 +26,7 @@
       border: 1px solid #DDDDDD;
       box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.16);
       border-radius: 4px;
-      left: 108px;
+      left: 30px;
       top: 30px;
       z-index: 1;
       padding: 15px;
@@ -167,14 +167,8 @@
     <ul class="CDB-Legends-Info no-margin">
       <li class="CDB-Legends-InfoItem">
         <p class="CDB-Legends-Text">
-          <span class="CDB-Marker retail" style="background: #FAAE00;border-color: #FAAE00;"></span>
-          <span>RETAIL LOCATION</span>
-        </p>
-      </li>
-      <li class="CDB-Legends-InfoItem">
-        <p class="CDB-Legends-Text">
           <span class="CDB-Marker tower" style="background: #FF4480;border-color: #FF4480;"></span>
-          <span>TOWER SITE</span>
+          <span>ALDI STORE</span>
         </p>
       </li>
     </ul>
@@ -192,15 +186,7 @@
             <h4 class="CDB-Tooltip-listTitle">Median Household
             Income</h4>
             <p class="CDB-Tooltip-listText">
-            ${{median_household_income}}</p>
-        </li>
-        <li class="CDB-Tooltip-listItem">
-            <h4 class="CDB-Tooltip-listTitle">Home Ownership</h4>
-            <p class="CDB-Tooltip-listText">{{ownership}}%</p>
-        </li>
-        <li class="CDB-Tooltip-listItem">
-            <h4 class="CDB-Tooltip-listTitle">Disposable Income Percentile</h4>
-            <p class="CDB-Tooltip-listText">{{rent_spend}}</p>
+            ${{median_income}}</p>
         </li>
         <li style="list-style: none"></li>
     </ul>
@@ -216,10 +202,10 @@ window.onload = function() {
 
    $.getJSON(vizJSONUrl, function(vizJSON) {
       var diJSON =  {
-     "title":"Telco Demographic Targeting",
+     "title":"Aldi Demographic Targeting",
       "description":"The map shows current retail locations and cell tower locations overlaid on census tracts.  When the user selects a priority demographics using the histogram widgets, the map colors will update to show which areas best match the current selections",
       "user":{
-         "fullname":"Chris Whong",
+         "fullname":"Matt Forrest",
          "avatar_url":"https://pbs.twimg.com/profile_images/3057855429/49cff02ea1ea88993d7edadd8b027982.jpeg"
       },
       "updated_at":"2016-01-31T11:50:30+00:00",
@@ -253,22 +239,10 @@ window.onload = function() {
              }
 
           },
-
-          // {
-          //   "type":"formula",
-          //   "layerIndex": 1,
-          //   "title":"Total Population Served by Towers",
-          //   "options":{
-          //     "column" : 'population_served',
-          //     "operation": "sum"
-          //   }
-
-          // },
-
           {
              "type":"formula",
              "layerIndex": 1,
-             "title":"Potential Customers Served by Towers",
+             "title":"Potential Customers Near Stores",
              "options":{
                "column" : 'segment_served',
                "operation": "sum"
@@ -310,28 +284,6 @@ window.onload = function() {
               "column":"percent_household_income_spent_on_rent",
               "bins":10
             }
-         },
-
-         {
-           "type":"category",
-           "layerIndex": 1,
-           "title": "Current Customers",
-           "options": {
-             "type": "aggregation",
-             "column": "williamsburg",
-             "aggregation": "count",
-             "aggregationColumn": "williamsburg"
-           }
-         },{
-           "type":"category",
-           "layerIndex": 1,
-           "title": "Highway Proximity",
-           "options": {
-             "type": "aggregation",
-             "column": "primary_roadway_distance_cats",
-             "aggregation": "count",
-             "aggregationColumn": "primary_roadway_distance_cats"
-           }
          }
 
        ]
@@ -350,23 +302,27 @@ window.onload = function() {
           }
       )
 
-      vizJSON.layers[1].options.layer_definition.layers[0].tooltip.template = $('#tooltipTemplate').text();
+      console.log(vizJSON.layers[1].options.layer_definition.layers[6]);
+
+      vizJSON.layers[1].options.layer_definition.layers[6].tooltip.template = $('#tooltipTemplate').text();
+
+      console.log(vizJSON)
 
 
-// START axh temporary fix to toggle legends and tooltips through URL parameters
-      var queryDict = {'legend': 'true', 'tooltips': 'true'}
-      location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]})
-      if (queryDict['legend'].toLowerCase()=='false'){
-        var legends = document.getElementsByClassName("CDB-Legends");
-        for(var i = 0; i < legends.length; i++)
-         {
-         legends[i].style.visibility="hidden";
-         }
-      }
-      if (queryDict['tooltips'].toLowerCase()=='false'){
-        vizJSON.layers[1].options.layer_definition.layers[0].tooltip = null;
-      }
-// END axh temporary fix
+// // START axh temporary fix to toggle legends and tooltips through URL parameters
+//       var queryDict = {'legend': 'true', 'tooltips': 'true'}
+//       location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]})
+//       if (queryDict['legend'].toLowerCase()=='false'){
+//         var legends = document.getElementsByClassName("CDB-Legends");
+//         for(var i = 0; i < legends.length; i++)
+//          {
+//          legends[i].style.visibility="hidden";
+//          }
+//       }
+//       if (queryDict['tooltips'].toLowerCase()=='false'){
+//         vizJSON.layers[1].options.layer_definition.layers[0].tooltip = null;
+//       }
+// // END axh temporary fix
 
 
       $.extend(vizJSON, diJSON);

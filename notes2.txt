@@ -30,3 +30,14 @@ where a.carto_db
 //almost there...
 SELECT a.*, range_score(median_age::integer, 20, 25,0.9) as score
 FROM nyct2010 a LEFT JOIN megaacs b ON a.geoid = b.geoid 
+
+
+
+UPDATE census_uber_clustering_2 SET fraction_overlap2 = 1
+
+UPDATE census_uber_clustering_2 SET fraction_overlap2 = ST_AREA(ST_INTERSECTION(b.the_geom, a.the_geom))/ST_AREA(a.the_geom) FROM census_uber_clustering_2 a, solutions.aldi_buffer b where b.the_geom && a.the_geom 
+
+UPDATE census_uber_clustering_2 SET fraction_overlap2 = ST_AREA(ST_INTERSECTION(b.the_geom, a.the_geom))/ST_AREA(a.the_geom) FROM census_uber_clustering_2 a, solutions.aldi_buffer b where b.the_geom && a.the_geom AND a.cartodb_id < 500
+
+
+UPDATE solutions.aldi_buffer SET median_income = CDB_ESTIMATE_RATE(the_geom, 'stuartlynn.census_uber_clustering_2', 'median_income')

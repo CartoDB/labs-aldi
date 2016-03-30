@@ -1,3 +1,5 @@
+
+
 {
    "id":"a027c6dc-c53d-11e5-af88-04013fc66a01",
    "version":"0.1.0",
@@ -10,16 +12,14 @@
    "map_provider":"leaflet",
    "bounds":[
       [
-         40.69560706756009,
-         -74.06209945678711
+         16.888660,
+         -148.281250
       ],
       [
-         40.76793169992044,
-         -73.83155822753906
+         57.421294,
+         -25.562500
       ]
    ],
-   "center":"[40.73177921058233, -73.94682884216309]",
-   "zoom":13,
    "updated_at":"2016-01-31T22:11:12+00:00",
    "layers":[
       {"options":{"visible":true,"type":"Tiled","name":"Dark matter (labels below)","className":"dark_matter_rainbow","base_type":"default","urlTemplate":"https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_nolabels/{z}/{x}/{y}.png","minZoom":"0","maxZoom":"18","attribution":"&copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors &copy; <a href=\"http://cartodb.com/attributions\">CartoDB</a>","subdomains":"abcd","style":null,"read_only":true,"category":"CartoDB","order":0,"id":"83882fde-c3a1-4930-a865-a178504639bf"},"infowindow":null,"tooltip":null,"id":"f37da10b-7dfe-429e-a74c-65caf575605c","order":0,"type":"tiled"},
@@ -29,7 +29,7 @@
       {
          "type":"layergroup",
          "options":{
-            "user_name":"solutions-ded02",
+            "user_name":"solutions",
             "maps_api_template":"https://{user}.cartodb-staging.com:443",
             "sql_api_template":"https://{user}.cartodb-staging.com:443",
             "tiler_protocol":"http",
@@ -47,128 +47,11 @@
                   {
                      "id":"a24c83a9-943a-45e1-a943-38777a584e51",
                      "type":"CartoDB",
-                     "infowindow":{
-                        "fields":[
-
-                        ],
-                        "template_name":"table/views/infowindow_light",
-                        "template":"<div class=\"cartodb-popup v2\">\n  <a href=\"#close\" class=\"cartodb-popup-close-button close\">x</a>\n  <div class=\"cartodb-popup-content-wrapper\">\n    <div class=\"cartodb-popup-content\">\n      {{#content.fields}}\n        {{#title}}<h4>{{title}}</h4>{{/title}}\n        {{#value}}\n          <p {{#type}}class=\"{{ type }}\"{{/type}}>{{{ value }}}</p>\n        {{/value}}\n        {{^value}}\n          <p class=\"empty\">null</p>\n        {{/value}}\n      {{/content.fields}}\n    </div>\n  </div>\n  <div class=\"cartodb-popup-tip-container\"></div>\n</div>\n",
-                        "alternative_names":{
-
-                        },
-                        "width":226,
-                        "maxHeight":180
-                     },
+               
                      "tooltip":{
-                        "fields":[
-                           {
-                              "name":"median_age",
-                              "title":true,
-                              "position":10
-                           },
-                           {
-                              "name":"median_household_income",
-                              "title":true,
-                              "position":11
-                           },
-                           {
-                              "name":"score",
-                              "title":true,
-                              "position":12
-                           },
-                           {
-                              "name":"owner_occupied_housing_units_per_pop",
-                              "title":true,
-                              "position":12
-                           },
-                           {
-                              "name":"percent_household_income_spent_on_rent",
-                              "title":true,
-                              "position":12
-                           },
-                           {
-                              "name":"ownership",
-                              "title":true,
-                              "position":12
-                           },
-                           {
-                              "name":"rent_spend",
-                              "title":true,
-                              "position":12
-                           }
-                        ],
-                        "template_name":"tooltip_light",
-                        "template":"<div class=\"cartodb-tooltip-content-wrapper\">\n  <div class=\"cartodb-tooltip-content\">\n  {{#fields}}\n    {{#title}}\n    <h4>{{title}}</h4>\n    {{/title}}\n    <p>{{{ value }}}</p>\n  {{/fields}}\n  </div>\n</div>",
-                        "alternative_names":{
-
-                        },
-                        "maxHeight":180
-                     },
-                     "legend":{
-                        "type":"choropleth",
-                        "show_title":true,
-                        "title":"Fit to Selection",
-                        "template":"",
-                        "visible":true,
-                        "items":[
-                           {
-                              "name":"Left label",
-                              "visible":true,
-                              "value":"Worse",
-                              "type":"text",
-                              "custom_value":true
-                           },
-                           {
-                              "name":"Right label",
-                              "visible":true,
-                              "value":"Better",
-                              "type":"text",
-                              "custom_value":true
-                           },
-                           {
-                              "name":"Color",
-                              "visible":true,
-                              "value":"#EDF8FB",
-                              "type":"color"
-                           },
-                           {
-                              "name":"Color",
-                              "visible":true,
-                              "value":"#D7FAF4",
-                              "type":"color"
-                           },
-                           {
-                              "name":"Color",
-                              "visible":true,
-                              "value":"#CCECE6",
-                              "type":"color"
-                           },
-                           {
-                              "name":"Color",
-                              "visible":true,
-                              "value":"#66C2A4",
-                              "type":"color"
-                           },
-                           {
-                              "name":"Color",
-                              "visible":true,
-                              "value":"#41AE76",
-                              "type":"color"
-                           },
-                           {
-                              "name":"Color",
-                              "visible":true,
-                              "value":"#238B45",
-                              "type":"color"
-                           },
-                           {
-                              "name":"Color",
-                              "visible":true,
-                              "value":"#005824",
-                              "type":"color"
-                           }
-                        ]
-                     },
+      
+                    },
+                  
                      "order":1,
                      "visible":true,
                      "options":{
@@ -270,43 +153,7 @@
                         "table_name":"\"\"."
                      }
                   },
-                  {
-                     "id":"fa4d55d8-1bdb-4c10-b30d-fd9601ef9303",
-                     "type":"CartoDB",
-                     "infowindow":{
-                        "fields":[
-
-                        ],
-                        "template_name":"table/views/infowindow_light",
-                        "template":"<div class=\"cartodb-popup v2\">\n  <a href=\"#close\" class=\"cartodb-popup-close-button close\">x</a>\n  <div class=\"cartodb-popup-content-wrapper\">\n    <div class=\"cartodb-popup-content\">\n      {{#content.fields}}\n        {{#title}}<h4>{{title}}</h4>{{/title}}\n        {{#value}}\n          <p {{#type}}class=\"{{ type }}\"{{/type}}>{{{ value }}}</p>\n        {{/value}}\n        {{^value}}\n          <p class=\"empty\">null</p>\n        {{/value}}\n      {{/content.fields}}\n    </div>\n  </div>\n  <div class=\"cartodb-popup-tip-container\"></div>\n</div>\n",
-                        "alternative_names":{
-
-                        },
-                        "width":226,
-                        "maxHeight":180
-                     },
-                     "tooltip":{
-                        "fields":[
-
-                        ],
-                        "template_name":"tooltip_light",
-                        "template":"<div class=\"cartodb-tooltip-content-wrapper\">\n  <div class=\"cartodb-tooltip-content\">\n  {{#fields}}\n    {{#title}}\n    <h4>{{title}}</h4>\n    {{/title}}\n    <p>{{{ value }}}</p>\n  {{/fields}}\n  </div>\n</div>",
-                        "alternative_names":{
-
-                        },
-                        "maxHeight":180
-                     },
-
-                     "order":6,
-                     "visible":true,
-                     "options":{
-                        "sql":"select * from telco_store_locations",
-                        "layer_name":"store_locations",
-                        "cartocss":"/** simple visualization */\n\n#store_locations{\n marker-fill-opacity: 0.9;marker-line-color:darken(#FAAE00,6);  marker-line-width: 0.5;marker-line-opacity: 1;marker-placement: point;marker-type: ellipse;marker-width: 3;marker-fill:#FAAE00;marker-allow-overlap: true;[zoom>=13]{marker-width: 5;}[zoom<=10]{marker-width: 0;marker-line-width: 0;}}",
-                        "cartocss_version":"2.1.1",
-                        "table_name":"\"\"."
-                     }
-                  },
+                 
 
 
                   {
@@ -345,9 +192,9 @@
                      "order":7,
                      "visible":true,
                      "options":{
-                        "sql":"select * from telco_towers",
+                        "sql":"select * from solutions.aldi",
                         "layer_name":"Tower sites",
-                        "cartocss":"/** simple visualization */\n\n#output2{\n  marker-fill-opacity: 0.9; marker-line-color: darken(#FF4480,10); marker-line-width: 0.5;marker-line-opacity: 1;marker-placement: point;marker-type: ellipse;marker-width: 3;marker-fill: #FF4480;marker-allow-overlap: true;[zoom>=13]{marker-width: 5;}[zoom<=10]{marker-width: 0;marker-line-width: 0;}}",
+                        "cartocss":"/** simple visualization */\n\n#output2{\n  marker-fill-opacity: 0.9; marker-line-color: darken(#FF4480,10); marker-line-width: 0;marker-line-opacity: 1;marker-placement: point;marker-type: ellipse;marker-width: 2;marker-fill: #FF4480;marker-allow-overlap: true;[zoom>4]{marker-width: 4;}[zoom>=13]{marker-width: 6;}}",
                         "cartocss_version":"2.1.1",
                         "table_name":"\"\"."
                      }
@@ -355,23 +202,28 @@
                   {
                     "id": "fa2acb8f-c6c6-4457-82a6-d18d4cabc284",
                     "type": "CartoDB",
-                    "infowindow": {
-
-                    },
                     "tooltip": {
-
-                    },
-                    "legend": {
-
+                      "fields": [
+                        {
+                            "name":"median_age",
+                            "title":true,
+                            "position":10
+                         },
+                         {
+                            "name":"median_income",
+                            "title":true,
+                            "position":11
+                         }
+                      ]
                     },
                     "order": 1,
                     "visible": true,
                     "options": {
-                      "sql": "SELECT * FROM stuartlynn.telco_towers_buffered",
+                      "sql": "SELECT * FROM solutions.aldi_buffer",
                       "layer_name": "telco_towers_buffered",
-                      "cartocss": "/** simple visualization */\n\n#telco_towers_buffered{\n  line-color: #FF4480;line-width: 1; image-filters: agg-stack-blur(2,2);line-opacity: 1;line-comp-op: overlay;line-opacity: 0.8;[zoom<=12]{line-width: 0} ::line {line-color: #fcc1d4;line-width: 0.75;line-dasharray: 3,3;line-opacity: 1;[zoom<=11]{line-width: 0;}}}",
+                      "cartocss": "/** simple visualization */\n\n#telco_towers_buffered{\n  line-color: #FF4480;line-width: 1; polygon-fill:#FFFFFF;polygon-opacity:.1;image-filters: agg-stack-blur(2,2);line-opacity: 1;line-comp-op: overlay;line-opacity: 0.8; [zoom<=12]{line-width: 0}::line {line-color: #fcc1d4;line-width: 0.75;line-dasharray: 3,3;line-opacity: 1;[zoom<=6]{line-width: 0;}}}",
                       "cartocss_version": "2.1.1",
-                      "interactivity": null,
+                      "interactivity": ["cartodb_id,median_age,median_income"],
                       "table_name": "\"\"."
                     }
                   },
