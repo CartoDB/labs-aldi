@@ -41,7 +41,7 @@
     }
     .CDB-Legend-Gradient {
       height: 8px;
-      background-image: linear-gradient(-90deg,#59CC9B 9%, #3FB79D 29%, #318C93 49%, #3D6177 71%, #3F4D64 90%);
+      background-image: linear-gradient(-90deg,#f9e0a3 9%, #edb480 29%, #dd886b 49%, #c65d61 71%, #a53460 90%);
       border-radius: 10px;
       position: relative;
       clear: both;
@@ -158,8 +158,8 @@
     <ul class="CDB-Legends-Info is-choropleth">
       <li class="CDB-Legends-InfoItem">
         <div class="CDB-Legends-Choropleth">
-          <p class="CDB-Legends-Text is-left">Low</p>
-          <p class="CDB-Legends-Text is-right">High</p>
+          <p class="CDB-Legends-Text is-left">High</p>
+          <p class="CDB-Legends-Text is-right">Low</p>
         </div>
         <div class="CDB-Legend-Gradient"></div>
       </li>
@@ -167,7 +167,7 @@
     <ul class="CDB-Legends-Info no-margin">
       <li class="CDB-Legends-InfoItem">
         <p class="CDB-Legends-Text">
-          <span class="CDB-Marker tower" style="background: #FF4480;border-color: #FF4480;"></span>
+          <span class="CDB-Marker tower" style="background: #3969AC;border-color: #3969AC;"></span>
           <span>ALDI STORE</span>
         </p>
       </li>
@@ -198,7 +198,7 @@ categoryFilters = [];
 
 window.onload = function() {
 
-   var vizJSONUrl = 'telco.viz.json';
+   var vizJSONUrl = '/telco.viz.json';
 
    $.getJSON(vizJSONUrl, function(vizJSON) {
       var diJSON =  {
