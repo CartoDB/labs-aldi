@@ -1,3 +1,17 @@
+# ⚠️ ARCHIVED - This repository is no longer maintained
+
+**This repository has been archived and is no longer actively maintained.**
+
+This project was last updated on 2016-05-03 and is preserved for historical reference only.
+
+- 🔒 **Read-only**: No new issues, pull requests, or changes will be accepted
+- 📦 **No support**: This code is provided as-is with no support or updates
+- 🔍 **For reference only**: You may fork this repository if you wish to continue development
+
+For current CARTO projects and actively maintained repositories, please visit: https://github.com/CartoDB
+
+---
+
 #labs-telco-insights
 
 This is a cartodb deep-insights dashboard proof of concept illustrating a scenario where a telco provider wants to see their current assets (retail locations and tower sites) overlaid on top of demographic information (census tracts with ACS data)
